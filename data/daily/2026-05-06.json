@@ -1,6 +1,6 @@
 {
   "date": "2026-05-06",
-  "generated_at": "2026-05-06T19:07:03.506038+00:00",
+  "generated_at": "2026-05-06T19:12:36.072674+00:00",
   "new_entries": [
     {
       "clave": "2026_0564",
@@ -387,7 +387,7 @@
     },
     {
       "clave": "2024_2360",
-      "fecha": "2024-01-01",
+      "fecha": "2024-11-06",
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2360",
@@ -402,33 +402,68 @@
     },
     {
       "clave": "2024_0520",
-      "fecha": "2024-01-01",
+      "fecha": "1995-11-06",
       "resolucion": {
         "tipo": "Exenta",
         "numero": "520",
         "fecha": "2024-01-01"
       },
       "sesion": null,
-      "ncg": null,
+      "ncg": 64,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_520_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "1995-11-06"
+      },
+      "ran_referencias": [
+        "1-12",
+        "21-7"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": []
     },
     {
       "clave": "2024_0513",
-      "fecha": "2024-01-01",
+      "fecha": "2024-06-10",
       "resolucion": {
         "tipo": "Exenta",
         "numero": "513",
         "fecha": "2024-01-01"
       },
-      "sesion": null,
-      "ncg": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 394,
+        "fecha": "2024-05-31"
+      },
+      "ncg": 513,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°426",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_513_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°426",
+          "numero_norma": 426,
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Agréguese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
     },
     {
       "clave": "2024_0511",
