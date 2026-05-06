@@ -1,0 +1,522 @@
+{
+  "date": "2026-05-06",
+  "generated_at": "2026-05-06T19:07:03.506038+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0564",
+      "fecha": "2026-04-20",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "564",
+        "fecha": "2026-01-01"
+      },
+      "sesion": null,
+      "ncg": 564,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°550, POSTERGANDO SU VIGENCIA Y EXIME DE LOS TRÁMITES DEL INCISO 1 DEL N°3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_564_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2027-04-01"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2026_0563",
+      "fecha": "2026-04-20",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "563",
+        "fecha": "2026-01-01"
+      },
+      "sesion": null,
+      "ncg": 563,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°549, POSTERGANDO SU VIGENCIA Y EXIME DE LOS TRÁMITES DEL INCISO 1 DEL N°3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_563_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2027-04-01"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2026_0562",
+      "fecha": "2026-04-20",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "562",
+        "fecha": "2026-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 492,
+        "fecha": "2026-04-16"
+      },
+      "ncg": 562,
+      "tipo_acuerdo": "Nueva Normativa",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NUEVA NORMATIVA QUE IMPARTE INSTRUCCIONES SOBRE PATRIMONIO MÍNIMO, GARANTÍAS, LIQUIDEZ Y ENDEUDAMIENTO PARA INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS Y QUE DEROGA LA NCG N°18, LA CIRCULAR N° 632 DE 1986 Y LA CIRCULAR N° 695 DE 1987.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_562_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-04-20"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2026_2370",
+      "fecha": "2026-04-10",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": 3920,
+        "fecha": "2026-04-10"
+      },
+      "sesion": null,
+      "ncg": 502,
+      "tipo_acuerdo": "Circular",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EMITE CIRCULAR QUE AJUSTA LOS CAPÍTULOS 8-4, 8-40, 12-3, 21-1, 21-6, 21-7 Y 21-30 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS; LOS CAPÍTULOS   B-6 Y B-7 DEL COMPENDIO DE NORMAS CONTABLES DE BANCOS; LOS ARCHIVOS R06, R07 Y EL SISTEMA TABLAS DEL MANUAL DE SISTEMAS DE INFORMACIÓN DE BANCOS Y MODIFICA LAS NORMAS DE CARÁCTER GENERAL N°303 Y N°451 SOBRE INSCRIPCIÓN DE VALORES Y EL REGISTRO AUTOMÁTICO DE LOS MISMOS, RESPECTIVAMENTE.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2370_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-04-10"
+      },
+      "ran_referencias": [
+        "12-3",
+        "21-1",
+        "21-30",
+        "21-6",
+        "21-7",
+        "8-4",
+        "8-40"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "e bancos (CNC); los archivos normativos R06 y R07\ndel Sistema de Riesgos y el Sistema de Tablas del Manual de Sistemas de Información de\nbancos (MSI).\nEn diciembre de 2020 culminó la publicación de las normativas para la\nimplementaci"
+        },
+        {
+          "contexto": "lgunos casos.\nComo complemento a lo anterior, en abril de 2021 se publicó el Sistema de Riesgos\ndel Manual de Sistemas de Información con el objetivo de capturar la información\nnecesaria para el monitoreo del cumplimiento de los está"
+        }
+      ],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2026_0561",
+      "fecha": "2026-04-10",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": 3920,
+        "fecha": "2026-04-10"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 491,
+        "fecha": "2026-04-09"
+      },
+      "ncg": 561,
+      "tipo_acuerdo": "Circular",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EMITE CIRCULAR QUE AJUSTA LOS CAPÍTULOS 8-4, 8-40, 12-3, 21-1, 21-6, 21-7 Y 21-30 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS; LOS CAPÍTULOS   B-6 Y B-7 DEL COMPENDIO DE NORMAS CONTABLES DE BANCOS; LOS ARCHIVOS R06, R07 Y EL SISTEMA TABLAS DEL MANUAL DE SISTEMAS DE INFORMACIÓN DE BANCOS Y MODIFICA LAS NORMAS DE CARÁCTER GENERAL N°303 Y N°451 SOBRE INSCRIPCIÓN DE VALORES Y EL REGISTRO AUTOMÁTICO DE LOS MISMOS, RESPECTIVAMENTE.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_561_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°303",
+          "numero_norma": 303,
+          "seccion_romana": "I",
+          "acciones": [
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°451",
+          "numero_norma": 451,
+          "seccion_romana": "II",
+          "acciones": [
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "cierre_mes_siguiente"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "cierre_mes_siguiente"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0553",
+      "fecha": "2025-11-10",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "553",
+        "fecha": "2025-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 469,
+        "fecha": "2025-06-26"
+      },
+      "ncg": 553,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°243, QUE IMPARTE INSTRUCCIONES RELATIVAS A LA CONSTITUCIÓN DE RESERVAS TÉCNICAS EN EL SEGURO DE INVALIDEZ Y SOBREVIVENCIA DEL D.L. N°3.500, DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_553_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-11-10"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0550",
+      "fecha": "2025-10-24",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "550",
+        "fecha": "2025-01-01"
+      },
+      "sesion": null,
+      "ncg": 550,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°182 REFERENTE A LA INSCRIPCIÓN EN EL REGISTRO DE CORREDORES DE BOLSA DE PRODUCTOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_550_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2027-02-01"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0549",
+      "fecha": "2025-10-24",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "549",
+        "fecha": "2025-01-01"
+      },
+      "sesion": null,
+      "ncg": 549,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°16 REFERENTE A LA INSCRIPCIÓN EN EL REGISTRO DE CORREDORES DE BOLSA Y AGENTES DE VALORES.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_549_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2027-02-01"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0548",
+      "fecha": "2025-09-02",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "548",
+        "fecha": "2025-01-01"
+      },
+      "sesion": null,
+      "ncg": 548,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°258 QUE ESTABLECE LOS ELEMENTOS MÍNIMOS DE GESTIÓN DE RIESGO DE CRÉDITO Y LIQUIDEZ DE LOS SISTEMAS DE COMPENSACIÓN Y LIQUIDACIÓN DE INSTRUMENTOS FINANCIEROS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_548_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-09-02"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0545",
+      "fecha": "2025-08-19",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "545",
+        "fecha": "2025-01-01"
+      },
+      "sesion": null,
+      "ncg": 545,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°526 QUE DICTA INSTRUCCIONES RESPECTO A LA FORMA DE DETERMINAR EL PATRIMONIO MÍNIMO Y GARANTÍAS QUE DEBEN MANTENER LAS ADMINISTRADORAS GENERALES DE FONDOS Y ADMINISTRADORAS DE CARTERA, DEROGA NCG N°157, Y LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_545_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0542",
+      "fecha": "2025-01-01",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "542",
+        "fecha": "2025-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 454,
+        "fecha": "2025-07-24"
+      },
+      "ncg": 218,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N° 218 DE LA COMISIÓN PARA EL MERCADO FINANCIERO Y EL TÍTULO II DEL LIBRO III DEL COMPENDIO DE NORMAS DE LA SUPERINTENDENCIA DE PENSIONES, QUE IMPARTEN INSTRUCCIONES SOBRE EL SISTEMA DE CONSULTAS Y OFERTAS DE MONTOS DE PENSIÓN ESTABLECIDO POR EL ARTÍCULO 61 BIS DEL D.L. N° 3.500, DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_542_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-07-24"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2025_0531",
+      "fecha": "2025-01-15",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "531",
+        "fecha": "2025-01-01"
+      },
+      "sesion": null,
+      "ncg": 531,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE  MODIFICA LA NORMA DE CARÁCTER GENERAL N°529, QUE A SU VEZ MODIFICÓ LA NORMA DE CARÁCTER GENERAL N°510 QUE IMPARTE INSTRUCCIONES DE GESTIÓN DE RIESGO OPERACIONAL A EFECTOS DE EXTENDER SU VIGENCIA; Y LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_531_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-01-15"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2024_0525",
+      "fecha": "2024-12-03",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "525",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": 152,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°152 QUE IMPARTE NORMAS SOBRE ACTIVOS REPRESENTATIVOS DE RESERVAS TECNICAS Y PATRIMONIO DE RIESGO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_525_2024.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°152",
+          "numero_norma": 152,
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2024_0524",
+      "fecha": "2024-12-02",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "524",
+        "fecha": "2024-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 420,
+        "fecha": "2024-11-28"
+      },
+      "ncg": 524,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°502 DE 2024 QUE REGULA EL REGISTRO, AUTORIZACIÓN Y OBLIGACIONES DE LOS PRESTADORES DE SERVICIOS FINANCIEROS DE LA LEY FINTEC",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_524_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-12-02",
+        "plazo_transicion": "2024-02-03"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2024_2360",
+      "fecha": "2024-01-01",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "2360",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": null,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2360_2024.pdf",
+      "parsed": false
+    },
+    {
+      "clave": "2024_0520",
+      "fecha": "2024-01-01",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "520",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": null,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_520_2024.pdf",
+      "parsed": false
+    },
+    {
+      "clave": "2024_0513",
+      "fecha": "2024-01-01",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "513",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": null,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°426",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_513_2024.pdf",
+      "parsed": false
+    },
+    {
+      "clave": "2024_0511",
+      "fecha": "2024-05-24",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "511",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": 511,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°306 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS EN SEGUROS DISTINTOS DE LOS SEGUROS PREVISIONALES DEL DL N° 3.500, DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_511_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2024_0510",
+      "fecha": "2024-05-08",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "510",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": 256,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES SOBRE GESTIÓN DE RIESGO OPERACIONAL PARA ADMINISTRADORAS GENERALES DE FONDOS, BOLSAS DE VALORES, BOLSAS DE PRODUCTOS, SOCIEDADES ADMINISTRADORAS DE SISTEMAS DE COMPENSACIÓN Y LIQUIDACIÓN DE INSTRUMENTOS FINANCIEROS Y EMPRESAS DE DEPÓSITO Y CUSTODIA DE VALORES. DEROGA CIRCULARES N°1.939 y 2.020 Y LA NORMA DE CARÁCTER GENERAL N°256. MODIFICA LA NORMA DE CARÁCTER GENERAL N°480.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_510_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-05-08"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2024_0508",
+      "fecha": "2024-05-08",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "508",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": 508,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN DE RIESGOS PARA BOLSAS DE VALORES Y BOLSAS DE PRODUCTOS Y MODIFICA LA NORMA DE CARÁCTER GENERAL N°480.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_508_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-05-08"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2024_0506",
+      "fecha": "2024-02-16",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "506",
+        "fecha": "2024-01-01"
+      },
+      "sesion": null,
+      "ncg": 325,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°325 QUE     IMPARTE INSTRUCCIONES SOBRE SISTEMA DE GESTIÓN DE RIESGOS DE LAS ASEGURADORAS Y EVALUACIÓN DE SOLVENCIA DE LAS COMPAÑÍAS POR PARTE DE LA COMISIÓN.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_506_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-02-16"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    }
+  ]
+}

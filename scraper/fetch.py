@@ -5,6 +5,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+from urllib.parse import urljoin
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +55,8 @@ def fetch_listado(from_date: str | None = None) -> list[dict]:
 
     resoluciones = _parse_listado(response.text)
     relevantes = _filtrar(resoluciones)
+    if from_date:
+        relevantes = _filtrar_desde(relevantes, from_date)
     logger.info(
         "Extraídas %d resoluciones, %d relevantes", len(resoluciones), len(relevantes)
     )
@@ -107,21 +110,13 @@ def _parse_listado(html: str) -> list[dict]:
 
 
 def _extraer_celda(celdas: list) -> dict | None:
-    """Extrae una resolución desde las celdas de una fila de la tabla CMF."""
-    try:
-        # Estructura típica CMF: Fecha | Tipo | Descripción | Entidad | Documento
-        # Puede variar — ajustar índices si la estructura cambia
-        texto_fila = " ".join(c.get_text(strip=True) for c in celdas)
+    """Extrae una resolución desde las celdas de una fila de la tabla CMF.
 
-        # Fecha: primera celda que tenga formato dd/mm/aaaa o similar
-        fecha = None
-        numero = None
-        for celda in celdas:
-            texto = celda.get_text(strip=True)
-            if _es_fecha(texto):
-                fecha = _normalizar_fecha(texto)
-            if _es_numero_resolucion(texto):
-                numero = _extraer_numero(texto)
+    El CMF lista cada normativa con la fecha de la NCG ORIGINAL (puede ser de 1986).
+    La fecha real de la nueva resolución se extrae del nombre del PDF (ej. ncg_564_2026.pdf).
+    """
+    try:
+        texto_fila = " ".join(c.get_text(strip=True) for c in celdas)
 
         # Descripción: celda más larga de texto
         descripcion = max(
@@ -134,13 +129,15 @@ def _extraer_celda(celdas: list) -> dict | None:
             a = celda.find("a", href=True)
             if a:
                 href = a["href"]
-                if not href.startswith("http"):
-                    href = "https://www.cmfchile.cl" + href
-                link = href
+                link = urljoin("https://www.cmfchile.cl/institucional/legislacion_normativa/", href)
                 break
 
-        if not fecha or not descripcion:
+        if not descripcion or not link:
             return None
+
+        # Fecha y número de la NUEVA normativa desde el nombre del PDF
+        # ej. ncg_564_2026.pdf → año=2026, numero=564
+        fecha, numero = _fecha_y_numero_desde_url(link)
 
         return {
             "fecha": fecha,
@@ -153,6 +150,25 @@ def _extraer_celda(celdas: list) -> dict | None:
         return None
 
 
+def _fecha_y_numero_desde_url(url: str) -> tuple[str | None, str | None]:
+    """Extrae año y número desde el nombre del archivo PDF.
+
+    Ejemplos:
+      ncg_564_2026.pdf  → ('2026-01-01', '564')
+      cir_2370_2026.pdf → ('2026-01-01', '2370')
+    """
+    import re
+    m = re.search(r'[/_](\d+)[/_](\d{4})\.pdf', url, re.IGNORECASE)
+    if m:
+        numero, year = m.group(1), m.group(2)
+        return f"{year}-01-01", numero  # día exacto vendrá del PDF
+    # Fallback: solo el año
+    m2 = re.search(r'(\d{4})\.pdf', url, re.IGNORECASE)
+    if m2:
+        return f"{m2.group(1)}-01-01", None
+    return None, None
+
+
 def _filtrar(resoluciones: list[dict]) -> list[dict]:
     """Filtra resoluciones que contienen al menos una frase clave."""
     resultado = []
@@ -160,6 +176,24 @@ def _filtrar(resoluciones: list[dict]) -> list[dict]:
         desc = r.get("descripcion", "").upper()
         if any(frase in desc for frase in FRASES_CLAVE):
             resultado.append(r)
+    return resultado
+
+
+def _filtrar_desde(resoluciones: list[dict], from_date: str) -> list[dict]:
+    """Filtra resoluciones cuyo año de PDF es >= from_date."""
+    try:
+        from_year = int(from_date[:4])
+    except (ValueError, TypeError):
+        return resoluciones
+    resultado = []
+    for r in resoluciones:
+        fecha = r.get("fecha") or ""
+        try:
+            year = int(fecha[:4])
+            if year >= from_year:
+                resultado.append(r)
+        except (ValueError, TypeError):
+            resultado.append(r)  # incluir si no hay fecha
     return resultado
 
 

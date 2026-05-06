@@ -2,9 +2,151 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Monitoreo Normativo CMF</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: 14px; color: #222; background: #f7f8fa; }
+    /* Banner */
+    #banner { background: #1a56db; color: #fff; padding: 14px 24px;
+               display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    #banner .badge { background: #fff; color: #1a56db; font-weight: 700;
+                      border-radius: 999px; padding: 2px 10px; font-size: 13px; }
+    #banner a { color: #bfdbfe; text-decoration: underline; white-space: nowrap; }
+    /* Header */
+    header { background: #fff; border-bottom: 1px solid #e5e7eb;
+              padding: 20px 24px; }
+    header h1 { font-size: 22px; font-weight: 700; color: #111; }
+    header p  { color: #6b7280; margin-top: 4px; font-size: 13px; }
+    /* Contenedor */
+    main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+    section { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+               margin-bottom: 24px; overflow: hidden; }
+    section h2 { font-size: 15px; font-weight: 600; padding: 14px 18px;
+                  border-bottom: 1px solid #e5e7eb; background: #f9fafb; }
+    /* Filtros */
+    #filtros { padding: 12px 18px; display: flex; gap: 8px; flex-wrap: wrap;
+                border-bottom: 1px solid #e5e7eb; background: #f9fafb; }
+    .filtro-btn { border: 1px solid #d1d5db; background: #fff; padding: 4px 12px;
+                   border-radius: 6px; cursor: pointer; font-size: 12px; }
+    .filtro-btn.activo { background: #1a56db; color: #fff; border-color: #1a56db; }
+    /* Tabla */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #f3f4f6; text-align: left; padding: 8px 12px;
+          font-weight: 600; border-bottom: 1px solid #e5e7eb; }
+    td { padding: 8px 12px; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+    tr:hover td { background: #f9fafb; }
+    tr.nueva td { background: #eff6ff; }
+    td a { color: #1a56db; text-decoration: none; }
+    td a:hover { text-decoration: underline; }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 600; }
+    .tag-consulta { background: #fef3c7; color: #92400e; }
+    .tag-nueva    { background: #d1fae5; color: #065f46; }
+    .tag-mod      { background: #dbeafe; color: #1e40af; }
+    .tag-circular { background: #ede9fe; color: #5b21b6; }
+    .tag-prorroga { background: #fce7f3; color: #9d174d; }
+    .tag-otro     { background: #f3f4f6; color: #374151; }
+    /* Timeline */
+    .tl-norma { padding: 12px 18px; border-bottom: 1px solid #f3f4f6; }
+    .tl-norma h3 { font-size: 13px; font-weight: 600; color: #1a56db; margin-bottom: 6px; }
+    .tl-items { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tl-item { background: #f3f4f6; border-radius: 6px; padding: 4px 10px;
+                font-size: 12px; border-left: 3px solid #1a56db; }
+    /* Footer */
+    footer { text-align: center; color: #9ca3af; font-size: 12px;
+              padding: 20px; margin-top: 8px; }
+  </style>
 </head>
 <body>
-  <p>Panel generándose... Ejecuta el workflow de GitHub Actions para poblar este sitio.</p>
+
+
+
+<header>
+  <h1>Monitoreo Normativo CMF</h1>
+  <p>Seguimiento automático diario de resoluciones normativas de la Comisión para el Mercado Financiero de Chile.</p>
+</header>
+
+<main>
+
+  <!-- TABLA DE RESOLUCIONES -->
+  <section>
+    <h2>Resoluciones normativas</h2>
+    <div id="filtros">
+      <button class="filtro-btn activo" onclick="filtrar('todos',this)">Todos</button>
+      <button class="filtro-btn" onclick="filtrar('Consulta Pública',this)">Consulta Pública</button>
+      <button class="filtro-btn" onclick="filtrar('Modificación NCG',this)">Modificación NCG</button>
+      <button class="filtro-btn" onclick="filtrar('Nueva Normativa',this)">Nueva Normativa</button>
+      <button class="filtro-btn" onclick="filtrar('Circular',this)">Circular</button>
+      <button class="filtro-btn" onclick="filtrar('Prórroga Consulta Pública',this)">Prórroga</button>
+    </div>
+    <table id="tabla-resoluciones">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>N° Resolución</th>
+          <th>Tipo de Acuerdo</th>
+          <th>Norma(s) Afectada(s)</th>
+          <th>Documento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="" data-tipo="Modificación NCG"><td>2026-04-20</td><td>564</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_564_2026.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2026-04-20</td><td>563</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_563_2026.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Nueva Normativa"><td>2026-04-20</td><td>562</td><td><span class="tag tag-nueva">Nueva Normativa</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_562_2026.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Circular"><td>2026-04-10</td><td>3920</td><td><span class="tag tag-circular">Circular</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/cir_2370_2026.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Circular"><td>2026-04-10</td><td>3920</td><td><span class="tag tag-circular">Circular</span></td><td>NCG N°303, NCG N°451</td><td><a href="https://www.cmfchile.cl/normativa/ncg_561_2026.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-11-10</td><td>553</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_553_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-10-24</td><td>550</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_550_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-10-24</td><td>549</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_549_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-09-02</td><td>548</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_548_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-08-19</td><td>545</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_545_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-01-15</td><td>531</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_531_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2025-01-01</td><td>542</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_542_2025.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-12-03</td><td>525</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>NCG N°152</td><td><a href="https://www.cmfchile.cl/normativa/ncg_525_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-12-02</td><td>524</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_524_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-05-24</td><td>511</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_511_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-05-08</td><td>510</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_510_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-05-08</td><td>508</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_508_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-02-16</td><td>506</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_506_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-01-01</td><td>2360</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/cir_2360_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-01-01</td><td>520</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_520_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+<tr class="" data-tipo="Modificación NCG"><td>2024-01-01</td><td>513</td><td><span class="tag tag-mod">Modificación NCG</span></td><td>—</td><td><a href="https://www.cmfchile.cl/normativa/ncg_513_2024.pdf" target="_blank">Ver PDF</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- LÍNEA DE TIEMPO -->
+  <section>
+    <h2>Línea de tiempo por norma</h2>
+    <div class="tl-norma"><h3>EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO F</h3><div class="tl-items"><span class="tl-item">2024-01-01 · Modificación NCG</span><span class="tl-item">2024-01-01 · Modificación NCG</span><span class="tl-item">2024-01-01 · Modificación NCG</span><span class="tl-item">2024-02-16 · Modificación NCG</span><span class="tl-item">2024-05-08 · Modificación NCG</span><span class="tl-item">2024-05-08 · Modificación NCG</span><span class="tl-item">2024-05-24 · Modificación NCG</span><span class="tl-item">2025-01-01 · Modificación NCG</span><span class="tl-item">2025-01-15 · Modificación NCG</span><span class="tl-item">2025-08-19 · Modificación NCG</span><span class="tl-item">2025-09-02 · Modificación NCG</span><span class="tl-item">2025-10-24 · Modificación NCG</span><span class="tl-item">2025-10-24 · Modificación NCG</span><span class="tl-item">2025-11-10 · Modificación NCG</span><span class="tl-item">2026-04-10 · Circular</span><span class="tl-item">2026-04-20 · Modificación NCG</span><span class="tl-item">2026-04-20 · Modificación NCG</span><span class="tl-item">2026-04-20 · Nueva Normativa</span></div></div>
+<div class="tl-norma"><h3>MODIFICA LA NORMA DE CARÁCTER GENERAL N°502 DE 2024 QUE REGU</h3><div class="tl-items"><span class="tl-item">2024-12-02 · Modificación NCG</span></div></div>
+<div class="tl-norma"><h3>NCG N°152</h3><div class="tl-items"><span class="tl-item">2024-12-03 · Modificación NCG</span></div></div>
+<div class="tl-norma"><h3>NCG N°303</h3><div class="tl-items"><span class="tl-item">2026-04-10 · Circular</span></div></div>
+<div class="tl-norma"><h3>NCG N°451</h3><div class="tl-items"><span class="tl-item">2026-04-10 · Circular</span></div></div>
+  </section>
+
+</main>
+
+<footer>
+  Actualizado: 2026-05-06 · Datos: <a href="https://www.cmfchile.cl" target="_blank">cmfchile.cl</a>
+</footer>
+
+<script>
+  function filtrar(tipo, btn) {
+    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+    btn.classList.add('activo');
+    document.querySelectorAll('#tabla-resoluciones tbody tr').forEach(tr => {
+      tr.style.display = (tipo === 'todos' || tr.dataset.tipo === tipo) ? '' : 'none';
+    });
+  }
+  // Scroll al banner si hay novedades
+  document.querySelector('#banner a[href="#novedades"]')?.addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById('novedades')?.scrollIntoView({behavior:'smooth'});
+  });
+</script>
+
 </body>
 </html>
