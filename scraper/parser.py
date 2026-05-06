@@ -16,7 +16,8 @@ _SESION      = re.compile(
     re.IGNORECASE,
 )
 _NORMA_MOD   = re.compile(
-    r"MODIFICACIONES?\s+(?:A\s+LA\s+)?NORMA DE CARÁCTER GENERAL\s+N[°o]\s*(\d+)",
+    r"(?:MODIFICACIONES?\s+(?:A\s+LA\s+)?|MODIFICA\s+(?:LA\s+)?)"
+    r"NORMA DE CARÁCTER GENERAL\s+N[°o]\s*(\d+)",
     re.IGNORECASE,
 )
 _ACCION      = re.compile(

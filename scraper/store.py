@@ -1,7 +1,10 @@
 import json
 import logging
+import re
 from datetime import datetime, timezone
 from pathlib import Path
+
+_NCG_EN_DESC = re.compile(r"N[°o]\s*(\d+)", re.IGNORECASE)
 
 logger = logging.getLogger(__name__)
 
@@ -26,9 +29,13 @@ def _inferir_tipo_acuerdo(descripcion: str) -> str:
 
 def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     """Combina los datos del listado HTML con el parsing del PDF."""
+    # Preferir fecha exacta del PDF sobre el placeholder YYYY-01-01 del URL
+    fecha_pdf = (parsed.get("resolucion") or {}).get("fecha") or parsed.get("fecha_documento")
+    fecha = fecha_pdf or raw.get("fecha")
+
     entrada = {
         "clave": raw.get("_key", ""),
-        "fecha": raw.get("fecha"),
+        "fecha": fecha,
         "resolucion": parsed.get("resolucion") or {
             "tipo": "Exenta",
             "numero": raw.get("numero"),
@@ -43,13 +50,37 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     }
 
     if parsed.get("parsed"):
-        entrada["modifica"] = parsed.get("modifica", [])
+        modifica = parsed.get("modifica", [])
+        # Fallback: extraer norma afectada desde descripcion_cmf cuando el PDF no la detecta
+        if not modifica:
+            modifica = _modifica_desde_descripcion(raw.get("descripcion_cmf", ""))
+        entrada["modifica"] = modifica
         entrada["vigencia"] = parsed.get("vigencia", {})
         entrada["ran_referencias"] = parsed.get("ran_referencias", [])
         entrada["msi_referencias"] = parsed.get("msi_referencias", [])
         entrada["archivos_afectados"] = parsed.get("archivos_afectados", [])
 
     return entrada
+
+
+def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
+    """Extrae normas afectadas desde la descripcion_cmf cuando el PDF no las detectó."""
+    desc_upper = descripcion.upper()
+    if "MODIFICA" not in desc_upper and "DEROGA" not in desc_upper:
+        return []
+    numeros = _NCG_EN_DESC.findall(descripcion)
+    resultado = []
+    for num in numeros:
+        accion = "Derógase" if "DEROGA" in desc_upper else "Modifícase"
+        resultado.append({
+            "norma": f"NCG N°{num}",
+            "numero_norma": int(num),
+            "seccion_romana": None,
+            "acciones": [accion],
+            "vigencia": {},
+            "fuente": "descripcion_cmf",
+        })
+    return resultado
 
 
 def guardar_diferencial(nuevas: list[dict], fecha: str | None = None) -> Path:
