@@ -31,8 +31,31 @@ HEADERS = {
 }
 
 
+TIMEOUT_LISTADO = 300   # 5 minutos para la página principal
+TIMEOUT_PDF     = 120   # 2 minutos por PDF
+MAX_REINTENTOS  = 3
+
+
 def _pause():
     time.sleep(random.uniform(2.0, 3.0))
+
+
+def _get_con_reintentos(url: str, timeout: int = TIMEOUT_LISTADO) -> requests.Response | None:
+    """GET con reintentos y backoff exponencial."""
+    for intento in range(1, MAX_REINTENTOS + 1):
+        try:
+            logger.info("Intento %d/%d: %s", intento, MAX_REINTENTOS, url[:80])
+            r = requests.get(url, headers=HEADERS, timeout=timeout)
+            r.raise_for_status()
+            return r
+        except requests.RequestException as e:
+            wait = 30 * intento
+            if intento < MAX_REINTENTOS:
+                logger.warning("Error (intento %d): %s — reintentando en %ds", intento, e, wait)
+                time.sleep(wait)
+            else:
+                logger.error("Error al acceder a %s: %s", url, e)
+    return None
 
 
 def fetch_listado(from_date: str | None = None) -> list[dict]:
@@ -46,11 +69,8 @@ def fetch_listado(from_date: str | None = None) -> list[dict]:
     url = _build_url(from_date)
     logger.info("Descargando listado CMF: %s", url)
 
-    try:
-        response = requests.get(url, headers=HEADERS, timeout=30)
-        response.raise_for_status()
-    except requests.RequestException as e:
-        logger.error("Error al acceder a cmfchile.cl: %s", e)
+    response = _get_con_reintentos(url)
+    if response is None:
         sys.exit(1)
 
     resoluciones = _parse_listado(response.text)
@@ -235,12 +255,9 @@ def fetch_pdf(url: str) -> bytes | None:
     """Descarga un PDF desde la URL dada. Respeta el rate limit."""
     _pause()
     logger.info("Descargando PDF: %s", url)
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=60)
-        r.raise_for_status()
-        if "pdf" not in r.headers.get("Content-Type", "").lower() and not url.lower().endswith(".pdf"):
-            logger.warning("El documento no parece ser un PDF: %s", url)
-        return r.content
-    except requests.RequestException as e:
-        logger.error("Error descargando PDF %s: %s", url, e)
+    r = _get_con_reintentos(url, timeout=TIMEOUT_PDF)
+    if r is None:
         return None
+    if "pdf" not in r.headers.get("Content-Type", "").lower() and not url.lower().endswith(".pdf"):
+        logger.warning("El documento no parece ser un PDF: %s", url)
+    return r.content
