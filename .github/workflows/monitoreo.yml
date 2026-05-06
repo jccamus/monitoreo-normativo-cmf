@@ -1,0 +1,42 @@
+name: Monitoreo Normativo CMF
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # 8:00 AM hora Chile (UTC-3 verano)
+  workflow_dispatch:         # permite ejecución manual
+
+permissions:
+  contents: write
+
+jobs:
+  monitoreo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar monitoreo
+        run: python scraper/main.py
+
+      - name: Regenerar dashboard
+        run: python scraper/dashboard.py
+
+      - name: Commit y push de resultados
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ docs/
+          git diff --cached --quiet || git commit -m "chore: monitoreo $(date -u +'%Y-%m-%d')"
+          git push
