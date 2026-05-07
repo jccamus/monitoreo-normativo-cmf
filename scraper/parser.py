@@ -45,6 +45,37 @@ _ARCHIVO_CREAR   = re.compile(r"(?:se\s+crea|deberá\s+presentar|nuevo\s+formula
 _ARCHIVO_MOD     = re.compile(r"(?:modifica|reemplaza|sustituye)\s+(?:el\s+)?(?:formulario|archivo|anexo)\s+([\w\s\-\.°N]+)", re.IGNORECASE)
 _ARCHIVO_ELIM    = re.compile(r"(?:elimina|deroga|suprime)\s+(?:el\s+)?(?:formulario|archivo|anexo)\s+([\w\s\-\.°N]+)", re.IGNORECASE)
 
+# ── Resumen accionable: bloque REF + bullets de cambios ─────────────────────
+_REF_BLOCK = re.compile(r"REF\s*:\s*(.+?)(?:\n\s*_{3,}|\n\s*\n)", re.DOTALL | re.IGNORECASE)
+# VIGENCIA como encabezado standalone (mayúsculas, en su propia línea) — distinto
+# del _VIGENCIA case-insensitive de arriba (que captura también la palabra dentro
+# del cuerpo y por eso no sirve como delimitador del cuerpo accionable).
+_VIGENCIA_HEADING = re.compile(r"\n\s*VIGENCIA\s*\n")
+_VERBOS_ACCION = (
+    r"(?:Reempl[áa]cese|Agr[ée]guese|Agr[ée]gase|Intercálase|Elim[íi]nese|"
+    r"Sust[íi]t[úu]yase|Der[óo]gase|Modif[íi]quese|Cr[ée]ase|Incorp[óo]rase|"
+    r"Adic[íi]onase)"
+)
+_VERBOS_IMPERSONAL = (
+    r"[Ss]e\s+(?:reemplaza(?:n)?|modifica|elimina|incorpora|deroga|crea|"
+    r"sustituye|adiciona|agrega|intercala|reformula|introduce)"
+)
+_BULLET_NUM_VERBO = re.compile(
+    rf"(?:^|\n)\s*\d+\.\s*({_VERBOS_ACCION}[^\n]*"
+    rf"(?:\n(?!\s*(?:\d+|[IVX]+|[a-z])\.\s)[^\n]+){{0,4}})",
+    re.MULTILINE | re.IGNORECASE,
+)
+_BULLET_ROM_IMPERSONAL = re.compile(
+    rf"(?:^|\n)\s*[IVX]+\.\s*({_VERBOS_IMPERSONAL}[^\n.]*"
+    rf"(?:\n(?!\s*(?:\d+|[IVX]+|[a-z])\.\s)[^\n.]+){{0,2}})",
+    re.MULTILINE,
+)
+_BULLET_LETRA_CAP = re.compile(
+    r"(?:^|\n)\s*[a-z]\.\s*(Cap[íi]tulo\s+[\w\-]+\s+(?:de\s+(?:la\s+)?)?"
+    r"(?:Recopilaci[óo]n|RAN|Compendio|Manual)[^\n:]*)",
+    re.MULTILINE | re.IGNORECASE,
+)
+
 MESES = {
     "enero": 1, "febrero": 2, "marzo": 3, "abril": 4,
     "mayo": 5, "junio": 6, "julio": 7, "agosto": 8,
@@ -136,11 +167,52 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     # ── Vigencia global ─────────────────────────────────────────────────────
     result["vigencia"] = _parse_vigencia_global(text)
 
+    # ── Resumen accionable (tema + bullets) ─────────────────────────────────
+    result["tema"] = _extraer_tema(text)
+    result["resumen_acciones"] = _extraer_resumen_acciones(text)
+
     # Validación mínima
     if result["ncg"] is None and not result["modifica"]:
         result["parsed"] = False
 
     return result
+
+
+def _normaliza_frase(s: str, maxlen: int = 180) -> str:
+    """Colapsa espacios, recorta puntuación común y trunca con elipsis si excede."""
+    s = re.sub(r"\s+", " ", s).strip()
+    s = s.rstrip(":. ").lstrip("\"“ ")
+    if len(s) > maxlen:
+        s = s[:maxlen].rsplit(" ", 1)[0] + "…"
+    return s
+
+
+def _extraer_tema(text: str) -> str:
+    """Extrae el bloque 'REF: ...' del encabezado del PDF como una sola línea."""
+    m = _REF_BLOCK.search(text[:3000])
+    if not m:
+        return ""
+    return _normaliza_frase(m.group(1), maxlen=400)
+
+
+def _extraer_resumen_acciones(text: str) -> list[str]:
+    """Bullets cortos con frases accionables del cuerpo del PDF.
+
+    Aplica tres patrones complementarios: párrafos numerados que arrancan con
+    verbo imperativo ('1. Reemplácese...'), incisos romanos con construcción
+    impersonal ('I. Se reemplaza...') y letras minúsculas que introducen
+    capítulos RAN/CNC/MSI ('a. Capítulo 8-4 de la RAN: ...').
+    """
+    vp = _VIGENCIA_HEADING.search(text)
+    cuerpo = text[: vp.start()] if vp else text
+
+    out: list[str] = []
+    for rx in (_BULLET_NUM_VERBO, _BULLET_ROM_IMPERSONAL, _BULLET_LETRA_CAP):
+        for m in rx.finditer(cuerpo):
+            frag = _normaliza_frase(m.group(1))
+            if len(frag) >= 15 and frag not in out:
+                out.append(frag)
+    return out[:6]
 
 
 def _parse_modificaciones(text: str) -> list[dict]:

@@ -2,9 +2,11 @@
 'Propuesta - Cambios Normativos.txt' para journalists que monitorean la CMF.
 
 Estructura en dos pestañas:
-- **Cuadro de mando**: tres columnas (30 / 60 / 90+ días desde la fecha
+- **Agenda de tareas**: tres columnas (30 / 60 / 90+ días desde la fecha
   actual) con las resoluciones cuya vigencia entra a regir en cada
-  horizonte, presentadas como tareas para la agenda del periodista.
+  horizonte. Cada tarjeta muestra el tema oficial del documento (bloque
+  REF del PDF) y bullets accionables con los cambios concretos extraídos
+  por el parser.
 - **Listado completo**: stats, filtros por tipo de acuerdo, búsqueda libre,
   tabla con detalle expandible (descripción, RAN, MSI, archivos, modifica
   por sección) y línea de tiempo agrupada por NCG.
@@ -243,23 +245,27 @@ def _render_cuadro_mando(
         f'<span class="cm-hoy">Calculado al {fecha_txt}</span>'
         f'</div>'
     )
-    columnas = (
-        _render_columna_tareas("Próximos 30 días", "col-30", "Acción inmediata", b30)
-        + _render_columna_tareas("Entre 31 y 60 días", "col-60", "Por planificar", b60)
-        + _render_columna_tareas("60 días o más", "col-90", "Mediano plazo", b90)
-    )
-    return f"{encabezado}<div id=\"cuadro-mando\">{columnas}</div>"
+    defs = [
+        ("Próximos 30 días", "col-30", "Acción inmediata", b30),
+        ("Entre 31 y 60 días", "col-60", "Por planificar", b60),
+        ("60 días o más", "col-90", "Mediano plazo", b90),
+    ]
+    vacias = "".join(_render_columna_tareas(*d) for d in defs if not d[3])
+    llenas = "".join(_render_columna_tareas(*d) for d in defs if d[3])
+    pila_vacias = f'<div class="cm-pila-vacias">{vacias}</div>' if vacias else ""
+    return f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>'
 
 
 def _render_columna_tareas(
     titulo: str, cls: str, subtitulo: str, tareas: list[dict]
 ) -> str:
-    if not tareas:
-        cards = '<p class="cm-vacio">Sin tareas en este horizonte.</p>'
-    else:
+    vacia_cls = " vacia" if not tareas else ""
+    if tareas:
         cards = "".join(_render_tarjeta_tarea(t) for t in tareas)
+    else:
+        cards = '<p class="cm-sin-tareas">Sin tareas en este plazo</p>'
     return (
-        f'<div class="cm-columna {html.escape(cls)}">'
+        f'<div class="cm-columna {html.escape(cls)}{vacia_cls}">'
         f'<header class="cm-cab">'
         f'<div class="cm-cab-tit"><h3>{html.escape(titulo)}</h3>'
         f'<span class="cm-count">{len(tareas)}</span></div>'
@@ -275,25 +281,30 @@ def _render_tarjeta_tarea(t: dict) -> str:
     dias = t.get("_dias_restantes", 0)
     dias_txt = "hoy" if dias == 0 else f'en {dias} día{"s" if dias != 1 else ""}'
     normas = ", ".join(_normas_afectadas(t)) or "—"
-    desc_full = t.get("descripcion_cmf") or ""
-    desc = desc_full[:160] + ("…" if len(desc_full) > 160 else "")
+    resumen = _resumen_minimo(t)
+    bullets = t.get("resumen_acciones") or []
     archivos = t.get("archivos_afectados") or []
-    archivos_html = ""
-    if archivos:
-        items = "".join(
-            f'<li><span class="chip chip-{html.escape(a.get("accion",""))}">'
-            f'{html.escape(a.get("accion","").upper())}</span> '
-            f'{html.escape(a.get("nombre",""))}</li>'
-            for a in archivos
+
+    n = len(bullets)
+    conteo_html = ""
+    if n:
+        conteo_html = (
+            f'<p class="cm-conteo"><b>{n}</b> cambio{"s" if n != 1 else ""} '
+            f'especificado{"s" if n != 1 else ""} en el documento</p>'
         )
-        archivos_html = (
-            f'<div class="cm-archivos-titulo">Archivos afectados</div>'
-            f'<ul class="cm-archivos">{items}</ul>'
-        )
+
+    detalle_html = _render_detalle_tarea(bullets, archivos)
+    tiene_detalle = bool(bullets or archivos)
+
     url = t.get("url_documento") or ""
-    link = (
+    pdf_link = (
         f'<a class="cm-link" href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
         if url else ""
+    )
+    detalle_link = (
+        '<a class="cm-link cm-detalle-toggle" href="javascript:void(0)" '
+        'onclick="toggleDetalleTarea(this)">Detalle de cambios →</a>'
+        if tiene_detalle else ""
     )
     tipo = _tipo_tag(t.get("tipo_acuerdo", "Otro"))
     return (
@@ -302,11 +313,55 @@ def _render_tarjeta_tarea(t: dict) -> str:
         f'<span class="cm-dias">· {dias_txt}</span></header>'
         f'<div class="cm-meta">{tipo}'
         f'<span class="cm-norma">{html.escape(normas)}</span></div>'
-        f'<p class="cm-desc">{html.escape(desc)}</p>'
-        f'{archivos_html}'
-        f'{link}'
+        f'<p class="cm-resumen">{html.escape(resumen)}</p>'
+        f'{conteo_html}'
+        f'<div class="cm-acciones">{pdf_link}{detalle_link}</div>'
+        f'{detalle_html}'
         f'</article>'
     )
+
+
+def _render_detalle_tarea(bullets: list[str], archivos: list[dict]) -> str:
+    if not bullets and not archivos:
+        return ""
+    bloques: list[str] = []
+    if bullets:
+        items = "".join(f"<li>{html.escape(b)}</li>" for b in bullets)
+        bloques.append(
+            f'<div class="cm-det-bloque"><span class="cm-det-label">Cambios</span>'
+            f'<ul class="cm-bullets">{items}</ul></div>'
+        )
+    if archivos:
+        items = "".join(
+            f'<li><span class="chip chip-{html.escape(a.get("accion",""))}">'
+            f'{html.escape(a.get("accion","").upper())}</span> '
+            f'{html.escape(a.get("nombre",""))}</li>'
+            for a in archivos
+        )
+        bloques.append(
+            f'<div class="cm-det-bloque"><span class="cm-det-label">Archivos afectados</span>'
+            f'<ul class="cm-archivos">{items}</ul></div>'
+        )
+    return f'<div class="cm-detalle">{"".join(bloques)}</div>'
+
+
+def _resumen_minimo(t: dict) -> str:
+    """Una línea sobre qué hay que hacer.
+
+    Usa el campo `tema` (bloque REF del PDF) si existe; cae a la primera frase
+    de la descripción CMF si no, en sentence-case para evitar el ruido visual
+    del listado en mayúsculas.
+    """
+    tema = (t.get("tema") or "").strip()
+    if tema:
+        return tema if len(tema) <= 220 else tema[:220].rsplit(" ", 1)[0] + "…"
+    desc = (t.get("descripcion_cmf") or "").strip()
+    if not desc:
+        return "Sin resumen disponible."
+    primera = desc.split(".")[0]
+    if primera.isupper():
+        primera = primera.capitalize()
+    return primera if len(primera) <= 220 else primera[:220].rsplit(" ", 1)[0] + "…"
 
 
 def _render_stats(counts: dict[str, int], total: int) -> str:
@@ -560,9 +615,16 @@ _TEMPLATE = """<!DOCTYPE html>
                      padding: 12px 4px 16px; font-size: 13px; color: #4b5563; }
     #cm-encabezado b { color: #111; font-size: 16px; }
     .cm-hoy { color: #6b7280; font-size: 12px; }
-    #cuadro-mando { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    #cuadro-mando { display: flex; gap: 16px; align-items: flex-start; }
+    .cm-pila-vacias { display: flex; flex-direction: column; gap: 12px;
+                      flex: 0 0 auto; }
     .cm-columna { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
-                  display: flex; flex-direction: column; overflow: hidden; }
+                  display: flex; flex-direction: column; overflow: hidden;
+                  flex: 1 1 0; min-width: 280px; }
+    .cm-columna.vacia { flex: 0 0 auto; min-width: auto; opacity: 0.7; }
+    .cm-columna.vacia .cm-tareas { padding: 0; }
+    .cm-sin-tareas { padding: 10px 16px; color: #6b7280; font-size: 11.5px;
+                     font-style: italic; text-align: center; white-space: nowrap; }
     .cm-cab { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
     .cm-cab-tit { display: flex; justify-content: space-between; align-items: center; }
     .cm-cab h3 { font-size: 14px; font-weight: 700; color: #111; }
@@ -587,15 +649,28 @@ _TEMPLATE = """<!DOCTYPE html>
     .cm-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
                margin-bottom: 6px; }
     .cm-norma { color: #1a56db; font-weight: 500; font-size: 12px; }
-    .cm-desc { font-size: 12px; color: #374151; line-height: 1.45; }
-    .cm-archivos-titulo { font-size: 11px; font-weight: 700; text-transform: uppercase;
-                          letter-spacing: 0.04em; color: #6b7280; margin: 8px 0 4px; }
+    .cm-resumen { font-size: 12.5px; color: #111; line-height: 1.45;
+                  font-weight: 500; margin-bottom: 6px; }
+    .cm-conteo { font-size: 11.5px; color: #6b7280; margin: 0 0 6px; }
+    .cm-conteo b { color: #1a56db; font-size: 13px; }
+    .cm-acciones { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+    .cm-link { font-size: 12px; }
+    .cm-detalle-toggle { cursor: pointer; }
+    .cm-detalle { display: none; margin-top: 10px; padding-top: 10px;
+                  border-top: 1px dashed #e5e7eb; }
+    .cm-detalle.abierto { display: block; }
+    .cm-det-bloque { margin-bottom: 10px; }
+    .cm-det-bloque:last-child { margin-bottom: 0; }
+    .cm-det-label { display: block; font-size: 10.5px; font-weight: 700;
+                    text-transform: uppercase; letter-spacing: 0.05em;
+                    color: #6b7280; margin-bottom: 4px; }
+    .cm-bullets { font-size: 11.5px; color: #374151; line-height: 1.45;
+                  padding-left: 18px;
+                  display: flex; flex-direction: column; gap: 3px; }
+    .cm-bullets li::marker { color: #9ca3af; }
     .cm-archivos { font-size: 11px; padding-left: 0; list-style: none;
                    display: flex; flex-direction: column; gap: 3px; }
     .cm-archivos .chip { margin-right: 4px; }
-    .cm-link { display: inline-block; margin-top: 8px; font-size: 12px; }
-    .cm-vacio { padding: 24px 12px; color: #9ca3af; text-align: center;
-                font-style: italic; font-size: 12px; }
 
     #stats { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 18px;
              border-bottom: 1px solid #e5e7eb; background: #fbfcfd; }
@@ -691,7 +766,7 @@ _TEMPLATE = """<!DOCTYPE html>
 <main>
 
   <nav id="tabs">
-    <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Cuadro de mando</button>
+    <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Agenda de tareas</button>
     <button class="tab" data-tab="listado" onclick="setTab(this)">Listado completo</button>
   </nav>
 
@@ -749,6 +824,14 @@ _TEMPLATE = """<!DOCTYPE html>
     document.querySelectorAll('.tab-panel').forEach(p => {
       p.style.display = p.dataset.panel === target ? '' : 'none';
     });
+  }
+
+  function toggleDetalleTarea(link) {
+    const tarjeta = link.closest('.cm-tarea');
+    const detalle = tarjeta.querySelector('.cm-detalle');
+    if (!detalle) return;
+    const abierto = detalle.classList.toggle('abierto');
+    link.textContent = abierto ? 'Ocultar detalle ↑' : 'Detalle de cambios →';
   }
 
   function toggleDetail(row) {

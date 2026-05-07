@@ -22,7 +22,13 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Elimínese en el tercer párrafo de la letra a) del número 3.2 el siguiente texto: “, que presenten relación de propiedad de al menos un 10% con entidades clasificadoras de riesgo…",
+        "Reemplácese el primer párrafo del número 8 por el siguiente: “Al menos el 98% de la inversión en los instrumentos señalados en los números 1, 2 y 3 del artículo 21 del D.F.L. N°…",
+        "Agréguese a continuación del punto aparte del cuarto párrafo del número 8, el cual pasa a ser punto seguido, el siguiente texto: “De la misma forma, conforme al artículo 20 de la…"
+      ]
     },
     {
       "clave": "2022_0481",
@@ -56,7 +62,12 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "Modifica Norma de Carácter General N° 323, que imparte instrucciones sobre determinación del patrimonio de riesgo, patrimonio neto y obligación de invertir",
+      "resumen_acciones": [
+        "Reemplácese la expresión contenida en la letra a) del título N°1: “Compañías de seguros del segundo grupo: Max ((PE+PI-RVF)/20)+(RVF/140), PE+PI-RT)” por el siguiente: “Compañías…",
+        "Reemplácese en la letra c) del título N°4 la expresión “1 vez”, por “1,3 veces”, en lo relativo a límite máximo de Endeudamiento Financiero para las compañías de seguros del…"
+      ]
     },
     {
       "clave": "2022_0466",
@@ -78,7 +89,14 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase en el décimo párrafo del número 2 del título XII. ACEPTACIÓN Y SELECCIÓN, entre la última y penúltima oración, lo siguiente: identificarse el porcentaje",
+        "Agrégase la siguiente nota en el Anexo N° 8: Certificado de Ofertas Pensión de Sobrevivencia: c) La Cláusula de Periodo Garantizado de Pago corresponde a una cobertura adicional…",
+        "Agrégase en el décimo párrafo del Capítulo II. Selección de la letra M. ACEPTACIÓN Y SELECCIÓN, entre la última y penúltima oración, lo siguiente: de aumento temporal de pensión,…",
+        "Agrégase la siguiente nota en el Anexo N° 8 Certificado de Ofertas Pensión de Sobrevivencia: La Cláusula de Periodo Garantizado de Pago corresponde a una cobertura adicional que…"
+      ]
     },
     {
       "clave": "2022_0465",
@@ -100,7 +118,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0464",
@@ -134,7 +154,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase el siguiente número 3 en la letra “B. Riesgos que pueden ser contratados en el mismo acto o de manera conjunta”, del “Título III. Seguros que se pueden contratar sin…"
+      ]
     },
     {
       "clave": "2022_0463",
@@ -156,7 +180,13 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese la letra b) del número 1.1 por lo siguiente: “b) Depósitos a plazo, letras de crédito hipotecarias, bonos y otros títulos de deuda o crédito, emitidos por bancos e…",
+        "Agréguese en el número 9.1 una nueva letra a) renumerándose las siguientes: Bonos sin plazo fijo de vencimiento, incluidos en la letra b) del 7 % a) Número 1. (RT + PR)",
+        "Reemplácese la letra a) del número 9.3 por lo siguiente: 10 % del total de depósitos y captaciones del banco. 20% del total de letras hipotecarias del Instrumentos de la letra b)…"
+      ]
     },
     {
       "clave": "2021_0458",
@@ -171,7 +201,16 @@
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N° 152 QUE IMPARTE NORMAS SOBRE ACTIVOS REPRESENTATIVOS DE RESERVAS TÉCNICAS Y PATRIMONIO DE RIESGO.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_458_2021.pdf",
-      "parsed": false
+      "parsed": false,
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese los términos “Superintendencia”, “Superintendencia de Valores y Seguros” y “SVS” por “Comisión”, “Comisión para el Mercado Financiero” y “CMF”, respectivamente, cuando…",
+        "Reemplácese el término “Superintendencia de Bancos e Instituciones Financieras” por “Comisión para el Mercado Financiero”, cuando corresponda, en todo el texto de la norma",
+        "Reemplácese el término “Superintendencia de Administradoras de Fondos de Pensiones” por “Superintendencia de Pensiones”, cuando corresponda, en todo el texto de la norma",
+        "Reemplácese en la letra b) del número 1.2 la expresión “BBB” por “BB”",
+        "Agréguese en el número 3.1 el siguiente párrafo final: “En el cálculo del límite antes señalado, no se deberán considerar aquellas inversiones en el exterior que se generen como…",
+        "Elimínese en el primer párrafo de la letra a) del número 3.2 la frase: “Los instrumentos señalados en las letras a) y b) no podrán presentar clasificación de riesgo internacional…"
+      ]
     },
     {
       "clave": "2021_0455",
@@ -197,7 +236,16 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase al final del cuadro “Identificación de los Fondos de Pensiones en los que se distribuyen los ahorros previsionales” del Anexo N° 2: Información a Transmitir al Sistema…",
+        "Agrégase el siguiente inciso segundo en el número 10, de la sección Instrucciones para generar el formulario Solicitud de Ofertas, del Anexo N° 3: “Esta fila no deberá desplegarse…",
+        "Agrégase el siguiente párrafo segundo en el número 4., de las Instrucciones para el llenado del Formulario Aceptación de la Oferta, del Anexo N° 12: “Tratándose de un cambio de…",
+        "Agrégase a continuación del Anexo N° 14: Cartas Conductoras, lo siguiente: “Instrucciones para confeccionar la Carta Conductora El contenido de las distintas cartas conductoras,…",
+        "Agrégase antes del punto final del primer párrafo de las Instrucciones para el llenado de las Clasificaciones de Riesgo, del Anexo N° 18, lo siguiente: “, sólo cuando existan…",
+        "Agrégase el siguiente segundo párrafo al número 10 de las Instrucciones para generar el formulario Solicitud de Ofertas, del Anexo N° 3: “Esta fila no deberá desplegarse cuando se…"
+      ]
     },
     {
       "clave": "2021_0453",
@@ -219,7 +267,13 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese el término “Superintendencia” y “Superintendencia de Valores y Seguros” por “Comisión” y “SVS” por “CMF”, cuando corresponda, en todo el texto de la norma",
+        "Reemplácese la expresión contenida en la letra a) del título N°1: “Compañías de seguros del segundo grupo: Max ((PE+PI-RVF)/20)+(RVF/140), PE+PI- RT)” por el siguiente: “Compañías…",
+        "Reemplácese en la letra c) del título N°4 la expresión “1 vez”, por “1,5 veces”, en lo relativo a límite máximo de Endeudamiento Financiero para las compañías de seguros del…"
+      ]
     },
     {
       "clave": "2021_0452",
@@ -257,7 +311,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "EXCEPTÚA DE LA OBLIGACIÓN DE INSCRIPCIÓN A DETERMINADAS OFERTAS PÚBLICAS DE VALORES Y MODIFICA LA NORMA DE CARÁCTER GENERAL N°336 DE 2012 EN LOS TÉRMINOS QUE INDICA",
+      "resumen_acciones": [
+        "Intercálase el siguiente nuevo literal c), al numeral iii) de la sección I de la N.C.G. N°336 de 2012: “c) Que sean dirigidas a un máximo de 50 inversionistas que no tengan la…"
+      ]
     },
     {
       "clave": "2020_0444",
@@ -279,7 +337,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2020_0443",
@@ -318,7 +378,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "EXIME TEMPORALMENTE DE LA PRESENTACIÓN DE CIERTOS DOCUMENTOS EN LAS SOLICITUDES DE INSCRIPCIÓN DE VALORES DE OFERTA PÚBLICA Y MODIFICA LA NORMA DE CARÁCTER GENERAL N°30",
+      "resumen_acciones": []
     },
     {
       "clave": "2020_0442",
@@ -344,7 +406,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2020_0441",
@@ -366,7 +430,12 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…",
+        "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: 4 \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…"
+      ]
     },
     {
       "clave": "2020_0440",
@@ -404,7 +473,12 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese en el título III “Reserva Técnica de siniestros”, en su número 4 “Deducciones por reaseguro”, en los párrafos segundo, tercero y quinto, la referencia de clasificación…",
+        "Reemplácese en todo el texto de la norma las frases “Superintendencia de Valores y Seguros” y “Superintendencia” por “Comisión para el Mercado Financiero” y “Comisión”,…"
+      ]
     },
     {
       "clave": "2020_0437",
@@ -419,7 +493,9 @@
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE\nRIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y\nOPERACIONES DE PRÉSTAMO DE ACCIONES; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_437_2020.pdf",
-      "parsed": false
+      "parsed": false,
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2018_0427",
@@ -434,7 +510,9 @@
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N° 200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_427_2018.pdf",
-      "parsed": false
+      "parsed": false,
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2026_0564",
@@ -457,7 +535,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°550",
+      "resumen_acciones": [
+        "Reemplácese el texto de la sección Vigencia de la Norma de Carácter General N°550 por el siguiente: “Las disposiciones contenidas en la presente normativa comenzarán a regir a…"
+      ]
     },
     {
       "clave": "2026_0563",
@@ -480,7 +562,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°549",
+      "resumen_acciones": [
+        "Reemplácese el texto de la sección Vigencia de la Norma de Carácter General N°549 por el siguiente: “Las disposiciones contenidas en la presente normativa comenzarán a regir a…"
+      ]
     },
     {
       "clave": "2026_0562",
@@ -506,7 +592,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "ESTABLECE NORMA SOBRE REQUISITOS DE PATRIMONIO MÍNIMO, GARANTÍAS, LIQUIDEZ Y ENDEUDAMIENTO PARA INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS. DEROGA NORMA DE CARACTER GENERAL N°18, CIRCULAR N°632 Y CIRCULAR N°695",
+      "resumen_acciones": []
     },
     {
       "clave": "2026_2370",
@@ -543,7 +631,16 @@
           "contexto": "lgunos casos.\nComo complemento a lo anterior, en abril de 2021 se publicó el Sistema de Riesgos\ndel Manual de Sistemas de Información con el objetivo de capturar la información\nnecesaria para el monitoreo del cumplimiento de los está"
         }
       ],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "Ajustes a los Capítulo 8-4, 8-40, 12- 3, 21-1, 21-6, 21-7 y 21-30 de la Recopilación Actualizada de Normas de Bancos; los Capítulos B- 6 y B-7 del Compendio de Normas Contables de Bancos; los archivos normativos R06 y R07 del Sistema de Riesgos y el Sistema de Tablas del Manual de Sistemas de Información bancos; para promover el mercado de repo y de securitizaciones",
+      "resumen_acciones": [
+        "Se reemplaza el contenido del numeral 2 del título I por lo siguiente",
+        "Se reemplaza el contenido del numeral 5 del título I por lo siguiente",
+        "Se reemplazan los términos “Superintendencia de Valores y Seguros” y “Superintendencia de Bancos e Instituciones Financieras“ por “Comisión”",
+        "Se reemplaza el primer párrafo del número 2 por el siguiente: De acuerdo con lo indicado en el Capítulo III",
+        "Se reemplaza el único párrafo del título 4 por el siguiente: En ningún caso podrán ser recomprados por el banco, los activos correspondientes a su cartera de colocaciones que haya…",
+        "Se agrega un tercer párrafo en el título 5 que señala: Sin perjuicio de lo anterior, se exceptúa de esta exigencia aquellos bonos subordinados que provengan de una securitización…"
+      ]
     },
     {
       "clave": "2026_0561",
@@ -592,7 +689,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "MODIFICA LAS NORMAS DE CARÁCTER GENERAL N°303 Y N° 451 EN LOS TÉRMINOS QUE INDICA",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_0553",
@@ -618,7 +717,16 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Modifíquese el segundo párrafo del Título II en los siguientes términos",
+        "Modifíquese la fórmula del tercer párrafo del Título II en lo siguiente: Reemplácese la expresión “VP(Flujos de ingresos)” por “VP( primas)”",
+        "Reemplácese la letra b) del Título II por la siguiente: “b) De acuerdo a la siniestralidad observada en el contrato vigente y teniendo en cuenta la tasa de prima cobrada por la…",
+        "Reemplácese en el penúltimo párrafo del Título II, la palabra “Superintendencia” por “Comisión”",
+        "Reemplácese el numeral 2.4.1 del Título III, por lo siguiente: “La reserva para estas solicitudes se calculará según la categoría en que éstas se encuentren (I1 a I6), de acuerdo…",
+        "Reemplácese el numeral 2.4.2 del título III, por lo siguiente: “Para el cálculo de la reserva deberán considerarse las probabilidades de cambio de estado desde la condición de…"
+      ]
     },
     {
       "clave": "2025_0550",
@@ -641,7 +749,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase al final del título de la sección la expresión “DE INSCRIPCIÓN”"
+      ]
     },
     {
       "clave": "2025_0549",
@@ -664,7 +776,13 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase al final del título de la sección la expresión “DE INSCRIPCIÓN”",
+        "Elimínese el título de la subsección B. SOLICITANTE PERSONA JURIDICA y las referencias a dicha subsección en la sección II",
+        "Agrégase la siguiente nueva sección IV. CONTENIDO DE LA SOLICITUD DE AUTORIZACIÓN DE PRESTACIÓN DE SERVICIO, pasando la antigua sección"
+      ]
     },
     {
       "clave": "2025_0548",
@@ -686,7 +804,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°258 QUE ESTABLECE ELEMENTOS MÍNIMOS DE GESTIÓN DE RIESGO DE CRÉDITO Y LIQUIDEZ DE LOS SISTEMAS DE COMPENSACIÓN Y LIQUIDACIÓN DE INSTRUMENTOS FINANCIEROS",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_0545",
@@ -708,7 +828,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese el texto de la sección Vigencia de la Norma de Carácter General N°526 por el siguiente: “Las instrucciones establecidas en la presente Norma de Carácter General rigen…"
+      ]
     },
     {
       "clave": "2025_0542",
@@ -734,7 +858,14 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Modifíquese en el capítulo II. DEFINICIONES, lo siguiente: 3.1 Elimínese la definición de Oferta Asociada y la de Oferta Externa. 3.2",
+        "Modifíquese el capítulo VI. ALTERNATIVAS DEL CONSULTANTE, de acuerdo con lo siguiente: 6.1 Modifíquense las alternativas del tercer párrafo de este capítulo como sigue: a) b)…",
+        "Derógase el capítulo VII. Oferta Externa, agregando al final del título el siguiente ley N° 3.500, de 1980, de la Ley N° 21.735, publicada en el Diario Oficial el 26 de marzo de…",
+        "Derógase la letra H. Oferta Externa, agregando al final del título el siguiente ley N° 3.500, de 1980, de la Ley N° 21.735, publicada en el Diario Oficial el 26 de marzo de 2025,…"
+      ]
     },
     {
       "clave": "2025_0531",
@@ -756,7 +887,11 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N° 529",
+      "resumen_acciones": [
+        "Reemplácese el texto de la sección Vigencia de la Norma de Carácter General N°529 por el siguiente: “Las instrucciones establecidas en la presente Norma de Carácter General rigen…"
+      ]
     },
     {
       "clave": "2024_0525",
@@ -790,7 +925,14 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "Modifica Norma de Carácter General N°152, que imparte normas sobre activos representativos de reservas técnicas y patrimonio de riesgo",
+      "resumen_acciones": [
+        "Reemplácese en la letra k) del número 9.1 el guarismo “10%” por “15%”",
+        "Reemplácese la letra g) del numeral 9.2 la expresión “a) e i)” por “b) y j)”",
+        "Reemplácese en el literal iv) de la letra h) del numeral 9.2 la expresión “a) e i)” por “b y j)”",
+        "Reemplácese en la letra b) del numeral 9.3 la letra “a)” por “b)”"
+      ]
     },
     {
       "clave": "2024_0524",
@@ -817,7 +959,16 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Intercálase entre el párrafo segundo y tercero, el siguiente nuevo párrafo tercero: “No requieren de inscripción ni autorización para la prestación del servicio de asesoría de…",
+        "Agrégase el siguiente nuevo párrafo segundo: “A su vez, quedarán eximidos del requisito de giro exclusivo, quienes se hayan acogido a la excepción de domicilio en Chile a que se…",
+        "Elimínese del título la expresión “Y AUTORIZACIÓN DE SERVICIOS” 3",
+        "Agrégase los siguientes nuevos numerales 4) y 5) a la letra a): “4) Si la prestación del servicio de asesoría de inversión estará dirigida a clientes específicos y determinados…",
+        "Agrégase el siguiente nuevo numeral 4) al literal a): “4) La dirección URL o mecanismo en que se puede acceder a la información a que se refieren los literales a) y b) del primer…",
+        "Agrégase el siguiente párrafo final: “En virtud de lo establecido en el numeral 8 del segundo inciso del artículo 5 de la Ley N°21.521, las bolsas de valores de la Ley N°18.045…"
+      ]
     },
     {
       "clave": "2024_2360",
@@ -832,7 +983,12 @@
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2360_2024.pdf",
-      "parsed": false
+      "parsed": false,
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese cada vez que aparezcan en la normativa los términos “Superintendencia de Valores y Seguros” y “Superintendencia” por “Comisión para el Mercado Financiero” y “Comisión”…",
+        "Agréguese en el título VII el siguiente nuevo numeral 4: “4. Inversiones de renta fija nacionales emitidos en moneda nacional. A efectos de determinar la posición de calce entre…"
+      ]
     },
     {
       "clave": "2024_0520",
@@ -857,7 +1013,16 @@
         "21-7"
       ],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese cada vez que aparezcan en la normativa los términos “Superintendencia de Valores y Seguros” y “Superintendencia” por “Comisión para el Mercado Financiero” y “Comisión”…",
+        "Reemplácese el párrafo octavo del primer inciso del título I, por el siguiente: “Entidad de Contraparte Central: sociedad administradora que compensa órdenes de compensación…",
+        "Reemplácese el párrafo décimo del primer inciso del título I, por el siguiente: 1 “Valor razonable: Se entenderá por valor razonable, el señalado en el IFRS 9 (International…",
+        "Reemplácese en la letra a) del numeral 2.1 del título II, la expresión “Cámaras de Compensación”, por “Entidades de Contraparte Central”",
+        "Reemplácese la letra a) del numeral 2.2 del título II, por lo siguiente: “Entidades de Contraparte Central regidas por el Título I de la ley Nº 20.345, sobre sistemas de…",
+        "Reemplácese el numeral 4.6 del título II, por lo siguiente: “Las compañías podrán realizar operaciones de cobertura de riesgo con una misma Entidad de Contraparte Central o con…"
+      ]
     },
     {
       "clave": "2024_0513",
@@ -897,7 +1062,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°426 QUE ESTABLECE INFRACCIONES SUJETAS A PROCEDIMIENTO SIMPLIFICADO",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0511",
@@ -919,7 +1086,13 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese la palabra “Superintendencia” por “Comisión” en todo el texto",
+        "Reemplácese la sigla “SVS” por “CMF” en todo el texto",
+        "Reemplácese el Anexo N°5, derogándose las actuales tablas de mortalidad M-95, por el siguiente nuevo Anexo N°5: “ANEXO 5 TABLAS DE MORTALIDAD M-2016 Las tablas de mortalidad…"
+      ]
     },
     {
       "clave": "2024_0510",
@@ -941,7 +1114,13 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "IMPARTE INSTRUCCIONES SOBRE GESTIÓN DE RIESGO OPERACIONAL. DEROGA CIRCULARES N° 1.939 y 2.020, Y LA NORMA DE CARÁCTER GENERAL N° 256. MODIFICA LA NORMA DE CARÁCTER GENERAL N° 480",
+      "resumen_acciones": [
+        "Elimínese los numerales 1, 2 y 3 de la letra b) de la sección III de la Norma de Carácter General N°480",
+        "Reemplácese el primer párrafo de la letra b) de la sección III de la Norma de Carácter General N° 480 por el siguiente: “Para efectos de poder acceder al mecanismo de…",
+        "Reemplácese el primer párrafo de la sección “Vigencia” de la Norma de Carácter General N° 480 por el siguiente: 22 “Las instrucciones establecidas en la presente Norma de Carácter…"
+      ]
     },
     {
       "clave": "2024_0508",
@@ -963,7 +1142,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN INTEGRAL DE RIESGOS PARA BOLSAS DE VALORES Y BOLSAS DE PRODUCTOS. MODIFICA NORMA DE CARÁCTER GENERAL N°480",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0506",
@@ -985,7 +1166,16 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese el término “Superintendencia” y “Superintendencia de Valores y Seguros” por “Comisión” y “SVS” por “CMF”, cuando corresponda, en todo el texto de la norma",
+        "Reemplácese en el primer párrafo la expresión “letras a) y d) del artículo 4°” por lo siguiente: “los numerales 1 y 4 del artículo 5°”",
+        "Elimínese en el numeral iv) de la letra a) del Título II Conceptos Generales lo siguiente: “y por lo tanto, expuestas a riesgo de grupo,”",
+        "Elimínese del numeral v) de la letra b) del número 1.2 del Título III Principios del Sistema de Gestión de Riesgos lo siguiente: “Esta función puede ser realizada por la unidad de…",
+        "Agréguese a continuación del punto aparte del segundo párrafo, que pasa a ser seguido, del número 2 del Título III Principios del Sistema de Gestión de Riesgos lo siguiente: “Cabe…",
+        "Elimínese el número 2.4.3 Gestión del Reaseguro, del Título III Principios del Sistema de Gestión de Riesgos"
+      ]
     }
   ]
 }
