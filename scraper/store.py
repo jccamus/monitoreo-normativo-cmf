@@ -84,20 +84,42 @@ def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
 
 
 def guardar_diferencial(nuevas: list[dict], fecha: str | None = None) -> Path:
-    """Escribe el JSON diferencial del día en data/daily/YYYY-MM-DD.json."""
+    """Escribe el JSON diferencial del día en data/daily/YYYY-MM-DD.json.
+
+    Idempotente: si el archivo ya existe (workflow corrió dos veces el mismo
+    día, bootstrap + run), mergea las entradas previas con las nuevas usando
+    `clave` como llave de deduplicación. Las nuevas pisan a las previas para
+    que un re-procesamiento corregido prevalezca.
+    """
     DAILY_DIR.mkdir(parents=True, exist_ok=True)
 
     hoy = fecha or datetime.now(timezone.utc).strftime("%Y-%m-%d")
     path = DAILY_DIR / f"{hoy}.json"
 
+    previas: list[dict] = []
+    if path.exists():
+        try:
+            with open(path, encoding="utf-8") as f:
+                previas = json.load(f).get("new_entries", []) or []
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning("No se pudo leer %s para merge, se sobrescribe: %s", path, e)
+
+    por_clave: dict[str, dict] = {e.get("clave", ""): e for e in previas if e.get("clave")}
+    for e in nuevas:
+        por_clave[e.get("clave", "")] = e
+    fusionadas = [e for k, e in por_clave.items() if k]
+
     payload = {
         "date": hoy,
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "new_entries": nuevas,
+        "new_entries": fusionadas,
     }
 
     with open(path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    logger.info("Diferencial guardado: %s (%d entradas)", path, len(nuevas))
+    logger.info(
+        "Diferencial guardado: %s (%d nuevas, %d previas, %d total)",
+        path, len(nuevas), len(previas), len(fusionadas),
+    )
     return path
