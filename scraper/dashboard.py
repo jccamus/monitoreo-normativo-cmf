@@ -28,6 +28,120 @@ _NCG_NUM_DESC = re.compile(r"NORMA(?:S)?\s+DE\s+CARÁCTER\s+GENERAL\s+N[°o]\s*(
 _NCG_NUM_SHORT = re.compile(r"\bNCG\s+N[°o]\s*(\d+)", re.IGNORECASE)
 _DEROGA_RE = re.compile(r"\b(DEROGA|DERÓGASE|DEROGACIÓN)\b", re.IGNORECASE)
 
+# ── Clasificación por cuerpo normativo (tab "Cambios relevantes") ────────
+# Cada grupo: (clave_corta, título_largo, regex) en orden de presentación.
+# Una entrada puede caer en múltiples grupos (la Cir 2370 modifica RAN,
+# MSI Bancos y CNC simultáneamente). El orden afecta solo presentación.
+_RX_RAN = re.compile(
+    r'\b(RAN|RECOPILACI[ÓO]N\s+ACTUALIZADA(\s+DE\s+NORMAS)?)\b', re.IGNORECASE)
+_RX_MSI_PREFIJO = re.compile(
+    r'\b(MSI|MANUAL\s+(?:DEL?\s+)?SISTEMA(?:S)?\s+DE\s+INFORMACI[ÓO]N)\b',
+    re.IGNORECASE)
+_RX_MSI_BANCOS = re.compile(
+    r'(?:MSI|MANUAL\s+(?:DEL?\s+)?SISTEMA(?:S)?\s+DE\s+INFORMACI[ÓO]N)\s*'
+    r'(?:NORMATIVO\s+)?(?:PARA\s+|DE\s+)?BANCOS?', re.IGNORECASE)
+_RX_MSI_FONDOS = re.compile(
+    r'(?:MSI|MANUAL\s+(?:DEL?\s+)?SISTEMA(?:S)?\s+DE\s+INFORMACI[ÓO]N)\s*'
+    r'(?:NORMATIVO\s+)?(?:PARA\s+|DE\s+)?FONDOS?', re.IGNORECASE)
+_RX_MSI_REDEC = re.compile(r'\bMSI\s+REDEC\b|\bREDEC\b', re.IGNORECASE)
+_RX_CONTEXTO_BANCOS = re.compile(
+    r'\b(BANCOS?|RAN|RECOPILACI[ÓO]N\s+ACTUALIZADA|'
+    r'COMPENDIO\s+DE\s+NORMAS\s+CONTABLES)\b', re.IGNORECASE)
+_RX_CNC = re.compile(r'COMPENDIO\s+DE\s+NORMAS\s+CONTABLES', re.IGNORECASE)
+_RX_COMPENDIO_PENSIONES = re.compile(
+    r'COMPENDIO\s+DE\s+NORMAS\s+DEL\s+SISTEMA\s+DE\s+PENSIONES', re.IGNORECASE)
+_RX_FINTEC = re.compile(
+    r'\bFINTEC\b|LEY\s+FINTEC|FINANZAS\s+ABIERTAS', re.IGNORECASE)
+_RX_SEGUROS = re.compile(
+    r'\b(SEGURO(S)?|P[ÓO]LIZA(S)?|REASEGURO(S)?|ASEGURAD(OR(A|ES|AS)?|O|A)|'
+    r'CORREDOR(ES)?\s+DE\s+SEGUROS|RENTA(S)?\s+VITALICIA(S)?|SOAP)\b',
+    re.IGNORECASE)
+_RX_AGF = re.compile(
+    r'\b(AGF(S)?|ADMINISTRADORAS?\s+GENERAL(ES)?\s+DE\s+FONDOS|'
+    r'ADMINISTRADORAS?\s+DE\s+FONDOS\s+MUTUOS|'
+    r'ADMINISTRADORAS?\s+DE\s+FONDOS\s+DE\s+INVERSI[ÓO]N|'
+    r'FONDOS?\s+MUTUOS?|FONDOS?\s+DE\s+INVERSI[ÓO]N)\b', re.IGNORECASE)
+_RX_VALORES = re.compile(r'\bVALORES\b', re.IGNORECASE)
+
+# Grupos en orden de presentación. (clave, título, descripción)
+GRUPOS_CUERPO_NORMATIVO = [
+    ("ran", "RAN", "Recopilación Actualizada de Normas de Bancos"),
+    ("msi-bancos", "MSI Bancos", "Manual de Sistemas de Información — Bancos"),
+    ("msi-fondos", "MSI Fondos", "Manual de Sistemas de Información — Fondos"),
+    ("msi-redec", "MSI Redec", "Manual de Sistemas de Información — Redec"),
+    ("cnc", "CNC", "Compendio de Normas Contables"),
+    ("compendio-pensiones", "Compendio Pensiones",
+     "Compendio de Normas del Sistema de Pensiones"),
+    ("fintec", "Fintec", "Ley Fintec, Manual MSI Fintec y Finanzas Abiertas"),
+    ("seguros", "Seguros",
+     "Pólizas, reaseguros, aseguradoras, corredores, rentas vitalicias y SOAP"),
+    ("agf", "AGF",
+     "Administradoras Generales de Fondos, fondos mutuos y de inversión"),
+    ("valores", "Valores",
+     "Mercado de valores: intermediarios, registros, bolsas y emisores"),
+    ("otros", "Otros",
+     "Cambios normativos sin un cuerpo específico identificable"),
+]
+
+
+def _grupos_de_entrada(entrada: dict) -> list[str]:
+    """Devuelve las claves de grupos a los que pertenece la entrada.
+
+    Una entrada puede pertenecer a varios grupos si modifica más de un
+    cuerpo normativo. Si no matchea ninguno, cae en 'otros'.
+    """
+    txt = " ".join(filter(None, [
+        entrada.get("tema", "") or "",
+        entrada.get("descripcion_cmf", "") or "",
+    ]))
+    asignados: list[str] = []
+    if _RX_RAN.search(txt):
+        asignados.append("ran")
+    # MSI: clasificación por sub-grupo, con fallback a Bancos por contexto
+    if _RX_MSI_PREFIJO.search(txt):
+        sub = []
+        if _RX_MSI_BANCOS.search(txt):
+            sub.append("msi-bancos")
+        if _RX_MSI_FONDOS.search(txt):
+            sub.append("msi-fondos")
+        if _RX_MSI_REDEC.search(txt):
+            sub.append("msi-redec")
+        if not sub and _RX_FINTEC.search(txt):
+            pass  # va a Fintec, no a un sub-MSI
+        elif not sub and _RX_CONTEXTO_BANCOS.search(txt):
+            sub.append("msi-bancos")
+        asignados.extend(sub)
+    if _RX_CNC.search(txt):
+        asignados.append("cnc")
+    if _RX_COMPENDIO_PENSIONES.search(txt):
+        asignados.append("compendio-pensiones")
+    if _RX_FINTEC.search(txt):
+        asignados.append("fintec")
+    if _RX_SEGUROS.search(txt):
+        asignados.append("seguros")
+    if _RX_AGF.search(txt):
+        asignados.append("agf")
+    if _RX_VALORES.search(txt):
+        asignados.append("valores")
+    if not asignados:
+        asignados.append("otros")
+    return asignados
+
+
+def _agrupar_por_cuerpo(entradas: list[dict]) -> dict[str, list[dict]]:
+    """Agrupa las entradas por cuerpo normativo según _grupos_de_entrada."""
+    grupos: dict[str, list[dict]] = {clave: [] for clave, _, _ in GRUPOS_CUERPO_NORMATIVO}
+    for e in entradas:
+        for g in _grupos_de_entrada(e):
+            grupos[g].append(e)
+    # Ordenar cada grupo por fecha desc
+    for clave in grupos:
+        grupos[clave].sort(
+            key=lambda x: (x.get("fecha") or "", x.get("clave") or ""),
+            reverse=True,
+        )
+    return grupos
+
 TIPOS_FILTRO = [
     ("todos", "Todos"),
     ("Consulta Pública", "Consulta Pública"),
@@ -195,10 +309,13 @@ def generar_html() -> None:
     )
 
     grupos = _agrupar_por_norma(entradas)
-    html_doc = _render(entradas, (b30, b60, b90), grupos, hoy, ultima_actualizacion)
+    grupos_cuerpo = _agrupar_por_cuerpo(entradas)
+    html_doc = _render(
+        entradas, (b30, b60, b90), grupos, grupos_cuerpo, hoy, ultima_actualizacion,
+    )
     OUTPUT.write_text(html_doc, encoding="utf-8")
     logger.info(
-        "Dashboard generado: %s (%d entradas · cuadro de mando: %d/%d/%d)",
+        "Dashboard generado: %s (%d entradas · agenda: %d/%d/%d)",
         OUTPUT, len(entradas), len(b30), len(b60), len(b90),
     )
 
@@ -213,10 +330,12 @@ def _render(
     entradas: list[dict],
     buckets: tuple[list[dict], list[dict], list[dict]],
     grupos: dict[str, list[dict]],
+    grupos_cuerpo: dict[str, list[dict]],
     hoy: datetime,
     ultima_actualizacion: str,
 ) -> str:
     cuadro_html = _render_cuadro_mando(buckets, hoy)
+    relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
     stats_html = _render_stats(_stats(entradas), len(entradas))
     filtros_html = _render_filtros()
     tabla_html = _render_tabla(entradas, [])
@@ -225,6 +344,7 @@ def _render(
     return (
         _TEMPLATE
         .replace("__CUADRO__", cuadro_html)
+        .replace("__RELEVANTES__", relevantes_html)
         .replace("__STATS__", stats_html)
         .replace("__FILTROS__", filtros_html)
         .replace("__TABLA__", tabla_html)
@@ -273,6 +393,120 @@ def _render_columna_tareas(
         f'</header>'
         f'<div class="cm-tareas">{cards}</div>'
         f'</div>'
+    )
+
+
+def _render_cambios_relevantes(
+    grupos_cuerpo: dict[str, list[dict]], hoy: datetime
+) -> str:
+    """Renderiza el tab 'Cambios relevantes' con una sección por cuerpo normativo.
+
+    Filtra a los últimos 5 años respecto a `hoy`. Cada grupo se renderiza
+    colapsado; el botón 'Revisar →' del header expande la tabla.
+    """
+    año_corte = hoy.year - 5
+    secciones: list[str] = []
+    for clave, titulo, descripcion in GRUPOS_CUERPO_NORMATIVO:
+        items = grupos_cuerpo.get(clave) or []
+        seccion = _render_grupo_cuerpo(
+            clave, titulo, descripcion, items, año_corte
+        )
+        if seccion:
+            secciones.append(seccion)
+    if not secciones:
+        return '<p class="cr-vacio">Sin cambios relevantes en los últimos 5 años.</p>'
+    intro = (
+        f'<p class="cr-intro">Cambios normativos desde {año_corte} agrupados '
+        f'por cuerpo normativo. Click en <b>Revisar →</b> para abrir cada grupo.</p>'
+    )
+    return f'<div id="cambios-relevantes">{intro}{"".join(secciones)}</div>'
+
+
+def _render_grupo_cuerpo(
+    clave: str,
+    titulo: str,
+    descripcion: str,
+    items: list[dict],
+    año_corte: int,
+) -> str:
+    """Renderiza un grupo (cuerpo normativo) si tiene entradas recientes.
+
+    Devuelve "" si todas las entradas del grupo son anteriores a año_corte.
+    """
+    recientes = [
+        e for e in items
+        if (e.get("fecha") or "")[:4].isdigit()
+        and int((e.get("fecha") or "0000")[:4]) >= año_corte
+    ]
+    n_recientes = len(recientes)
+    n_total = len(items)
+    if n_recientes == 0:
+        return ""
+
+    extra_total = (
+        f'<span class="cr-total">de {n_total} histórica{"s" if n_total != 1 else ""}</span>'
+        if n_total > n_recientes else ""
+    )
+    filas = "".join(_render_fila_cuerpo(e) for e in recientes)
+    return (
+        f'<section class="cr-grupo" data-grupo="{html.escape(clave)}">'
+        f'<header class="cr-cab">'
+        f'<div class="cr-cab-tit">'
+        f'<h2>{html.escape(titulo)}</h2>'
+        f'<span class="cr-count">{n_recientes}</span>'
+        f'{extra_total}'
+        f'<button class="cr-revisar" onclick="toggleGrupoCR(this)">Revisar →</button>'
+        f'</div>'
+        f'<p class="cr-desc">{html.escape(descripcion)}</p>'
+        f'</header>'
+        f'<div class="cr-cuerpo" style="display:none">'
+        f'<table class="cr-tabla">'
+        f'<thead><tr>'
+        f'<th class="cr-th-fecha">Fecha</th>'
+        f'<th>Tema</th>'
+        f'<th class="cr-th-cambios">Cambios</th>'
+        f'<th class="cr-th-pdf">PDF</th>'
+        f'</tr></thead>'
+        f'<tbody>{filas}</tbody>'
+        f'</table>'
+        f'</div>'
+        f'</section>'
+    )
+
+
+def _render_fila_cuerpo(e: dict) -> str:
+    fecha = e.get("fecha") or "—"
+    tema = _resumen_minimo(e)
+    bullets = e.get("resumen_acciones") or []
+    archivos = e.get("archivos_afectados") or []
+    n_cambios = len(bullets)
+    url = e.get("url_documento") or ""
+
+    cambios_cell = (
+        f'<a class="cr-detalle-toggle" href="javascript:void(0)" '
+        f'onclick="toggleDetalleCR(this)"><b>{n_cambios}</b> cambio'
+        f'{"s" if n_cambios != 1 else ""} →</a>'
+        if (bullets or archivos) else
+        f'<span class="cr-sin-detalle">{n_cambios}</span>'
+    )
+    pdf_cell = (
+        f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
+        if url else "—"
+    )
+    detalle_html = _render_detalle_tarea(bullets, archivos)
+    detalle_row = (
+        f'<tr class="cr-detalle-row" data-open="0" style="display:none">'
+        f'<td colspan="4">{detalle_html}</td></tr>'
+        if (bullets or archivos) else ""
+    )
+
+    return (
+        f'<tr class="cr-fila">'
+        f'<td class="cr-td-fecha">{html.escape(str(fecha))}</td>'
+        f'<td class="cr-td-tema">{html.escape(tema)}</td>'
+        f'<td class="cr-td-cambios">{cambios_cell}</td>'
+        f'<td class="cr-td-pdf">{pdf_cell}</td>'
+        f'</tr>{detalle_row}'
     )
 
 
@@ -625,6 +859,53 @@ _TEMPLATE = """<!DOCTYPE html>
     .cm-columna.vacia .cm-tareas { padding: 0; }
     .cm-sin-tareas { padding: 10px 16px; color: #6b7280; font-size: 11.5px;
                      font-style: italic; text-align: center; white-space: nowrap; }
+
+    /* Cambios relevantes */
+    #cambios-relevantes { display: flex; flex-direction: column; gap: 16px; }
+    .cr-intro { padding: 0 4px 4px; font-size: 13px; color: #4b5563; }
+    .cr-grupo { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+                overflow: hidden; }
+    .cr-grupo.abierto { border-color: #c7d2fe; }
+    .cr-cab { padding: 14px 18px; background: #f9fafb;
+              transition: background 0.15s; }
+    .cr-grupo.abierto .cr-cab { border-bottom: 1px solid #e5e7eb;
+                                 background: #eef2ff; }
+    .cr-cab-tit { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .cr-cab h2 { font-size: 16px; font-weight: 700; color: #111; }
+    .cr-count { background: #1a56db; color: #fff; border-radius: 999px;
+                padding: 1px 10px; font-size: 12px; font-weight: 700; }
+    .cr-total { font-size: 11px; color: #6b7280; }
+    .cr-revisar { margin-left: auto; background: #fff; border: 1px solid #d1d5db;
+                  color: #1a56db; font-weight: 600; font-size: 12px;
+                  padding: 5px 14px; border-radius: 6px; cursor: pointer; }
+    .cr-revisar:hover { background: #1a56db; color: #fff; border-color: #1a56db; }
+    .cr-grupo.abierto .cr-revisar { background: #1a56db; color: #fff;
+                                     border-color: #1a56db; }
+    .cr-desc { font-size: 12px; color: #6b7280; margin-top: 4px; }
+    .cr-tabla { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .cr-tabla th { background: #fbfcfd; text-align: left; padding: 9px 14px;
+                   font-weight: 600; border-bottom: 1px solid #e5e7eb;
+                   font-size: 11px; text-transform: uppercase;
+                   letter-spacing: 0.04em; color: #4b5563; }
+    .cr-tabla td { padding: 9px 14px; border-bottom: 1px solid #f3f4f6;
+                   vertical-align: top; }
+    .cr-th-fecha { width: 110px; }
+    .cr-th-cambios { width: 130px; }
+    .cr-th-pdf { width: 80px; text-align: right; }
+    .cr-td-fecha { color: #4b5563; white-space: nowrap;
+                   font-variant-numeric: tabular-nums; }
+    .cr-td-tema { color: #111; line-height: 1.45; }
+    .cr-td-cambios { font-size: 12px; }
+    .cr-td-cambios b { color: #1a56db; font-size: 13px; margin-right: 2px; }
+    .cr-td-pdf { text-align: right; }
+    .cr-td-pdf a { text-decoration: none; }
+    .cr-td-pdf a:hover { text-decoration: underline; }
+    .cr-detalle-toggle { cursor: pointer; color: #1a56db; }
+    .cr-sin-detalle { color: #9ca3af; }
+    .cr-detalle-row > td { background: #fafbfc !important; padding: 14px 24px;
+                           border-bottom: 2px solid #e5e7eb; }
+    .cr-vacio { padding: 32px; color: #9ca3af; text-align: center;
+                font-style: italic; }
     .cm-cab { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
     .cm-cab-tit { display: flex; justify-content: space-between; align-items: center; }
     .cm-cab h3 { font-size: 14px; font-weight: 700; color: #111; }
@@ -767,11 +1048,16 @@ _TEMPLATE = """<!DOCTYPE html>
 
   <nav id="tabs">
     <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Agenda de tareas</button>
+    <button class="tab" data-tab="relevantes" onclick="setTab(this)">Cambios relevantes</button>
     <button class="tab" data-tab="listado" onclick="setTab(this)">Listado completo</button>
   </nav>
 
   <div class="tab-panel" data-panel="cuadro">
     __CUADRO__
+  </div>
+
+  <div class="tab-panel" data-panel="relevantes" style="display:none">
+    __RELEVANTES__
   </div>
 
   <div class="tab-panel" data-panel="listado" style="display:none">
@@ -832,6 +1118,24 @@ _TEMPLATE = """<!DOCTYPE html>
     if (!detalle) return;
     const abierto = detalle.classList.toggle('abierto');
     link.textContent = abierto ? 'Ocultar detalle ↑' : 'Detalle de cambios →';
+  }
+
+  function toggleDetalleCR(link) {
+    const fila = link.closest('tr');
+    const detalle = fila.nextElementSibling;
+    if (!detalle || !detalle.classList.contains('cr-detalle-row')) return;
+    const abierto = detalle.dataset.open === '1';
+    detalle.dataset.open = abierto ? '0' : '1';
+    detalle.style.display = abierto ? 'none' : 'table-row';
+  }
+
+  function toggleGrupoCR(btn) {
+    const grupo = btn.closest('.cr-grupo');
+    const cuerpo = grupo.querySelector('.cr-cuerpo');
+    if (!cuerpo) return;
+    const abierto = grupo.classList.toggle('abierto');
+    cuerpo.style.display = abierto ? '' : 'none';
+    btn.textContent = abierto ? 'Cerrar ↑' : 'Revisar →';
   }
 
   function toggleDetail(row) {
