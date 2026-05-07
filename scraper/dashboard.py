@@ -1,15 +1,13 @@
 """Genera docs/index.html implementando los requisitos del brief
 'Propuesta - Cambios Normativos.txt' para journalists que monitorean la CMF.
 
-Cubre:
-- Banner de novedades del último diferencial detectado (no fecha-resolución).
-- Filtros por tipo de acuerdo: Consulta Pública, Prórroga, Modificación NCG,
-  Nueva Normativa, Circular, Derogación.
-- Búsqueda libre por NCG, descripción, RAN, MSI o archivo.
-- Tabla con vigencia visible y fila de detalle expandible que muestra
-  descripción completa, capítulos RAN, menciones MSI, archivos afectados
-  y modificaciones desglosadas por sección.
-- Línea de tiempo agrupada por NCG (no por descripción truncada).
+Estructura en dos pestañas:
+- **Cuadro de mando**: tres columnas (30 / 60 / 90+ días desde la fecha
+  actual) con las resoluciones cuya vigencia entra a regir en cada
+  horizonte, presentadas como tareas para la agenda del periodista.
+- **Listado completo**: stats, filtros por tipo de acuerdo, búsqueda libre,
+  tabla con detalle expandible (descripción, RAN, MSI, archivos, modifica
+  por sección) y línea de tiempo agrupada por NCG.
 """
 import html
 import json
@@ -116,6 +114,55 @@ def _tipos_de_entrada(entrada: dict) -> list[str]:
     return tipos
 
 
+def _parse_iso(s: str | None) -> datetime | None:
+    if not isinstance(s, str) or len(s) < 10:
+        return None
+    try:
+        return datetime.strptime(s[:10], "%Y-%m-%d")
+    except ValueError:
+        return None
+
+
+def _fechas_futuras(entrada: dict, hoy: datetime) -> list[datetime]:
+    """Vigencias (entrada y modifica[]) cuya fecha cae en el futuro respecto a hoy."""
+    fechas: list[datetime] = []
+    fuentes: list[dict] = [entrada.get("vigencia") or {}]
+    fuentes.extend(m.get("vigencia") or {} for m in (entrada.get("modifica") or []))
+    for v in fuentes:
+        for k in ("inicio", "plazo_transicion"):
+            d = _parse_iso(v.get(k))
+            if d and d >= hoy:
+                fechas.append(d)
+    return fechas
+
+
+def _clasificar_tareas(
+    entradas: list[dict], hoy: datetime
+) -> tuple[list[dict], list[dict], list[dict]]:
+    """Reparte las entradas con vigencia futura en buckets ≤30, 31–60, 61+ días."""
+    b30: list[dict] = []
+    b60: list[dict] = []
+    b90: list[dict] = []
+    for e in entradas:
+        fechas = _fechas_futuras(e, hoy)
+        if not fechas:
+            continue
+        prox = min(fechas)
+        dias = (prox - hoy).days
+        item = dict(e)
+        item["_fecha_aplicacion"] = prox.strftime("%Y-%m-%d")
+        item["_dias_restantes"] = dias
+        if dias <= 30:
+            b30.append(item)
+        elif dias <= 60:
+            b60.append(item)
+        else:
+            b90.append(item)
+    for b in (b30, b60, b90):
+        b.sort(key=lambda x: x["_fecha_aplicacion"])
+    return b30, b60, b90
+
+
 def _agrupar_por_norma(entradas: list[dict]) -> dict[str, list[dict]]:
     grupos: dict[str, list[dict]] = {}
     for e in entradas:
@@ -138,22 +185,20 @@ def generar_html() -> None:
     diferenciales = _cargar_diferenciales()
     entradas = _flatten_entradas(diferenciales)
 
-    novedades: list[dict] = []
-    fecha_novedades: str | None = None
-    for d in diferenciales:
-        if d.get("new_entries"):
-            novedades = d["new_entries"]
-            fecha_novedades = d.get("date")
-            break
+    hoy = datetime.now(timezone.utc).replace(tzinfo=None, hour=0, minute=0, second=0, microsecond=0)
+    b30, b60, b90 = _clasificar_tareas(entradas, hoy)
 
     ultima_actualizacion = (
         diferenciales[0].get("generated_at", "")[:10] if diferenciales else _hoy_iso()
     )
 
     grupos = _agrupar_por_norma(entradas)
-    html_doc = _render(entradas, novedades, fecha_novedades, grupos, ultima_actualizacion)
+    html_doc = _render(entradas, (b30, b60, b90), grupos, hoy, ultima_actualizacion)
     OUTPUT.write_text(html_doc, encoding="utf-8")
-    logger.info("Dashboard generado: %s (%d entradas)", OUTPUT, len(entradas))
+    logger.info(
+        "Dashboard generado: %s (%d entradas · cuadro de mando: %d/%d/%d)",
+        OUTPUT, len(entradas), len(b30), len(b60), len(b90),
+    )
 
 
 def _hoy_iso() -> str:
@@ -164,20 +209,20 @@ def _hoy_iso() -> str:
 
 def _render(
     entradas: list[dict],
-    novedades: list[dict],
-    fecha_novedades: str | None,
+    buckets: tuple[list[dict], list[dict], list[dict]],
     grupos: dict[str, list[dict]],
+    hoy: datetime,
     ultima_actualizacion: str,
 ) -> str:
-    banner = _render_banner(novedades, fecha_novedades) if novedades else ""
+    cuadro_html = _render_cuadro_mando(buckets, hoy)
     stats_html = _render_stats(_stats(entradas), len(entradas))
     filtros_html = _render_filtros()
-    tabla_html = _render_tabla(entradas, novedades)
+    tabla_html = _render_tabla(entradas, [])
     timeline_html = _render_timeline(grupos)
 
     return (
         _TEMPLATE
-        .replace("__BANNER__", banner)
+        .replace("__CUADRO__", cuadro_html)
         .replace("__STATS__", stats_html)
         .replace("__FILTROS__", filtros_html)
         .replace("__TABLA__", tabla_html)
@@ -186,17 +231,81 @@ def _render(
     )
 
 
-def _render_banner(novedades: list[dict], fecha: str | None) -> str:
-    n = len(novedades)
-    fecha_txt = html.escape(fecha or _hoy_iso())
-    plural = "es" if n > 1 else ""
-    nuevas = "nuevas" if n > 1 else "nueva"
+def _render_cuadro_mando(
+    buckets: tuple[list[dict], list[dict], list[dict]], hoy: datetime
+) -> str:
+    b30, b60, b90 = buckets
+    fecha_txt = html.escape(hoy.strftime("%Y-%m-%d"))
+    total = len(b30) + len(b60) + len(b90)
+    encabezado = (
+        f'<div id="cm-encabezado">'
+        f'<span><b>{total}</b> tarea{"s" if total != 1 else ""} con vigencia futura</span>'
+        f'<span class="cm-hoy">Calculado al {fecha_txt}</span>'
+        f'</div>'
+    )
+    columnas = (
+        _render_columna_tareas("Próximos 30 días", "col-30", "Acción inmediata", b30)
+        + _render_columna_tareas("Entre 31 y 60 días", "col-60", "Por planificar", b60)
+        + _render_columna_tareas("60 días o más", "col-90", "Mediano plazo", b90)
+    )
+    return f"{encabezado}<div id=\"cuadro-mando\">{columnas}</div>"
+
+
+def _render_columna_tareas(
+    titulo: str, cls: str, subtitulo: str, tareas: list[dict]
+) -> str:
+    if not tareas:
+        cards = '<p class="cm-vacio">Sin tareas en este horizonte.</p>'
+    else:
+        cards = "".join(_render_tarjeta_tarea(t) for t in tareas)
     return (
-        f'<div id="banner">'
-        f'<span class="badge">{n} {nuevas}</span>'
-        f'<span>Diferencial del {fecha_txt}: {n} resolución{plural} {nuevas} en el monitoreo CMF.</span>'
-        f'<a href="#tabla">Ver tabla →</a>'
-        f"</div>"
+        f'<div class="cm-columna {html.escape(cls)}">'
+        f'<header class="cm-cab">'
+        f'<div class="cm-cab-tit"><h3>{html.escape(titulo)}</h3>'
+        f'<span class="cm-count">{len(tareas)}</span></div>'
+        f'<span class="cm-sub">{html.escape(subtitulo)}</span>'
+        f'</header>'
+        f'<div class="cm-tareas">{cards}</div>'
+        f'</div>'
+    )
+
+
+def _render_tarjeta_tarea(t: dict) -> str:
+    fecha_apl = t.get("_fecha_aplicacion", "—")
+    dias = t.get("_dias_restantes", 0)
+    dias_txt = "hoy" if dias == 0 else f'en {dias} día{"s" if dias != 1 else ""}'
+    normas = ", ".join(_normas_afectadas(t)) or "—"
+    desc_full = t.get("descripcion_cmf") or ""
+    desc = desc_full[:160] + ("…" if len(desc_full) > 160 else "")
+    archivos = t.get("archivos_afectados") or []
+    archivos_html = ""
+    if archivos:
+        items = "".join(
+            f'<li><span class="chip chip-{html.escape(a.get("accion",""))}">'
+            f'{html.escape(a.get("accion","").upper())}</span> '
+            f'{html.escape(a.get("nombre",""))}</li>'
+            for a in archivos
+        )
+        archivos_html = (
+            f'<div class="cm-archivos-titulo">Archivos afectados</div>'
+            f'<ul class="cm-archivos">{items}</ul>'
+        )
+    url = t.get("url_documento") or ""
+    link = (
+        f'<a class="cm-link" href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
+        if url else ""
+    )
+    tipo = _tipo_tag(t.get("tipo_acuerdo", "Otro"))
+    return (
+        f'<article class="cm-tarea">'
+        f'<header class="cm-fecha"><b>{html.escape(fecha_apl)}</b> '
+        f'<span class="cm-dias">· {dias_txt}</span></header>'
+        f'<div class="cm-meta">{tipo}'
+        f'<span class="cm-norma">{html.escape(normas)}</span></div>'
+        f'<p class="cm-desc">{html.escape(desc)}</p>'
+        f'{archivos_html}'
+        f'{link}'
+        f'</article>'
     )
 
 
@@ -424,12 +533,6 @@ _TEMPLATE = """<!DOCTYPE html>
            font-size: 14px; color: #222; background: #f7f8fa; }
     a { color: #1a56db; }
 
-    #banner { background: #1a56db; color: #fff; padding: 14px 24px;
-              display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    #banner .badge { background: #fff; color: #1a56db; font-weight: 700;
-                     border-radius: 999px; padding: 2px 10px; font-size: 13px; }
-    #banner a { color: #bfdbfe; text-decoration: underline; white-space: nowrap; }
-
     header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 24px; }
     header h1 { font-size: 22px; font-weight: 700; color: #111; }
     header p { color: #6b7280; margin-top: 4px; font-size: 13px; }
@@ -440,6 +543,59 @@ _TEMPLATE = """<!DOCTYPE html>
     section h2 { font-size: 15px; font-weight: 600; padding: 14px 18px;
                  border-bottom: 1px solid #e5e7eb; background: #f9fafb;
                  display: flex; align-items: center; justify-content: space-between; }
+
+    /* Tabs */
+    #tabs { display: flex; gap: 4px; border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px; }
+    .tab { background: transparent; border: none; padding: 10px 18px;
+           font-size: 14px; font-weight: 500; color: #6b7280; cursor: pointer;
+           border-bottom: 3px solid transparent; }
+    .tab:hover { color: #111; }
+    .tab.activo { color: #1a56db; border-bottom-color: #1a56db; font-weight: 600; }
+    .tab-panel { animation: fadeIn 0.15s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Cuadro de mando */
+    #cm-encabezado { display: flex; justify-content: space-between; align-items: center;
+                     padding: 12px 4px 16px; font-size: 13px; color: #4b5563; }
+    #cm-encabezado b { color: #111; font-size: 16px; }
+    .cm-hoy { color: #6b7280; font-size: 12px; }
+    #cuadro-mando { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .cm-columna { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+                  display: flex; flex-direction: column; overflow: hidden; }
+    .cm-cab { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
+    .cm-cab-tit { display: flex; justify-content: space-between; align-items: center; }
+    .cm-cab h3 { font-size: 14px; font-weight: 700; color: #111; }
+    .cm-sub { font-size: 11px; color: #6b7280; text-transform: uppercase;
+              letter-spacing: 0.04em; }
+    .cm-count { background: #fff; border: 1px solid #e5e7eb; border-radius: 999px;
+                padding: 1px 10px; font-size: 12px; font-weight: 700; color: #374151; }
+    .col-30 .cm-cab { background: #fef2f2; border-color: #fecaca; }
+    .col-30 .cm-cab h3 { color: #991b1b; }
+    .col-60 .cm-cab { background: #fffbeb; border-color: #fde68a; }
+    .col-60 .cm-cab h3 { color: #92400e; }
+    .col-90 .cm-cab { background: #eff6ff; border-color: #bfdbfe; }
+    .col-90 .cm-cab h3 { color: #1e40af; }
+    .cm-tareas { padding: 12px; display: flex; flex-direction: column; gap: 10px;
+                 max-height: 70vh; overflow-y: auto; }
+    .cm-tarea { border: 1px solid #e5e7eb; border-radius: 6px; padding: 10px 12px;
+                background: #fafbfc; }
+    .cm-tarea:hover { background: #fff; border-color: #d1d5db; }
+    .cm-fecha { font-size: 12px; color: #1a56db; margin-bottom: 6px; }
+    .cm-fecha b { color: #111; font-weight: 700; }
+    .cm-dias { color: #6b7280; }
+    .cm-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+               margin-bottom: 6px; }
+    .cm-norma { color: #1a56db; font-weight: 500; font-size: 12px; }
+    .cm-desc { font-size: 12px; color: #374151; line-height: 1.45; }
+    .cm-archivos-titulo { font-size: 11px; font-weight: 700; text-transform: uppercase;
+                          letter-spacing: 0.04em; color: #6b7280; margin: 8px 0 4px; }
+    .cm-archivos { font-size: 11px; padding-left: 0; list-style: none;
+                   display: flex; flex-direction: column; gap: 3px; }
+    .cm-archivos .chip { margin-right: 4px; }
+    .cm-link { display: inline-block; margin-top: 8px; font-size: 12px; }
+    .cm-vacio { padding: 24px 12px; color: #9ca3af; text-align: center;
+                font-style: italic; font-size: 12px; }
 
     #stats { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 18px;
              border-bottom: 1px solid #e5e7eb; background: #fbfcfd; }
@@ -516,6 +672,9 @@ _TEMPLATE = """<!DOCTYPE html>
     footer { text-align: center; color: #9ca3af; font-size: 12px;
              padding: 20px; margin-top: 8px; }
 
+    @media (max-width: 900px) {
+      #cuadro-mando { grid-template-columns: 1fr; }
+    }
     @media (max-width: 800px) {
       .detalle { grid-template-columns: 1fr; }
       .td-vig, .td-link { display: none; }
@@ -524,8 +683,6 @@ _TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
 
-__BANNER__
-
 <header>
   <h1>Monitoreo Normativo CMF</h1>
   <p>Seguimiento automático diario de resoluciones normativas de la Comisión para el Mercado Financiero de Chile.</p>
@@ -533,35 +690,48 @@ __BANNER__
 
 <main>
 
-  <section>
-    <h2>Resumen</h2>
-    __STATS__
-  </section>
+  <nav id="tabs">
+    <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Cuadro de mando</button>
+    <button class="tab" data-tab="listado" onclick="setTab(this)">Listado completo</button>
+  </nav>
 
-  <section id="tabla">
-    <h2>Resoluciones normativas <span style="font-size:11px;color:#9ca3af;font-weight:400">click en una fila para ver detalle</span></h2>
-    __FILTROS__
-    <table id="tabla-resoluciones">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>N° Resolución</th>
-          <th>Tipo de Acuerdo</th>
-          <th>Norma(s) afectada(s)</th>
-          <th>Vigencia</th>
-          <th>Documento</th>
-        </tr>
-      </thead>
-      <tbody>
-        __TABLA__
-      </tbody>
-    </table>
-  </section>
+  <div class="tab-panel" data-panel="cuadro">
+    __CUADRO__
+  </div>
 
-  <section>
-    <h2>Línea de tiempo por NCG</h2>
-    __TIMELINE__
-  </section>
+  <div class="tab-panel" data-panel="listado" style="display:none">
+
+    <section>
+      <h2>Resumen</h2>
+      __STATS__
+    </section>
+
+    <section id="tabla">
+      <h2>Resoluciones normativas <span style="font-size:11px;color:#9ca3af;font-weight:400">click en una fila para ver detalle</span></h2>
+      __FILTROS__
+      <table id="tabla-resoluciones">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>N° Resolución</th>
+            <th>Tipo de Acuerdo</th>
+            <th>Norma(s) afectada(s)</th>
+            <th>Vigencia</th>
+            <th>Documento</th>
+          </tr>
+        </thead>
+        <tbody>
+          __TABLA__
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Línea de tiempo por NCG</h2>
+      __TIMELINE__
+    </section>
+
+  </div>
 
 </main>
 
@@ -572,6 +742,15 @@ __BANNER__
 </footer>
 
 <script>
+  function setTab(btn) {
+    document.querySelectorAll('#tabs .tab').forEach(b => b.classList.remove('activo'));
+    btn.classList.add('activo');
+    const target = btn.dataset.tab;
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.style.display = p.dataset.panel === target ? '' : 'none';
+    });
+  }
+
   function toggleDetail(row) {
     const next = row.nextElementSibling;
     if (!next || !next.classList.contains('detail-row')) return;
