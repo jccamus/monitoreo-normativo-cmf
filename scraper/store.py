@@ -53,7 +53,7 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
         modifica = parsed.get("modifica", [])
         # Fallback: extraer norma afectada desde descripcion_cmf cuando el PDF no la detecta
         if not modifica:
-            modifica = _modifica_desde_descripcion(raw.get("descripcion_cmf", ""))
+            modifica = _modifica_desde_descripcion(raw.get("descripcion", ""))
         entrada["modifica"] = modifica
         entrada["vigencia"] = parsed.get("vigencia", {})
         entrada["ran_referencias"] = parsed.get("ran_referencias", [])
