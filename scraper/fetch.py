@@ -1,6 +1,7 @@
 import time
 import random
 import logging
+import re
 import sys
 import requests
 from bs4 import BeautifulSoup
@@ -227,14 +228,18 @@ def _fecha_y_numero_desde_url(url: str) -> tuple[str | None, str | None]:
     Ejemplos:
       ncg_564_2026.pdf  → ('2026-01-01', '564')
       cir_2370_2026.pdf → ('2026-01-01', '2370')
+
+    El año se restringe al rango 20XX. Así un número de circular o documento
+    (ej. cir_2370.pdf) no se confunde con un año al aplicar el fallback. Si no
+    hay año plausible retorna (None, None); la fecha exacta la aporta luego el
+    parser del PDF.
     """
-    import re
-    m = re.search(r'[/_](\d+)[/_](\d{4})\.pdf', url, re.IGNORECASE)
+    m = re.search(r'[/_](\d+)[/_](20\d{2})\.pdf', url, re.IGNORECASE)
     if m:
         numero, year = m.group(1), m.group(2)
         return f"{year}-01-01", numero  # día exacto vendrá del PDF
-    # Fallback: solo el año
-    m2 = re.search(r'(\d{4})\.pdf', url, re.IGNORECASE)
+    # Fallback: solo el año (20XX)
+    m2 = re.search(r'(20\d{2})\.pdf', url, re.IGNORECASE)
     if m2:
         return f"{m2.group(1)}-01-01", None
     return None, None
@@ -269,13 +274,11 @@ def _filtrar_desde(resoluciones: list[dict], from_date: str) -> list[dict]:
 
 
 def _es_fecha(texto: str) -> bool:
-    import re
     return bool(re.match(r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}", texto.strip()))
 
 
 def _normalizar_fecha(texto: str) -> str:
     """Convierte fecha dd/mm/aaaa o dd-mm-aaaa a formato ISO YYYY-MM-DD."""
-    import re
     m = re.search(r"(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})", texto)
     if not m:
         return texto
@@ -286,18 +289,15 @@ def _normalizar_fecha(texto: str) -> str:
 
 
 def _es_numero_resolucion(texto: str) -> bool:
-    import re
     return bool(re.match(r"^[\d.]+$", texto.strip()))
 
 
 def _extraer_numero(texto: str) -> str | None:
-    import re
     m = re.search(r"(\d+)", texto)
     return m.group(1) if m else None
 
 
 def _extraer_numero_de_texto(texto: str) -> str | None:
-    import re
     m = re.search(r"N°\s*(\d+)", texto)
     return m.group(1) if m else None
 

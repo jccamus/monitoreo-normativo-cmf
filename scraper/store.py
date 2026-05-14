@@ -102,7 +102,20 @@ def guardar_diferencial(nuevas: list[dict], fecha: str | None = None) -> Path:
             with open(path, encoding="utf-8") as f:
                 previas = json.load(f).get("new_entries", []) or []
         except (json.JSONDecodeError, OSError) as e:
-            logger.warning("No se pudo leer %s para merge, se sobrescribe: %s", path, e)
+            # No perder datos: respaldar el archivo corrupto antes de
+            # sobrescribirlo. El sufijo deja de terminar en .json para que
+            # dashboard.py (glob "*.json") no intente parsear el respaldo.
+            backup = path.with_name(
+                f"{path.name}.corrupt-{datetime.now(timezone.utc):%Y%m%dT%H%M%SZ}"
+            )
+            try:
+                path.rename(backup)
+                logger.warning(
+                    "No se pudo leer %s para merge (%s); respaldado en %s",
+                    path, e, backup.name,
+                )
+            except OSError as e2:
+                logger.error("No se pudo respaldar %s corrupto: %s", path, e2)
 
     por_clave: dict[str, dict] = {e.get("clave", ""): e for e in previas if e.get("clave")}
     for e in nuevas:
