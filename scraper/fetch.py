@@ -115,6 +115,16 @@ def fetch_listado(from_date: str | None = None) -> list[dict]:
         sys.exit(1)
 
     resoluciones = _parse_listado(response.text)
+    if not resoluciones:
+        # El GET fue 200 pero no se extrajo ninguna fila: la estructura HTML
+        # de la CMF cambió. Fallar ruidosamente (exit 1 → build rojo) en vez
+        # de devolver [] y que main.py lo reporte como un falso "sin novedades".
+        logger.error(
+            "El listado CMF respondió correctamente pero no se extrajo "
+            "ninguna resolución — posible cambio en el HTML de la CMF. Abortando."
+        )
+        sys.exit(1)
+
     relevantes = _filtrar(resoluciones)
     if from_date:
         relevantes = _filtrar_desde(relevantes, from_date)

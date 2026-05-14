@@ -25,7 +25,6 @@ _ACCION      = re.compile(
     re.IGNORECASE,
 )
 _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+", re.MULTILINE)
-_VIGENCIA    = re.compile(r"VIGENCIA", re.IGNORECASE)
 _FECHA_SPAN  = re.compile(
     r"(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
     r"septiembre|octubre|noviembre|diciembre)\s+de\s+(\d{4})",
@@ -47,9 +46,9 @@ _ARCHIVO_ELIM    = re.compile(r"(?:elimina|deroga|suprime)\s+(?:el\s+)?(?:formul
 
 # ── Resumen accionable: bloque REF + bullets de cambios ─────────────────────
 _REF_BLOCK = re.compile(r"REF\s*:\s*(.+?)(?:\n\s*_{3,}|\n\s*\n)", re.DOTALL | re.IGNORECASE)
-# VIGENCIA como encabezado standalone (mayúsculas, en su propia línea) — distinto
-# del _VIGENCIA case-insensitive de arriba (que captura también la palabra dentro
-# del cuerpo y por eso no sirve como delimitador del cuerpo accionable).
+# VIGENCIA como encabezado standalone (mayúsculas, en su propia línea). Se usa
+# como delimitador del cuerpo: exigir que esté sola en su línea evita truncar el
+# texto al toparse con la palabra "vigencia" dentro de un párrafo del cuerpo.
 _VIGENCIA_HEADING = re.compile(r"\n\s*VIGENCIA\s*\n")
 _VERBOS_ACCION = (
     r"(?:Reempl[áa]cese|Agr[ée]guese|Agr[ée]gase|Intercálase|Elim[íi]nese|"
@@ -222,8 +221,11 @@ def _parse_modificaciones(text: str) -> list[dict]:
     # Dividir por secciones romanas
     secciones_pos = [(m.start(), m.group(1)) for m in _SECCION_ROM.finditer(text)]
 
-    # Encontrar sección VIGENCIA para delimitar el cuerpo
-    vigencia_pos = _VIGENCIA.search(text)
+    # Encontrar la sección VIGENCIA (encabezado standalone) para delimitar el
+    # cuerpo. Se usa _VIGENCIA_HEADING y no un match laxo de la palabra: este
+    # último captura "vigencia" en cualquier párrafo del cuerpo y truncaría el
+    # texto antes de tiempo, perdiendo modificaciones reales.
+    vigencia_pos = _VIGENCIA_HEADING.search(text)
     cuerpo_fin = vigencia_pos.start() if vigencia_pos else len(text)
 
     if secciones_pos:
