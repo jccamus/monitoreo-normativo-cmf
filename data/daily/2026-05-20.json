@@ -1,0 +1,82 @@
+{
+  "date": "2026-05-20",
+  "generated_at": "2026-05-20T13:33:14.601865+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0566",
+      "fecha": "2026-05-18",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "566",
+        "fecha": "2026-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 493,
+        "fecha": "2026-04-23"
+      },
+      "ncg": 566,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA EL COMPENDIO NORMATIVO DE EMPRESAS DE AUDITORÍA EXTERNA Y NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°30 DE 1989.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_566_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°30",
+          "numero_norma": 30,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    },
+    {
+      "clave": "2026_0565",
+      "fecha": "2026-05-18",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "565",
+        "fecha": "2026-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 493,
+        "fecha": "2026-04-23"
+      },
+      "ncg": 565,
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA EL COMPENDIO NORMATIVO DE EMPRESAS DE AUDITORÍA EXTERNA Y NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°30 DE 1989.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_565_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°30",
+          "numero_norma": 30,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [
+        "19-2"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    }
+  ]
+}
