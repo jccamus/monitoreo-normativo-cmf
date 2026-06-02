@@ -1,0 +1,43 @@
+{
+  "date": "2026-06-02",
+  "generated_at": "2026-06-02T14:44:45.341166+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0568",
+      "fecha": "2026-06-01",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "568",
+        "fecha": "2026-01-01"
+      },
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 498,
+        "fecha": "2026-05-28"
+      },
+      "ncg": 568,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO PARA LA COMISION PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA QUE MODIFICA N.C.G. N°538.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_568_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°538",
+          "numero_norma": 538,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2026-06-01"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
+    }
+  ]
+}
