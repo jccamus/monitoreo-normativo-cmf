@@ -1,0 +1,21 @@
+{
+  "date": "2026-07-16",
+  "generated_at": "2026-07-16T12:15:06.463329+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_2373",
+      "fecha": "2026-01-01",
+      "resolucion": {
+        "tipo": "Exenta",
+        "numero": "2373",
+        "fecha": "2026-01-01"
+      },
+      "sesion": null,
+      "ncg": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE INTRODUCE EL NUEVO CAPÍTULO 21-10 A LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS, SOBRE LOS REQUISITOS Y CONDICIONES MÍNIMAS QUE DEBEN CUMPLIR LAS GARANTÍAS PARA SER ACEPTADAS Y UTILIZADAS COMO MITIGADORES DE RIESGO DE CRÉDITO; E INCORPORA MODIFICACIONES A LOS CAPÍTULOS 1-13 Y 12-3 DE LA MISMA RECOPILACIÓN, CAPÍTULO B-1 DEL COMPENDIO DE NORMAS CONTABLES PARA BANCOS, Y EL SISTEMA CONTABLE, DE DEUDORES Y TABLAS DEL MANUAL DE SISTEMAS DE INFORMACION DE BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2373_2026.pdf",
+      "parsed": false
+    }
+  ]
+}
