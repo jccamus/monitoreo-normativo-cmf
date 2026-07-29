@@ -19,8 +19,17 @@
       "modifica": [],
       "vigencia": {
         "inicio": "2028-01-01",
-        "precision": "dia",
-        "fuente": "clausula_aplicacion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Los lineamientos establecidos en la presente Circular entrarán en vigencia a contar del 1 de enero de 2028",
+            "inicio": "2028-01-01"
+          },
+          {
+            "texto": "los ajustes estipulados en el Capítulo 1-13 de la RAN, los cuales tienen vigencia inmediata",
+            "inicio": "inmediata"
+          }
+        ]
       },
       "ran_referencias": [
         "1-13",

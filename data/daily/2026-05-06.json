@@ -770,7 +770,17 @@
       ],
       "vigencia": {
         "inicio": "2027-03-01",
-        "fuente": "seccion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La presente norma de carácter general entra en vigor a contar del 1 de marzo de 2027",
+            "inicio": "2027-03-01"
+          },
+          {
+            "texto": "el numeral II de esta norma que entra en vigor el 1 de julio de 2027",
+            "inicio": "2027-07-01"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -957,9 +967,9 @@
           "numero_norma": 243,
           "seccion_romana": null,
           "acciones": [
+            "Agréguese",
             "Modifíquese",
             "Elimínese",
-            "Agréguese",
             "Reemplácese"
           ],
           "vigencia": {
@@ -1426,9 +1436,9 @@
           "numero_norma": 426,
           "seccion_romana": "I",
           "acciones": [
+            "Agréguese",
             "Modifíquese",
-            "Elimínese",
-            "Agréguese"
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1483,8 +1493,21 @@
       ],
       "vigencia": {
         "inicio": "2024-09-30",
-        "precision": "dia",
-        "fuente": "clausula_aplicacion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Las tablas M-2016 deberán ser utilizadas para todas las pólizas que se emitan a partir del 1 de octubre de 2024, salvo en aquellas compañías que tienen aprobadas tablas propias. Por su parte, respecto al stock de pólizas vigentes al 30 de septiembre de 2024, las nuevas tablas M-2016 deberán ser aplicadas a partir de los estados financieros de septiembre de 2024, siguiendo la aplicación gradual de…",
+            "inicio": "2024-10-01"
+          },
+          {
+            "texto": "Las compañías podrán optar, solo en el caso de una disminución de reserva por la aplicación de las tablas TM-2016, por reconocer este efecto de una sola vez al final de los 2 años, es decir, el 30 de junio de 2026, de acuerdo a lo siguiente: Monto a liberar el 30 de junio 2026= (RTMm95t - RTMm-2016) RTMm95t = Reserva matemática, del stock al 30 de junio de 2026, calculada con la tabla m95 a dicha…",
+            "inicio": "2026-06-30"
+          },
+          {
+            "texto": "Las compañías adicionalmente deberán enviar, en conjunto con los estados financieros al 30 de septiembre de 2024, un informe que indique el monto a liberar o constituir, según corresponda, así como los cálculos que sustentan dicho monto.” BERNARDITA PIEDRABUENA KEYMER PRESIDENTA (S) COMISIÓN PARA EL MERCADO FINANCIERO",
+            "inicio": "2024-09-30"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],

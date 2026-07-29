@@ -257,7 +257,7 @@ def _render_plazos(v: dict | None) -> str:
     if not plazos:
         return ""
     items = "".join(
-        f'<li><b>{html.escape(_LABEL_INICIO.get(p.get("inicio"), p.get("inicio") or "—"))}</b>'
+        f'<li><b>{html.escape(_fmt_inicio(p))}</b>'
         f' · {html.escape(p.get("texto") or "")}</li>'
         for p in plazos
     )
@@ -311,6 +311,81 @@ def _fechas_futuras(entrada: dict, hoy: datetime) -> list[datetime]:
     return fechas
 
 
+# Meses hacia atrás que cubre la retrospectiva de la agenda.
+MESES_RETROSPECTIVA = 6
+
+
+def _fuentes_vigencia(entrada: dict) -> list[dict]:
+    """Todos los dicts de vigencia de una entrada: propia, modifica[] y plazos."""
+    fuentes: list[dict] = [entrada.get("vigencia") or {}]
+    fuentes.extend(m.get("vigencia") or {} for m in (entrada.get("modifica") or []))
+    fuentes.extend(p for v in list(fuentes) for p in (v.get("plazos") or []))
+    return fuentes
+
+
+def _fechas_vigencia(entrada: dict) -> list[tuple[datetime, bool]]:
+    """Fechas en que algo de esta entrada entra a regir, con marca de inmediatez.
+
+    Una vigencia "inmediata" no trae fecha propia: rige desde la publicación,
+    así que se fecha con la del documento. Sin esta equivalencia, todo lo que
+    aplica de inmediato —lo más urgente— queda fuera de cualquier vista con eje
+    temporal.
+    """
+    publicacion = _parse_iso(entrada.get("fecha"))
+    fechas: list[tuple[datetime, bool]] = []
+    for v in _fuentes_vigencia(entrada):
+        if v.get("inicio") == "inmediata":
+            if publicacion:
+                fechas.append((publicacion, True))
+            continue
+        for k in ("inicio", "plazo_transicion"):
+            d = _parse_iso(v.get(k))
+            if d:
+                fechas.append((d, False))
+    return fechas
+
+
+def _clasificar_retrospectiva(
+    entradas: list[dict], hoy: datetime, meses: int = MESES_RETROSPECTIVA
+) -> list[tuple[str, list[dict]]]:
+    """Lo que debió implementarse, agrupado por mes, hacia el pasado reciente.
+
+    Devuelve [(clave_mes, items)] del mes más reciente al más antiguo, cubriendo
+    una ventana móvil de `meses` meses. Un documento con dos plazos vencidos en
+    meses distintos aparece en cada uno: son obligaciones separadas. Dentro de
+    un mismo mes se muestra una sola vez.
+    """
+    ancla = (hoy.year * 12 + hoy.month - 1) - (meses - 1)
+    por_mes: dict[str, dict[str, dict]] = {}
+
+    for e in entradas:
+        for fecha, inmediata in _fechas_vigencia(e):
+            if fecha > hoy:
+                continue
+            indice = fecha.year * 12 + fecha.month - 1
+            if indice < ancla:
+                continue
+            mes = f"{fecha.year:04d}-{fecha.month:02d}"
+            slot = por_mes.setdefault(mes, {})
+            clave = e.get("clave") or e.get("url_documento") or ""
+            previo = slot.get(clave)
+            # Ante dos fechas del mismo documento en el mismo mes, la primera.
+            if previo and previo["_fecha_aplicacion"] <= fecha.strftime("%Y-%m-%d"):
+                continue
+            item = dict(e)
+            item["_fecha_aplicacion"] = fecha.strftime("%Y-%m-%d")
+            item["_inmediata"] = inmediata
+            slot[clave] = item
+
+    salida: list[tuple[str, list[dict]]] = []
+    for mes in sorted(por_mes, reverse=True):
+        items = sorted(
+            por_mes[mes].values(), key=lambda x: x["_fecha_aplicacion"], reverse=True
+        )
+        salida.append((mes, items))
+    return salida
+
+
 def _clasificar_tareas(
     entradas: list[dict], hoy: datetime
 ) -> tuple[list[dict], list[dict], list[dict]]:
@@ -362,6 +437,7 @@ def generar_html() -> None:
 
     hoy = datetime.now(timezone.utc).replace(tzinfo=None, hour=0, minute=0, second=0, microsecond=0)
     b30, b60, b90 = _clasificar_tareas(entradas, hoy)
+    retrospectiva = _clasificar_retrospectiva(entradas, hoy)
 
     ultima_actualizacion = (
         diferenciales[0].get("generated_at", "")[:10] if diferenciales else _hoy_iso()
@@ -370,12 +446,14 @@ def generar_html() -> None:
     grupos = _agrupar_por_norma(entradas)
     grupos_cuerpo = _agrupar_por_cuerpo(entradas)
     html_doc = _render(
-        entradas, (b30, b60, b90), grupos, grupos_cuerpo, hoy, ultima_actualizacion,
+        entradas, (b30, b60, b90), retrospectiva, grupos, grupos_cuerpo, hoy,
+        ultima_actualizacion,
     )
     OUTPUT.write_text(html_doc, encoding="utf-8")
     logger.info(
-        "Dashboard generado: %s (%d entradas · agenda: %d/%d/%d)",
+        "Dashboard generado: %s (%d entradas | agenda 30/60/90: %d/%d/%d | retrospectiva: %d en %d meses)",
         OUTPUT, len(entradas), len(b30), len(b60), len(b90),
+        sum(len(i) for _, i in retrospectiva), len(retrospectiva),
     )
 
 
@@ -388,12 +466,13 @@ def _hoy_iso() -> str:
 def _render(
     entradas: list[dict],
     buckets: tuple[list[dict], list[dict], list[dict]],
+    retrospectiva: list[tuple[str, list[dict]]],
     grupos: dict[str, list[dict]],
     grupos_cuerpo: dict[str, list[dict]],
     hoy: datetime,
     ultima_actualizacion: str,
 ) -> str:
-    cuadro_html = _render_cuadro_mando(buckets, hoy)
+    cuadro_html = _render_cuadro_mando(buckets, hoy, retrospectiva)
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
     revision_html = _render_revision_manual(entradas)
     n_revision = sum(1 for e in entradas if _requiere_revision(e))
@@ -537,8 +616,62 @@ def _render_revision_manual(entradas: list[dict]) -> str:
     )
 
 
+def _mes_legible(mes: str) -> str:
+    """'2026-07' -> 'julio de 2026'."""
+    try:
+        return f"{_MESES_ES[int(mes[5:7]) - 1]} de {mes[:4]}"
+    except (ValueError, IndexError):
+        return mes
+
+
+def _render_retrospectiva(meses: list[tuple[str, list[dict]]], hoy: datetime) -> str:
+    """Lo que debió implementarse, un bloque por mes, hacia el pasado reciente."""
+    total = sum(len(items) for _, items in meses)
+    intro = (
+        f'<p class="rt-intro">Cambios cuya vigencia ya empezó, agrupados por el mes '
+        f'en que entraron a regir. Ventana móvil de los últimos '
+        f'{MESES_RETROSPECTIVA} meses.</p>'
+    )
+    if not meses:
+        return (
+            f'<section id="retrospectiva"><h2>Debió implementarse</h2>{intro}'
+            f'<p class="rt-vacio">Ningún cambio entró en vigencia en los últimos '
+            f'{MESES_RETROSPECTIVA} meses.</p></section>'
+        )
+
+    bloques = []
+    for mes, items in meses:
+        filas = "".join(
+            _render_fila_cuerpo(e, fecha=e["_fecha_aplicacion"], inmediata=e.get("_inmediata"))
+            for e in items
+        )
+        actual = " rt-mes-actual" if mes == hoy.strftime("%Y-%m") else ""
+        bloques.append(
+            f'<section class="rt-mes{actual}">'
+            f'<header class="rt-cab"><h3>{html.escape(_mes_legible(mes))}</h3>'
+            f'<span class="rt-count">{len(items)}</span></header>'
+            f'<table class="cr-tabla">'
+            f'<thead><tr>'
+            f'<th class="cr-th-fecha">Fecha</th>'
+            f'<th class="cr-th-doc">Norma</th>'
+            f'<th>Tema</th>'
+            f'<th class="cr-th-cambios">Cambios</th>'
+            f'<th class="cr-th-pdf">PDF</th>'
+            f'</tr></thead><tbody>{filas}</tbody></table>'
+            f'</section>'
+        )
+    return (
+        f'<section id="retrospectiva">'
+        f'<header class="rt-head"><h2>Debió implementarse</h2>'
+        f'<span class="rt-total">{total}</span></header>'
+        f'{intro}{"".join(bloques)}</section>'
+    )
+
+
 def _render_cuadro_mando(
-    buckets: tuple[list[dict], list[dict], list[dict]], hoy: datetime
+    buckets: tuple[list[dict], list[dict], list[dict]],
+    hoy: datetime,
+    retrospectiva: list[tuple[str, list[dict]]],
 ) -> str:
     b30, b60, b90 = buckets
     fecha_txt = html.escape(hoy.strftime("%Y-%m-%d"))
@@ -557,7 +690,10 @@ def _render_cuadro_mando(
     vacias = "".join(_render_columna_tareas(*d) for d in defs if not d[3])
     llenas = "".join(_render_columna_tareas(*d) for d in defs if d[3])
     pila_vacias = f'<div class="cm-pila-vacias">{vacias}</div>' if vacias else ""
-    return f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>'
+    return (
+        f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>'
+        f'{_render_retrospectiva(retrospectiva, hoy)}'
+    )
 
 
 def _render_columna_tareas(
@@ -659,8 +795,22 @@ def _render_grupo_cuerpo(
     )
 
 
-def _render_fila_cuerpo(e: dict) -> str:
-    fecha = e.get("fecha") or "—"
+def _render_fila_cuerpo(
+    e: dict, fecha: str | None = None, inmediata: bool | None = None
+) -> str:
+    """Fila de la tabla Fecha | Norma | Tema | Cambios | PDF.
+
+    `fecha` permite mostrar la de entrada en vigencia en vez de la de
+    publicación: en la retrospectiva de la agenda el eje es cuándo empezó a
+    regir, no cuándo se publicó. `inmediata` marca las que rigen desde su
+    publicación, que no traen fecha propia.
+    """
+    fecha_pub = e.get("fecha") or "—"
+    fecha = fecha or fecha_pub
+    marca = (
+        '<span class="rt-inm" title="Rige desde su publicación">inmediata</span>'
+        if inmediata else ""
+    )
     tema = _resumen_minimo(e)
     bullets = e.get("resumen_acciones") or []
     archivos = e.get("archivos_afectados") or []
@@ -697,7 +847,7 @@ def _render_fila_cuerpo(e: dict) -> str:
 
     return (
         f'<tr class="cr-fila">'
-        f'<td class="cr-td-fecha">{html.escape(str(fecha))}</td>'
+        f'<td class="cr-td-fecha">{html.escape(str(fecha))}{marca}</td>'
         f'<td class="cr-td-doc">{html.escape(_etiqueta_documento(e))}</td>'
         f'<td class="cr-td-tema">{html.escape(tema)}</td>'
         f'<td class="cr-td-cambios">{cambios_cell}</td>'
@@ -709,7 +859,14 @@ def _render_fila_cuerpo(e: dict) -> str:
 def _render_tarjeta_tarea(t: dict) -> str:
     fecha_apl = t.get("_fecha_aplicacion", "—")
     dias = t.get("_dias_restantes", 0)
-    dias_txt = "hoy" if dias == 0 else f'en {dias} día{"s" if dias != 1 else ""}'
+    # Negativo = ya rige, y se lee "hace N días"; positivo = falta.
+    if dias == 0:
+        dias_txt = "hoy"
+    elif dias < 0:
+        n = -dias
+        dias_txt = f'hace {n} día{"s" if n != 1 else ""}'
+    else:
+        dias_txt = f'en {dias} día{"s" if dias != 1 else ""}'
     normas = ", ".join(_normas_afectadas(t)) or "—"
     resumen = _resumen_minimo(t)
     bullets = t.get("resumen_acciones") or []
@@ -762,7 +919,7 @@ def _render_detalle_tarea(
         # Primero: cuando un documento tiene plazos escalonados, saber qué rige
         # cuándo es la pregunta que trae a alguien a esta tarjeta.
         items = "".join(
-            f'<li><b>{html.escape(_LABEL_INICIO.get(p.get("inicio"), p.get("inicio") or "—"))}</b>'
+            f'<li><b>{html.escape(_fmt_inicio(p))}</b>'
             f' · {html.escape(p.get("texto") or "")}</li>'
             for p in plazos
         )
@@ -1187,6 +1344,30 @@ _TEMPLATE = """<!DOCTYPE html>
               letter-spacing: 0.04em; }
     .cm-count { background: #fff; border: 1px solid #e5e7eb; border-radius: 999px;
                 padding: 1px 10px; font-size: 12px; font-weight: 700; color: #374151; }
+    /* Retrospectiva: lo que ya debió implementarse, por mes. Violeta para no
+       mezclarla con la escala rojo→azul de urgencia futura de las columnas. */
+    #retrospectiva { margin-top: 28px; border-top: 1px solid #e5e7eb;
+                     padding-top: 20px; }
+    .rt-head { display: flex; align-items: center; gap: 10px; }
+    #retrospectiva h2 { font-size: 15px; margin: 0; border: none; padding: 0;
+                        color: #5b21b6; }
+    .rt-total { background: #7c3aed; color: #fff; border-radius: 10px;
+                padding: 1px 8px; font-size: 11px; font-weight: 600; }
+    .rt-intro { font-size: 12px; color: #6b7280; margin: 6px 0 14px;
+                max-width: 78ch; line-height: 1.5; }
+    .rt-vacio { font-size: 12px; color: #6b7280; font-style: italic; }
+    .rt-mes { margin-bottom: 16px; border: 1px solid #e5e7eb; border-radius: 8px;
+              overflow: hidden; background: #fff; }
+    .rt-mes-actual { border-color: #ddd6fe; box-shadow: 0 0 0 2px #f5f3ff; }
+    .rt-cab { display: flex; align-items: center; gap: 8px; padding: 9px 14px;
+              background: #faf9fc; border-bottom: 1px solid #e5e7eb; }
+    .rt-cab h3 { margin: 0; font-size: 13px; color: #4c1d95;
+                 text-transform: capitalize; }
+    .rt-count { background: #ede9fe; color: #5b21b6; border-radius: 10px;
+                padding: 0 7px; font-size: 11px; font-weight: 600; }
+    .rt-inm { margin-left: 6px; background: #ede9fe; color: #5b21b6;
+              border-radius: 3px; padding: 0 5px; font-size: 10px;
+              font-weight: 600; }
     .col-30 .cm-cab { background: #fef2f2; border-color: #fecaca; }
     .col-30 .cm-cab h3 { color: #991b1b; }
     .col-60 .cm-cab { background: #fffbeb; border-color: #fde68a; }

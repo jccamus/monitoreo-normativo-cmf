@@ -215,6 +215,28 @@ _VIGENCIA_HEADING = re.compile(
     re.IGNORECASE | re.MULTILINE,
 )
 
+# Algunos documentos no titulan "Vigencia" y ponen la fecha bajo "Disposiciones
+# transitorias" (la circular 2373/2026). Se usa **sólo como respaldo**, porque
+# hay documentos con las dos secciones —la NCG 562/2026 tiene "IV. DISPOSICIONES
+# TRANSITORIAS" y "V. VIGENCIA"— y ahí manda la de vigencia.
+_TRANSITORIAS_HEADING = re.compile(
+    r"^[ \t]*(?:[IVXLC]+|[A-Za-z]|\d{1,2})?[.\-)]?[ \t]*"
+    r"DISPOSICIONES[ \t]+TRANSITORIAS[ \t]*:?[ \t]*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+# Excepción a la regla general de vigencia, redactada en prosa: "…entrarán en
+# vigencia a contar del 1 de enero de 2028, con excepción de los ajustes
+# estipulados en el Capítulo 1-13 de la RAN, los cuales tienen vigencia
+# inmediata". Sin desdoblarla, el documento queda fechado sólo por la regla
+# general y el grupo que rige de inmediato desaparece.
+_EXCEPCION = re.compile(
+    r"[,;]?\s*(?:con\s+excepci[óo]n\s+de|excepto|salvo)\s+", re.IGNORECASE
+)
+# Punto que cierra oración. El lookahead de espacio evita partir los números con
+# separador de miles ("N°2.373").
+_FIN_ORACION = re.compile(r"\.(?=\s|$)")
+
 # Frases con las que la CMF expresa "rige de inmediato". Se comparan en
 # minúsculas contra la sección de vigencia.
 _FRASES_INMEDIATA = (
@@ -374,7 +396,17 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     seccion_vig = _seccion_vigencia(text)
     result["vigencia"] = _parse_vigencia_global(seccion_vig)
     result["vigencia"]["fuente"] = "seccion" if seccion_vig else "ninguna"
+
+    # Primero las viñetas; si no hay, la excepción en prosa.
     plazos = _parse_plazos(seccion_vig) if seccion_vig else []
+    if not plazos and seccion_vig:
+        plazos = _parse_excepciones(seccion_vig)
+        # El `inicio` global lo da la regla general, no el barrido de toda la
+        # sección: `_parse_vigencia_global` evalúa las frases de inmediatez
+        # antes que las fechas, así que una excepción "…tienen vigencia
+        # inmediata" se imponía sobre el 1 de enero de 2028 de la regla.
+        if plazos:
+            result["vigencia"]["inicio"] = plazos[0]["inicio"]
     if plazos:
         result["vigencia"]["plazos"] = plazos
 
@@ -607,7 +639,7 @@ def _seccion_vigencia(text: str) -> str | None:
     `_parse_vigencia_global` invente una fecha. Ver el comentario en
     `_parse_text`.
     """
-    m = _VIGENCIA_HEADING.search(text)
+    m = _VIGENCIA_HEADING.search(text) or _TRANSITORIAS_HEADING.search(text)
     if not m:
         return None
     seccion = text[m.end():]
@@ -648,8 +680,59 @@ def _parse_plazos(seccion_vigencia: str) -> list[dict]:
         texto = _normaliza_frase(segmento, maxlen=400)
         if len(texto) < 20:
             continue
-        plazos.append({"texto": texto, "inicio": _parse_vigencia_global(texto)["inicio"]})
+        plazos.append(_plazo(texto))
     return plazos
+
+
+def _plazo(texto: str) -> dict:
+    """Un tramo de vigencia con su texto, su fecha y la precisión de esa fecha.
+
+    `precision` viaja con el plazo por lo mismo que con la vigencia global: un
+    tramo fijado sólo por mes ("a contar de diciembre de 2025") se normaliza al
+    día 1 y mostrarlo como "2025-12-01" afirmaría una exactitud que el documento
+    no da.
+    """
+    v = _parse_vigencia_global(texto)
+    plazo = {"texto": texto, "inicio": v["inicio"]}
+    if v.get("precision"):
+        plazo["precision"] = v["precision"]
+    return plazo
+
+
+def _parse_excepciones(seccion_vigencia: str) -> list[dict]:
+    """Regla general y su excepción, cuando la vigencia se redacta en prosa.
+
+    La circular 2373/2026 fija el 1 de enero de 2028 "con excepción de los
+    ajustes estipulados en el Capítulo 1-13 de la RAN, los cuales tienen
+    vigencia inmediata": dos grupos con fechas distintas en una sola oración.
+    Sin esto la entrada queda fechada sólo por la regla general y el grupo que
+    rige de inmediato —el accionable hoy— no existe en los datos.
+
+    Devuelve la regla general primero, que es la que da el `inicio` del
+    documento.
+    """
+    m = _EXCEPCION.search(seccion_vigencia)
+    if not m:
+        return []
+
+    # La oración en curso, no la sección entera: si hay párrafos previos, sus
+    # fechas no describen la regla general.
+    previo = seccion_vigencia[:m.start()]
+    cortes = list(_FIN_ORACION.finditer(previo))
+    principal = previo[cortes[-1].end():] if cortes else previo
+
+    resto = seccion_vigencia[m.end():]
+    fin = _FIN_ORACION.search(resto)
+    excepcion = resto[:fin.start()] if fin else resto
+
+    plazos = []
+    for texto in (principal, excepcion):
+        texto = texto.strip()
+        if len(texto) < 15:
+            continue
+        plazos.append(_plazo(_normaliza_frase(texto, maxlen=400)))
+    # Con un solo tramo no hay nada que desdoblar: la vigencia global ya lo dice.
+    return plazos if len(plazos) == 2 else []
 
 
 def _parse_vigencia_global(texto_vigencia: str | None) -> dict:

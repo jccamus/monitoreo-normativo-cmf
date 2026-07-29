@@ -867,11 +867,13 @@
         "plazos": [
           {
             "texto": "Los números 10, 11, 12 y 13 de esta Circular se aplicarán en los reportes que son requeridos informar a contar de diciembre de 2025, con la situación de noviembre del mismo año",
-            "inicio": "2025-12-01"
+            "inicio": "2025-12-01",
+            "precision": "mes"
           },
           {
             "texto": "El resto de los números no señalados previamente, a partir del proceso de revisión del IAPE que se entregará en abril de 2027",
-            "inicio": "2027-04-01"
+            "inicio": "2027-04-01",
+            "precision": "mes"
           }
         ]
       },
@@ -1276,7 +1278,17 @@
       ],
       "vigencia": {
         "inicio": "2025-07-01",
-        "fuente": "seccion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Las instrucciones establecidas en la presente Norma de Carácter General rigen a contar del 1 de julio de 2025",
+            "inicio": "2025-07-01"
+          },
+          {
+            "texto": "los párrafos 2 y 3 de la sección V.3 y el párrafo 1 de la sección VI que entrarán en vigencia a partir del 1 de julio de 2027",
+            "inicio": "2027-07-01"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1354,8 +1366,19 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata",
-        "fuente": "seccion"
+        "inicio": "2026-01-01",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La presente norma de carácter general entra en vigencia a contar del 1° enero de 2026",
+            "inicio": "2026-01-01",
+            "precision": "mes"
+          },
+          {
+            "texto": "la sección III, que entrará en vigor el 1 de julio de 2027 VI",
+            "inicio": "2027-07-01"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3877,7 +3900,17 @@
       "modifica": [],
       "vigencia": {
         "inicio": "ver texto",
-        "fuente": "seccion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Las presentes instrucciones también serán aplicables a las solicitudes de inscripción ingresadas con anterioridad a la presente fecha y cuyo proceso no se encuentre finalizado",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "que el solicitante manifieste lo contrario de manera expresa y por escrito",
+            "inicio": "ver texto"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
