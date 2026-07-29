@@ -8,14 +8,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2371",
-        "fecha": "2026-01-01"
+        "fecha": "2026-06-15"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2371
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE POSTERGA LA VIGENCIA DE LA CIRCULAR N°2.364 PARA BANCOS DE 19 DE JUNIO DE 2025, MODIFICÁNDOLA AL EFECTO, EXCLUYE LA PUBLICACIÓN DEL INFORME NORMATIVO Y EXIME DEL TRÁMITE DE CONSULTA PÚBLICA POR RESULTAR INNECESARIO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2371_2026.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-06-15"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica la Circular N°2.364 para bancos",
+      "resumen_acciones": []
     }
   ]
 }

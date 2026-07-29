@@ -8,14 +8,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1407",
-        "fecha": "2026-01-01"
+        "fecha": "2026-02-27"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1407
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES AL CAPÍTULO C-3 DEL COMPENDIO DE NORMAS CONTABLES PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1407_2026.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-02-27"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes al Capítulo C-3 del Compendio de Normas Contables para Bancos",
+      "resumen_acciones": []
     },
     {
       "clave": "2026_2369",
@@ -23,7 +36,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2369",
-        "fecha": "2026-01-01"
+        "fecha": "2026-02-09"
       },
       "sesion": {
         "tipo": "Extraordinaria",
@@ -31,10 +44,44 @@
         "fecha": "2026-02-09"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2369
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE CIRCULAR QUE MODIFICA CIRCULAR N°1459, QUE IMPARTE NORMAS SOBRE CERTIFICADO SEGURO OBLIGATORIO LEY Nº18.490 y CIRCULAR N°2121, QUE IMPARTE NORMAS SOBRE EL SEGURO OBLIGATORIO DE ACCIDENTES PERSONALES CAUSADOS POR VEHÍCULOS MOTORIZADOS CON MATRÍCULA EXTRANJERA DEL ARTÍCULO 60 DE LA LEY Nº18.290, Y ESTABLECE FORMATO Y CONTENIDO DEL CERTIFICADO DEL SEGURO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2369_2026.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1459",
+          "numero_norma": 1459,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°2121",
+          "numero_norma": 2121,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2026_0559",
@@ -69,14 +116,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2368",
-        "fecha": "2026-01-01"
+        "fecha": "2026-01-30"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2368
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA LA NORMATIVA QUE INDICA, SOBRE PREVENCIÓN DEL LAVADO DE ACTIVOS, FINANCIAMIENTO AL TERRORISMO Y LA NO PROLIFERACIÓN DE ARMAS DE DESTRUCCIÓN MASIVA APLICABLE A BANCOS, COOPERATIVAS Y EMISORES DE TARJETAS DE PAGO NO BANCARIAS EN CONCORDANCIA CON LA CIRCULAR N° 62 DE LA UNIDAD DE ANÁLISIS FINANCIERO, QUE SISTEMATIZA Y ACTUALIZA INSTRUCCIONES A LOS SUJETOS OBLIGADOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2368_2026.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-01-30"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Actualiza normativa sobre prevención del lavado de activos, financiamiento del terrorismo y la proliferación de armas de destrucción masiva aplicable a bancos, cooperativas y emisores de tarjetas de pago, en concordancia con la Circular N° 62 de la Unidad de Análisis Financiero",
+      "resumen_acciones": []
     },
     {
       "clave": "2026_1403",
@@ -110,10 +170,18 @@
       },
       "sesion": null,
       "ncg": null,
+      "documento": null,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LAS TABLAS 74, 75 Y 85 DEL MSI PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1402_2026.pdf",
-      "parsed": false
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_0557",
@@ -469,10 +537,31 @@
       },
       "sesion": null,
       "ncg": null,
+      "documento": null,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA NORMA DE CARÁCTER GENERAL N°538 Y POSTERGA LA VIGENCIA DE ÉSTA COMO INDICA, EXCLUYE LA PUBLICACIÓN DEL INFORME NORMATIVO Y EXIME DEL TRÁMITE DE CONSULTA PÚBLICA POR URGENCIA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_544_2025.pdf",
-      "parsed": false
+      "parsed": false,
+      "modifica": [
+        {
+          "norma": "NCG N°538",
+          "numero_norma": 538,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "ver texto"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_1377",
@@ -484,10 +573,18 @@
       },
       "sesion": null,
       "ncg": null,
+      "documento": null,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LOS REQUERIMIENTOS DE INFORMACIÓN AL FONDO DE GARANTÍAS ESPECIALES Y FONDO DE GARANTÍAS PARA PEQUEÑOS Y MEDIANOS EMPRESARIOS (FOGAPE); AMBOS ADMINISTRADOS POR EL BANCO DEL ESTADO DE CHILE.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1377_2025.pdf",
-      "parsed": false
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_1376",
@@ -495,14 +592,31 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1376",
-        "fecha": "2025-01-01"
+        "fecha": "2025-07-29"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1376
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS AL ARCHIVO C70 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS EN VIRTUD DEL NUEVO PROGRAMA DE GARANTÍAS “APOYO VIVIENDA NUEVA” DEL FONDO DE GARANTÍAS ESPECIALES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1376_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-07-29"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "cooperativas y aquellas que le sean aplicables los\nrequerimientos de información establecidos en el Manual de Sistemas de Información de\nbancos; esta Comisión, en virtud de lo establecido en el Capítulo 18-3 de la Recopilación\nActual"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes técnicos al archivo C70 del Manual del Sistema de Información para bancos en virtud del nuevo programa de garantías “Apoyo Vivienda Nueva” del Fondo de Garantías Especiales",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_2366",
@@ -510,14 +624,38 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2366",
-        "fecha": "2025-01-01"
+        "fecha": "2025-07-28"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2366
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA LA VIGENCIA DE LA CIRCULAR N°2.364 DE 19 DE JUNIO DE 2025, E INCLUYE UNA DISPOSICIÓN TRANSITORIA EN LA MISMA, EXCLUYENDO LA EMISIÓN DEL INFORME NORMATIVO Y EL TRÁMITE DE CONSULTA PÚBLICA POR RESULTAR INNECESARIO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2366_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°2",
+          "numero_norma": 2,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2025-07-28"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica la Circular N°2.364 en los términos que indica",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_1375",
@@ -525,14 +663,31 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1375",
-        "fecha": "2025-01-01"
+        "fecha": "2025-07-11"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1375
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LOS ARCHIVOS C70, D62 Y E26 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS EN VIRTUD DE LOS NUEVOS PROGRAMAS DE GARANTÍAS “APOYO VIVIENDA NUEVA” Y “RECUPERACIÓN PRODUCTIVA REGIONAL” DEL FONDO DE GARANTÍAS ESPECIALES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1375_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-07-11"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "cooperativas y aquellas que le sean aplicables los\nrequerimientos de información establecidos en el Manual de Sistemas de Información de\nbancos; esta Comisión, en virtud de lo establecido en el Capítulo 18-3 de la Recopilación\nActual"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes técnicos a los archivos C70, D62 y E26 del Manual del Sistema de Información para bancos en virtud de los nuevos programas de garantías “Apoyo Vivienda Nueva” y “Recuperación Productiva Regional” del Fondo de Garantías Especiales",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_2365",
@@ -540,14 +695,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2365",
-        "fecha": "2025-01-01"
+        "fecha": "2025-07-08"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2365
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE AJUSTA EL CAPÍTULO 21-13 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2365_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-07-08"
+      },
+      "ran_referencias": [
+        "21-13"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Establece ajustes en el Capítulo 21- 13 de la Recopilación Actualizada de Normas",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_2364",
@@ -555,14 +725,30 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2364",
-        "fecha": "2025-01-01"
+        "fecha": "2025-06-26"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2364
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA EL CAPÍTULO 12-12 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS SOBRE PROHIBICIÓN A OTORGAR CRÉDITOS A DIRECTORES, APODERADOS Y PERSONAS RELACIONADAS CON ELLOS; E INTRODUCE OTRAS MODIFICACIONES DE CONCORDANCIA EN EL CAPÍTULO 12-4 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS Y EN OTROS DEL MSI DE BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2364_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-06-26"
+      },
+      "ran_referencias": [
+        "12-12",
+        "12-4"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica Capítulo 12-12 de la Recopilación Actualizada de Normas para bancos sobre prohibición a otorgar créditos a directores, apoderados y personas relacionadas con ellos; e introduce ajustes de concordancia en otras normas",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_1368",
@@ -570,14 +756,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1368",
-        "fecha": "2025-01-01"
+        "fecha": "2025-05-14"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1368
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS AL ARCHIVO C45 DEL SISTEMA CONTABLE DEL MANUAL DEL SISTEMA DE INFORMACIÓN DE BANCOS, RESPECTO DEL CÓDIGO DE INSTITUCIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1368_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-05-14"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes técnicos al archivo C45 del Sistema Contable del Manual del Sistema de Información de bancos, respecto del código de institución",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_2363",
@@ -585,14 +784,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2363",
-        "fecha": "2025-01-01"
+        "fecha": "2025-05-07"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2363
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA EL CAPÍTULO 8-1 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2363_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-05-07"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Ajusta el Capítulo 8-1 de la Recopilación Actualizada de Normas para bancos sobre requerimientos de apertura de línea de crédito",
+      "resumen_acciones": []
     },
     {
       "clave": "2025_0534",
@@ -659,7 +871,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2362",
-        "fecha": "2025-01-01"
+        "fecha": "2025-03-06"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -667,10 +879,49 @@
         "fecha": "2025-03-06"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2362
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EXIME DE TRAMITES DEL NÚMERO 3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 Y APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA LA CIRCULAR N°1.696 DE 2003",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2362_2025.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°1",
+          "numero_norma": 1,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA CIRCULAR N°1.696 EN LOS TERMINOS QUE INDICA",
+      "resumen_acciones": [
+        "Elimínese en el número 1 de la sección I la frase: “Lo anterior se hará según el formato establecido en el Anexo A.”",
+        "Elimínese en el número 2 de la sección I la frase: “se hará según el formato establecido en el Anexo B y”",
+        "Intercálase entre el punto seguido y la expresión “estados financieros” de la sección II, la expresión “y siguiendo las instrucciones contenidas en la ficha técnica disponible en…",
+        "Elimínese el anexo A y el anexo B"
+      ]
     },
     {
       "clave": "2025_0533",
@@ -893,14 +1144,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1351",
-        "fecha": "2024-01-01"
+        "fecha": "2024-12-19"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1351
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS AL ARCHIVO C30 DEL SISTEMA CONTABLE DEL MSI, RESPECTO DEL TIPO DE CAMBIO, AL ARCHIVO P36 DEL SISTEMA DE PRODUCTOS DEL MISMO MANUAL, AL CAPITULO C-3 DEL COMPENDIO DE NORMAS CONTABLES PARA BANCOS, Y A LA CARATULA DE CUADRATURA DEL ARCHIVO D10 DEL SISTEMA DE DEUDORES DEL MENCIONADO MANUAL.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1351_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-12-19"
+      },
+      "ran_referencias": [
+        "9-1"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes técnicos al archivo C30 del Sistema Contable del MSI, respecto del tipo de cambio, al archivo P36 del Sistema de Productos del mismo manual, al Capítulo C-3 del Compendio de Normas Contables para bancos, y a la carátula de cuadratura del archivo D10 del Sistema de Deudores del mencionado manual",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0523",
@@ -1040,14 +1306,34 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2359",
-        "fecha": "2024-01-01"
+        "fecha": "2024-10-11"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2359
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA\nCOMISIÓN PARA EL MERCADO FINANCIERO\nQUE APRUEBA LA CIRCULAR QUE\nESTABLECE MODIFICACIONES A LOS\nARCHIVOS C11, C12 Y C13, LA SECCIÓN DE\nANTECEDENTES GENERALES Y A LA TABLA\n34 DEL MANUAL DE SISTEMAS DE\nINFORMACIÓN DE BANCOS; PARA\nREPORTAR EL CÓMPUTO DE PROVISIONES\nDE LAS COLOCACIONES DE CONSUMO\nSEGÚN EL MÉTODO ESTÁNDAR.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2359_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-10-11"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "raciones de leasing de la misma cartera. Por otro, los archivos\nnormativos del Sistema Contable del Manual de Sistemas de Información de bancos (MSI)\npermiten a esta Comisión conocer en detalle el cómputo de provisiones que realizan"
+        },
+        {
+          "contexto": "se realizan las siguientes modificaciones a los archivos y\ntablas que a continuación se señalan del Manual de Sistemas de Información de bancos:\n1) En la tabla 34 “Créditos de consumo y de vivienda” del Sistema Tablas del MSI se\nagre"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Modifica los archivos C11, C12 y C13, la Sección de Antecedentes Generales y la tabla 34 del Manual de Sistemas de Información de bancos; para informar el cómputo de provisiones de las colocaciones de consumo según el método estándar",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_2358",
@@ -1055,7 +1341,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2358",
-        "fecha": "2024-01-01"
+        "fecha": "2024-10-11"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -1063,10 +1349,23 @@
         "fecha": "2024-09-13"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2358
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE EL ESTADO DE COLOCACIONES Y BONOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2358_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-10-11"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE EL ESTADO DE COLOCACIONES Y BONOS",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_1341",
@@ -1074,14 +1373,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1341",
-        "fecha": "2024-01-01"
+        "fecha": "2024-10-02"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1341
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LOS REQUERIMIENTOS DE INFORMACIÓN A FOGAPE Y FOGAES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1341_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-10-02"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes técnicos a los requerimientos de información al Fondo de Garantías Especiales y Fondo de Garantías para Pequeños y Medianos Empresarios (FOGAPE); ambos administrados por el Banco del Estado de Chile",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_1336",
@@ -1158,7 +1470,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2356",
-        "fecha": "2024-01-01"
+        "fecha": "2024-08-26"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -1166,10 +1478,41 @@
         "fecha": "2024-08-22"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2356
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA CIRCULAR N°1.713 DE 2004.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2356_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1",
+          "numero_norma": 1,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2024-08-26"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Modifíquese en la tabla “Registro Tipo 2: mutuos otorgados” del numeral 2 del Anexo N°1 la Descripción del Campo SEGURO por lo siguiente: CAMPO DESCRIPCIÓN FORMATO SEGURO_GARANTÍA…",
+        "Reemplácese en el párrafo segundo de la Sección “I. Información a presentar, periodicidad y forma de envío” el texto “N°9” por “N°10”",
+        "Reemplácese en el tercer párrafo de la Sección “I. Información a presentar, periodicidad y forma de envío” el texto “sistema SEIL” por lo siguiente: “canal oficial de comunicación…",
+        "Elimínese el párrafo cuarto de la Sección “I. Información a presentar, periodicidad y forma de envío”",
+        "Reemplácese en el primer párrafo del número 3 de la Sección “II. Presentación y Envío de la Información” el texto “módulo SEIL” por lo siguiente: “canal oficial de comunicación y…",
+        "Reemplácese en el número 4 de la Sección “II. Presentación y Envío de la Información” el texto “en el módulo SEIL (Codificación S.V.S.) de la página web de la Superintendencia”…"
+      ]
     },
     {
       "clave": "2024_0517",
@@ -1214,7 +1557,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2354",
-        "fecha": "2024-01-01"
+        "fecha": "2024-07-30"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -1222,10 +1565,42 @@
         "fecha": "2024-07-25"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2354
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA CIRCULAR N°1835 QUE IMPARTE INSTRUCCIONES RELATIVAS A LA FORMA Y CONTENIDO DE INFORMACIÓN SOBRE INVERSIONES POR PARTE DE LA COMISIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2354_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1835",
+          "numero_norma": 1835,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2025-01-15"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Elimínese los párrafos tercero, cuarto y quinto del numeral 1 del título I",
+        "Elimínese del título I el numeral 1.1",
+        "Elimínese los párrafos segundo y tercero del numeral 2 del título I. 1",
+        "Elimínese el párrafo segundo del numeral 3 del título I",
+        "Agréguese el siguiente título: “Procedimiento de envío de información: Los archivos deberán remitirse de acuerdo al procedimiento establecido en el Anexo Técnico “Cartera de…",
+        "Elimínese el párrafo final del título I “INFORMACIÓN DE INVERSIONES”"
+      ]
     },
     {
       "clave": "2024_2353",
@@ -1233,7 +1608,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2353",
-        "fecha": "2024-01-01"
+        "fecha": "2024-07-25"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -1241,10 +1616,38 @@
         "fecha": "2024-07-18"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2353
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA CIRCULAR N°2022 QUE IMPARTE NORMAS SOBRE FORMA, CONTENIDO Y PRESENTACIÓN DE LOS ESTADOS FINANCIEROS DE LAS ENTIDADES ASEGURADORAS Y REASEGURADORAS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2353_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°2022",
+          "numero_norma": 2022,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2024-07-25"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Reemplácese cada vez que aparezcan en la normativa señalada las expresiones “Superintendencia\" por “Comisión”, Superintendencia de Valores y Seguros” por “Comisión para el Mercado…",
+        "Agréguese un nuevo párrafo sexto al literal A de la Sección II de la Circular N°2022, como a continuación se indica: “Las entidades aseguradoras deberán presentar los estados…",
+        "Reemplácese el párrafo final del literal A de la Sección II de la Circular N°2022, por el siguiente: “Los Estados Financieros antes mencionados deberán enviarse a esta Comisión a…"
+      ]
     },
     {
       "clave": "2024_0516",
@@ -1280,14 +1683,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1332",
-        "fecha": "2024-01-01"
+        "fecha": "2024-07-24"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1332
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LOS ARCHIVOS C70, D62 Y E26 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS EN VIRTUD DEL NUEVO PROGRAMA DE GARANTÍAS APOYO AL ENDEUDAMIENTO DEL FONDO DE GARANTÍAS ESPECIALES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1332_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-07-24"
+      },
+      "ran_referencias": [
+        "18-3"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce ajustes técnicos a los archivos C70, D62 y E26 del Manual del Sistema de Información para bancos en virtud del nuevo Programa de Garantías Apoyo al Endeudamiento del Fondo de Garantías Especiales",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0514",
@@ -1321,14 +1739,43 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2352",
-        "fecha": "2024-01-01"
+        "fecha": "2024-06-11"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2352
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA CIRCULAR N° 1815, QUE ESTABLECE NORMAS PARA EL ENVÍO DE INFORMACIÓN SOBRE PÓLIZAS DE RENTA VITALICIA PREVISIONAL DEL D.L. Nº 3.500 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2352_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1815",
+          "numero_norma": 1815,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2024-06-11"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICACIÓN CIRCULAR N°1815, QUE ESTABLECE NORMAS PARA EL ENVÍO DE INFORMACIÓN SOBRE PÓLIZAS DE RENTA VITALICIA PREVISIONAL DEL D.L. Nº3.500 DE 1980",
+      "resumen_acciones": [
+        "Agrégase, previo al primer párrafo, el siguiente subtítulo: “1. Pensiones contratadas y pagadas”",
+        "Agrégase, en el primer párrafo, a continuación de “pagadas,” la expresión “así como su medio de pago,” y a continuación de “Servicio” la expresión “o del nuevo sistema de…",
+        "Agrégase, en el tercer párrafo, a continuación de “Servicio” la expresión “o del nuevo sistema de comunicación con la CMF que se implemente a futuro”",
+        "Agrégase, antes de la Sección II. VIGENCIA Y DEROGACIÓN, el siguiente subtítulo: “2. Fecha de pago de las pensiones Dentro de los primeros 5 días del año calendario, las compañías…"
+      ]
     },
     {
       "clave": "2024_2348",
@@ -1336,14 +1783,50 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2348",
-        "fecha": "2024-01-01"
+        "fecha": "2024-05-15"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2348
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE INTRODUCE EL NUEVO CAPÍTULO 18-3 DE LA RAN, EL CUAL INCORPORA LA DISTINCIÓN EN LA FORMA DE MODIFICAR PARÁMETROS Y ASPECTOS DE ORDEN TÉCNICO DEFINIDOS EN LAS INSTRUCCIONES DE LOS ARCHIVOS NORMATIVOS DE BANCOS, COOPERATIVAS, SOCIEDADES DE APOYO AL GIRO, EMPRESAS EMISORAS DE TARJETAS DE PAGO, EMPRESAS OPERADORAS DE TARJETAS DE PAGO Y ENTIDADES DE CRÉDITOS CUYAS OPERACIONES SON FISCALIZADAS POR LA LEY N°18.010; LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980; Y DELEGA FACULTAD PARA FIRMAR ACTOS QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2348_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°18",
+          "numero_norma": 18,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [
+        "18-3"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Distingue la forma de modificar parámetros y aspectos de orden técnico definidos en las instrucciones de los archivos normativos",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0509",
@@ -1406,14 +1889,31 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2347",
-        "fecha": "2024-01-01"
+        "fecha": "2024-04-24"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2347
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA LA SECCIÓN DE ANTECEDENTES GENERALES DEL MANUAL DEL SISTEMAS DE INFORMACIÓN DE BANCOS, AJUSTA SU TABLA 58 Y DEROGA EL MANUAL DE INFORMACIÓN DE FILIALES DE LEASING.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2347_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-04-24"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "son objeto de ajustes de concordancia o que se incorporan.\n9. En otro orden de cosas, se deroga el Manual de Sistemas de Información para\nfiliales bancarias de leasing, por no resultar atingente a los actuales\nrequerimientos de info"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Precisa archivos que deben ser enviados por los bancos respecto de sus filiales, sucursales en el exterior y Sociedades de Apoyo al Giro; actualiza instrucciones generales y tablas del Manual del Sistema de Información",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_2346",
@@ -1421,14 +1921,30 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2346",
-        "fecha": "2024-01-01"
+        "fecha": "2024-03-06"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2346
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE INTRODUCE MÉTODO ESTÁNDAR DE PROVISIONES PARA LAS COLOCACIONES DE CONSUMO DE LAS INSTITUCIONES BANCARIAS AL COMPENDIO DE NORMAS CONTABLES PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2346_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-03-06"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "COMPENDIO DE NORMAS CONTABLES PARA BANCOS. Capítulo B-1 Y E. Modelo estándar de provisiones para colocaciones de consumo",
+      "resumen_acciones": [
+        "Se introduce el siguiente nuevo numeral 3",
+        "Se incorpora la siguiente disposición transitoria como numeral 8 del Capítulo E: “8"
+      ]
     },
     {
       "clave": "2024_2345",
@@ -1436,14 +1952,38 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2345",
-        "fecha": "2024-01-01"
+        "fecha": "2024-02-26"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2345
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE INCORPORA NUEVO ARCHIVO NORMATIVO DE CUENTAS CON PROVISION DE FONDOS Y TARJETAS ASOCIADAS Y MODIFICA OTRAS NORMAS QUE SE INDICAN.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2345_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-02-26"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "crear",
+          "nombre": "de\nCuentas con Provisión de Fondos y\nTarjetas Asociadas. Actualiza el\nManual de Sistema de Información\npara Bancos y ref",
+          "vigencia": null
+        },
+        {
+          "accion": "crear",
+          "nombre": "denominado",
+          "vigencia": null
+        }
+      ],
+      "tema": "Incorpora nuevo archivo de Cuentas con Provisión de Fondos y Tarjetas Asociadas. Actualiza el Manual de Sistema de Información para Bancos y referencias en la Circular N°1 de Empresas Emisoras de Tarjetas de Pago No Bancarias, y la Circular N°108 de Cooperativas de Ahorro y Crédito",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0505",
@@ -1477,14 +2017,30 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2344",
-        "fecha": "2024-01-01"
+        "fecha": "2024-02-09"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2344
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE AJUSTA EL CAPÍTULO 21-20 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS Y MODIFICA EL RESPECTIVO DOCUMENTO DE PREGUNTAS FRECUENTES.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2344_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-02-09"
+      },
+      "ran_referencias": [
+        "21-20",
+        "21-6"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "CAPÍTULO 21-20 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS. AJUSTA INSTRUCCIONES",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_2343",
@@ -1492,14 +2048,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2343",
-        "fecha": "2024-01-01"
+        "fecha": "2024-02-09"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2343
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE AJUSTA LA TABLA 106, TABLA 11, ARCHIVO R11 DEL MANUAL DEL SISTEMA DE INFORMACIÓN BANCOS, Y EL CAPÍTULO 21-11 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2343_2024.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-02-09"
+      },
+      "ran_referencias": [
+        "21-11"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Ajuste al Capítulo 21-11 de la Recopilación Actualizada de Normas, al archivo R11, y a las tablas 11 y 106 del Manual del Sistema de Información",
+      "resumen_acciones": []
     },
     {
       "clave": "2024_0504",
@@ -1677,14 +2248,50 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "3",
-        "fecha": null
+        "fecha": "2023-11-09"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2340
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO\nFINANCIERO QUE APRUEBA DEROGACIÓN DE LA CARTA CIRCULAR N° 3 DE 2008 (EX SBIF AHORA CMF). Y QUE EXCLUYE LA DISPOSICIÓN DE LOS TRAMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/sitio/aplic/serdoc/ver_sgd.php?s567=923780e8be03b3474f234001fa25ae29VFdwQmVVMTZSWGhOUkZFelRWUkpkMDVuUFQwPQ==&secuencia=-1&t=1778175439",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2023-11-09"
+      },
+      "ran_referencias": [
+        "1-7"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Instrucciones sobre transferencias electrónicas y funcionamiento de cámaras de compensación de pagos de bajo valor. Deroga instrucción",
+      "resumen_acciones": []
     },
     {
       "clave": "0000_0001",
@@ -1731,14 +2338,30 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2336",
-        "fecha": "2023-01-01"
+        "fecha": "2023-06-20"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2336
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO\nQUE APRUEBA DEROGACIÓN DEL CAPÍTULO 12-21 DE LA RECOPILACIÓN ACTUALIZADA\nDE NORMAS PARA BANCOS Y MODIFICA LOS CAPÍTULOS 21-13 Y 1-13 DE LA MISMA\nRECOPILACIÓN, EL DOCUMENTO DE PREGUNTAS FRECUENTES ASOCIADO AL ARCHIVO R13, EXTIENDE LA VIGENCIA DEL ARCHIVO NORMATIVO C40 DEL MANUAL DE SISTEMA DE INFORMACIÓN PARA BANCOS Y EXIME DEL TRÁMITE DE CONSULTA PÚBLICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2336_2023.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2023-06-20"
+      },
+      "ran_referencias": [
+        "12-21",
+        "21-13"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Deroga el Capítulo 12-21 de la Recopilación Actualizada de Normas de Bancos, modifica los Capítulos 21-13 y 1-13 de la misma Recopilación, el documento de Preguntas Frecuentes asociado al archivo R13 y pospone el término de exigencia del archivo C40",
+      "resumen_acciones": []
     },
     {
       "clave": "2023_2335",
@@ -1746,14 +2369,38 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2335",
-        "fecha": "2023-01-01"
+        "fecha": "2023-06-05"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2335
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE ACTUALIZA LA CIRCULAR N°1 PARA EMPRESAS OPERADORAS DE TARJETAS DE PAGO Y MODIFICA LA INFORMACIÓN REQUERIDA MEDIANTE EL ARCHIVO C81.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2335_2023.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1",
+          "numero_norma": 1,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2023-06-05"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica información requerida mediante el archivo C81 y actualiza otros aspectos tratados en Circular N°1 dirigida a empresas operadoras de tarjetas de pago",
+      "resumen_acciones": []
     },
     {
       "clave": "2023_2333",
@@ -1761,14 +2408,31 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2333",
-        "fecha": "2023-01-01"
+        "fecha": "2023-05-13"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2333
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO APRUEBA CIRCULAR QUE MODIFICA EL CAPÍTULO 18-5 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LOS ARCHIVOS D10, D27, R04 Y R05, CON EL PROPÓSITO DE MANTENER EL REPORTE DE LA INFORMACIÓN DE LAS COLOCACIONES VENDIDAS O CEDIDAS A EMPRESAS SECURITIDORAS O FONDOS DE CRÉDITOS SECURITIZADOS E IDENTIFICAR LOS CRÉDITOS PARA LA SALUD Y EXCLUYE\nPARCIALMENTE DEL TRÁMITE DE CONSULTA PÚBLICA ESTE ÚLTIMO ASPECTO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2333_2023.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2023-05-13"
+      },
+      "ran_referencias": [
+        "12-3",
+        "12-4",
+        "18-5"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica el Capítulo 18-5 de la Recopilación Actualizada de Normas para Bancos y los archivos D10, D27, R04 y R05. Requiere informar los créditos para la salud y las colocaciones vendidas o cedidas a empresas securitizadoras o fondos de créditos securitizados",
+      "resumen_acciones": []
     },
     {
       "clave": "2023_2332",
@@ -1780,6 +2444,10 @@
       },
       "sesion": null,
       "ncg": 495,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2332
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE MODIFICA LA NCG N°318, QUE IMPARTE INSTRUCCIONES SOBRE APLICACIÓN DE NORMAS IFRS EN LA CONSTITUCIÓN DE RESERVAS TÉCNICAS DE LOS SEGUROS DE RENTA VITALICIA Y DE INVALIDEZ Y SOBREVIVENCIA, DEL D.L. N°3.500 DE 1980, Y LA CIRCULAR QUE IMPARTE INSTRUCCIONES SOBRE APLICACIÓN DE TABLAS DE MORTALIDAD CB-H-2020 (HOMBRES), MI-H-2020 (HOMBRES), RV-M-2020 (MUJERES), B-M-2020 (MUJERES), Y MI-M-2020 (MUJERES).",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2332_2023.pdf",
@@ -1811,7 +2479,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2023_0496",
@@ -1862,7 +2532,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2329",
-        "fecha": "2022-01-01"
+        "fecha": "2022-12-19"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -1870,10 +2540,23 @@
         "fecha": "2022-12-09"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2329
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE ACTUALIZA NORMATIVA QUE INDICA, EN CONCORDANCIA CON LAS MODIFICACIONES EFECTUADAS POR EL BANCO CENTRAL DE CHILE A LOS CAPÍTULOS III.E DE SU COMPENDIO DE NORMAS FINANCIERAS",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2329_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-12-19"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Actualiza Capítulos 2-4, 2-5, 2-9 y 2-10 de la Recopilación Actualizada de Normas para Bancos y la Circular N°108 conforme a las disposiciones impartidas por el Banco Central de Chile",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2327",
@@ -1881,14 +2564,38 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2327",
-        "fecha": "2022-01-01"
+        "fecha": "2022-11-21"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2327
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL PARA CÁMARAS DE COMPENSACIÓN DE PAGOS DE BAJO VALOR REGULADAS POR EL BANCO CENTRAL DE CHILE; LA CIRCULAR QUE MODIFICA LA NORMATIVA QUE INDICA Y LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2327_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2022-11-21"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Realiza modificaciones por concordancia regulatoria necesaria para la implementación de NCG para Cámaras de compensación de pagos de bajo valor",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0489",
@@ -1946,14 +2653,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2326",
-        "fecha": "2022-01-01"
+        "fecha": "2022-11-18"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2326
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA EL CAPÍTULO 18-5 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS, ELIMINANDO LA EXIGENCIA DE CONTAR CON UN TÍTULO EJECUTIVO PARA EL REPORTE DE LA INFORMACIÓN DE DEUDORES.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2326_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-11-18"
+      },
+      "ran_referencias": [
+        "18-5"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica los Capítulos 18-5 y 20-6 de la Recopilación Actualizada de Normas para bancos. Elimina la exigencia de contar con un título ejecutivo para el reporte de la información de deudores",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2325",
@@ -1961,14 +2683,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2325",
-        "fecha": "2022-01-01"
+        "fecha": "2022-11-09"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2325
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA LA NORMATIVA SOBRE PREVENCIÓN DEL LAVADO DE ACTIVOS, FINANCIAMIENTO AL TERRORISMO Y LA NO PROLIFERACIÓN DE ARMAS DE DESTRUCCIÓN MASIVA APLICABLE A BANCOS, COOPERATIVAS Y EMISORES DE TARJETAS DE PAGO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2325_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-11-09"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Actualiza la normativa sobre prevención del lavado de activos, financiamiento al terrorismo y la no proliferación de armas de destrucción masiva",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2324",
@@ -1976,7 +2711,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2324",
-        "fecha": "2022-01-01"
+        "fecha": "2022-10-27"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -1984,10 +2719,46 @@
         "fecha": "2022-10-06"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2324
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA EL CAPÍTULO 2-13 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS Y CREA UN NUEVO ARCHIVO NORMATIVO SOBRE INFORMACIÓN DE ACREENCIAS BANCARIAS SUJETAS A CADUCIDAD DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2324_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-10-27"
+      },
+      "ran_referencias": [
+        "2-13"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "crear",
+          "nombre": "normativo\nsobre información de\nacreencias bancarias\nsujetas a caducidad del\nManual del Sistema de\nInformación para\nbanco",
+          "vigencia": null
+        },
+        {
+          "accion": "crear",
+          "nombre": "a esta Comisión no los exime del deber de\nconfeccionar las listas que deben publicar tanto en su domicilio principal com",
+          "vigencia": null
+        },
+        {
+          "accion": "crear",
+          "nombre": "deberá ser enviado por primera vez hasta el 14 de\nfebrero de 2023",
+          "vigencia": null
+        },
+        {
+          "accion": "crear",
+          "nombre": "al Sistema Estadístico del Manual del Sistema de Información para Bancos\ny se reemplaza la hoja del catálogo de archivos",
+          "vigencia": null
+        }
+      ],
+      "tema": "Modifica el Capítulo 2-13 de la Recopilación Actualizada de Normas para bancos y crea un nuevo archivo normativo sobre información de acreencias bancarias sujetas a caducidad del Manual del Sistema de Información para bancos",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2322",
@@ -1995,14 +2766,38 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2322",
-        "fecha": "2022-01-01"
+        "fecha": "2022-10-06"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2322
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO\nQUE APRUEBA CIRCULAR QUE MODIFICA EL PLAZO DE LOS ARCHIVOS R01 Y R06 DEL\nSISTEMA DE RIESGOS DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS\nY LA EXCLUYE DE TRAMITE PREVISTO EN EL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L.\nN°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2322_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2022-10-06"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica el plazo de envío de los archivos R01 y R06 del Manual del Sistema de Información para bancos",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0487",
@@ -2037,14 +2832,28 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2321",
-        "fecha": "2022-01-01"
+        "fecha": "2022-09-23"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2321
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE INSTRUYE A LAS EMPRESAS BANCARIAS Y OTRAS ENTIDADES FISCALIZADAS Y REGISTRADAS, EL USO DEL MODULO DE LA EXTRANET DENOMINADO OFICINA DE PARTES VIRTUAL.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2321_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2022-10-31"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Oficina de partes virtual. Incorpora nuevo módulo a la Extranet",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0486",
@@ -2173,14 +2982,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2318",
-        "fecha": "2022-01-01"
+        "fecha": "2022-08-12"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2318
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE INCORPORA LOS ARCHIVOS “RIESGO DE MERCADO DEL LIBRO DE BANCA” (R13) Y “RIESGO DE CONCENTRACIÓN CREDITICIA” (R14) AL SISTEMA DE RIESGOS DEL MANUAL DE SISTEMA DE INFORMACIÓN BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2318_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-08-12"
+      },
+      "ran_referencias": [
+        "21-13"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Incorpora nuevos archivos R13 y R14 al Sistema de Riesgos del Manual del Sistema de Información relacionados con la medición y supervisión de riesgos relacionados al riesgo de mercado de libro de banca (RMLB) y el riesgo de concentración crediticia (RCC)",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0484",
@@ -2251,14 +3075,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2317",
-        "fecha": "2022-01-01"
+        "fecha": "2022-07-29"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2317
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA EL CAPÍTULO 18-5 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2317_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-07-29"
+      },
+      "ran_referencias": [
+        "18-5"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Actualiza instrucciones del Capítulo 18-5 de la RAN, acerca de la información sobre deudores de las instituciones financieras",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0480",
@@ -2292,14 +3131,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2316",
-        "fecha": "2022-01-01"
+        "fecha": "2022-07-18"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2316
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO, QUE APRUEBA LA CIRCULAR QUE FLEXIBILIZA EL ENVÍO DE PARTE DE LA INFORMACIÓN DE LOS ARCHIVOS P38 Y P39 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS Y LA EXIME DE TRAMITES QUE INDICA",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2316_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-07-18"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Flexibiliza envío de información contenida en los archivos P38 y P39",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2314",
@@ -2307,14 +3159,30 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2314",
-        "fecha": "2022-01-01"
+        "fecha": "2022-06-06"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2314
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA EL CAPÍTULO 12-20 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS Y MANUAL DE SISTEMAS DE INFORMACIÓN BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2314_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-06-06"
+      },
+      "ran_referencias": [
+        "12-20",
+        "21-1"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_0479",
@@ -2549,6 +3417,10 @@
         "fecha": "2022-04-07"
       },
       "ncg": 330,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 469
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE REGULA LA CONTRATACIÓN INDIVIDUAL Y COLECTIVA DE SEGUROS ASOCIADOS A CRÉDITOS HIPOTECARIOS DEL ARTÍCULO 40 DEL D.F.L. N° 251, LAS CONDICIONES MÍNIMAS QUE DEBERÁN CONTEMPLAR LAS BASES DE LICITACIÓN DE ÉSTOS Y LA INFORMACIÓN QUE SE DEBERÁ ENTREGAR A LOS OFERENTES, DEUDORES ASEGURADOS Y COMISIÓN PARA EL MERCADO FINANCIERO. DEROGA NORMA DE CARÁCTER GENERAL N° 330, CIRCULAR N°3.530 BANCOS (CIRCULAR N° 147 DE COOPERATIVAS Y LA CIRCULAR N° 62 DE FILIALES), CARTA CIRCULAR N°2 DEL 2012 BANCOS, (CARTA CIRCULAR N°1 COOPERATIVAS DEL 2012) Y CIRCULAR 3.537 BANCOS (CIRCULAR N° 149 COOPERATIVAS Y CIRCULAR N° 63 FILIALES).",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_469_2022.pdf",
@@ -2650,7 +3522,9 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2311",
@@ -2658,14 +3532,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2311",
-        "fecha": "2022-01-01"
+        "fecha": "2022-04-04"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2311
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA EL CAPÍTULO 21-6 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2311_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-04-04"
+      },
+      "ran_referencias": [
+        "21-6"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2309",
@@ -2673,14 +3562,39 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2309",
-        "fecha": "2022-01-01"
+        "fecha": "2022-03-28"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2309
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA CIRCULAR N° 1815, QUE ESTABLECE NORMAS PARA EL ENVÍO DE INFORMACIÓN SOBRE PÓLIZAS DE RENTA VITALICIA PREVISIONAL DEL D.L. Nº 3.500 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2309_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1815",
+          "numero_norma": 1815,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2022-07-07"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2308",
@@ -2688,7 +3602,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2308",
-        "fecha": "2022-01-01"
+        "fecha": "2022-03-28"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -2696,10 +3610,37 @@
         "fecha": "2022-03-24"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2308
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE MODIFICA CIRCULAR N° 1194, QUE ESTABLECE NORMAS PARA EL ENVIO DE INFORMACION DE SEGUROS PREVISIONALES E INDICES DE COBERTURA DEL SISTEMA DE CALCE.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2308_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1194",
+          "numero_norma": 1194,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "plazo_transicion": "2022-07-29"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Elimínese el Título II. PERIODICIDAD DE ENVIO DE LA INFORMACION y Título III. REQUISITOS DE PRESENTACION, pasando los Títulos IV y V a ser Títulos II y III, respectivamente"
+      ]
     },
     {
       "clave": "2022_2306",
@@ -2707,14 +3648,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2306",
-        "fecha": "2022-01-01"
+        "fecha": "2022-02-17"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2306
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE REQUIERE INFORMACIÓN RESPECTO DE LOS MOVIMIENTOS Y VALORES MANTENIDOS EN LAS EMPRESAS DE DEPÓSITO DE VALORES.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2306_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-02-17"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2305",
@@ -2722,14 +3676,60 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2305",
-        "fecha": "2022-01-01"
+        "fecha": "2022-02-16"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2305
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA EL CUADRO 2 DEL ANEXO N°6 DEL CAPÍTULO C-1 DEL COMPENDIO DE NORMAS CONTABLES PARA BANCOS; EXTIENDE EL PLAZO DE APLICACIÓN DEL ANEXO N°5 DE LA VERSIÓN ANTERIOR DEL COMPENDIO Y EXCLUYE DE TRAMITE PREVISTO EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2305_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°6",
+          "numero_norma": 6,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°5",
+          "numero_norma": 5,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2022-02-16"
+      },
+      "ran_referencias": [
+        "21-12"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2022_2304",
@@ -2737,14 +3737,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2304",
-        "fecha": "2022-01-01"
+        "fecha": "2022-01-31"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2304
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE HACE APLICABLE A LAS COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS, LAS NORMAS DE RESGUARDO Y GESTIÓN DE RIESGOS OPERACIONALES QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2304_2022.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-01-31"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_2302",
@@ -2752,14 +3765,29 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2302",
-        "fecha": "2021-01-01"
+        "fecha": "2021-12-23"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2302
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA EL CAPÍTULO 12-7 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS Y EL ARCHIVO C18 DEL MANUAL DEL SISTEMA DE INFORMACIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2302_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-12-23"
+      },
+      "ran_referencias": [
+        "12-7"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_0462",
@@ -2793,14 +3821,30 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2300",
-        "fecha": "2021-01-01"
+        "fecha": "2021-11-25"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2300
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE AJUSTA LA TABLA 106 “SUB-FACTORES DEL ÍNDICE DE IMPORTANCIA SISTÉMICA” DEL MANUAL DE SISTEMAS DE INFORMACIÓN BANCOS E INSTRUYE RECTIFICACIÓN DE ARCHIVO NORMATIVO R11.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2300_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-11-25"
+      },
+      "ran_referencias": [
+        "21-11",
+        "7-12"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_0461",
@@ -2850,14 +3894,48 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2299",
-        "fecha": "2021-01-01"
+        "fecha": "2021-11-05"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2299
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE MODIFICA CIRCULAR N° 2137, QUE IMPARTE NORMAS SOBRE FORMA Y CONTENIDO DE LOS ESTADOS FINANCIEROS DE CORREDORES DE SEGUROS QUE NO SEAN PERSONAS NATURALES Y DE CIRCULAR QUE MODIFICA CIRCULAR N° 1652, QUE ESTABLECE FICHA ESTADISTICA CODIFICADA UNIFORME PARA INFORMAR PRODUCCION INTERMEDIADA POR LOS CORREDORES DE SEGUROS (PERSONAS NATURALES).",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2299_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°2137",
+          "numero_norma": 2137,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°1652",
+          "numero_norma": 1652,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_2298",
@@ -2865,14 +3943,50 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2298",
-        "fecha": "2021-01-01"
+        "fecha": "2021-11-05"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2298
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE MODIFICA CIRCULAR N° 2137, QUE IMPARTE NORMAS SOBRE FORMA Y CONTENIDO DE LOS ESTADOS FINANCIEROS DE CORREDORES DE SEGUROS QUE NO SEAN PERSONAS NATURALES Y DE CIRCULAR QUE MODIFICA CIRCULAR N° 1652, QUE ESTABLECE FICHA ESTADISTICA CODIFICADA UNIFORME PARA INFORMAR PRODUCCION INTERMEDIADA POR LOS CORREDORES DE SEGUROS (PERSONAS NATURALES).",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2298_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°2137",
+          "numero_norma": 2137,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°1652",
+          "numero_norma": 1652,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase en el primer párrafo la frase “ o al día hábil siguiente si este fuere inhábil” después de “el 31 de marzo del año siguiente”"
+      ]
     },
     {
       "clave": "2021_2297",
@@ -2880,14 +3994,38 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2297",
-        "fecha": "2021-01-01"
+        "fecha": "2021-11-02"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2297
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE INTRODUCE UN NUEVO CAPÍTULO A LA RECOPILACIÓN ACTUALIZADA DE NORMAS Y UN NUEVO ARCHIVO DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS, MEDIANTE LOS CUALES SE ESTABLECEN LAS INSTRUCCIONES PARA CONTROL DEL LIMITE DE CRÉDITOS OTORGADOS A GRUPOS EMPRESARIALES.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2297_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-11-02"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "crear",
+          "nombre": "deberá ser enviado a partir de la\ninformación referida al mes de enero de 2022 en adelante. No\nobstante",
+          "vigencia": null
+        },
+        {
+          "accion": "crear",
+          "nombre": "D60 al Sistema de Deudores del Manual del\nSistema de Información.\nID",
+          "vigencia": null
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_2296",
@@ -2895,14 +4033,40 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2296",
-        "fecha": "2021-01-01"
+        "fecha": "2021-11-02"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2296
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA EL CAPÍTULO 1-13 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS, Y EXCLUYE DE TRAMITE PREVISTO EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2296_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2021-11-02"
+      },
+      "ran_referencias": [
+        "1-13"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_2295",
@@ -2910,14 +4074,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2295",
-        "fecha": "2021-01-01"
+        "fecha": "2021-10-07"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2295
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA EL COMPENDIO DE NORMAS CONTABLES PARA BANCOS QUE RIGE A CONTAR DEL AÑO 2022 E INTRODUCE DIVERSOS AJUSTES A LOS ARCHIVOS DEL MANUAL DEL SISTEMA DE INFORMACIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2295_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-10-07"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_2292",
@@ -2925,7 +4102,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2292",
-        "fecha": "2021-01-01"
+        "fecha": "2021-08-19"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -2933,10 +4110,23 @@
         "fecha": "2021-07-15"
       },
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2292
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA LOS CAPÍTULOS 8-37, 11-6, 11-7, 12-3, 12-4, 21-1, 21-6, 21-8 y 21-20 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS, CAPÍTULO B-1 DEL COMPENDIO DE NORMAS CONTABLES PARA BANCOS E INCORPORA AJUSTE AL ARCHIVO R08 DEL MANUAL DEL SISTEMA DE INFORMACIÓN BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2292_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-08-19"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_0457",
@@ -2995,14 +4185,44 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2291",
-        "fecha": "2021-01-01"
+        "fecha": "2021-07-08"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2291
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA EL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS, INCORPORANDO EL ARCHIVO C52, UNA NUEVA TABLA CON CÓDIGOS DE ACTIVIDAD ECONÓMICA Y ACTUALIZANDO LAS INSTRUCCIONES DEL FORMULARIO M2, Y EXCLUYE DE LOS TRAMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2291_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "2021-07-08"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "crear",
+          "nombre": "C52 al Manual del\nSistema de Información para bancos\nMediante este archivo se remitirá la información\nmensual",
+          "vigencia": null
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_0456",
@@ -3036,14 +4256,27 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2290",
-        "fecha": "2021-01-01"
+        "fecha": "2021-05-28"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2290
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE PRECISA FECHAS DE ENVÍO DE LOS NUEVOS ARCHIVOS DEL SISTEMA DE RIESGOS Y AJUSTA EL TAMAÑO DE ALGUNOS CAMPOS DE LOS ARCHIVOS R01, R07 Y R08 Y EXCLUYE LOS TRAMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2290_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-05-28"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
     },
     {
       "clave": "2021_2287",
@@ -3051,14 +4284,40 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2287",
-        "fecha": "2021-01-01"
+        "fecha": "2021-03-01"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2287
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA LA CIRCULAR N° 1893, QUE IMPARTE INSTRUCCIONES SOBRE PÓLIZAS DE SEGUROS COMO PLANES DE AHORRO PREVISIONAL VOLUNTARIO Y PLANES DE   AHORRO PREVISIONAL VOLUNTARIO COLECTIVO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2287_2021.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°1893",
+          "numero_norma": 1893,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agrégase la expresión “o al correo electrónico que señale el asegurado para estos efectos,” a continuación de la expresión “domicilio del asegurado” contenida en la segunda…"
+      ]
     },
     {
       "clave": "2021_0451",

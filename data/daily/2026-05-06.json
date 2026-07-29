@@ -194,14 +194,36 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "458",
-        "fecha": "2021-01-01"
+        "fecha": "2021-07-30"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 458
+      },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N° 152 QUE IMPARTE NORMAS SOBRE ACTIVOS REPRESENTATIVOS DE RESERVAS TÉCNICAS Y PATRIMONIO DE RIESGO.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_458_2021.pdf",
-      "parsed": false,
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°152",
+          "numero_norma": 152,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
       "tema": "",
       "resumen_acciones": [
         "Reemplácese los términos “Superintendencia”, “Superintendencia de Valores y Seguros” y “SVS” por “Comisión”, “Comisión para el Mercado Financiero” y “CMF”, respectivamente, cuando…",
@@ -990,14 +1012,46 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2360",
-        "fecha": "2024-01-01"
+        "fecha": "2024-11-06"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2360
+      },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2360_2024.pdf",
-      "parsed": false,
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°200",
+          "numero_norma": 200,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°1512",
+          "numero_norma": 1512,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
       "tema": "",
       "resumen_acciones": [
         "Reemplácese cada vez que aparezcan en la normativa los términos “Superintendencia de Valores y Seguros” y “Superintendencia” por “Comisión para el Mercado Financiero” y “Comisión”…",

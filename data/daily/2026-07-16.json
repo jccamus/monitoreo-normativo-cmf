@@ -8,14 +8,35 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "2373",
-        "fecha": "2026-01-01"
+        "fecha": "2026-07-14"
       },
       "sesion": null,
       "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2373
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE INTRODUCE EL NUEVO CAPÍTULO 21-10 A LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS, SOBRE LOS REQUISITOS Y CONDICIONES MÍNIMAS QUE DEBEN CUMPLIR LAS GARANTÍAS PARA SER ACEPTADAS Y UTILIZADAS COMO MITIGADORES DE RIESGO DE CRÉDITO; E INCORPORA MODIFICACIONES A LOS CAPÍTULOS 1-13 Y 12-3 DE LA MISMA RECOPILACIÓN, CAPÍTULO B-1 DEL COMPENDIO DE NORMAS CONTABLES PARA BANCOS, Y EL SISTEMA CONTABLE, DE DEUDORES Y TABLAS DEL MANUAL DE SISTEMAS DE INFORMACION DE BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2373_2026.pdf",
-      "parsed": false
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-07-14"
+      },
+      "ran_referencias": [
+        "1-13",
+        "12-3",
+        "21-10"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "1 del\nCompendio Normas Contables de\nbancos, y el Sistema Contable, de\nDeudores y Sistema Tablas del\nManual de Sistemas de Información\nde bancos.\n_________________________________\n14 de julio de 2026\nCIRCULAR N°2.373\nBancos\nLa Comisió"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Introduce nuevo Capítulo 21- 10 a la Recopilación Actualizada de Normas de bancos, sobre requisitos y condiciones mínimas que deben cumplir las garantías constituidas a favor del banco para ser aceptadas y utilizadas como mitigadores de riesgo de crédito, y modifica los Capítulos 1-13 y 12-3 de la misma Recopilación, el Capítulo B-1 del Compendio Normas Contables de bancos, y el Sistema Contable,…",
+      "resumen_acciones": []
     }
   ]
 }
