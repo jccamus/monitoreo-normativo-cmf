@@ -836,7 +836,7 @@
     },
     {
       "clave": "2025_0542",
-      "fecha": "2025-01-01",
+      "fecha": "2025-07-24",
       "resolucion": {
         "tipo": "Exenta",
         "numero": "542",
@@ -852,20 +852,34 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N° 218 DE LA COMISIÓN PARA EL MERCADO FINANCIERO Y EL TÍTULO II DEL LIBRO III DEL COMPENDIO DE NORMAS DE LA SUPERINTENDENCIA DE PENSIONES, QUE IMPARTEN INSTRUCCIONES SOBRE EL SISTEMA DE CONSULTAS Y OFERTAS DE MONTOS DE PENSIÓN ESTABLECIDO POR EL ARTÍCULO 61 BIS DEL D.L. N° 3.500, DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_542_2025.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°218",
+          "numero_norma": 218,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
       "vigencia": {
         "inicio": "2025-07-24"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
-      "tema": "",
-      "resumen_acciones": [
-        "Modifíquese en el capítulo II. DEFINICIONES, lo siguiente: 3.1 Elimínese la definición de Oferta Asociada y la de Oferta Externa. 3.2",
-        "Modifíquese el capítulo VI. ALTERNATIVAS DEL CONSULTANTE, de acuerdo con lo siguiente: 6.1 Modifíquense las alternativas del tercer párrafo de este capítulo como sigue: a) b)…",
-        "Derógase el capítulo VII. Oferta Externa, agregando al final del título el siguiente ley N° 3.500, de 1980, de la Ley N° 21.735, publicada en el Diario Oficial el 26 de marzo de…",
-        "Derógase la letra H. Oferta Externa, agregando al final del título el siguiente ley N° 3.500, de 1980, de la Ley N° 21.735, publicada en el Diario Oficial el 26 de marzo de 2025,…"
-      ]
+      "archivos_afectados": []
     },
     {
       "clave": "2025_0531",

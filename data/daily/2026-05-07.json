@@ -227,7 +227,7 @@
     },
     {
       "clave": "2025_1394",
-      "fecha": "2025-01-01",
+      "fecha": "2025-11-24",
       "resolucion": {
         "tipo": "Exenta",
         "numero": "1394",
@@ -241,7 +241,7 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2024-05-15"
+        "inicio": "2025-11-24"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -701,7 +701,7 @@
     },
     {
       "clave": "2025_0532",
-      "fecha": "2025-01-01",
+      "fecha": "2025-02-28",
       "resolucion": {
         "tipo": "Exenta",
         "numero": "532",
