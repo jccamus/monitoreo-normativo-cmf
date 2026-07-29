@@ -42,7 +42,16 @@ COLUMNAS_CONTEXTO = (
 COLUMNAS = ("clave",) + COLUMNAS_CONTEXTO + COLUMNAS_ENTRADA[1:]
 
 _VERDADERO = {"si", "sí", "s", "x", "1", "true", "verdadero"}
-_FECHA_ISO = re.compile(r"^(\d{4})-(\d{2})(?:-(\d{2}))?$")
+
+# Formatos que puede tener la celda al volver de Excel. Se escribe YYYY-MM-DD,
+# pero Excel en español reformatea la celda al guardar y la devuelve como
+# DD-MM-YYYY o DD/MM/YYYY. Rechazarlas obligaría a pelear con el formato de
+# celda en cada edición.
+#
+# La distinción es por dónde están los cuatro dígitos del año, no por el orden
+# convencional: así `2025-11-01` y `01-11-2025` nunca se confunden entre sí.
+_FECHA_ANIO_PRIMERO = re.compile(r"^(\d{4})[-/](\d{1,2})(?:[-/](\d{1,2}))?$")
+_FECHA_ANIO_ULTIMO = re.compile(r"^(?:(\d{1,2})[-/])?(\d{1,2})[-/](\d{4})$")
 
 
 def _leer_filas(path: Path) -> list[dict]:
@@ -60,20 +69,33 @@ def _leer_filas(path: Path) -> list[dict]:
 
 
 def _parse_fecha(valor: str) -> tuple[str | None, str]:
-    """Acepta 'YYYY-MM-DD' y 'YYYY-MM'. Devuelve (iso, precisión)."""
-    m = _FECHA_ISO.match(valor.strip())
-    if not m:
-        return None, "dia"
-    año, mes, dia = m.group(1), m.group(2), m.group(3)
+    """Normaliza la celda a (ISO, precisión).
+
+    Acepta con y sin día, y con el año al principio o al final:
+    `2025-11-01`, `2025-11`, `01-11-2025`, `01/11/2025`, `11-2025`.
+
+    Sin día, la fecha se normaliza al día 1 y la precisión queda en "mes", igual
+    que hace el parser: el documento fija el mes y ordenar exige un día, pero
+    esa precisión no se puede mostrar como si viniera del texto.
+    """
+    valor = valor.strip()
+
+    m = _FECHA_ANIO_PRIMERO.match(valor)
+    if m:
+        año, mes, dia = m.group(1), m.group(2), m.group(3)
+    else:
+        m = _FECHA_ANIO_ULTIMO.match(valor)
+        if not m:
+            return None, "dia"
+        dia, mes, año = m.group(1), m.group(2), m.group(3)
+
     if not 1 <= int(mes) <= 12:
         return None, "dia"
     if dia is None:
-        # El documento fija sólo el mes: se normaliza al día 1 para poder
-        # ordenarlo, igual que hace el parser, y se marca la precisión.
-        return f"{año}-{mes}-01", "mes"
+        return f"{año}-{int(mes):02d}-01", "mes"
     if not 1 <= int(dia) <= 31:
         return None, "dia"
-    return f"{año}-{mes}-{dia}", "dia"
+    return f"{año}-{int(mes):02d}-{int(dia):02d}", "dia"
 
 
 def _parse_archivos(valor: str) -> dict[str, str]:
