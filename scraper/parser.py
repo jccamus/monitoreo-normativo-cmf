@@ -40,6 +40,22 @@ _MAX_BUSQUEDA_SEPARADOR = 4000   # hasta dónde buscar el separador
 _VENTANA_TRAS_SEPARADOR = 300    # texto útil inmediatamente bajo el separador
 _VENTANA_ENCABEZADO     = 600    # respaldo cuando no hay separador
 
+# Identidad propia del documento (su tipo y su número, no los de las normas que
+# modifica). Va en una línea que contiene SÓLO eso, bajo el bloque REF.
+#
+# Exigir la línea completa es lo que la distingue de las menciones a otras
+# normas dentro del REF: la circular 2369/2026 abre con
+# "REF: MODIFICA CIRCULAR N°1459, QUE ..." y su propio número, "CIRCULAR N°2369",
+# aparece solo en su línea más abajo. Un match laxo devolvería 1459.
+#
+# El número admite separador de miles: la CMF escribe tanto "N°1394" como
+# "N° 2.373" para el mismo tipo de documento.
+_DOC_IDENTIDAD = re.compile(
+    r"^\s*(OFICIO\s+CIRCULAR|CIRCULAR|NORMA\s+DE\s+CAR[ÁA]CTER\s+GENERAL)"
+    r"\s+N[°ºo]\s*([\d.]+)\s*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
 # ── Patrones RAN / MSI ──────────────────────────────────────────────────────
 _RAN_CAP = re.compile(
     r"[Cc]apítulo\s+([\w][\w.\-]*)\s+(?:de\s+(?:la\s+)?)?(?:"
@@ -176,11 +192,43 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     result["tema"] = _extraer_tema(text)
     result["resumen_acciones"] = _extraer_resumen_acciones(text)
 
-    # Validación mínima
-    if result["ncg"] is None and not result["modifica"]:
+    # ── Identidad del documento ─────────────────────────────────────────────
+    result["documento"] = _identidad_documento(text)
+
+    # Validación mínima.
+    #
+    # Antes bastaba con no encontrar `ncg` ni `modifica[]` para marcar
+    # parsed=False, pero una circular u oficio circular no tiene número de NCG
+    # por definición: 399 de las 502 entradas degradadas eran documentos
+    # perfectamente legibles que simplemente no eran NCG. El dashboard les
+    # mostraba "PDF no procesado", que era falso, y store descartaba su
+    # vigencia y sus referencias.
+    #
+    # Ahora parsed=False significa lo que dice: no se pudo identificar el
+    # documento ni extraer nada útil de él.
+    if (
+        result["ncg"] is None
+        and not result["modifica"]
+        and not result["documento"]
+    ):
         result["parsed"] = False
 
     return result
+
+
+def _identidad_documento(text: str) -> dict | None:
+    """Tipo y número del documento en sí (Circular, Oficio Circular o NCG)."""
+    m = _DOC_IDENTIDAD.search(text[:_MAX_BUSQUEDA_SEPARADOR])
+    if not m:
+        return None
+    etiqueta = re.sub(r"\s+", " ", m.group(1)).strip().lower()
+    if etiqueta.startswith("norma"):
+        tipo = "NCG"
+    elif etiqueta.startswith("oficio"):
+        tipo = "Oficio Circular"
+    else:
+        tipo = "Circular"
+    return {"tipo": tipo, "numero": int(m.group(2).replace(".", ""))}
 
 
 def _fecha_encabezado(text: str) -> str | None:

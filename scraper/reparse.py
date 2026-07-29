@@ -10,11 +10,18 @@ Caso de uso original: la fecha del encabezado se buscaba sólo en los primeros
 y caían al placeholder `YYYY-01-01` derivado de la URL. En el dashboard
 aparecían como 1 de enero y la actividad reciente quedaba invisible.
 
+Segundo caso: `parsed` se marcaba False cuando el PDF no daba ni `ncg` ni
+`modifica[]`, cosa que ninguna circular u oficio circular puede dar. Con
+`--degradadas` esas entradas se reprocesan para que recuperen su identidad,
+vigencia y referencias.
+
     python scraper/reparse.py                    # entradas con fecha placeholder desde 2024
     python scraper/reparse.py --desde 2020-01-01 # ampliar el rango
     python scraper/reparse.py --todas            # todas las placeholder, sin filtro de año
+    python scraper/reparse.py --degradadas       # además, las que quedaron con parsed=False
     python scraper/reparse.py --dry-run          # sólo informar, sin escribir
 
+Correr siempre `--dry-run` primero, y regenerar el dashboard después.
 No toca `state.json`: las claves ya vistas siguen vistas.
 """
 import argparse
@@ -46,14 +53,21 @@ def _es_placeholder(entrada: dict) -> bool:
     return (entrada.get("fecha") or "").endswith("-01-01")
 
 
-def _candidatas(entradas: list[dict], desde: str | None) -> list[dict]:
-    sel = [e for e in entradas if _es_placeholder(e)]
+def _candidatas(
+    entradas: list[dict], desde: str | None, degradadas: bool
+) -> list[dict]:
+    def elegible(e: dict) -> bool:
+        if _es_placeholder(e):
+            return True
+        return degradadas and not e.get("parsed")
+
+    sel = [e for e in entradas if elegible(e)]
     if desde:
         sel = [e for e in sel if (e.get("fecha") or "") >= desde]
     return sel
 
 
-def reparsear(desde: str | None, dry_run: bool) -> None:
+def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
     archivos = sorted(DAILY_DIR.glob("*.json"))
     if not archivos:
         logger.error("No hay archivos en %s", DAILY_DIR)
@@ -70,7 +84,7 @@ def reparsear(desde: str | None, dry_run: bool) -> None:
             continue
 
         entradas = payload.get("new_entries", []) or []
-        objetivo = _candidatas(entradas, desde)
+        objetivo = _candidatas(entradas, desde, degradadas)
         if not objetivo:
             continue
 
@@ -103,12 +117,10 @@ def reparsear(desde: str | None, dry_run: bool) -> None:
             }
             nueva = ensamblar_entrada(raw, parsed)
 
-            if nueva.get("fecha") == entrada.get("fecha"):
+            campos = ("fecha", "parsed", "documento", "vigencia", "tema")
+            if all(nueva.get(c) == entrada.get(c) for c in campos):
                 sin_cambio += 1
-                logger.info(
-                    "  %s sigue sin fecha en el PDF (%s)",
-                    entrada.get("clave"), entrada.get("fecha"),
-                )
+                logger.info("  %s sin cambios (%s)", entrada.get("clave"), entrada.get("fecha"))
                 continue
 
             # Sin caracteres no-ASCII: la consola de Windows usa cp1252 por
@@ -151,8 +163,12 @@ def main() -> None:
         "--dry-run", action="store_true",
         help="Informa qué cambiaría sin escribir los archivos",
     )
+    ap.add_argument(
+        "--degradadas", action="store_true",
+        help="Incluir también las entradas con parsed=False, no sólo las de fecha placeholder",
+    )
     args = ap.parse_args()
-    reparsear(None if args.todas else args.desde, args.dry_run)
+    reparsear(None if args.todas else args.desde, args.dry_run, args.degradadas)
 
 
 if __name__ == "__main__":

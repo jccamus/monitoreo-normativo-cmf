@@ -43,22 +43,34 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
         },
         "sesion": parsed.get("sesion"),
         "ncg": parsed.get("ncg"),
+        "documento": parsed.get("documento"),
         "tipo_acuerdo": _inferir_tipo_acuerdo(raw.get("descripcion", "")),
         "descripcion_cmf": raw.get("descripcion", ""),
         "url_documento": raw.get("url_documento"),
         "parsed": parsed.get("parsed", False),
     }
 
-    if parsed.get("parsed"):
-        modifica = parsed.get("modifica", [])
-        # Fallback: extraer norma afectada desde descripcion_cmf cuando el PDF no la detecta
-        if not modifica:
-            modifica = _modifica_desde_descripcion(raw.get("descripcion", ""))
-        entrada["modifica"] = modifica
-        entrada["vigencia"] = parsed.get("vigencia", {})
-        entrada["ran_referencias"] = parsed.get("ran_referencias", [])
-        entrada["msi_referencias"] = parsed.get("msi_referencias", [])
-        entrada["archivos_afectados"] = parsed.get("archivos_afectados", [])
+    # Estos campos se guardan SIEMPRE, no sólo cuando parsed=True.
+    #
+    # `parsed` es False cuando el PDF no dio ni un `ncg` ni un `modifica[]`, que
+    # es el caso de casi toda circular u oficio circular. Pero ese documento
+    # igual pudo aportar vigencia, capítulos RAN, referencias MSI o el bloque
+    # REF. Condicionar el guardado al flag tiraba todo eso a la basura: el
+    # dashboard construye el Cuadro de mando a partir de `vigencia` y las
+    # tarjetas a partir de `tema`/`resumen_acciones`, así que las pestañas
+    # quedaban vacías para el 83% de las entradas.
+    modifica = parsed.get("modifica") or []
+    # Fallback: extraer norma afectada desde descripcion_cmf cuando el PDF no la detecta
+    if not modifica:
+        modifica = _modifica_desde_descripcion(raw.get("descripcion", ""))
+
+    entrada["modifica"] = modifica
+    entrada["vigencia"] = parsed.get("vigencia") or {}
+    entrada["ran_referencias"] = parsed.get("ran_referencias") or []
+    entrada["msi_referencias"] = parsed.get("msi_referencias") or []
+    entrada["archivos_afectados"] = parsed.get("archivos_afectados") or []
+    entrada["tema"] = parsed.get("tema") or ""
+    entrada["resumen_acciones"] = parsed.get("resumen_acciones") or []
 
     return entrada
 
