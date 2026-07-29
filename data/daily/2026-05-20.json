@@ -15,7 +15,7 @@
         "numero": 493,
         "fecha": "2026-04-23"
       },
-      "ncg": 566,
+      "ncg": 30,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA EL COMPENDIO NORMATIVO DE EMPRESAS DE AUDITORÍA EXTERNA Y NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°30 DE 1989.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_566_2026.pdf",
@@ -26,14 +26,16 @@
           "numero_norma": 30,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Agrégase"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -78,12 +80,17 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [
         "19-2"
       ],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "IV. DE LA INFORMACIÓN CONTINUA\nLas EAE deberán remitir a la Comisión la información requerida en el Manual de Sistema\nde Información de Empresas de Auditoría Externa (MSIE), con la periodicidad, formato\ny medio que éste señale.\nAdem"
+        }
+      ],
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",

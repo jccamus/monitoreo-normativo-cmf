@@ -22,14 +22,18 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese",
+            "Elimínese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -73,7 +77,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -126,6 +131,7 @@
       ],
       "vigencia": {
         "inicio": "2022-09-05",
+        "fuente": "seccion",
         "plazos": [
           {
             "texto": "Cláusula de renta vitalicia con período garantizado de pago (código de depósito CADxxxxxxxxx) Esta cláusula puede ser contratada en pensiones de vejez, invalidez o sobrevivencia, junto a una renta vitalicia inmediata o diferida. Si usted contrata este adicional y fallece antes del término del período garantizado, las pensiones de sus beneficiarios legales se incrementarán hasta que en conjunto…",
@@ -180,7 +186,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2022-07-01"
+        "inicio": "2022-07-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -217,7 +224,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -251,14 +259,17 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "no especificado"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -283,7 +294,7 @@
         "fecha": "2021-07-30"
       },
       "sesion": null,
-      "ncg": null,
+      "ncg": 152,
       "documento": {
         "tipo": "NCG",
         "numero": 458
@@ -298,14 +309,18 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Elimínese",
+            "Reemplácese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -361,7 +376,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -397,34 +413,16 @@
           "numero_norma": 323,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -453,7 +451,7 @@
         "numero": 223,
         "fecha": "2021-02-18"
       },
-      "ncg": 452,
+      "ncg": 336,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL QUE EXCEPTÚA DE LA OBLIGACIÓN DE INSCRIPCIÓN A DETERMINADAS OFERTAS PÚBLICAS DE VALORES Y MODIFICA LA NORMA DE CARÁCTER GENERAL N°336 DE 2012 EN LOS TÉRMINOS QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_452_2021.pdf",
@@ -472,7 +470,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -692,7 +691,7 @@
         "fecha": "2026-04-20"
       },
       "sesion": null,
-      "ncg": 564,
+      "ncg": 550,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°550, POSTERGANDO SU VIGENCIA Y EXIME DE LOS TRÁMITES DEL INCISO 1 DEL N°3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_564_2026.pdf",
@@ -703,34 +702,17 @@
           "numero_norma": 550,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2027-03-01",
+            "plazo_transicion": "2027-04-01"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -753,7 +735,7 @@
         "fecha": "2026-04-20"
       },
       "sesion": null,
-      "ncg": 563,
+      "ncg": 549,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°549, POSTERGANDO SU VIGENCIA Y EXIME DE LOS TRÁMITES DEL INCISO 1 DEL N°3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_563_2026.pdf",
@@ -764,34 +746,17 @@
           "numero_norma": 549,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2027-03-01",
+            "plazo_transicion": "2027-04-01"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -856,7 +821,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2027-03-01"
+        "inicio": "2027-03-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -906,6 +872,7 @@
       ],
       "vigencia": {
         "inicio": "inmediata",
+        "fuente": "seccion",
         "plazos": [
           {
             "texto": "Los ajustes al Capítulo 8-4 y 8-40 de la RAN; así como aquellos del Capítulo B-6 y B-7 del Compendio de Normas Contables, tendrán aplicación inmediata",
@@ -928,13 +895,30 @@
       ],
       "msi_referencias": [
         {
+          "contexto": "bles de Bancos; los archivos\nnormativos R06 y R07 del Sistema\nde Riesgos y el Sistema de Tablas\ndel Manual de Sistemas de\nInformación bancos; para promover\nel mercado de repo y de\nsecuritizaciones.\n_________________________________\n1"
+        },
+        {
           "contexto": "e bancos (CNC); los archivos normativos R06 y R07\ndel Sistema de Riesgos y el Sistema de Tablas del Manual de Sistemas de Información de\nbancos (MSI).\nEn diciembre de 2020 culminó la publicación de las normativas para la\nimplementaci"
         },
         {
           "contexto": "lgunos casos.\nComo complemento a lo anterior, en abril de 2021 se publicó el Sistema de Riesgos\ndel Manual de Sistemas de Información con el objetivo de capturar la información\nnecesaria para el monitoreo del cumplimiento de los está"
+        },
+        {
+          "contexto": ". Dicho plazo deberá ser\nconsiderado para la información a reportar en los archivos respectivos del Manual\nde Sistemas de Información bajo las nuevas disposiciones.\nCATHERINE TORNEL LEÓN\nPRESIDENTA\nCOMISIÓN PARA EL MERCADO FINANCIERO"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R06",
+          "vigencia": "2026-07-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R07",
+          "vigencia": "2026-07-01"
+        }
+      ],
       "tema": "Ajustes a los Capítulo 8-4, 8-40, 12- 3, 21-1, 21-6, 21-7 y 21-30 de la Recopilación Actualizada de Normas de Bancos; los Capítulos B- 6 y B-7 del Compendio de Normas Contables de Bancos; los archivos normativos R06 y R07 del Sistema de Riesgos y el Sistema de Tablas del Manual de Sistemas de Información bancos; para promover el mercado de repo y de securitizaciones",
       "resumen_acciones": [
         "Se reemplaza el contenido del numeral 2 del título I por lo siguiente",
@@ -992,7 +976,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "cierre_mes_siguiente"
+        "inicio": "cierre_mes_siguiente",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1017,7 +1002,7 @@
         "numero": 469,
         "fecha": "2025-06-26"
       },
-      "ncg": 553,
+      "ncg": 243,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°243, QUE IMPARTE INSTRUCCIONES RELATIVAS A LA CONSTITUCIÓN DE RESERVAS TÉCNICAS EN EL SEGURO DE INVALIDEZ Y SOBREVIVENCIA DEL D.L. N°3.500, DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_553_2025.pdf",
@@ -1028,24 +1013,19 @@
           "numero_norma": 243,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese",
+            "Modifíquese",
+            "Elimínese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "no especificado"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1073,7 +1053,7 @@
         "fecha": "2025-10-24"
       },
       "sesion": null,
-      "ncg": 550,
+      "ncg": 182,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°182 REFERENTE A LA INSCRIPCIÓN EN EL REGISTRO DE CORREDORES DE BOLSA DE PRODUCTOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_550_2025.pdf",
@@ -1092,7 +1072,8 @@
       ],
       "vigencia": {
         "inicio": "inmediata",
-        "plazo_transicion": "2027-02-01"
+        "plazo_transicion": "2027-02-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1115,7 +1096,7 @@
         "fecha": "2025-10-24"
       },
       "sesion": null,
-      "ncg": 549,
+      "ncg": 16,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°16 REFERENTE A LA INSCRIPCIÓN EN EL REGISTRO DE CORREDORES DE BOLSA Y AGENTES DE VALORES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_549_2025.pdf",
@@ -1134,7 +1115,8 @@
       ],
       "vigencia": {
         "inicio": "inmediata",
-        "plazo_transicion": "2027-02-01"
+        "plazo_transicion": "2027-02-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1159,7 +1141,7 @@
         "fecha": "2025-09-02"
       },
       "sesion": null,
-      "ncg": 548,
+      "ncg": 258,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°258 QUE ESTABLECE LOS ELEMENTOS MÍNIMOS DE GESTIÓN DE RIESGO DE CRÉDITO Y LIQUIDEZ DE LOS SISTEMAS DE COMPENSACIÓN Y LIQUIDACIÓN DE INSTRUMENTOS FINANCIEROS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_548_2025.pdf",
@@ -1169,15 +1151,15 @@
           "norma": "NCG N°258",
           "numero_norma": 258,
           "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1198,7 +1180,7 @@
         "fecha": "2025-08-19"
       },
       "sesion": null,
-      "ncg": 545,
+      "ncg": 526,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°526 QUE DICTA INSTRUCCIONES RESPECTO A LA FORMA DE DETERMINAR EL PATRIMONIO MÍNIMO Y GARANTÍAS QUE DEBEN MANTENER LAS ADMINISTRADORAS GENERALES DE FONDOS Y ADMINISTRADORAS DE CARTERA, DEROGA NCG N°157, Y LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_545_2025.pdf",
@@ -1209,34 +1191,16 @@
           "numero_norma": 526,
           "seccion_romana": null,
           "acciones": [
-            "Derógase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°157",
-          "numero_norma": 157,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2026-07-01"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1291,7 +1255,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-09-01"
+        "inicio": "2025-09-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1314,7 +1279,7 @@
         "fecha": "2025-01-15"
       },
       "sesion": null,
-      "ncg": 531,
+      "ncg": 529,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE  MODIFICA LA NORMA DE CARÁCTER GENERAL N°529, QUE A SU VEZ MODIFICÓ LA NORMA DE CARÁCTER GENERAL N°510 QUE IMPARTE INSTRUCCIONES DE GESTIÓN DE RIESGO OPERACIONAL A EFECTOS DE EXTENDER SU VIGENCIA; Y LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_531_2025.pdf",
@@ -1325,34 +1290,16 @@
           "numero_norma": 529,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°510",
-          "numero_norma": 510,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2025-07-01"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1394,7 +1341,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1424,7 +1372,7 @@
         "numero": 420,
         "fecha": "2024-11-28"
       },
-      "ncg": 524,
+      "ncg": 502,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°502 DE 2024 QUE REGULA EL REGISTRO, AUTORIZACIÓN Y OBLIGACIONES DE LOS PRESTADORES DE SERVICIOS FINANCIEROS DE LA LEY FINTEC",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_524_2024.pdf",
@@ -1443,7 +1391,8 @@
       ],
       "vigencia": {
         "inicio": "2024-02-03",
-        "plazo_transicion": "2024-02-03"
+        "plazo_transicion": "2024-02-03",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1503,7 +1452,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1561,7 +1511,7 @@
         "numero": 394,
         "fecha": "2024-05-31"
       },
-      "ncg": 513,
+      "ncg": 426,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°426",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_513_2024.pdf",
@@ -1572,9 +1522,9 @@
           "numero_norma": 426,
           "seccion_romana": "I",
           "acciones": [
+            "Elimínese",
             "Modifíquese",
-            "Agréguese",
-            "Elimínese"
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1582,7 +1532,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1631,7 +1582,9 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2024-09-30",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1694,7 +1647,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-02-01"
+        "inicio": "2025-02-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1719,7 +1673,7 @@
         "fecha": "2024-05-08"
       },
       "sesion": null,
-      "ncg": 508,
+      "ncg": 480,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN DE RIESGOS PARA BOLSAS DE VALORES Y BOLSAS DE PRODUCTOS Y MODIFICA LA NORMA DE CARÁCTER GENERAL N°480.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_508_2024.pdf",
@@ -1737,7 +1691,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-02-01"
+        "inicio": "2025-02-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1769,14 +1724,18 @@
           "numero_norma": 325,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Elimínese",
+            "Reemplácese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "ver texto"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],

@@ -33,7 +33,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],

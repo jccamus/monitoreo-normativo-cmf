@@ -204,11 +204,33 @@ _LABEL_INICIO = {
 }
 
 
+_MESES_ES = (
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+)
+
+
+def _fmt_inicio(v: dict) -> str:
+    """Etiqueta legible de `inicio`, respetando la precisión declarada.
+
+    Un plazo que el documento fija sólo por mes se guarda como el día 1 para
+    poder ordenarlo, pero mostrarlo como "2024-12-01" afirma una precisión que
+    el documento no da. Se rotula como el mes.
+    """
+    inicio = v.get("inicio") or "—"
+    if v.get("precision") == "mes" and isinstance(inicio, str) and len(inicio) == 10:
+        try:
+            mes = _MESES_ES[int(inicio[5:7]) - 1]
+        except (ValueError, IndexError):
+            return _LABEL_INICIO.get(inicio, inicio)
+        return f"{mes} de {inicio[:4]}"
+    return _LABEL_INICIO.get(inicio, inicio)
+
+
 def _vigencia_fmt(v: dict | None) -> str:
     if not v:
         return "—"
-    inicio = v.get("inicio") or "—"
-    label = _LABEL_INICIO.get(inicio, inicio)
+    label = _fmt_inicio(v)
     plazos = v.get("plazos") or []
     if plazos:
         # El `inicio` global de un documento escalonado describe sólo el primer
@@ -361,7 +383,7 @@ def _render(
     hoy: datetime,
     ultima_actualizacion: str,
 ) -> str:
-    cuadro_html = _render_cuadro_mando(buckets, hoy)
+    cuadro_html = _render_cuadro_mando(buckets, hoy, entradas)
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
     stats_html = _render_stats(_stats(entradas), len(entradas))
     filtros_html = _render_filtros()
@@ -380,8 +402,89 @@ def _render(
     )
 
 
+def _vigencia_resuelta(valor: str | None) -> bool:
+    """La vigencia dice algo accionable: una fecha concreta o 'inmediata'."""
+    return bool(valor) and (valor == "inmediata" or _parse_iso(valor) is not None)
+
+
+def _requiere_revision(e: dict) -> bool:
+    """Cambia archivos normativos pero no se pudo determinar desde cuándo rige.
+
+    Es el caso que hay que mirar a mano: un cambio a un archivo del MSI crea una
+    obligación de reporte, y sin fecha no se sabe para cuándo. Ocurre porque
+    parte de los oficios circulares no declaran vigencia en ninguna forma que se
+    pueda extraer — no porque el dato se haya perdido.
+    """
+    archivos = e.get("archivos_afectados") or []
+    if not archivos:
+        return False
+    return not any(_vigencia_resuelta(a.get("vigencia")) for a in archivos)
+
+
+def _render_candidatas(e: dict) -> str:
+    """Fechas del documento que podrían ser la vigencia, como pista de revisión.
+
+    Se muestran con su contexto y rotuladas como candidatas, nunca como la
+    vigencia: el pipeline no pudo decidir cuál es, y presentarlas como dato
+    firme sería exactamente el error que se corrigió en el parser.
+    """
+    candidatas = (e.get("vigencia") or {}).get("candidatas") or []
+    if not candidatas:
+        return ""
+    items = "".join(
+        f'<li><b>{html.escape(c.get("fecha") or "")}</b> · '
+        f'{html.escape(c.get("contexto") or "")}</li>'
+        for c in candidatas
+    )
+    return (
+        f'<div class="rv-cand"><span class="rv-cand-lbl">Fechas en el documento '
+        f'(sin confirmar cuál rige):</span><ul>{items}</ul></div>'
+    )
+
+
+def _render_revision_manual(entradas: list[dict]) -> str:
+    pendientes = [e for e in entradas if _requiere_revision(e)]
+    if not pendientes:
+        return ""
+    pendientes.sort(key=lambda e: e.get("fecha") or "", reverse=True)
+    filas = "".join(
+        f'<li><span class="rv-fecha">{html.escape(e.get("fecha") or "—")}</span>'
+        f'<span class="rv-arch">'
+        + "".join(
+            f'<span class="chip">{html.escape(a.get("nombre",""))}</span>'
+            for a in (e.get("archivos_afectados") or [])
+        )
+        + f'</span><span class="rv-tema">{html.escape(_resumen_minimo(e))}'
+        + _render_candidatas(e)
+        + "</span>"
+        + (
+            f'<a class="rv-pdf" href="{html.escape(e.get("url_documento") or "")}" '
+            f'target="_blank" rel="noopener">PDF ↗</a>'
+            if e.get("url_documento") else ""
+        )
+        + "</li>"
+        for e in pendientes[:25]
+    )
+    extra = (
+        f'<p class="rv-extra">y {len(pendientes)-25} más.</p>'
+        if len(pendientes) > 25 else ""
+    )
+    return (
+        f'<section id="revision-manual">'
+        f'<header><h3>Cambios de archivo sin fecha de vigencia</h3>'
+        f'<span class="rv-count">{len(pendientes)}</span></header>'
+        f'<p class="rv-nota">Estos documentos modifican archivos normativos del MSI '
+        f'—lo que genera una obligación de reporte— pero no declaran desde cuándo '
+        f'rige el cambio en una forma que se pueda extraer del PDF. '
+        f'Requieren revisión manual.</p>'
+        f'<ul class="rv-lista">{filas}</ul>{extra}</section>'
+    )
+
+
 def _render_cuadro_mando(
-    buckets: tuple[list[dict], list[dict], list[dict]], hoy: datetime
+    buckets: tuple[list[dict], list[dict], list[dict]],
+    hoy: datetime,
+    entradas: list[dict],
 ) -> str:
     b30, b60, b90 = buckets
     fecha_txt = html.escape(hoy.strftime("%Y-%m-%d"))
@@ -400,7 +503,10 @@ def _render_cuadro_mando(
     vacias = "".join(_render_columna_tareas(*d) for d in defs if not d[3])
     llenas = "".join(_render_columna_tareas(*d) for d in defs if d[3])
     pila_vacias = f'<div class="cm-pila-vacias">{vacias}</div>' if vacias else ""
-    return f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>'
+    revision = _render_revision_manual(entradas)
+    return (
+        f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>{revision}'
+    )
 
 
 def _render_columna_tareas(
@@ -910,6 +1016,29 @@ _TEMPLATE = """<!DOCTYPE html>
     .cm-columna.vacia .cm-tareas { padding: 0; }
     .cm-sin-tareas { padding: 10px 16px; color: #6b7280; font-size: 11.5px;
                      font-style: italic; text-align: center; white-space: nowrap; }
+
+    /* Revisión manual: cambios de archivo sin fecha de vigencia */
+    #revision-manual { margin-top: 24px; background: #fffbeb;
+                       border: 1px solid #fde68a; border-radius: 8px; padding: 14px 16px; }
+    #revision-manual header { display: flex; align-items: center; gap: 8px; }
+    #revision-manual h3 { font-size: 13px; color: #92400e; margin: 0; }
+    .rv-count { background: #f59e0b; color: #fff; border-radius: 10px;
+                padding: 1px 8px; font-size: 11px; font-weight: 600; }
+    .rv-nota { font-size: 11.5px; color: #78350f; margin: 6px 0 10px; max-width: 74ch; }
+    .rv-lista { list-style: none; margin: 0; padding: 0; }
+    .rv-lista li { display: flex; align-items: baseline; gap: 10px; padding: 6px 0;
+                   border-top: 1px solid #fef3c7; font-size: 12px; }
+    .rv-fecha { color: #92400e; font-variant-numeric: tabular-nums; flex: 0 0 82px; }
+    .rv-arch { flex: 0 0 auto; display: flex; gap: 4px; flex-wrap: wrap; }
+    .rv-tema { color: #444; flex: 1 1 auto; }
+    .rv-pdf { flex: 0 0 auto; color: #92400e; text-decoration: none; }
+    .rv-extra { font-size: 11.5px; color: #78350f; margin: 8px 0 0; }
+    .rv-cand { margin-top: 4px; }
+    .rv-cand-lbl { font-size: 10.5px; color: #a16207; text-transform: uppercase;
+                   letter-spacing: 0.3px; }
+    .rv-cand ul { list-style: none; margin: 2px 0 0; padding: 0; }
+    .rv-cand li { font-size: 11px; color: #6b7280; padding: 1px 0; border: 0; }
+    .rv-cand b { color: #92400e; font-variant-numeric: tabular-nums; }
 
     /* Cambios relevantes */
     #cambios-relevantes { display: flex; flex-direction: column; gap: 16px; }

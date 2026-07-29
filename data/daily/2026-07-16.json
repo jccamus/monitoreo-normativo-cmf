@@ -11,7 +11,7 @@
         "fecha": "2026-07-14"
       },
       "sesion": null,
-      "ncg": null,
+      "ncg": 509,
       "documento": {
         "tipo": "Circular",
         "numero": 2373
@@ -22,7 +22,9 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2028-01-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [
         "1-13",
@@ -34,7 +36,43 @@
           "contexto": "1 del\nCompendio Normas Contables de\nbancos, y el Sistema Contable, de\nDeudores y Sistema Tablas del\nManual de Sistemas de Información\nde bancos.\n_________________________________\n14 de julio de 2026\nCIRCULAR N°2.373\nBancos\nLa Comisió"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C11",
+          "vigencia": "2028-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C12",
+          "vigencia": "2028-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C13",
+          "vigencia": "2028-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C14",
+          "vigencia": "2028-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C19",
+          "vigencia": "2028-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C20",
+          "vigencia": "2028-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D17",
+          "vigencia": "2028-01-01"
+        }
+      ],
       "tema": "Introduce nuevo Capítulo 21- 10 a la Recopilación Actualizada de Normas de bancos, sobre requisitos y condiciones mínimas que deben cumplir las garantías constituidas a favor del banco para ser aceptadas y utilizadas como mitigadores de riesgo de crédito, y modifica los Capítulos 1-13 y 12-3 de la misma Recopilación, el Capítulo B-1 del Compendio Normas Contables de bancos, y el Sistema Contable,…",
       "resumen_acciones": []
     }

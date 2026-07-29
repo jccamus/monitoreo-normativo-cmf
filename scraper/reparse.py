@@ -137,7 +137,14 @@ def reparsear(
                 logger.exception("  error parseando %s — se deja intacta", entrada.get("clave"))
                 continue
 
-            campos = ("fecha", "parsed", "documento", "vigencia", "tema")
+            # Todos los campos que el parser puede cambiar. Si falta uno, un
+            # arreglo que sólo toque ese campo se descarta como "sin cambios" y
+            # no llega nunca al histórico.
+            campos = (
+                "fecha", "parsed", "documento", "vigencia", "tema",
+                "modifica", "archivos_afectados", "ran_referencias",
+                "msi_referencias", "resumen_acciones", "ncg",
+            )
             if all(nueva.get(c) == entrada.get(c) for c in campos):
                 sin_cambio += 1
                 logger.info("  %s sin cambios (%s)", entrada.get("clave"), entrada.get("fecha"))

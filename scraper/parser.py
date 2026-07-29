@@ -6,9 +6,30 @@ from typing import Any
 logger = logging.getLogger(__name__)
 
 # ── Patrones regex identificados en documentos CMF reales ──────────────────
-_NCG_NUM     = re.compile(r"NORMA DE CARÁCTER GENERAL\s+N[°o]\s*(\d+)", re.IGNORECASE)
+
+
+def _frase(texto: str) -> str:
+    """Frase literal convertida en patrón que tolera el salto de línea.
+
+    Los PDF de la CMF cortan las frases donde termina el renglón, así que el
+    mismo documento escribe "NORMA DE CARÁCTER GENERAL N°550" en un párrafo y
+    "NORMA DE CARÁCTER\\nGENERAL N°550" en otro. Un espacio literal no cruza ese
+    salto: la NCG 564/2026 abre con "REF: MODIFICA NORMA DE CARÁCTER\\nGENERAL
+    N°550" y el parser no reconocía ni la norma modificada ni el número de NCG,
+    en un documento cuyo único contenido es justamente esa modificación.
+
+    Usar `\\s+` entre palabra y palabra también absorbe el doble espacio y el
+    espacio duro que deja el extractor al justificar el texto.
+    """
+    return r"\s+".join(map(re.escape, texto.split()))
+
+
+_NCG_NUM     = re.compile(
+    _frase("NORMA DE CARÁCTER GENERAL") + r"\s+N[°o]\s*(\d+)", re.IGNORECASE
+)
 _RESOLUCION  = re.compile(
-    r"Resolución Exenta\s+N[°o]\s*(\d+)[,.]?\s*de fecha\s+(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})",
+    _frase("Resolución Exenta") + r"\s+N[°o]\s*(\d+)[,.]?\s*" + _frase("de fecha")
+    + r"\s+(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})",
     re.IGNORECASE,
 )
 _SESION      = re.compile(
@@ -17,7 +38,7 @@ _SESION      = re.compile(
 )
 _NORMA_MOD   = re.compile(
     r"(?:MODIFICACIONES?\s+(?:A\s+LA\s+)?|MODIFICA\s+(?:LA\s+)?)"
-    r"NORMA DE CARÁCTER GENERAL\s+N[°o]\s*(\d+)",
+    + _frase("NORMA DE CARÁCTER GENERAL") + r"\s+N[°o]\s*(\d+)",
     re.IGNORECASE,
 )
 _ACCION      = re.compile(
@@ -67,15 +88,108 @@ _DOC_IDENTIDAD = re.compile(
 # ── Patrones RAN / MSI ──────────────────────────────────────────────────────
 _RAN_CAP = re.compile(
     r"[Cc]apítulo\s+([\w][\w.\-]*)\s+(?:de\s+(?:la\s+)?)?(?:"
-    r"Recopilación Actualizada de Normas|RAN\b)",
+    + _frase("Recopilación Actualizada de Normas") + r"|RAN\b)",
     re.IGNORECASE,
 )
-_MSI = re.compile(r"Manual de Sistemas de Información", re.IGNORECASE)
+# La CMF alterna entre "Manual de Sistemas de Información" y "Manual del
+# Sistema de Información" para el mismo manual, a veces dentro del mismo
+# documento. Reconocer sólo la primera forma dejaba fuera todos los oficios
+# circulares, que usan la segunda.
+_MSI = re.compile(
+    _frase("Manual de") + r"\s+(?:Sistemas|Sistema)\s+" + _frase("de Información"),
+    re.IGNORECASE,
+)
 
 # ── Patrones archivos afectados ─────────────────────────────────────────────
-_ARCHIVO_CREAR   = re.compile(r"(?:se\s+crea|deberá\s+presentar|nuevo\s+formulario|nuevo\s+archivo)\s+(?:el\s+)?([A-ZÁÉÍÓÚ][\w\s\-\.°N]+)", re.IGNORECASE)
-_ARCHIVO_MOD     = re.compile(r"(?:modifica|reemplaza|sustituye)\s+(?:el\s+)?(?:formulario|archivo|anexo)\s+([\w\s\-\.°N]+)", re.IGNORECASE)
-_ARCHIVO_ELIM    = re.compile(r"(?:elimina|deroga|suprime)\s+(?:el\s+)?(?:formulario|archivo|anexo)\s+([\w\s\-\.°N]+)", re.IGNORECASE)
+#
+# Los archivos normativos del MSI se identifican por un código de 1-3 letras y
+# 2-3 dígitos: C11, R06, E24, D62, RDC01. Se exige la palabra "archivo" delante
+# porque el código suelto se confunde con demasiadas cosas (capítulos de la RAN
+# como 8-4 o 21-30, números de tablas, códigos de campo).
+#
+# El patrón anterior buscaba prosa genérica ("se crea X", "modifica el
+# formulario X") y capturaba fragmentos de oración en vez de identificadores:
+# de 154 entradas sólo 9 tenían archivos, con nombres como "un fondo" o "copia
+# del poder en virtud del cual actúa". Ninguno era un archivo.
+_COD_ARCHIVO = r"[A-Z]{1,3}\d{2,3}"
+_LISTA_ARCHIVOS = re.compile(
+    r"[Aa]rchivos?\s+(?:[Nn]ormativos?\s+)?"
+    rf"({_COD_ARCHIVO}(?:\s*(?:,|y|e)\s*{_COD_ARCHIVO})*)"
+)
+# Verbo que rige sobre el archivo. Se busca hacia atrás desde la mención porque
+# la CMF escribe "Realizar ajustes al archivo normativo C70", con el verbo antes.
+_ARCHIVO_CREAR = re.compile(
+    r"(?:se\s+crea|cr[ée]ase|se\s+incorpora|nuevo\s+archivo|nuevos?\s+archivos?)",
+    re.IGNORECASE,
+)
+_ARCHIVO_ELIM = re.compile(
+    r"(?:se\s+elimina|elim[íi]nese|se\s+deroga|der[óo]gase|se\s+suprime|"
+    r"deja\s+sin\s+efecto)",
+    re.IGNORECASE,
+)
+_VENTANA_ACCION_ARCHIVO = 140   # cuánto texto antes de la mención se inspecciona
+
+# Referencia cruzada, no un cambio. El oficio circular 1375/2025 dice "estas
+# operaciones se reportan exclusivamente en este archivo, no deben incluirse en
+# los archivos D32, D33 y D35": nombra tres archivos para decir dónde *no* hay
+# que informar. Sin este filtro entraban como archivos modificados.
+_ARCHIVO_NO_CAMBIO = re.compile(
+    r"\bno\s+(?:se\s+)?(?:deben?|corresponde|incluir(?:se)?|reportar(?:se)?|"
+    r"informar(?:se)?|considerar(?:se)?)",
+    re.IGNORECASE,
+)
+
+_MESES_ALT = (
+    r"enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
+    r"septiembre|octubre|noviembre|diciembre"
+)
+# Las tres formas en que la CMF fecha un plazo, en orden de precisión. La de mes
+# sin día es la habitual para las obligaciones de reporte —"a partir del mes de
+# diciembre de 2024"— y la numérica aparece en las circulares más antiguas
+# ("a partir del día 13-07-2021"). Reconocer sólo la forma larga mandaba las dos
+# a revisión manual pese a que el documento sí declara cuándo rige.
+_FECHA_ALT = (
+    r"(\d{1,2}[°º]?\s+de\s+(?:" + _MESES_ALT + r")\s+del?\s+\d{4}"
+    r"|\d{1,2}[-/]\d{1,2}[-/]\d{4}"
+    r"|(?:mes\s+de\s+)?(?:" + _MESES_ALT + r")\s+del?\s+\d{4})"
+)
+_FECHA_NUMERICA = re.compile(r"(\d{1,2})[-/](\d{1,2})[-/](\d{4})")
+_MES_ANIO = re.compile(rf"({_MESES_ALT})\s+del?\s+(\d{{4}})", re.IGNORECASE)
+
+# Cláusula de aplicación sin encabezado de sección. Los oficios circulares no
+# titulan una sección "Vigencia": declaran cuándo rige el cambio en un párrafo
+# de cierre. El oficio 1403/2026 dice "Los ajustes señalados se exigirán a
+# contar de los reportes que deben remitirse a partir del 1 de marzo de 2026".
+#
+# Es un respaldo deliberadamente estrecho, y sólo se usa cuando no hay sección.
+# La fecha tiene que colgar de un verbo de aplicación y estar en la misma
+# oración (`[^.]`): así no se repite el bug de tomar la primera fecha del
+# documento, que es la del encabezado. Ante la duda, no hay fecha.
+_CLAUSULA_APLICACION = re.compile(
+    r"(?:se\s+exigir[áa]n?|regir[áa]?n?|ser[áa]n?\s+aplicables?|ser[áa]n?\s+requerid\w*|"
+    r"aplicar[áa]n?\s+a\s+contar|entrar[áa]n?\s+en\s+(?:vigencia|vigor)|se\s+aplicar[áa]n?|"
+    # `regir` sin tilde: "empieza a regir desde enero de 2025". El patrón
+    # anterior exigía `regir[áa]`, así que sólo veía "regirá"/"regirán".
+    r"(?:comenzar[áa]?n?|empezar[áa]?n?|empieza|comienza)\s+a\s+(?:regir|aplicarse)|"
+    r"podr[áa]n?\s+comenzar\s+a\s+(?:enviar|remitir)|primer\s+env[íi]o|"
+    r"deber[áa]n?\s+(?:remitirse|enviarse|informarse|reportarse)|"
+    # Forma pasiva: el oficio 1381/2025 fija el plazo como "que debe ser
+    # reportada hasta el 30 de septiembre de 2025".
+    r"deben?\s+ser\s+(?:reportad|informad|enviad|remitid|present)\w*)"
+    r"[^.]{0,160}?" + _FECHA_ALT,
+    re.IGNORECASE,
+)
+
+# Una norma que fija la vigencia de otra: la NCG 564/2026 no tiene contenido
+# propio más allá de reemplazar la sección Vigencia de la NCG 550. La fecha que
+# importa —cuándo empieza a regir la 550— vive dentro de ese texto citado, no en
+# la sección de vigencia de la 564, que dice "rige a contar de esta fecha".
+_MOD_VIGENCIA = re.compile(
+    r"(?:secci[óo]n|t[íi]tulo|numeral|p[áa]rrafo|texto)\s+[Vv]igencia\s+"
+    r"(?:de|del)\s+(?:la\s+)?(?:" + _frase("NORMA DE CARÁCTER GENERAL")
+    + r"|NCG)\s+N[°o]\s*(\d+)(.{0,900})",
+    re.IGNORECASE | re.DOTALL,
+)
 
 # ── Resumen accionable: bloque REF + bullets de cambios ─────────────────────
 _REF_BLOCK = re.compile(r"REF\s*:\s*(.+?)(?:\n\s*_{3,}|\n\s*\n)", re.DOTALL | re.IGNORECASE)
@@ -236,10 +350,9 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     # ── Modificaciones ───────────────────────────────────────────────────────
     result["modifica"] = _parse_modificaciones(text)
 
-    # ── RAN / MSI / Archivos ────────────────────────────────────────────────
+    # ── RAN / MSI ───────────────────────────────────────────────────────────
     result["ran_referencias"] = _parse_ran(text)
     result["msi_referencias"] = _parse_msi(text)
-    result["archivos_afectados"] = _parse_archivos(text)
 
     # ── Vigencia ────────────────────────────────────────────────────────────
     #
@@ -255,9 +368,39 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     # `_fecha_encabezado`).
     seccion_vig = _seccion_vigencia(text)
     result["vigencia"] = _parse_vigencia_global(seccion_vig)
+    result["vigencia"]["fuente"] = "seccion" if seccion_vig else "ninguna"
     plazos = _parse_plazos(seccion_vig) if seccion_vig else []
     if plazos:
         result["vigencia"]["plazos"] = plazos
+
+    # Sin sección, buscar una cláusula de aplicación explícita en el cuerpo.
+    # `fuente` queda registrada para que se pueda auditar de dónde salió cada
+    # fecha y para distinguir lo extraído de lo que de verdad falta.
+    if not seccion_vig:
+        clausula = _CLAUSULA_APLICACION.search(text)
+        if clausula:
+            inicio, precision = _resolver_fecha(clausula.group(1))
+            if inicio:
+                result["vigencia"] = {
+                    "inicio": inicio,
+                    "precision": precision,
+                    "fuente": "clausula_aplicacion",
+                }
+
+    # ── Archivos afectados ──────────────────────────────────────────────────
+    # Después de la vigencia, no antes: cada archivo se fecha con la viñeta que
+    # lo nombra, así que necesita los plazos ya resueltos.
+    result["archivos_afectados"] = _parse_archivos(text, result["vigencia"])
+
+    # Un cambio de archivo sin fecha crea una obligación de reporte sin plazo
+    # conocido: se adjuntan las fechas del cuerpo como pistas para la revisión
+    # manual que el dashboard va a pedir.
+    if result["archivos_afectados"] and result["vigencia"].get("inicio") in (
+        "no especificado", "ver texto", None
+    ):
+        candidatas = _fechas_candidatas(text)
+        if candidatas:
+            result["vigencia"]["candidatas"] = candidatas
 
     # ── Resumen accionable (tema + bullets) ─────────────────────────────────
     result["tema"] = _extraer_tema(text)
@@ -387,6 +530,12 @@ def _parse_modificaciones(text: str) -> list[dict]:
     """Detecta secciones de modificación a normas anteriores."""
     modificaciones = []
 
+    # Vigencias que este documento le fija a otras normas. Pisan a la vigencia
+    # de la sección, porque son la fecha de la norma modificada y no la del
+    # documento que la modifica: la NCG 564/2026 rige de inmediato, pero lo que
+    # hace es que la NCG 550 empiece a regir el 1 de marzo de 2027.
+    impuestas = _vigencias_impuestas(text)
+
     # Dividir por secciones romanas
     secciones_pos = [(m.start(), m.group(1)) for m in _SECCION_ROM.finditer(text)]
 
@@ -415,7 +564,7 @@ def _parse_modificaciones(text: str) -> list[dict]:
                     "numero_norma": int(norma_num),
                     "seccion_romana": num_rom,
                     "acciones": acciones,
-                    "vigencia": vigencia_sec,
+                    "vigencia": impuestas.get(int(norma_num), vigencia_sec),
                 })
     else:
         # Documento sin secciones romanas: modificación directa
@@ -428,7 +577,7 @@ def _parse_modificaciones(text: str) -> list[dict]:
                 "numero_norma": int(norma_num),
                 "seccion_romana": None,
                 "acciones": acciones,
-                "vigencia": vigencia_global,
+                "vigencia": impuestas.get(int(norma_num), vigencia_global),
             })
 
     return modificaciones
@@ -514,7 +663,17 @@ def _parse_vigencia_global(texto_vigencia: str | None) -> dict:
             d, mes, y = fechas[0]
             resultado["inicio"] = f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
         else:
-            resultado["inicio"] = "ver texto"
+            # Sin fecha con día, aceptar las formas menos precisas: la CMF
+            # también fija plazos por mes ("a contar de diciembre de 2025") o en
+            # formato numérico. Antes caían en "ver texto" y el plazo quedaba
+            # invisible pese a estar declarado.
+            inicio, precision = _resolver_fecha(texto_vigencia)
+            if inicio:
+                resultado["inicio"] = inicio
+                if precision != "dia":
+                    resultado["precision"] = precision
+            else:
+                resultado["inicio"] = "ver texto"
 
     # Detectar cláusula de transición
     m_trans = re.search(r"a más tardar el\s+(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})", texto_vigencia, re.IGNORECASE)
@@ -547,26 +706,108 @@ def _parse_msi(text: str) -> list[dict]:
     return resultado
 
 
-def _parse_archivos(text: str) -> list[dict]:
-    """Detecta archivos/formularios afectados por la norma."""
-    archivos = []
+def _accion_archivo(text: str, pos: int) -> str:
+    """Verbo que rige sobre el archivo mencionado en `pos`.
 
-    for m in _ARCHIVO_CREAR.finditer(text):
-        nombre = m.group(1).strip()[:120]
-        if len(nombre) > 5:
-            archivos.append({"accion": "crear", "nombre": nombre, "vigencia": None})
+    Se mira hacia atrás: la CMF antepone el verbo ("Realizar ajustes al archivo
+    normativo C70"). Por defecto "modificar", que es lo que hace la enorme
+    mayoría de estos documentos —ajustes técnicos a un archivo que ya existe—.
+    """
+    ventana = text[max(0, pos - _VENTANA_ACCION_ARCHIVO):pos]
+    # Sólo la oración en curso: una negación de la frase anterior no dice nada
+    # sobre esta mención.
+    clausula = re.split(r"[.;]", ventana)[-1]
+    if _ARCHIVO_NO_CAMBIO.search(clausula):
+        return "mencion"
+    if _ARCHIVO_ELIM.search(ventana):
+        return "eliminar"
+    if _ARCHIVO_CREAR.search(ventana):
+        return "crear"
+    return "modificar"
 
-    for m in _ARCHIVO_MOD.finditer(text):
-        nombre = m.group(1).strip()[:120]
-        if len(nombre) > 5:
-            archivos.append({"accion": "modificar", "nombre": nombre, "vigencia": None})
 
-    for m in _ARCHIVO_ELIM.finditer(text):
-        nombre = m.group(1).strip()[:120]
-        if len(nombre) > 5:
-            archivos.append({"accion": "eliminar", "nombre": nombre, "vigencia": None})
+def _vigencia_de_archivo(codigo: str, vigencia: dict) -> str | None:
+    """Fecha en que rige el cambio a un archivo concreto.
 
-    return archivos
+    Cuando el documento escalona la vigencia, cada viñeta acota su plazo a un
+    conjunto de capítulos o archivos y los nombra: la circular 2370/2026 dice
+    que los ajustes a R06 y R07 rigen desde el 1 de julio de 2026, mientras
+    otros capítulos aplican de inmediato. Si el código aparece en una viñeta,
+    manda esa viñeta; si no, la vigencia global del documento.
+    """
+    for plazo in vigencia.get("plazos") or []:
+        if re.search(rf"\b{re.escape(codigo)}\b", plazo.get("texto") or ""):
+            return plazo.get("inicio")
+    return vigencia.get("inicio")
+
+
+def _parse_archivos(text: str, vigencia: dict | None = None) -> list[dict]:
+    """Archivos normativos del MSI afectados, con su fecha de aplicación."""
+    vigencia = vigencia or {}
+    por_codigo: dict[str, dict] = {}
+
+    for m in _LISTA_ARCHIVOS.finditer(text):
+        accion = _accion_archivo(text, m.start())
+        if accion == "mencion":
+            continue
+        for codigo in re.findall(_COD_ARCHIVO, m.group(1)):
+            # Un mismo archivo se menciona muchas veces en el documento. Se
+            # conserva la primera aparición, que es la que trae el verbo; las
+            # repeticiones posteriores suelen ser referencias dentro del
+            # detalle campo por campo.
+            if codigo in por_codigo:
+                continue
+            por_codigo[codigo] = {
+                "accion": accion,
+                "nombre": codigo,
+                "vigencia": _vigencia_de_archivo(codigo, vigencia),
+            }
+
+    return list(por_codigo.values())
+
+
+def _vigencias_impuestas(text: str) -> dict[int, dict]:
+    """Vigencias que este documento le fija a *otra* norma.
+
+    Mapea número de NCG -> vigencia. Ver `_MOD_VIGENCIA`: sin esto la fecha se
+    perdía o, peor, se le atribuía al documento que la impone en vez de a la
+    norma que la recibe.
+    """
+    impuestas: dict[int, dict] = {}
+    for m in _MOD_VIGENCIA.finditer(text):
+        numero = int(m.group(1))
+        if numero in impuestas:
+            continue
+        # Acotar el texto citado. Sin esto la ventana se desborda hasta la
+        # sección de vigencia del propio documento y la NCG 564/2026 devolvía
+        # "inmediata" —su vigencia, no la que le impone a la 550— pisando el
+        # 1 de marzo de 2027 que sí estaba en la cita.
+        impuestas[numero] = _parse_vigencia_global(_acotar_cita(m.group(2)))
+    return impuestas
+
+
+def _acotar_cita(texto: str) -> str:
+    """Recorta el texto que una norma le inserta a otra, entre “ y ”.
+
+    Cuenta la profundidad de comillas en vez de cortar en la primera de cierre:
+    la cita de la NCG 564/2026 contiene “CMF Supervisa” anidado, y cortar ahí
+    dejaba fuera el plazo del 1 de abril de 2027 que venía después.
+    """
+    ini = texto.find("“")
+    if ini == -1:
+        # Sin comillas: al menos no invadir la sección de vigencia propia.
+        fin = _VIGENCIA_HEADING.search(texto)
+        return texto[: fin.start()] if fin else texto
+
+    profundidad = 0
+    for i in range(ini, len(texto)):
+        if texto[i] == "“":
+            profundidad += 1
+        elif texto[i] == "”":
+            profundidad -= 1
+            if profundidad == 0:
+                return texto[ini + 1:i]
+    return texto[ini + 1:]
 
 
 def _fecha_str_to_iso(texto: str) -> str | None:
@@ -576,3 +817,71 @@ def _fecha_str_to_iso(texto: str) -> str | None:
         return None
     d, mes, y = m.group(1), m.group(2), m.group(3)
     return f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
+
+
+_REFERENCIA_NORMA = re.compile(
+    r"(?i)(resoluci[óo]n|circular\s+n|ley\s+n|decreto|sesi[óo]n|acordado|"
+    r"\bNCG\b|norma\s+de\s+car[áa]cter)"
+)
+_INICIO_CUERPO = 900        # el encabezado del PDF cabe holgado en este margen
+_MAX_CANDIDATAS = 4
+
+
+def _fechas_candidatas(text: str) -> list[dict]:
+    """Fechas del cuerpo que podrían ser la vigencia, para revisión humana.
+
+    Sólo se usan cuando no se pudo determinar la vigencia. No son un dato del
+    pipeline —nada aguas abajo las trata como fecha de entrada en vigor— sino
+    una pista para quien revise a mano: la CMF entrelaza la fecha con el ciclo
+    de reporte ("información referida al cierre de agosto, enviarse en
+    septiembre de 2025") y decidir cuál manda es un juicio, no un regex.
+
+    Se descartan las del encabezado y las que cuelgan de una referencia a otra
+    norma, que son las dos fuentes de ruido dominantes.
+    """
+    fuera: list[dict] = []
+    vistas: set[str] = set()
+    for m in re.finditer(_FECHA_ALT, text[_INICIO_CUERPO:], re.IGNORECASE):
+        pos = m.start() + _INICIO_CUERPO
+        previo = text[max(0, pos - 110):pos]
+        if _REFERENCIA_NORMA.search(previo):
+            continue
+        iso, precision = _resolver_fecha(m.group(0))
+        if not iso or iso in vistas:
+            continue
+        vistas.add(iso)
+        fuera.append({
+            "fecha": iso,
+            "precision": precision,
+            "contexto": _normaliza_frase(text[max(0, pos - 90):pos + 40], maxlen=150),
+        })
+        if len(fuera) >= _MAX_CANDIDATAS:
+            break
+    return fuera
+
+
+def _resolver_fecha(texto: str) -> tuple[str | None, str]:
+    """Fecha ISO y su precisión ('dia' o 'mes') desde cualquiera de las formas.
+
+    La precisión se devuelve porque un plazo que el documento fija sólo por mes
+    ("a partir del mes de diciembre de 2024") se normaliza al día 1 para poder
+    ordenarlo, y esa precisión inventada no se puede mostrar como si fuera una
+    fecha exacta. El dashboard la usa para rotularla como mes.
+    """
+    iso = _fecha_str_to_iso(texto)
+    if iso:
+        return iso, "dia"
+
+    m = _FECHA_NUMERICA.search(texto)
+    if m:
+        d, mes, y = int(m.group(1)), int(m.group(2)), m.group(3)
+        if 1 <= mes <= 12 and 1 <= d <= 31:
+            return f"{y}-{mes:02d}-{d:02d}", "dia"
+
+    m = _MES_ANIO.search(texto)
+    if m:
+        mes = MESES.get(m.group(1).lower())
+        if mes:
+            return f"{m.group(2)}-{mes:02d}-01", "mes"
+
+    return None, "dia"

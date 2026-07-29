@@ -22,9 +22,12 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "18-3"
+      ],
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Introduce ajustes al Capítulo C-3 del Compendio de Normas Contables para Bancos",
@@ -75,7 +78,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -104,7 +108,8 @@
       "modifica": [],
       "vigencia": {
         "inicio": "inmediata",
-        "plazo_transicion": "2026-04-30"
+        "plazo_transicion": "2026-04-30",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -136,7 +141,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -160,11 +166,38 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2026-03-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": "2024 y la Resolución N°\n7.045 del 14 de julio de 2025, esta Comisión procede a realizar ajustes al Manual de\nSistema de Información del Registro de Consolidado de Deuda (MSI REDEC) mediante\nel presente Oficio Circular.\nLos ajustes"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "RDC01",
+          "vigencia": "2026-03-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC02",
+          "vigencia": "2026-03-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC20",
+          "vigencia": "2026-03-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC40",
+          "vigencia": "2026-03-01"
+        }
+      ],
       "documento": {
         "tipo": "Oficio Circular",
         "numero": 1403
@@ -208,45 +241,28 @@
         "numero": 473,
         "fecha": "2025-12-04"
       },
-      "ncg": 557,
+      "ncg": 469,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE ESTABLECE NORMAS PARA SEGUROS DE CONDOMINIOS DEL ARTÍCULO 43 DE LA LEY N°21.442 Y DE NORMA QUE MODIFICA NORMA DE CARÁCTER GENERAL N°469, QUE REGULA LA CONTRATACIÓN INDIVIDUAL Y COLECTIVA DE SEGUROS ASOCIADOS A CRÉDITOS HIPOTECARIOS DEL ARTÍCULO 40 DEL D.F.L. N°251.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_557_2025.pdf",
       "parsed": true,
       "modifica": [
         {
-          "norma": "NCG N°21",
-          "numero_norma": 21,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
           "norma": "NCG N°469",
           "numero_norma": 469,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Agrégase",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°251",
-          "numero_norma": 251,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "ver texto"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -305,7 +321,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -333,10 +350,18 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "REF: Introduce ajustes técnicos a los archivos\nnormativos de la NCG N°530 Manual de Sistema\nde Información de Fintec\n______________________________________\nOFICIO CIRCULAR N°1394\n24 de noviembre del 2025\nA"
+        },
+        {
+          "contexto": "os del MSI Fintec,\ncontenidos en la NCG N°530. la Norma de Carácter General N°530, que establece el Manual\nde Sistema de Información Fintec y que imparte instrucciones para el envío de información\npara la fiscalización de las entida"
+        }
+      ],
       "archivos_afectados": [],
       "documento": {
         "tipo": "Oficio Circular",
@@ -376,10 +401,24 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "INANCIERO QUE APRUEBA\nEMISIÓN DE NORMATIVA QUE\nINCORPORA MODIFICACIONES A LA\nNCG N°532 RELATIVAS AL MANUAL\nDE SISTEMA DE INFORMACIÓN DE\nFONDOS\n_________________________________\nNORMA DE CARÁCTER GENERAL N°554\n21 DE NOVIEMBRE DE 2025"
+        },
+        {
+          "contexto": "AS CONSTITUIDAS” que se incluye en el Anexo N°3 de esta\nnormativa, en el N°2 de la Sección III del “Manual de Sistema de\nInformación de Fondos” denominado “Compendio de Formularios”.\n4. Incorpórese las tablas de referencia de los ar"
+        },
+        {
+          "contexto": "entes.\nII.4 De la remisión a esta Comisión\nPor su parte, mediante el archivo normativo FONDOS02 del Manual de\nSistema de Información de Fondos, contenido en la NCG N°532, las\nadministradoras deberán reportar a esta Comisión, informa"
+        },
+        {
+          "contexto": "ario que estará presente en el módulo de envío\nde los archivos normativos.\n62\nANEXO N°3: TABLAS DEL MANUAL DE SISTEMA DE INFORMACIÓN DE\nFONDOS\n1. TABLA N°1: Clase de Fondo\nCÓD. CLASE DE FONDO\n01 Fondo mutuo\n02 Fondo de inversión res"
+        }
+      ],
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
@@ -404,10 +443,24 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2026-07-01"
+        "inicio": "2026-07-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "REF: INCORPORA NUEVOS ARCHIVOS AL\nMANUAL DE SISTEMAS DE\nINFORMACIÓN DE FONDOS SOBRE\nVOLUMEN DE NEGOCIOS Y NÚMERO\nDE CLIENTES, PATRIMONIO MÍNIMO\nY ACTIVOS PONDERADOS PO"
+        },
+        {
+          "contexto": "a ello en la regulación pertinente, y en los términos\nestablecidos en la presente normativa y en el Manual de Sistema de Información de\nFondos, los siguientes reportes, según lo dispuesto en la Norma de Carácter General\nN°526:\n1. Ar"
+        },
+        {
+          "contexto": "miento de información sobre garantías cuyo contenido específico se encuentra\nen el Anexo N°2.\n2\nII. MANUAL DE SISTEMA DE INFORMACIÓN DE FONDOS\nCon la finalidad de sistematizar las instrucciones a las que deben atenerse las\nadministr"
+        },
+        {
+          "contexto": "ódica o permanente a través de archivos\nnormativos u otros, incorpórese los archivos normativos al “Manual de Sistema de\nInformación de Fondos” en la nueva subsección “Compendio de Archivos Normativos de\nAdministradoras Generales de"
+        }
+      ],
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
@@ -432,10 +485,16 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "18-3"
+      ],
       "msi_referencias": [
+        {
+          "contexto": "isión procede a realizar ajustes\nal Manual del Sistema de Información para bancos (MSI Bancos) y al Manual de\nSistema de Información del Registro de Consolidado de Deuda (MSI REDEC) mediante\nel presente Oficio Circular.\nLos ajustes"
+        },
         {
           "contexto": "obligación reportablecrédito de acuerdo con la Tabla\n126 “Tipo de obligación reportableCrédito” del Manual de Sistemas de Información de\nbancos. Las obligacionesLos créditos a reportar no pueden corresponder a la categoría\nde crédito"
         },
@@ -447,9 +506,48 @@
         },
         {
           "contexto": "obligación reportablecrédito de acuerdo con la Tabla\n126 “Tipo de obligación reportableCrédito” del Manual de Sistemas de Información de\nbancos. Los créditos a reportar no pueden corresponder a la categoría de créditos\nsubrogados, co"
+        },
+        {
+          "contexto": "ificación de la vía de ingreso de la solicitud, utilizando los códigos\ndefinidos en la Tabla 75 del Manual de Sistema de Información de bancos sobre “Vías de\ningreso de reclamos y solicitudes de cierre de productos”. Este campo debe"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "RDC02",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC01",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC40",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC20",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC30",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E04",
+          "vigencia": "no especificado"
+        }
+      ],
       "documento": {
         "tipo": "Oficio Circular",
         "numero": 1387
@@ -473,13 +571,25 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2025-09-30",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [
         "18-3"
       ],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": ")\nDebe completar con el código de la comuna que corresponda al JPL, de acuerdo a la Tabla\nN°65 del “Manual de Sistema de Información de Bancos” publicado en www.cmfchile.cl\nSi en el Campo N°17 informó con el Código 02, es decir, que"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "E24",
+          "vigencia": "2025-09-30"
+        }
+      ],
       "documento": {
         "tipo": "Oficio Circular",
         "numero": 1381
@@ -500,7 +610,7 @@
         "numero": 458,
         "fecha": "2025-08-21"
       },
-      "ncg": 547,
+      "ncg": 306,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE ESTABLECE NORMAS SOBRE SEGUROS PARAMÉTRICOS Y MODIFICACIÓN DE NORMA DE CARÁCTER GENERAL N° 306, QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS EN SEGUROS DISTINTOS DE LOS SEGUROS PREVISIONALES DEL DL N° 3.500, DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_547_2025.pdf",
@@ -528,7 +638,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -581,7 +692,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -602,26 +714,26 @@
         "fecha": "2025-01-01"
       },
       "sesion": null,
-      "ncg": null,
+      "ncg": 538,
       "documento": null,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA NORMA DE CARÁCTER GENERAL N°538 Y POSTERGA LA VIGENCIA DE ÉSTA COMO INDICA, EXCLUYE LA PUBLICACIÓN DEL INFORME NORMATIVO Y EXIME DEL TRÁMITE DE CONSULTA PÚBLICA POR URGENCIA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_544_2025.pdf",
-      "parsed": false,
+      "parsed": true,
       "modifica": [
         {
           "norma": "NCG N°538",
           "numero_norma": 538,
           "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "acciones": [],
+          "vigencia": {
+            "inicio": "no especificado"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -672,15 +784,36 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2025-09-01",
+            "precision": "mes",
+            "contexto": "mación referida al cierre del mes de agosto del presente año y, por lo tanto, enviarse en septiembre de 2025. Sin embargo, en el c"
+          },
+          {
+            "fecha": "2025-08-01",
+            "precision": "mes",
+            "contexto": "re de 2025. Sin embargo, en el caso de existir operaciones en los meses de junio, julio y agosto de 2025 asociadas al programa “Ap"
+          }
+        ]
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "18-3"
+      ],
       "msi_referencias": [
         {
           "contexto": "cooperativas y aquellas que le sean aplicables los\nrequerimientos de información establecidos en el Manual de Sistemas de Información de\nbancos; esta Comisión, en virtud de lo establecido en el Capítulo 18-3 de la Recopilación\nActual"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C70",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Introduce ajustes técnicos al archivo C70 del Manual del Sistema de Información para bancos en virtud del nuevo programa de garantías “Apoyo Vivienda Nueva” del Fondo de Garantías Especiales",
       "resumen_acciones": []
     },
@@ -715,7 +848,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -743,15 +877,51 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2025-09-01",
+            "precision": "mes",
+            "contexto": "mación referida al cierre del mes de agosto del presente año y, por lo tanto, enviarse en septiembre de 2025. Por otro lado, los a"
+          },
+          {
+            "fecha": "2025-08-01",
+            "precision": "mes",
+            "contexto": "e año 2025. Sin embargo, en el caso de existir operaciones en los meses de junio, julio y agosto de 2025 asociadas a los nuevos pr"
+          },
+          {
+            "fecha": "2022-12-31",
+            "precision": "dia",
+            "contexto": "a la actividad económica del deudor registrado ante el Servicio de Impuestos Internos al 31 de diciembre de 2022 consignada en ar"
+          }
+        ]
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "18-3"
+      ],
       "msi_referencias": [
         {
           "contexto": "cooperativas y aquellas que le sean aplicables los\nrequerimientos de información establecidos en el Manual de Sistemas de Información de\nbancos; esta Comisión, en virtud de lo establecido en el Capítulo 18-3 de la Recopilación\nActual"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C70",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D62",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E26",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Introduce ajustes técnicos a los archivos C70, D62 y E26 del Manual del Sistema de Información para bancos en virtud de los nuevos programas de garantías “Apoyo Vivienda Nueva” y “Recuperación Productiva Regional” del Fondo de Garantías Especiales",
       "resumen_acciones": []
     },
@@ -775,15 +945,17 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "2025-12-01",
+        "precision": "mes",
+        "fuente": "seccion",
         "plazos": [
           {
             "texto": "Los números 10, 11, 12 y 13 de esta Circular se aplicarán en los reportes que son requeridos informar a contar de diciembre de 2025, con la situación de noviembre del mismo año",
-            "inicio": "ver texto"
+            "inicio": "2025-12-01"
           },
           {
             "texto": "El resto de los números no señalados previamente, a partir del proceso de revisión del IAPE que se entregará en abril de 2027",
-            "inicio": "ver texto"
+            "inicio": "2027-04-01"
           }
         ]
       },
@@ -815,14 +987,21 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "12-12",
         "12-4"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "I03",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Modifica Capítulo 12-12 de la Recopilación Actualizada de Normas para bancos sobre prohibición a otorgar créditos a directores, apoderados y personas relacionadas con ellos; e introduce ajustes de concordancia en otras normas",
       "resumen_acciones": []
     },
@@ -846,11 +1025,21 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2025-07-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "18-3"
+      ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C45",
+          "vigencia": "2025-07-01"
+        }
+      ],
       "tema": "Introduce ajustes técnicos al archivo C45 del Sistema Contable del Manual del Sistema de Información de bancos, respecto del código de institución",
       "resumen_acciones": []
     },
@@ -874,9 +1063,12 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "8-1"
+      ],
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Ajusta el Capítulo 8-1 de la Recopilación Actualizada de Normas para bancos sobre requerimientos de apertura de línea de crédito",
@@ -933,7 +1125,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [
         "19-2"
@@ -995,7 +1188,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1029,7 +1223,8 @@
       "modifica": [],
       "vigencia": {
         "inicio": "2026-11-11",
-        "plazo_transicion": "2025-12-11"
+        "plazo_transicion": "2025-12-11",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1082,17 +1277,28 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-12-01"
+        "inicio": "2025-12-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
-      "archivos_afectados": [
+      "msi_referencias": [
         {
-          "accion": "crear",
-          "nombre": "un fondo",
-          "vigencia": null
+          "contexto": "CONSEJO DE\nLA COMISIÓN PARA EL MERCADO\nFINANCIERO QUE APRUEBA\nEMISIÓN DE NORMATIVA QUE\nESTABLECE EL MANUAL DE SISTEMA\nDE INFORMACIÓN DE FONDOS QUE\nIMPARTE INSTRUCCIONES PARA EL\nENVÍO DE INFORMACIÓN PARA LA\nFISCALIZACIÓN DE LOS FONDO"
+        },
+        {
+          "contexto": "ra ello en la\nnormativa pertinente, y en los términos establecidos en la presente normativa\ny en el Manual de Sistema de información de Fondos (Anexo N°1), la siguiente\ninformación:\n1. Archivos Normativos cuyo contenido específico s"
+        },
+        {
+          "contexto": "365, en\ndicho deposito deberá adjuntarse además el archivo de variables principales\nrespectivo.\nII. MANUAL DE SISTEMA DE INFORMACIÓN DE FONDOS\nCon la finalidad de sistematizar las instrucciones a las que deben atenerse los fondos\ny"
+        },
+        {
+          "contexto": "se solicita en forma periódica o permanente a\ntravés de archivos normativos u otros:\n1. Créase el “Manual de Sistema de Información de Fondos”, en adelante “MSI de\nFondos” al que se irán incorporando archivos, formularios, tablas y"
+        },
+        {
+          "contexto": "6”; y “FONDOS07” que se incluyen en el\nAnexo N°2 de esta normativa, en el N°2 de la Sección II del “Manual de Sistema de\nInformación de Fondos” denominado “Compendio de Archivos Normativos de\nFondos”.\nIII. MODIFICACIÓN\n1. Modificase"
         }
       ],
+      "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
         "numero": 532
@@ -1124,10 +1330,36 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2026-01-01"
+        "inicio": "2026-01-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "CONSEJO DE LA\nCOMISIÓN PARA EL MERCADO\nFINANCIERO QUE APRUEBA EMISIÓN\nDE NORMATIVA QUE ESTABLECE EL\nMANUAL DE SISTEMA DE\nINFORMACIÓN FINTEC QUE IMPARTE\nINSTRUCCIONES PARA EL ENVÍO DE\nINFORMACIÓN PARA LA\nFISCALIZACIÓN DE LAS ENTIDADE"
+        },
+        {
+          "contexto": "para ello en la normativa pertinente,\nen los términos establecidos en la presente normativa y en el Manual de Sistema\nde información Fintec (Anexo N°1), los siguientes archivos normativos, cuyo\ncontenido específico se encuentra en e"
+        },
+        {
+          "contexto": "N°502, no deberán remitir a esta Comisión los archivos normativos\nestablecidos en el Anexo N°2.\nII MANUAL DE SISTEMA DE INFORMACIÓN FINTEC (MSI FINTEC)\nCon la finalidad de sistematizar las instrucciones de envío de información\nperi"
+        },
+        {
+          "contexto": "más de los servicios del Título\n3\nII de la Ley N°21.521, se establece lo siguiente:\n1.- Créase el “Manual de Sistema de Información Fintec” en adelante MSI Fintec,\nel que contendrá las instrucciones para la confección y envío de lo"
+        },
+        {
+          "contexto": ", que se incluyen en el Anexo N°2 de esta normativa, en la segunda\nSubsección de la Sección II del “Manual de Sistema de Información Fintec”\ndenominado “Compendio de Archivos Normativos Fintec”.\n3.- Incorpórese las tablas que se inc"
+        },
+        {
+          "contexto": "que se incluyen en el Anexo N°3 de esta normativa,\nen la segunda subsección de la Sección III del “Manual de Sistema de\nInformación Fintec”, denominada “Tablas y codificaciones del Sistema de\nInformación Fintec”.\nIII VIGENCIA\nLas p"
+        },
+        {
+          "contexto": "a\nLa tabla N°3 de códigos de monedas corresponde a la Tabla 1 de “Monedas y unidades de\ncuenta” del Manual de Sistema de Información de Bancos de la CMF\n96\nD) TABLA N°4 CÓDIGOS DE PAÍSES\nCódigo País\n012 Afganistán\n020 Åland\n024 Alba"
+        },
+        {
+          "contexto": "Zimbabue\nLa tabla N°4 de códigos de países corresponde a la Tabla 45 de “Países y territorios” del\nManual de Sistema de Información de Bancos de la CMF.\n101\nE) TABLA N°5 CÓDIGOS DE TIPOS DE INSTRUMENTOS\nRenta Fija\nDescripción Códig"
+        }
+      ],
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
@@ -1163,7 +1395,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-07-01"
+        "inicio": "2025-07-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1184,7 +1417,7 @@
         "fecha": "2024-12-23"
       },
       "sesion": null,
-      "ncg": 527,
+      "ncg": 507,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "MODIFICA NORMA DE CARÁCTER GENERAL N°507 QUE IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN INTEGRAL DE RIESGOS EN ADMINISTRADORAS GENERALES DE FONDOS Y NORMA DE CARÁCTER GENERAL N°468 QUE REGULA EL PROCESO DE AUTORIZACIÓN DE INICIO DE FUNCIONES DE ADMINISTRADORAS GENERALES DE FONDOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_527_2024.pdf",
@@ -1195,24 +1428,17 @@
           "numero_norma": 507,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Elimínese",
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°468",
-          "numero_norma": 468,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1256,7 +1482,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1288,13 +1515,32 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2025-02-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [
+        "18-3",
         "9-1"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C30",
+          "vigencia": "2025-02-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P36",
+          "vigencia": "2025-02-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "2025-02-01"
+        }
+      ],
       "tema": "Introduce ajustes técnicos al archivo C30 del Sistema Contable del MSI, respecto del tipo de cambio, al archivo P36 del Sistema de Productos del mismo manual, al Capítulo C-3 del Compendio de Normas Contables para bancos, y a la carátula de cuadratura del archivo D10 del Sistema de Deudores del mencionado manual",
       "resumen_acciones": []
     },
@@ -1318,7 +1564,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1346,7 +1593,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2026-01-01"
+        "inicio": "2026-01-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1371,7 +1619,7 @@
         "numero": 418,
         "fecha": "2024-11-14"
       },
-      "ncg": 521,
+      "ncg": 503,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA NCG N°503 DE 2024",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_521_2024.pdf",
@@ -1381,15 +1629,15 @@
           "norma": "NCG N°503",
           "numero_norma": 503,
           "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2024-07-01"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1414,7 +1662,7 @@
         "numero": 414,
         "fecha": "2024-10-17"
       },
-      "ncg": 519,
+      "ncg": 30,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE MODIFICA NORMAS DE CARÁCTER GENERAL N°30 Y N°461, REFERIDAS A LA MEMORIA ANUAL INTEGRADA",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_519_2024.pdf",
@@ -1442,7 +1690,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2026-12-31"
+        "inicio": "2026-12-31",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1481,10 +1730,15 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2025-01-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [
+        {
+          "contexto": "0\nREF: Modifica los archivos\nC11, C12 y C13, la Sección de\nAntecedentes Generales y la\ntabla 34 del Manual de\nSistemas de Información de\nbancos; para informar el\ncómputo de provisiones de\nlas colocaciones de consumo\nsegún el método e"
+        },
         {
           "contexto": "raciones de leasing de la misma cartera. Por otro, los archivos\nnormativos del Sistema Contable del Manual de Sistemas de Información de bancos (MSI)\npermiten a esta Comisión conocer en detalle el cómputo de provisiones que realizan"
         },
@@ -1492,7 +1746,28 @@
           "contexto": "se realizan las siguientes modificaciones a los archivos y\ntablas que a continuación se señalan del Manual de Sistemas de Información de bancos:\n1) En la tabla 34 “Créditos de consumo y de vivienda” del Sistema Tablas del MSI se\nagre"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C11",
+          "vigencia": "2025-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C12",
+          "vigencia": "2025-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C13",
+          "vigencia": "2025-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "2025-01-01"
+        }
+      ],
       "tema": "Modifica los archivos C11, C12 y C13, la Sección de Antecedentes Generales y la tabla 34 del Manual de Sistemas de Información de bancos; para informar el cómputo de provisiones de las colocaciones de consumo según el método estándar",
       "resumen_acciones": []
     },
@@ -1520,7 +1795,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2024-12-01"
+        "inicio": "2024-12-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1548,11 +1824,36 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2024-12-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "18-3"
+      ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "F01",
+          "vigencia": "2024-12-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "F02",
+          "vigencia": "2024-12-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "F03",
+          "vigencia": "2024-12-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "F04",
+          "vigencia": "2024-12-01"
+        }
+      ],
       "tema": "Introduce ajustes técnicos a los requerimientos de información al Fondo de Garantías Especiales y Fondo de Garantías para Pequeños y Medianos Empresarios (FOGAPE); ambos administrados por el Banco del Estado de Chile",
       "resumen_acciones": []
     },
@@ -1572,11 +1873,23 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2024-10-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": "os, se reemplazan las hojas del Archivo T 01\nque los contienen, en la sección “Otros Sistemas” del “Manual de sistema de información\nde Bancos” cuya versión actualizada se encuentra publicada en el sitio web de esta\nComisión (www.cm"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "T01",
+          "vigencia": "2024-10-01"
+        }
+      ],
       "documento": {
         "tipo": "Oficio Circular",
         "numero": 1336
@@ -1625,7 +1938,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1679,7 +1993,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2024-12-01"
+        "inicio": "2024-12-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1707,7 +2022,7 @@
         "numero": 406,
         "fecha": "2024-08-22"
       },
-      "ncg": 517,
+      "ncg": 136,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA NORMA DE CARÁCTER GENERAL N° 136, QUE ESTABLECE NORMAS RELATIVAS AL OTORGAMIENTO Y ADQUISICION DE MUTUOS HIPOTECARIOS ENDOSABLES POR LAS ENTIDADES ASEGURADORAS Y REASEGURADORAS Y AL REGISTRO Y OPERACIONES DE LOS AGENTES ADMINISTRADORES DE MUTUOS HIPOTECARIOS ENDOSABLES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_517_2024.pdf",
@@ -1718,14 +2033,16 @@
           "numero_norma": 136,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Agrégase"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1773,7 +2090,8 @@
       ],
       "vigencia": {
         "inicio": "2024-12-01",
-        "plazo_transicion": "2025-01-15"
+        "plazo_transicion": "2025-01-15",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1823,7 +2141,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-01-01"
+        "inicio": "2025-01-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1855,10 +2174,12 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2024-09-01"
+        "inicio": "2024-09-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [
-        "07-01"
+        "07-01",
+        "18-10"
       ],
       "msi_referencias": [],
       "archivos_afectados": [],
@@ -1893,13 +2214,47 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2024-09-06",
+            "precision": "dia",
+            "contexto": "formación referida al cierre del mes de agosto del presente año, hasta la fecha límite de 06 de septiembre de 2024. Por otro lado,"
+          },
+          {
+            "fecha": "2024-09-10",
+            "precision": "dia",
+            "contexto": "uerdo con las nuevas instrucciones se requerirían ajustar, deberán rectificarse antes del 10 de septiembre de 2024. Como consecuen"
+          },
+          {
+            "fecha": "2022-12-31",
+            "precision": "dia",
+            "contexto": "a la actividad económica del deudor registrado ante el Servicio de Impuestos Internos al 31 de diciembre de 2022 consignada en ar"
+          }
+        ]
       },
       "ran_referencias": [
         "18-3"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C70",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D62",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E26",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Introduce ajustes técnicos a los archivos C70, D62 y E26 del Manual del Sistema de Información para bancos en virtud del nuevo Programa de Garantías Apoyo al Endeudamiento del Fondo de Garantías Especiales",
       "resumen_acciones": []
     },
@@ -1923,10 +2278,21 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "sociada a Cajas de\ninstrumento de fomento un instrumento de Compensación\nfomento según tabla 62\ndel manual de sistema de\ninformación bancario\nMonto de la garantía Monto de la garantía\nd) Pólizas de Rut cliente RUT con este formato:"
+        },
+        {
+          "contexto": "con Indicar si está asociada a\ninstrumento de fomento un instrumento de\nfomento según tabla 62\ndel manual de sistema de\ninformación bancario\nMonto de la garantía Monto de la garantía\nd) Pólizas de Todos Rut cliente RUT con este for"
+        },
+        {
+          "contexto": "sociada a Cajas de\ninstrumento de fomento un instrumento de Compensación\nfomento según tabla 62\ndel manual de sistema de\ninformación bancario\nMonto de la garantía Monto de la garantía\nd) Pólizas de Todos Rut cliente RUT con este for"
+        }
+      ],
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
@@ -1966,7 +2332,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2024-10-01"
+        "inicio": "2024-10-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2020,12 +2387,17 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "18-3"
       ],
-      "msi_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "archivos y formularios a\nlos que se refieren estas disposiciones actualmente están contenidas en el\nManual de Sistema de Información para bancos, la Circular N°108\nCooperativas, la Circular N°23 de sociedades de apoyo al giro, la Ci"
+        }
+      ],
       "archivos_afectados": [],
       "tema": "Distingue la forma de modificar parámetros y aspectos de orden técnico definidos en las instrucciones de los archivos normativos",
       "resumen_acciones": []
@@ -2046,7 +2418,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2025-02-01"
+        "inicio": "2025-02-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2085,7 +2458,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2025-02-01"
+        "inicio": "2025-02-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2117,7 +2491,30 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2025-03-01",
+            "precision": "mes",
+            "contexto": "emitir por primera vez la información con referencia al primer trimestre del año 2025 o a marzo de 2025, según corresponda. 7. En"
+          },
+          {
+            "fecha": "2020-01-01",
+            "precision": "mes",
+            "contexto": "hábiles durante el segundo semestre de 2019, pasando a ser de 10 días hábiles a partir de enero de 2020. Código NOMBRE Periodicida"
+          },
+          {
+            "fecha": "2019-04-04",
+            "precision": "dia",
+            "contexto": "smo Capítulo, respectivamente. (2) El Archivo C49 se enviará por primera vez a partir del 4 de abril de 2019. (3) La nueva versión"
+          },
+          {
+            "fecha": "2023-07-01",
+            "precision": "mes",
+            "contexto": "(4) Los archivos correspondientes a las operaciones efectuadas entre los meses de marzo y julio de 2023 deberán ser emitidos dentr"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [
@@ -2125,7 +2522,38 @@
           "contexto": "son objeto de ajustes de concordancia o que se incorporan.\n9. En otro orden de cosas, se deroga el Manual de Sistemas de Información para\nfiliales bancarias de leasing, por no resultar atingente a los actuales\nrequerimientos de info"
         }
       ],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C44",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C49",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C50",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D43",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D27",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Precisa archivos que deben ser enviados por los bancos respecto de sus filiales, sucursales en el exterior y Sociedades de Apoyo al Giro; actualiza instrucciones generales y tablas del Manual del Sistema de Información",
       "resumen_acciones": []
     },
@@ -2149,7 +2577,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2180,20 +2609,24 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2024-09-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
-      "msi_referencias": [],
-      "archivos_afectados": [
+      "msi_referencias": [
         {
-          "accion": "crear",
-          "nombre": "de\nCuentas con Provisión de Fondos y\nTarjetas Asociadas. Actualiza el\nManual de Sistema de Información\npara Bancos y ref",
-          "vigencia": null
+          "contexto": "REF: Incorpora nuevo archivo de\nCuentas con Provisión de Fondos y\nTarjetas Asociadas. Actualiza el\nManual de Sistema de Información\npara Bancos y referencias en la\nCircular N°1 de Empresas Emisoras de\nTarjetas de Pago No Bancarias,"
         },
         {
-          "accion": "crear",
-          "nombre": "denominado",
-          "vigencia": null
+          "contexto": "s de entrega de\ninformación.\nComo consecuencia de los referidos cambios, se modifican las hojas\ndel Manual de Sistema de Información para bancos, del Texto Actualizado de la\nCircular N°1 de Empresas Emisoras de Tarjetas de Pago No B"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "P71",
+          "vigencia": "2024-09-01"
         }
       ],
       "tema": "Incorpora nuevo archivo de Cuentas con Provisión de Fondos y Tarjetas Asociadas. Actualiza el Manual de Sistema de Información para Bancos y referencias en la Circular N°1 de Empresas Emisoras de Tarjetas de Pago No Bancarias, y la Circular N°108 de Cooperativas de Ahorro y Crédito",
@@ -2219,7 +2652,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2024-05-01"
+        "inicio": "2024-05-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2251,7 +2685,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "21-20",
@@ -2282,13 +2717,36 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2024-06-01",
+            "precision": "mes",
+            "contexto": ". Los archivos correspondientes a los meses del primer semestre del presente año (enero a junio de 2024) serán remitidos de manera"
+          },
+          {
+            "fecha": "2024-07-01",
+            "precision": "mes",
+            "contexto": "imo el noveno día hábil del mes de julio del mismo año. Luego, la información referida al mes de julio de 2024 se remitirá en régi"
+          }
+        ]
       },
       "ran_referencias": [
         "21-11"
       ],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": "aluados, a través del archivo normativo “Calificación\nde bancos de importancia sistémica” (R11) del Manual de Sistema de Información Bancos (MSI).\nAsí, se establece el puntaje del índice sistémico mediante el promedio ponderado de l"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R11",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Ajuste al Capítulo 21-11 de la Recopilación Actualizada de Normas, al archivo R11, y a las tablas 11 y 106 del Manual del Sistema de Información",
       "resumen_acciones": []
     },
@@ -2308,7 +2766,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2336,7 +2795,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2025-01-13"
+        "inicio": "2025-01-13",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2369,7 +2829,8 @@
       "modifica": [],
       "vigencia": {
         "inicio": "2024-02-03",
-        "plazo_transicion": "2024-02-03"
+        "plazo_transicion": "2024-02-03",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2402,7 +2863,8 @@
       "modifica": [],
       "vigencia": {
         "inicio": "2024-09-01",
-        "plazo_transicion": "2024-08-30"
+        "plazo_transicion": "2024-08-30",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2445,13 +2907,24 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2024-06-01"
+        "inicio": "2024-06-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [
         "18-3"
       ],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": "ón y las contenidas en el archivo normativo T 01 que se incorpora\na la sección “Otros Sistemas” del Manual de Sistema de Información de Bancos,\nestablecido por el Capítulo 18-3 de la Recopilación Actualizada de Normas (RAN),\nel que"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "T01",
+          "vigencia": "2024-06-01"
+        }
+      ],
       "documento": {
         "tipo": "NCG",
         "numero": 500
@@ -2486,7 +2959,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2539,7 +3013,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "1-7"
@@ -2580,7 +3055,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "11-6"
@@ -2614,14 +3090,38 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2023-04-01",
+            "precision": "mes",
+            "contexto": "a de Normas para Bancos (RAN), dado que sus disposiciones quedaron sin efecto a partir de abril de 2023, de acuerdo con lo estable"
+          },
+          {
+            "fecha": "2023-12-01",
+            "precision": "mes",
+            "contexto": "os asociados a los riesgos de tasa de interés y reajustabilidad del libro de banca” hasta diciembre de 2023, quedando sin efecto e"
+          }
+        ]
       },
       "ran_referencias": [
         "12-21",
         "21-13"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R13",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C40",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Deroga el Capítulo 12-21 de la Recopilación Actualizada de Normas de Bancos, modifica los Capítulos 21-13 y 1-13 de la misma Recopilación, el documento de Preguntas Frecuentes asociado al archivo R13 y pospone el término de exigencia del archivo C40",
       "resumen_acciones": []
     },
@@ -2656,11 +3156,18 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C81",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Modifica información requerida mediante el archivo C81 y actualiza otros aspectos tratados en Circular N°1 dirigida a empresas operadoras de tarjetas de pago",
       "resumen_acciones": []
     },
@@ -2684,7 +3191,15 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2023-09-01",
+            "precision": "mes",
+            "contexto": "gún el tipo de operación de que se trate, en el primer reporte que corresponda remitir el mes de septiembre de 2023.” Tal como lo"
+          }
+        ]
       },
       "ran_referencias": [
         "12-3",
@@ -2692,7 +3207,28 @@
         "18-5"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D27",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R05",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Modifica el Capítulo 18-5 de la Recopilación Actualizada de Normas para Bancos y los archivos D10, D27, R04 y R05. Requiere informar los créditos para la salud y las colocaciones vendidas o cedidas a empresas securitizadoras o fondos de créditos securitizados",
       "resumen_acciones": []
     },
@@ -2737,7 +3273,9 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2023-07-31",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2765,24 +3303,17 @@
           "numero_norma": 318,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese",
+            "Elimínese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "ver texto"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2823,7 +3354,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2840,7 +3372,7 @@
         "fecha": "2022-11-21"
       },
       "sesion": null,
-      "ncg": null,
+      "ncg": 489,
       "documento": {
         "tipo": "Circular",
         "numero": 2327
@@ -2862,7 +3394,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2901,7 +3434,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "11-6",
@@ -2912,13 +3446,7 @@
         "20-9"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [
-        {
-          "accion": "crear",
-          "nombre": "trimestralmente los ajustes que se efectuarán al Patrimonio",
-          "vigencia": null
-        }
-      ],
+      "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
         "numero": 489
@@ -2946,13 +3474,32 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-12-31",
+            "precision": "dia",
+            "contexto": "er comunicadas”. El nuevo criterio deberá ser considerado para la información referida al 31 de diciembre de 2022. En ese mismo se"
+          },
+          {
+            "fecha": "2023-05-01",
+            "precision": "dia",
+            "contexto": "ha información comience a ser incorporada en la nómina refundida de deudores a partir del 1° de mayo de 2023. Como resultado de lo"
+          }
+        ]
       },
       "ran_referencias": [
         "18-5"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Modifica los Capítulos 18-5 y 20-6 de la Recopilación Actualizada de Normas para bancos. Elimina la exigencia de contar con un título ejecutivo para el reporte de la información de deudores",
       "resumen_acciones": []
     },
@@ -2976,7 +3523,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3008,34 +3556,18 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "2-13"
       ],
-      "msi_referencias": [],
-      "archivos_afectados": [
+      "msi_referencias": [
         {
-          "accion": "crear",
-          "nombre": "normativo\nsobre información de\nacreencias bancarias\nsujetas a caducidad del\nManual del Sistema de\nInformación para\nbanco",
-          "vigencia": null
-        },
-        {
-          "accion": "crear",
-          "nombre": "a esta Comisión no los exime del deber de\nconfeccionar las listas que deben publicar tanto en su domicilio principal com",
-          "vigencia": null
-        },
-        {
-          "accion": "crear",
-          "nombre": "deberá ser enviado por primera vez hasta el 14 de\nfebrero de 2023",
-          "vigencia": null
-        },
-        {
-          "accion": "crear",
-          "nombre": "al Sistema Estadístico del Manual del Sistema de Información para Bancos\ny se reemplaza la hoja del catálogo de archivos",
-          "vigencia": null
+          "contexto": "), se agrega el\nnuevo archivo “Acreencias Bancarias Sujetas a Caducidad” al Sistema Estadístico\ndel Manual de Sistema de Información para bancos, cuyas indicaciones para su\nconfección y envío se adjuntan a la presente Circular.\nEn c"
         }
       ],
+      "archivos_afectados": [],
       "tema": "Modifica el Capítulo 2-13 de la Recopilación Actualizada de Normas para bancos y crea un nuevo archivo normativo sobre información de acreencias bancarias sujetas a caducidad del Manual del Sistema de Información para bancos",
       "resumen_acciones": []
     },
@@ -3070,11 +3602,23 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R01",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R06",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Modifica el plazo de envío de los archivos R01 y R06 del Manual del Sistema de Información para bancos",
       "resumen_acciones": []
     },
@@ -3099,11 +3643,18 @@
       "modifica": [],
       "vigencia": {
         "inicio": "2023-01-01",
-        "plazo_transicion": "2023-06-30"
+        "plazo_transicion": "2023-06-30",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "E24",
+          "vigencia": "2023-01-01"
+        }
+      ],
       "documento": {
         "tipo": "NCG",
         "numero": 487
@@ -3131,7 +3682,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3183,8 +3735,8 @@
           "numero_norma": 30,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3195,8 +3747,8 @@
           "numero_norma": 303,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3207,8 +3759,8 @@
           "numero_norma": 475,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3219,8 +3771,8 @@
           "numero_norma": 473,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3228,7 +3780,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3260,7 +3813,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3292,13 +3846,31 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2023-04-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [
         "21-13"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R13",
+          "vigencia": "2023-04-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R14",
+          "vigencia": "2023-04-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C40",
+          "vigencia": "2023-04-01"
+        }
+      ],
       "tema": "Incorpora nuevos archivos R13 y R14 al Sistema de Riesgos del Manual del Sistema de Información relacionados con la medición y supervisión de riesgos relacionados al riesgo de mercado de libro de banca (RMLB) y el riesgo de concentración crediticia (RCC)",
       "resumen_acciones": []
     },
@@ -3322,7 +3894,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2023-08-01"
+        "inicio": "2023-08-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3347,7 +3920,7 @@
         "numero": 299,
         "fecha": "2022-08-04"
       },
-      "ncg": 483,
+      "ncg": 472,
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA NORMA DE CARÁCTER GENERAL N°472 Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_483_2022.pdf",
@@ -3358,14 +3931,16 @@
           "numero_norma": 472,
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Elimínese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "ver texto"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3397,13 +3972,36 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2023-07-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [
         "18-5"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "2023-07-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D27",
+          "vigencia": "2023-07-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "2023-07-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R05",
+          "vigencia": "2023-07-01"
+        }
+      ],
       "tema": "Actualiza instrucciones del Capítulo 18-5 de la RAN, acerca de la información sobre deudores de las instituciones financieras",
       "resumen_acciones": []
     },
@@ -3427,7 +4025,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3459,11 +4058,23 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "P38",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P39",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "Flexibiliza envío de información contenida en los archivos P38 y P39",
       "resumen_acciones": []
     },
@@ -3487,14 +4098,55 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-06-01",
+            "precision": "mes",
+            "contexto": "acelera el phase-in del LCR, aumentando el nivel mínimo exigido a 100% a partir del 1 de junio de 2022. b) Se modifica el tratami"
+          },
+          {
+            "fecha": "2023-01-01",
+            "precision": "dia",
+            "contexto": "Capítulo 12-20 de la RAN informar la base ajustada de los descalces de plazo a contar del 1 de enero de 2023. d) Se implementa gra"
+          },
+          {
+            "fecha": "2026-01-01",
+            "precision": "mes",
+            "contexto": "n una exigencia de 60% a partir del 1 de junio de 2022, para alcanzar un nivel de 100% en enero de 2026, entre otros ajustes. e) S"
+          },
+          {
+            "fecha": "2023-04-01",
+            "precision": "mes",
+            "contexto": "resultado del proceso supervisor, el cual entra en vigencia en su versión simplificada en abril de 2023. 2. Ajustes a Tablas 87 y"
+          }
+        ]
       },
       "ran_referencias": [
         "12-20",
         "21-1"
       ],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": "rcular se ajustan instrucciones\nestablecidas en el Capítulo 12-20 de la RAN, las Tablas 87 y 88 del\nManual de Sistema de Información Bancos y el archivo normativo\nC46, en consistencia con las modificaciones realizadas por el Banco\nC"
+        },
+        {
+          "contexto": "bancos, de la Tabla 87, de la Tabla 88 y\nlas del archivo normativo C46 “Situación de liquidez” del Manual de\nSistema de Información, que contienen las citadas modificaciones.\nSaludo atentamente a Ud.,\nID: 376787\n0000001 112316\nhttp"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C46",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C48",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -3517,25 +4169,15 @@
           "norma": "NCG N°470",
           "numero_norma": 470,
           "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°251",
-          "numero_norma": 251,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3566,25 +4208,15 @@
           "norma": "NCG N°470",
           "numero_norma": 470,
           "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°251",
-          "numero_norma": 251,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3616,17 +4248,12 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [
-        {
-          "accion": "crear",
-          "nombre": "de forma adicional",
-          "vigencia": null
-        }
-      ],
+      "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
         "numero": 477
@@ -3654,7 +4281,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3686,7 +4314,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2022-06-11"
+        "inicio": "2022-06-11",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3735,17 +4364,13 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2022-06-07",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [
-        {
-          "accion": "crear",
-          "nombre": "copia del poder en virtud del cual actúa y copia de la cédula de identidad o documento\nde identificación en el caso de s",
-          "vigencia": null
-        }
-      ],
+      "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
         "numero": 342
@@ -3868,7 +4493,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3896,7 +4522,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "21-6"
@@ -3915,7 +4542,7 @@
         "fecha": "2022-03-28"
       },
       "sesion": null,
-      "ncg": null,
+      "ncg": 314,
       "documento": {
         "tipo": "Circular",
         "numero": 2309
@@ -3938,7 +4565,8 @@
       ],
       "vigencia": {
         "inicio": "inmediata",
-        "plazo_transicion": "2022-07-07"
+        "plazo_transicion": "2022-07-07",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -3959,7 +4587,7 @@
         "numero": 280,
         "fecha": "2022-03-24"
       },
-      "ncg": null,
+      "ncg": 318,
       "documento": {
         "tipo": "Circular",
         "numero": 2308
@@ -3982,7 +4610,8 @@
       ],
       "vigencia": {
         "inicio": "inmediata",
-        "plazo_transicion": "2022-07-29"
+        "plazo_transicion": "2022-07-29",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4012,11 +4641,39 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2022-05-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "DCV02",
+          "vigencia": "2022-05-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "DCV03",
+          "vigencia": "2022-05-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "DCV01",
+          "vigencia": "2022-05-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "DCV04",
+          "vigencia": "2022-05-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "DCV05",
+          "vigencia": "2022-05-01"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -4071,7 +4728,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "21-12"
@@ -4101,9 +4759,12 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "20-10"
+      ],
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
@@ -4129,13 +4790,20 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "12-7"
       ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C18",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -4159,11 +4827,18 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "E23",
+          "vigencia": "ver texto"
+        }
+      ],
       "documento": {
         "tipo": "NCG",
         "numero": 462
@@ -4191,14 +4866,40 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-01-13",
+            "precision": "dia",
+            "contexto": "el año 2021. El plazo estipulado para rectificar la información señalada es hasta el día 13 de enero de 2022, referida a los mese"
+          },
+          {
+            "fecha": "2021-03-01",
+            "precision": "mes",
+            "contexto": "o. El envío de la información rectificada correspondiente a los meses de enero, febrero y marzo de 2021 deberá ser efectuado media"
+          }
+        ]
       },
       "ran_referencias": [
         "21-11",
         "7-12"
       ],
-      "msi_referencias": [],
-      "archivos_afectados": [],
+      "msi_referencias": [
+        {
+          "contexto": "iniciones de los sub-factores del índice de importancia sistémica,\nestablecidas en la Tabla 106 del Manual de Sistema de Información\nBancos, en el contexto de la implementación de los estándares de\nBasilea III en Chile, para una mej"
+        },
+        {
+          "contexto": "(SINACOFI).\nComo consecuencia de los cambios descritos se\nreemplaza la hoja N°3 de la Tabla 106 del Manual de Sistema de\nInformación Bancos.\nSaludo atentamente a Ud.,\nID: 373248\n0000001 005276\nhttp://extranet.sbif.cl/VerificacionFir"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R11",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -4222,27 +4923,14 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2022-12-31"
+        "inicio": "2022-12-31",
+        "fuente": "seccion"
       },
-      "ran_referencias": [],
-      "msi_referencias": [],
-      "archivos_afectados": [
-        {
-          "accion": "crear",
-          "nombre": "mediante un gráfico de torta la participación\nporcentual de los accionistas",
-          "vigencia": null
-        },
-        {
-          "accion": "crear",
-          "nombre": "un organigrama de la estructura organizacional",
-          "vigencia": null
-        },
-        {
-          "accion": "crear",
-          "nombre": "un resumen de las\nprincipales características de dichos convenios",
-          "vigencia": null
-        }
+      "ran_referencias": [
+        "2-11"
       ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
         "numero": 461
@@ -4294,7 +4982,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4343,7 +5032,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4373,20 +5063,28 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-01-01",
+            "precision": "mes",
+            "contexto": "do capítulo. Este nuevo archivo deberá ser enviado a partir de la información referida al mes de enero de 2022 en adelante. No obs"
+          },
+          {
+            "fecha": "2022-04-01",
+            "precision": "mes",
+            "contexto": "a información, excepcionalmente el envío de los archivos referidos a los meses de enero a abril de 2022 será realizado en el mes d"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
       "archivos_afectados": [
         {
           "accion": "crear",
-          "nombre": "deberá ser enviado a partir de la\ninformación referida al mes de enero de 2022 en adelante. No\nobstante",
-          "vigencia": null
-        },
-        {
-          "accion": "crear",
-          "nombre": "D60 al Sistema de Deudores del Manual del\nSistema de Información.\nID",
-          "vigencia": null
+          "nombre": "D60",
+          "vigencia": "no especificado"
         }
       ],
       "tema": "",
@@ -4423,7 +5121,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "1-13"
@@ -4453,11 +5152,45 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-01-01",
+            "precision": "dia",
+            "contexto": "as, las que consideran: - Su vigencia. Esta nueva versión del Compendio rige a partir del 1 de enero de 2022. - Un ajuste a las co"
+          },
+          {
+            "fecha": "2022-07-01",
+            "precision": "dia",
+            "contexto": "ido en el literal i) del N°3 del Capítulo B-1, el que deberá ser considerado a partir del 1 de julio de 2022. 2. Manual del Sistem"
+          },
+          {
+            "fecha": "2022-02-01",
+            "precision": "mes",
+            "contexto": "referida al mes de enero de 2022, que se enviarán durante los primeros 7 días hábiles del mes de febrero de 2022. Como consecuenci"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C17",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R11",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P40",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -4485,11 +5218,33 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2020-12-01",
+            "precision": "dia",
+            "contexto": "eben reunir las emisiones de bonos subordinados, podrán seguir siendo computados desde el 1 de diciembre de 2020. Sin embargo, la"
+          },
+          {
+            "fecha": "2022-12-01",
+            "precision": "dia",
+            "contexto": "e de 2020. Sin embargo, la razón de reconocimiento decrecerá en un 10% anual a partir del 1 de diciembre de 2022, hasta su exclusi"
+          }
+        ]
       },
-      "ran_referencias": [],
+      "ran_referencias": [
+        "21-1",
+        "21-20"
+      ],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R08",
+          "vigencia": "no especificado"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -4517,8 +5272,8 @@
           "numero_norma": 30,
           "seccion_romana": "I",
           "acciones": [
-            "Derógase",
-            "Agrégase"
+            "Agrégase",
+            "Derógase"
           ],
           "vigencia": {
             "inicio": "ver texto"
@@ -4535,7 +5290,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [
         "2-11",
@@ -4581,15 +5337,53 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2021-04-01",
+            "precision": "mes",
+            "contexto": "e remitirá la información mensual, referidas a operaciones correspondientes al cierre del mes de abril de 2021 en adelante, para i"
+          },
+          {
+            "fecha": "2020-11-06",
+            "precision": "dia",
+            "contexto": "web de esta Comisión, que fuera comunicado mediante Carta a Gerencia N°92025906, de fecha 6 de noviembre de 2020. Las instruccione"
+          },
+          {
+            "fecha": "2021-04-23",
+            "precision": "dia",
+            "contexto": "tuados al amparo de los criterios establecidos en la Carta a Gerencia N°92105115 entre el 23 de abril del 2021 y el 31 de julio de"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
       "archivos_afectados": [
         {
-          "accion": "crear",
-          "nombre": "C52 al Manual del\nSistema de Información para bancos\nMediante este archivo se remitirá la información\nmensual",
-          "vigencia": null
+          "accion": "modificar",
+          "nombre": "C52",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C50",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D59",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C51",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E22",
+          "vigencia": "no especificado"
         }
       ],
       "tema": "",
@@ -4615,7 +5409,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "2021-07-19"
+        "inicio": "2021-07-19",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4647,11 +5442,29 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado"
+        "inicio": "2021-09-13",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": [],
+      "archivos_afectados": [
+        {
+          "accion": "crear",
+          "nombre": "R01",
+          "vigencia": "2021-09-13"
+        },
+        {
+          "accion": "crear",
+          "nombre": "R07",
+          "vigencia": "2021-09-13"
+        },
+        {
+          "accion": "crear",
+          "nombre": "R08",
+          "vigencia": "2021-09-13"
+        }
+      ],
       "tema": "",
       "resumen_acciones": []
     },
@@ -4686,7 +5499,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "inmediata"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4716,7 +5530,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
