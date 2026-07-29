@@ -5,6 +5,7 @@ import re
 import sys
 import requests
 from bs4 import BeautifulSoup
+from collections.abc import Callable
 from datetime import datetime
 from urllib.parse import urljoin
 
@@ -82,21 +83,39 @@ def _pause():
     time.sleep(random.uniform(2.0, 3.0))
 
 
-def _get_con_reintentos(url: str, timeout: int = TIMEOUT_LISTADO) -> requests.Response | None:
-    """GET con reintentos y backoff exponencial."""
+def _get_con_reintentos(
+    url: str,
+    timeout: int = TIMEOUT_LISTADO,
+    validar: "Callable[[requests.Response], bool] | None" = None,
+) -> requests.Response | None:
+    """GET con reintentos y backoff lineal (30 s · número de intento).
+
+    `validar` permite reintentar respuestas que llegaron con HTTP 200 pero cuyo
+    cuerpo no sirve. La CMF devuelve de vez en cuando un 200 con una página que
+    no trae la tabla de resultados —el 28-07-2026 respondió en 0,84 s cuando lo
+    normal son 5,4 MB— y sin esto ese caso no gatillaba ningún reintento: la
+    corrida se abortaba de inmediato y se perdía el día. Dos de los últimos 30
+    runs programados murieron así.
+    """
     for intento in range(1, MAX_REINTENTOS + 1):
         try:
             logger.info("Intento %d/%d: %s", intento, MAX_REINTENTOS, url[:80])
             r = requests.get(url, headers=HEADERS, timeout=timeout)
             r.raise_for_status()
-            return r
+            if validar is None or validar(r):
+                return r
+            motivo = f"respuesta 200 sin contenido utilizable ({len(r.content)} bytes)"
         except requests.RequestException as e:
-            wait = 30 * intento
-            if intento < MAX_REINTENTOS:
-                logger.warning("Error (intento %d): %s — reintentando en %ds", intento, e, wait)
-                time.sleep(wait)
-            else:
-                logger.error("Error al acceder a %s: %s", url, e)
+            motivo = str(e)
+
+        wait = 30 * intento
+        if intento < MAX_REINTENTOS:
+            logger.warning(
+                "Fallo (intento %d): %s — reintentando en %ds", intento, motivo, wait
+            )
+            time.sleep(wait)
+        else:
+            logger.error("Error al acceder a %s: %s", url, motivo)
     return None
 
 
@@ -111,18 +130,25 @@ def fetch_listado(from_date: str | None = None) -> list[dict]:
     url = _build_url(from_date)
     logger.info("Descargando listado CMF: %s", url)
 
-    response = _get_con_reintentos(url)
-    if response is None:
-        sys.exit(1)
+    # El parseo va dentro del validador para que una respuesta 200 inservible
+    # cuente como intento fallido y entre al backoff, en vez de abortar de una.
+    resoluciones: list[dict] = []
 
-    resoluciones = _parse_listado(response.text)
-    if not resoluciones:
-        # El GET fue 200 pero no se extrajo ninguna fila: la estructura HTML
-        # de la CMF cambió. Fallar ruidosamente (exit 1 → build rojo) en vez
-        # de devolver [] y que main.py lo reporte como un falso "sin novedades".
+    def _trae_filas(respuesta: requests.Response) -> bool:
+        nonlocal resoluciones
+        resoluciones = _parse_listado(respuesta.text)
+        return bool(resoluciones)
+
+    response = _get_con_reintentos(url, validar=_trae_filas)
+    if response is None:
+        # Agotados los reintentos sin una sola fila: o la CMF está caída de una
+        # forma que devuelve 200, o cambió su HTML. Fallar ruidosamente
+        # (exit 1 → build rojo) en vez de devolver [] y que main.py lo reporte
+        # como un falso "sin novedades".
         logger.error(
-            "El listado CMF respondió correctamente pero no se extrajo "
-            "ninguna resolución — posible cambio en el HTML de la CMF. Abortando."
+            "El listado CMF no entregó ninguna resolución tras %d intentos "
+            "— posible cambio en el HTML de la CMF. Abortando.",
+            MAX_REINTENTOS,
         )
         sys.exit(1)
 
