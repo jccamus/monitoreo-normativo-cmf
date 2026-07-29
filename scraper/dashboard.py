@@ -664,21 +664,26 @@ def _render_fila_cuerpo(e: dict) -> str:
     tema = _resumen_minimo(e)
     bullets = e.get("resumen_acciones") or []
     archivos = e.get("archivos_afectados") or []
-    n_cambios = len(bullets)
+    plazos = (e.get("vigencia") or {}).get("plazos") or []
     url = e.get("url_documento") or ""
 
     detalle_html = _render_detalle_tarea(bullets, archivos, e.get("vigencia"))
-    # Un documento puede no tener bullets y aun así traer plazos escalonados;
-    # en ese caso el enlace se rotula por los plazos y no por "0 cambios".
-    etiqueta_detalle = (
-        f'<b>{n_cambios}</b> cambio{"s" if n_cambios != 1 else ""}'
-        if (bullets or archivos) else "plazos"
-    )
+    # El número tiene que contar lo que el detalle realmente muestra. Contaba
+    # sólo los bullets, así que un documento con archivos afectados y sin
+    # bullets se anunciaba como "0 cambios" y aun así abría un panel con
+    # contenido: eran 49 de las 176 filas.
+    n_cambios = len(bullets) + len(archivos)
+    if n_cambios:
+        etiqueta_detalle = f'<b>{n_cambios}</b> cambio{"s" if n_cambios != 1 else ""}'
+    else:
+        etiqueta_detalle = "plazos"
     cambios_cell = (
         f'<a class="cr-detalle-toggle" href="javascript:void(0)" '
         f'onclick="toggleDetalleCR(this)">{etiqueta_detalle} →</a>'
         if detalle_html else
-        f'<span class="cr-sin-detalle">{n_cambios}</span>'
+        # Sin detalle no hay nada que contar: un "0" suelto se lee como un dato
+        # y en realidad significa que del PDF no se pudo extraer el desglose.
+        '<span class="cr-sin-detalle">—</span>'
     )
     pdf_cell = (
         f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
@@ -1165,6 +1170,12 @@ _TEMPLATE = """<!DOCTYPE html>
     .cr-td-pdf a:hover { text-decoration: underline; }
     .cr-detalle-toggle { cursor: pointer; color: #1a56db; }
     .cr-sin-detalle { color: #9ca3af; }
+    /* `_render_detalle_tarea` envuelve su contenido en .cm-detalle, que nace
+       oculto porque en las tarjetas del Cuadro de mando lo despliega la clase
+       .abierto. En esta tabla el que se despliega es el <tr>, así que el div
+       tiene que estar visible siempre: si no, la fila se abre vacía. */
+    .cr-detalle-row .cm-detalle { display: block; margin: 0; padding-top: 0;
+                                  border-top: none; }
     .cr-detalle-row > td { background: #fafbfc !important; padding: 14px 24px;
                            border-bottom: 2px solid #e5e7eb; }
     .cr-vacio { padding: 32px; color: #9ca3af; text-align: center;
