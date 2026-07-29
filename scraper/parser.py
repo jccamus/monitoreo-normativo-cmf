@@ -35,7 +35,10 @@ _FECHA_SPAN  = re.compile(
 )
 # Línea de guiones bajos que cierra el bloque REF del encabezado. Ver
 # _fecha_encabezado: es el ancla para ubicar la fecha del documento.
-_SEPARADOR_ENCABEZADO = re.compile(r"\n\s*_{3,}\s*\n")
+# `(?:^|\n)` y no `\n`: según cómo el extractor trate los márgenes, la línea de
+# guiones bajos puede quedar al inicio absoluto del texto, y exigir un salto
+# previo hacía perder el ancla justo en esos documentos.
+_SEPARADOR_ENCABEZADO = re.compile(r"(?:^|\n)\s*_{3,}\s*\n")
 _MAX_BUSQUEDA_SEPARADOR = 4000   # hasta dónde buscar el separador
 _VENTANA_TRAS_SEPARADOR = 300    # texto útil inmediatamente bajo el separador
 _VENTANA_ENCABEZADO     = 600    # respaldo cuando no hay separador
@@ -264,7 +267,15 @@ def _fecha_encabezado(text: str) -> str | None:
     if not fechas:
         return None
     d, mes, y = fechas[0]
-    return f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
+    # Sin default silencioso: hoy MESES cubre exactamente las 12 alternativas de
+    # _FECHA_SPAN, pero un `MESES.get(mes, 1)` convertiría cualquier mes futuro
+    # que se agregue a la regex y no al dict en un enero plausible — y una fecha
+    # creíble pero falsa es peor que no tener fecha.
+    num_mes = MESES.get(mes.lower())
+    if num_mes is None:
+        logger.warning("Mes no reconocido en el encabezado: %r", mes)
+        return None
+    return f"{y}-{num_mes:02d}-{int(d):02d}"
 
 
 def _normaliza_frase(s: str, maxlen: int = 180) -> str:

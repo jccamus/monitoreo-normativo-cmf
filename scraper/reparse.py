@@ -73,7 +73,7 @@ def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
         logger.error("No hay archivos en %s", DAILY_DIR)
         sys.exit(1)
 
-    total = corregidas = sin_pdf = sin_cambio = 0
+    total = corregidas = sin_pdf = sin_cambio = fallidas = 0
 
     for path in archivos:
         try:
@@ -104,18 +104,26 @@ def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
                 logger.warning("  sin PDF: %s", entrada.get("clave"))
                 continue
 
-            parsed = parse_pdf(pdf_bytes, url)
+            # Un PDF corrupto no puede abortar el lote entero: sin esto, una
+            # excepción a mitad de camino deja sin escribir las correcciones ya
+            # calculadas para ese archivo.
+            try:
+                parsed = parse_pdf(pdf_bytes, url)
 
-            # Reconstruir la fila cruda del listado para reutilizar la misma
-            # lógica de ensamblado que usa el pipeline diario.
-            raw = {
-                "_key": entrada.get("clave", ""),
-                "fecha": entrada.get("fecha"),
-                "numero": (entrada.get("resolucion") or {}).get("numero"),
-                "descripcion": entrada.get("descripcion_cmf", ""),
-                "url_documento": url,
-            }
-            nueva = ensamblar_entrada(raw, parsed)
+                # Reconstruir la fila cruda del listado para reutilizar la misma
+                # lógica de ensamblado que usa el pipeline diario.
+                raw = {
+                    "_key": entrada.get("clave", ""),
+                    "fecha": entrada.get("fecha"),
+                    "numero": (entrada.get("resolucion") or {}).get("numero"),
+                    "descripcion": entrada.get("descripcion_cmf", ""),
+                    "url_documento": url,
+                }
+                nueva = ensamblar_entrada(raw, parsed)
+            except Exception:
+                fallidas += 1
+                logger.exception("  error parseando %s — se deja intacta", entrada.get("clave"))
+                continue
 
             campos = ("fecha", "parsed", "documento", "vigencia", "tema")
             if all(nueva.get(c) == entrada.get(c) for c in campos):
@@ -130,7 +138,10 @@ def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
                 entrada.get("clave"), entrada.get("fecha"), nueva.get("fecha"),
                 entrada.get("parsed"), nueva.get("parsed"),
             )
-            entrada.clear()
+            # update, no clear+update: `entrada` es la referencia viva dentro de
+            # payload["new_entries"]. Vaciarla borraría de los archivos
+            # históricos cualquier campo que no produzca ensamblar_entrada
+            # (anotaciones manuales, marcas de auditoría añadidas después).
             entrada.update(nueva)
             corregidas += 1
             modificado = True
@@ -141,8 +152,8 @@ def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
             logger.info("%s reescrito", path.name)
 
     logger.info(
-        "Revisadas %d | corregidas %d | sin cambio %d | sin PDF %d%s",
-        total, corregidas, sin_cambio, sin_pdf,
+        "Revisadas %d | corregidas %d | sin cambio %d | sin PDF %d | con error %d%s",
+        total, corregidas, sin_cambio, sin_pdf, fallidas,
         " (dry-run: no se escribio nada)" if dry_run else "",
     )
     if corregidas and not dry_run:
