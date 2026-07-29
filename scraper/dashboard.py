@@ -208,9 +208,31 @@ def _vigencia_fmt(v: dict | None) -> str:
     if not v:
         return "—"
     inicio = v.get("inicio") or "—"
-    plazo = v.get("plazo_transicion")
     label = _LABEL_INICIO.get(inicio, inicio)
+    plazos = v.get("plazos") or []
+    if plazos:
+        # El `inicio` global de un documento escalonado describe sólo el primer
+        # tramo; sin esta marca la celda diría "inmediata" y ocultaría que hay
+        # otra fecha por cumplir.
+        label = f"{label} · {len(plazos)} plazos"
+    plazo = v.get("plazo_transicion")
     return f"{label} · transición hasta {plazo}" if plazo else label
+
+
+def _render_plazos(v: dict | None) -> str:
+    """Bloque de detalle con los plazos escalonados de un documento."""
+    plazos = (v or {}).get("plazos") or []
+    if not plazos:
+        return ""
+    items = "".join(
+        f'<li><b>{html.escape(_LABEL_INICIO.get(p.get("inicio"), p.get("inicio") or "—"))}</b>'
+        f' · {html.escape(p.get("texto") or "")}</li>'
+        for p in plazos
+    )
+    return (
+        f'<div class="d-bloque"><span class="d-label">Plazos de entrada en vigencia</span>'
+        f'<ul>{items}</ul></div>'
+    )
 
 
 def _stats(entradas: list[dict]) -> dict[str, int]:
@@ -244,6 +266,11 @@ def _fechas_futuras(entrada: dict, hoy: datetime) -> list[datetime]:
     fechas: list[datetime] = []
     fuentes: list[dict] = [entrada.get("vigencia") or {}]
     fuentes.extend(m.get("vigencia") or {} for m in (entrada.get("modifica") or []))
+    # Los plazos por viñeta cuentan como fechas propias: un documento con
+    # aplicación inmediata para unos capítulos y una fecha futura para otros
+    # tiene que aparecer en el cuadro de mando por esa fecha futura, aunque su
+    # `inicio` global diga "inmediata".
+    fuentes.extend(p for v in list(fuentes) for p in (v.get("plazos") or []))
     for v in fuentes:
         for k in ("inicio", "plazo_transicion"):
             d = _parse_iso(v.get(k))
@@ -482,22 +509,27 @@ def _render_fila_cuerpo(e: dict) -> str:
     n_cambios = len(bullets)
     url = e.get("url_documento") or ""
 
+    detalle_html = _render_detalle_tarea(bullets, archivos, e.get("vigencia"))
+    # Un documento puede no tener bullets y aun así traer plazos escalonados;
+    # en ese caso el enlace se rotula por los plazos y no por "0 cambios".
+    etiqueta_detalle = (
+        f'<b>{n_cambios}</b> cambio{"s" if n_cambios != 1 else ""}'
+        if (bullets or archivos) else "plazos"
+    )
     cambios_cell = (
         f'<a class="cr-detalle-toggle" href="javascript:void(0)" '
-        f'onclick="toggleDetalleCR(this)"><b>{n_cambios}</b> cambio'
-        f'{"s" if n_cambios != 1 else ""} →</a>'
-        if (bullets or archivos) else
+        f'onclick="toggleDetalleCR(this)">{etiqueta_detalle} →</a>'
+        if detalle_html else
         f'<span class="cr-sin-detalle">{n_cambios}</span>'
     )
     pdf_cell = (
         f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
         if url else "—"
     )
-    detalle_html = _render_detalle_tarea(bullets, archivos)
     detalle_row = (
         f'<tr class="cr-detalle-row" data-open="0" style="display:none">'
         f'<td colspan="4">{detalle_html}</td></tr>'
-        if (bullets or archivos) else ""
+        if detalle_html else ""
     )
 
     return (
@@ -527,8 +559,8 @@ def _render_tarjeta_tarea(t: dict) -> str:
             f'especificado{"s" if n != 1 else ""} en el documento</p>'
         )
 
-    detalle_html = _render_detalle_tarea(bullets, archivos)
-    tiene_detalle = bool(bullets or archivos)
+    detalle_html = _render_detalle_tarea(bullets, archivos, t.get("vigencia"))
+    tiene_detalle = bool(detalle_html)
 
     url = t.get("url_documento") or ""
     pdf_link = (
@@ -555,10 +587,25 @@ def _render_tarjeta_tarea(t: dict) -> str:
     )
 
 
-def _render_detalle_tarea(bullets: list[str], archivos: list[dict]) -> str:
-    if not bullets and not archivos:
+def _render_detalle_tarea(
+    bullets: list[str], archivos: list[dict], vigencia: dict | None = None
+) -> str:
+    plazos = (vigencia or {}).get("plazos") or []
+    if not bullets and not archivos and not plazos:
         return ""
     bloques: list[str] = []
+    if plazos:
+        # Primero: cuando un documento tiene plazos escalonados, saber qué rige
+        # cuándo es la pregunta que trae a alguien a esta tarjeta.
+        items = "".join(
+            f'<li><b>{html.escape(_LABEL_INICIO.get(p.get("inicio"), p.get("inicio") or "—"))}</b>'
+            f' · {html.escape(p.get("texto") or "")}</li>'
+            for p in plazos
+        )
+        bloques.append(
+            f'<div class="cm-det-bloque"><span class="cm-det-label">Plazos de entrada '
+            f'en vigencia</span><ul class="cm-bullets">{items}</ul></div>'
+        )
     if bullets:
         items = "".join(f"<li>{html.escape(b)}</li>" for b in bullets)
         bloques.append(
@@ -715,6 +762,10 @@ def _render_detalle(e: dict) -> str:
             f'<p>{html.escape(sesion.get("tipo",""))} N°{html.escape(str(sesion.get("numero","")))} '
             f'· {html.escape(sesion.get("fecha","") or "—")}</p></div>'
         )
+
+    bloque_plazos = _render_plazos(e.get("vigencia"))
+    if bloque_plazos:
+        bloques.append(bloque_plazos)
 
     modifica = e.get("modifica") or []
     if modifica:

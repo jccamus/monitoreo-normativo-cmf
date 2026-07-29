@@ -8,7 +8,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "566",
-        "fecha": "2026-01-01"
+        "fecha": "2026-05-18"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -37,7 +37,15 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 566
+      },
+      "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°30 DE 1989",
+      "resumen_acciones": [
+        "Agrégase en la Norma de Carácter General N°30 de 1989, la siguiente nueva Sección VI, pasando la actual Sección VI a ser la nueva Sección VII: “SECCION VI OBLIGACIONES DE LAS…"
+      ]
     },
     {
       "clave": "2026_0565",
@@ -45,7 +53,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "565",
-        "fecha": "2026-01-01"
+        "fecha": "2026-05-18"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -76,7 +84,13 @@
         "19-2"
       ],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 565
+      },
+      "tema": "CREA EL COMPENDIO NORMATIVO DE EMPRESAS DE AUDITORÍA EXTERNA",
+      "resumen_acciones": []
     }
   ]
 }

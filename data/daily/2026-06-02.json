@@ -8,7 +8,7 @@
       "resolucion": {
         "tipo": "Exenta",
         "numero": "568",
-        "fecha": "2026-01-01"
+        "fecha": "2026-06-01"
       },
       "sesion": {
         "tipo": "Ordinaria",
@@ -33,11 +33,17 @@
         }
       ],
       "vigencia": {
-        "inicio": "2026-06-01"
+        "inicio": "no especificado"
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 568
+      },
+      "tema": "",
+      "resumen_acciones": []
     }
   ]
 }

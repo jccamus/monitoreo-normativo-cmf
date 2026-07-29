@@ -28,8 +28,13 @@ _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+",
 # `del?` porque la CMF alterna entre "24 de noviembre de 2025" y
 # "24 de noviembre del 2025"; sin la variante, el oficio circular 1394/2025
 # perdía su fecha de encabezado.
+#
+# `[°º]?` porque los plazos de vigencia casi siempre caen el día 1 y la CMF lo
+# escribe como ordinal: "aplicables desde el 1° de julio de 2026". Sin esto la
+# fecha más importante del documento —la única que le dice a alguien cuándo
+# tiene que actuar— era justamente la que no se reconocía.
 _FECHA_SPAN  = re.compile(
-    r"(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
+    r"(\d{1,2})[°º]?\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
     r"septiembre|octubre|noviembre|diciembre)\s+del?\s+(\d{4})",
     re.IGNORECASE,
 )
@@ -74,10 +79,58 @@ _ARCHIVO_ELIM    = re.compile(r"(?:elimina|deroga|suprime)\s+(?:el\s+)?(?:formul
 
 # ── Resumen accionable: bloque REF + bullets de cambios ─────────────────────
 _REF_BLOCK = re.compile(r"REF\s*:\s*(.+?)(?:\n\s*_{3,}|\n\s*\n)", re.DOTALL | re.IGNORECASE)
-# VIGENCIA como encabezado standalone (mayúsculas, en su propia línea). Se usa
-# como delimitador del cuerpo: exigir que esté sola en su línea evita truncar el
-# texto al toparse con la palabra "vigencia" dentro de un párrafo del cuerpo.
-_VIGENCIA_HEADING = re.compile(r"\n\s*VIGENCIA\s*\n")
+# Encabezado de la sección de vigencia. Delimita el cuerpo y, sobre todo, acota
+# dónde buscar las fechas de entrada en vigor.
+#
+# Sigue exigiendo que la palabra ocupe la línea entera —eso es lo que evita
+# truncar el texto al toparse con "vigencia" dentro de un párrafo del cuerpo,
+# como en "Reemplácese el texto de la sección Vigencia de la NCG N°550..."— pero
+# ahora admite el enumerador que la precede y no exige mayúsculas.
+#
+# El patrón anterior (`\n\s*VIGENCIA\s*\n`) sólo aceptaba la palabra desnuda y
+# en mayúsculas, así que perdía las formas que la CMF usa de verdad: "II.
+# VIGENCIA", "IV. Vigencia", "m. Vigencia". Sobre 46 documentos de 2025-2026
+# reconocía 11 secciones y se le escapaban 17.
+_VIGENCIA_HEADING = re.compile(
+    r"^[ \t]*(?:[IVXLC]+|[A-Za-z]|\d{1,2})?[.\-)]?[ \t]*VIGENCIA[ \t]*:?[ \t]*$",
+    re.IGNORECASE | re.MULTILINE,
+)
+
+# Frases con las que la CMF expresa "rige de inmediato". Se comparan en
+# minúsculas contra la sección de vigencia.
+_FRASES_INMEDIATA = (
+    "a partir de esta fecha",
+    "a contar de esta fecha",
+    "a contar de la fecha",
+    "aplicación inmediata",
+    "aplicacion inmediata",
+    "será inmediata",
+    "sera inmediata",
+    "vigencia inmediata",
+)
+
+# Viñetas dentro de la sección de vigencia. Cuando hay más de una, cada una
+# acota un plazo distinto a un subconjunto de capítulos o archivos, y el
+# documento no tiene una única fecha de entrada en vigor sino varias.
+_MARCA_PLAZO = re.compile(r"(?:^|\n)[ \t]*(?:[•·▪●‐–]|[a-z]\)|\d+\))[ \t]*")
+
+# Bloque de firma que cierra el documento. La sección de vigencia se extiende
+# hasta el final del texto, así que sin este corte la firma queda pegada al
+# último plazo. Se ancla en el cargo, que es estable, y no en el nombre.
+_FIRMA = re.compile(
+    r"\n[ \t]*(?:VICE)?PRESIDENT[AE][ \t]*\n|"
+    r"\n[ \t]*COMISI[ÓO]N PARA EL MERCADO FINANCIERO[ \t]*\n",
+    re.IGNORECASE,
+)
+# Línea en mayúsculas que precede al cargo: el nombre de quien firma.
+_NOMBRE_FIRMA = re.compile(r"\n[ \t]*[A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ .]{5,}\s*$")
+
+# La última viñeta no tiene una viñeta siguiente que la acote, así que se
+# extiende sobre el párrafo que sigue. Se corta donde el documento retoma el
+# cuerpo: una línea que arranca con mayúscula justo después de una que cerró con
+# punto. Las líneas de continuación de una viñeta siempre parten en minúscula,
+# porque vienen del salto de línea del PDF y no de una oración nueva.
+_FIN_ULTIMO_PLAZO = re.compile(r"\.[ \t]*\n(?=[ \t]*[A-ZÁÉÍÓÚÑ])")
 _VERBOS_ACCION = (
     r"(?:Reempl[áa]cese|Agr[ée]guese|Agr[ée]gase|Intercálase|Elim[íi]nese|"
     r"Sust[íi]t[úu]yase|Der[óo]gase|Modif[íi]quese|Cr[ée]ase|Incorp[óo]rase|"
@@ -188,8 +241,23 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     result["msi_referencias"] = _parse_msi(text)
     result["archivos_afectados"] = _parse_archivos(text)
 
-    # ── Vigencia global ─────────────────────────────────────────────────────
-    result["vigencia"] = _parse_vigencia_global(text)
+    # ── Vigencia ────────────────────────────────────────────────────────────
+    #
+    # Sólo se mira la sección de vigencia, nunca el documento completo. Antes se
+    # pasaba `text` entero: sin sección de vigencia reconocida, la búsqueda caía
+    # sobre la primera fecha del documento, que es la del encabezado. El
+    # resultado era una fecha de entrada en vigor plausible y siempre falsa —las
+    # 126 entradas con vigencia fechada del histórico repetían, sin excepción, la
+    # fecha del propio documento.
+    #
+    # Sin sección reconocida, `inicio` queda en "no especificado": visiblemente
+    # incompleto, que es preferible a un dato inventado (mismo criterio que
+    # `_fecha_encabezado`).
+    seccion_vig = _seccion_vigencia(text)
+    result["vigencia"] = _parse_vigencia_global(seccion_vig)
+    plazos = _parse_plazos(seccion_vig) if seccion_vig else []
+    if plazos:
+        result["vigencia"]["plazos"] = plazos
 
     # ── Resumen accionable (tema + bullets) ─────────────────────────────────
     result["tema"] = _extraer_tema(text)
@@ -378,7 +446,59 @@ def _parse_vigencia_seccion(segmento: str, num_rom: str, seccion_vigencia: str) 
     return _parse_vigencia_global(seccion_vigencia)
 
 
-def _parse_vigencia_global(texto_vigencia: str) -> dict:
+def _seccion_vigencia(text: str) -> str | None:
+    """Texto que sigue al encabezado de vigencia, o None si el documento no tiene.
+
+    Devolver None —y no el documento entero— es lo que impide que
+    `_parse_vigencia_global` invente una fecha. Ver el comentario en
+    `_parse_text`.
+    """
+    m = _VIGENCIA_HEADING.search(text)
+    if not m:
+        return None
+    seccion = text[m.end():]
+    firma = _FIRMA.search(seccion)
+    if firma:
+        seccion = seccion[: firma.start()]
+        # El cargo va precedido del nombre, también en mayúsculas y en su
+        # propia línea; se recorta para que no quede pegado al último plazo.
+        seccion = _NOMBRE_FIRMA.sub("", seccion)
+    return seccion
+
+
+def _parse_plazos(seccion_vigencia: str) -> list[dict]:
+    """Plazos individuales cuando la vigencia se reparte en varias viñetas.
+
+    La circular 2370/2026 es el caso típico: "La entrada en vigor de la norma
+    considera los siguientes plazos:" y luego dos viñetas, una con aplicación
+    inmediata y otra que rige desde el 1° de julio de 2026, cada una acotada a
+    capítulos distintos. Con un único campo `inicio` esa segunda fecha —la que
+    obliga a hacer algo— desaparecía.
+
+    Se exigen al menos dos viñetas: con una sola, el plazo ya queda descrito por
+    la vigencia global y desdoblarlo sólo duplica información.
+    """
+    marcas = list(_MARCA_PLAZO.finditer(seccion_vigencia))
+    if len(marcas) < 2:
+        return []
+
+    plazos: list[dict] = []
+    for i, m in enumerate(marcas):
+        ultima = i + 1 == len(marcas)
+        fin = len(seccion_vigencia) if ultima else marcas[i + 1].start()
+        segmento = seccion_vigencia[m.end():fin]
+        if ultima:
+            corte = _FIN_ULTIMO_PLAZO.search(segmento)
+            if corte:
+                segmento = segmento[: corte.start() + 1]
+        texto = _normaliza_frase(segmento, maxlen=400)
+        if len(texto) < 20:
+            continue
+        plazos.append({"texto": texto, "inicio": _parse_vigencia_global(texto)["inicio"]})
+    return plazos
+
+
+def _parse_vigencia_global(texto_vigencia: str | None) -> dict:
     """Clasifica el texto de vigencia en un dict estructurado."""
     if not texto_vigencia:
         return {"inicio": "no especificado"}
@@ -386,9 +506,7 @@ def _parse_vigencia_global(texto_vigencia: str) -> dict:
     texto = texto_vigencia.lower()
     resultado: dict[str, Any] = {}
 
-    if "a partir de esta fecha" in texto or "rige a contar de esta fecha" in texto or "rige a contar de la fecha" in texto:
-        resultado["inicio"] = "inmediata"
-    elif "a contar de esta fecha" in texto:
+    if any(f in texto for f in _FRASES_INMEDIATA):
         resultado["inicio"] = "inmediata"
     else:
         fechas = _FECHA_SPAN.findall(texto_vigencia)

@@ -15,10 +15,18 @@ Segundo caso: `parsed` se marcaba False cuando el PDF no daba ni `ncg` ni
 `--degradadas` esas entradas se reprocesan para que recuperen su identidad,
 vigencia y referencias.
 
+Tercer caso: la sección de vigencia sólo se reconocía escrita como `VIGENCIA`
+sola en su línea, y la CMF la titula `II. VIGENCIA`, `IV. Vigencia` o
+`m. Vigencia`. Sin sección reconocida, la fecha de entrada en vigor se buscaba
+en el documento entero y terminaba siendo la del encabezado. Como esas entradas
+no se ven rotas —tienen una fecha de aspecto normal— hay que forzarlas con
+`--recalcular`.
+
     python scraper/reparse.py                    # entradas con fecha placeholder desde 2024
     python scraper/reparse.py --desde 2020-01-01 # ampliar el rango
     python scraper/reparse.py --todas            # todas las placeholder, sin filtro de año
     python scraper/reparse.py --degradadas       # además, las que quedaron con parsed=False
+    python scraper/reparse.py --recalcular       # todas las del rango, estén rotas o no
     python scraper/reparse.py --dry-run          # sólo informar, sin escribir
 
 Correr siempre `--dry-run` primero, y regenerar el dashboard después.
@@ -54,9 +62,11 @@ def _es_placeholder(entrada: dict) -> bool:
 
 
 def _candidatas(
-    entradas: list[dict], desde: str | None, degradadas: bool
+    entradas: list[dict], desde: str | None, degradadas: bool, todo: bool = False
 ) -> list[dict]:
     def elegible(e: dict) -> bool:
+        if todo:
+            return True
         if _es_placeholder(e):
             return True
         return degradadas and not e.get("parsed")
@@ -67,7 +77,9 @@ def _candidatas(
     return sel
 
 
-def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
+def reparsear(
+    desde: str | None, dry_run: bool, degradadas: bool, todo: bool = False
+) -> None:
     archivos = sorted(DAILY_DIR.glob("*.json"))
     if not archivos:
         logger.error("No hay archivos en %s", DAILY_DIR)
@@ -84,7 +96,7 @@ def reparsear(desde: str | None, dry_run: bool, degradadas: bool) -> None:
             continue
 
         entradas = payload.get("new_entries", []) or []
-        objetivo = _candidatas(entradas, desde, degradadas)
+        objetivo = _candidatas(entradas, desde, degradadas, todo)
         if not objetivo:
             continue
 
@@ -178,8 +190,19 @@ def main() -> None:
         "--degradadas", action="store_true",
         help="Incluir también las entradas con parsed=False, no sólo las de fecha placeholder",
     )
+    ap.add_argument(
+        "--recalcular", action="store_true",
+        help="Reprocesar TODAS las entradas del rango, no sólo las que se ven rotas. "
+             "Necesario cuando el arreglo del parser cambia un campo que las "
+             "entradas ya tenían poblado (p. ej. la vigencia).",
+    )
     args = ap.parse_args()
-    reparsear(None if args.todas else args.desde, args.dry_run, args.degradadas)
+    reparsear(
+        None if args.todas else args.desde,
+        args.dry_run,
+        args.degradadas,
+        args.recalcular,
+    )
 
 
 if __name__ == "__main__":
