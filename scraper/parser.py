@@ -79,9 +79,14 @@ _VENTANA_ENCABEZADO     = 600    # respaldo cuando no hay separador
 #
 # El número admite separador de miles: la CMF escribe tanto "N°1394" como
 # "N° 2.373" para el mismo tipo de documento.
+#
+# Los separadores son `[ \t]` y no `\s`: `\s` incluye el salto de línea, así que
+# la exigencia de "línea completa" se caía justo en las menciones que el bloque
+# REF parte en dos. La NCG 470/2022 abre con "DEROGA\nNORMA DE CARACTER
+# GENERAL\nN°342." y se identificaba como la 342, la norma que deroga.
 _DOC_IDENTIDAD = re.compile(
-    r"^\s*(OFICIO\s+CIRCULAR|CIRCULAR|NORMA\s+DE\s+CAR[ÁA]CTER\s+GENERAL)"
-    r"\s+N[°ºo]\s*([\d.]+)\s*$",
+    r"^[ \t]*(OFICIO[ \t]+CIRCULAR|CIRCULAR|NORMA[ \t]+DE[ \t]+CAR[ÁA]CTER[ \t]+GENERAL)"
+    r"[ \t]+N[°ºo][ \t]*([\d.]+)[ \t]*$",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -827,6 +832,24 @@ _INICIO_CUERPO = 900        # el encabezado del PDF cabe holgado en este margen
 _MAX_CANDIDATAS = 4
 
 
+def _recorte_legible(text: str, ini: int, fin: int) -> str:
+    """Fragmento de texto que empieza y termina en palabra completa.
+
+    Cortar por offset deja pedazos como "mación referida…" o "…en el c", que en
+    un panel de revisión se leen como ruido y obligan a abrir el PDF para
+    entender la frase, que es justo lo que la pista intenta evitar.
+    """
+    ini, fin = max(0, ini), min(len(text), fin)
+    fragmento = text[ini:fin]
+    if ini > 0 and not text[ini - 1].isspace():
+        _, _, fragmento = fragmento.partition(" ")
+    if fin < len(text) and not text[fin].isspace():
+        fragmento = fragmento.rpartition(" ")[0]
+    fragmento = _normaliza_frase(fragmento, maxlen=170)
+    sufijo = "…" if fin < len(text) and not fragmento.endswith("…") else ""
+    return f"…{fragmento}{sufijo}" if ini > 0 else f"{fragmento}{sufijo}"
+
+
 def _fechas_candidatas(text: str) -> list[dict]:
     """Fechas del cuerpo que podrían ser la vigencia, para revisión humana.
 
@@ -853,7 +876,7 @@ def _fechas_candidatas(text: str) -> list[dict]:
         fuera.append({
             "fecha": iso,
             "precision": precision,
-            "contexto": _normaliza_frase(text[max(0, pos - 90):pos + 40], maxlen=150),
+            "contexto": _recorte_legible(text, pos - 90, pos + 45),
         })
         if len(fuera) >= _MAX_CANDIDATAS:
             break

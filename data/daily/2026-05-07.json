@@ -252,8 +252,8 @@
           "numero_norma": 469,
           "seccion_romana": null,
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "ver texto"
@@ -790,12 +790,12 @@
           {
             "fecha": "2025-09-01",
             "precision": "mes",
-            "contexto": "mación referida al cierre del mes de agosto del presente año y, por lo tanto, enviarse en septiembre de 2025. Sin embargo, en el c"
+            "contexto": "…referida al cierre del mes de agosto del presente año y, por lo tanto, enviarse en septiembre de 2025. Sin embargo, en el caso…"
           },
           {
             "fecha": "2025-08-01",
             "precision": "mes",
-            "contexto": "re de 2025. Sin embargo, en el caso de existir operaciones en los meses de junio, julio y agosto de 2025 asociadas al programa “Ap"
+            "contexto": "…de 2025. Sin embargo, en el caso de existir operaciones en los meses de junio, julio y agosto de 2025 asociadas al programa “Apoyo a…"
           }
         ]
       },
@@ -883,17 +883,17 @@
           {
             "fecha": "2025-09-01",
             "precision": "mes",
-            "contexto": "mación referida al cierre del mes de agosto del presente año y, por lo tanto, enviarse en septiembre de 2025. Por otro lado, los a"
+            "contexto": "…referida al cierre del mes de agosto del presente año y, por lo tanto, enviarse en septiembre de 2025. Por otro lado, los…"
           },
           {
             "fecha": "2025-08-01",
             "precision": "mes",
-            "contexto": "e año 2025. Sin embargo, en el caso de existir operaciones en los meses de junio, julio y agosto de 2025 asociadas a los nuevos pr"
+            "contexto": "…año 2025. Sin embargo, en el caso de existir operaciones en los meses de junio, julio y agosto de 2025 asociadas a los nuevos…"
           },
           {
             "fecha": "2022-12-31",
             "precision": "dia",
-            "contexto": "a la actividad económica del deudor registrado ante el Servicio de Impuestos Internos al 31 de diciembre de 2022 consignada en ar"
+            "contexto": "…a la actividad económica del deudor registrado ante el Servicio de Impuestos Internos al 31 de diciembre de 2022 consignada en…"
           }
         ]
       },
@@ -1428,8 +1428,8 @@
           "numero_norma": 507,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
-            "Reemplácese"
+            "Reemplácese",
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -2220,17 +2220,17 @@
           {
             "fecha": "2024-09-06",
             "precision": "dia",
-            "contexto": "formación referida al cierre del mes de agosto del presente año, hasta la fecha límite de 06 de septiembre de 2024. Por otro lado,"
+            "contexto": "…referida al cierre del mes de agosto del presente año, hasta la fecha límite de 06 de septiembre de 2024. Por otro lado, los…"
           },
           {
             "fecha": "2024-09-10",
             "precision": "dia",
-            "contexto": "uerdo con las nuevas instrucciones se requerirían ajustar, deberán rectificarse antes del 10 de septiembre de 2024. Como consecuen"
+            "contexto": "…con las nuevas instrucciones se requerirían ajustar, deberán rectificarse antes del 10 de septiembre de 2024. Como consecuencia…"
           },
           {
             "fecha": "2022-12-31",
             "precision": "dia",
-            "contexto": "a la actividad económica del deudor registrado ante el Servicio de Impuestos Internos al 31 de diciembre de 2022 consignada en ar"
+            "contexto": "…a la actividad económica del deudor registrado ante el Servicio de Impuestos Internos al 31 de diciembre de 2022 consignada en…"
           }
         ]
       },
@@ -2497,22 +2497,22 @@
           {
             "fecha": "2025-03-01",
             "precision": "mes",
-            "contexto": "emitir por primera vez la información con referencia al primer trimestre del año 2025 o a marzo de 2025, según corresponda. 7. En"
+            "contexto": "…por primera vez la información con referencia al primer trimestre del año 2025 o a marzo de 2025, según corresponda. 7. En la…"
           },
           {
             "fecha": "2020-01-01",
             "precision": "mes",
-            "contexto": "hábiles durante el segundo semestre de 2019, pasando a ser de 10 días hábiles a partir de enero de 2020. Código NOMBRE Periodicida"
+            "contexto": "…hábiles durante el segundo semestre de 2019, pasando a ser de 10 días hábiles a partir de enero de 2020. Código NOMBRE Periodicidad…"
           },
           {
             "fecha": "2019-04-04",
             "precision": "dia",
-            "contexto": "smo Capítulo, respectivamente. (2) El Archivo C49 se enviará por primera vez a partir del 4 de abril de 2019. (3) La nueva versión"
+            "contexto": "…Capítulo, respectivamente. (2) El Archivo C49 se enviará por primera vez a partir del 4 de abril de 2019. (3) La nueva versión del…"
           },
           {
             "fecha": "2023-07-01",
             "precision": "mes",
-            "contexto": "(4) Los archivos correspondientes a las operaciones efectuadas entre los meses de marzo y julio de 2023 deberán ser emitidos dentr"
+            "contexto": "…(4) Los archivos correspondientes a las operaciones efectuadas entre los meses de marzo y julio de 2023 deberán ser emitidos dentro de…"
           }
         ]
       },
@@ -2723,12 +2723,12 @@
           {
             "fecha": "2024-06-01",
             "precision": "mes",
-            "contexto": ". Los archivos correspondientes a los meses del primer semestre del presente año (enero a junio de 2024) serán remitidos de manera"
+            "contexto": "…archivos correspondientes a los meses del primer semestre del presente año (enero a junio de 2024) serán remitidos de manera…"
           },
           {
             "fecha": "2024-07-01",
             "precision": "mes",
-            "contexto": "imo el noveno día hábil del mes de julio del mismo año. Luego, la información referida al mes de julio de 2024 se remitirá en régi"
+            "contexto": "…el noveno día hábil del mes de julio del mismo año. Luego, la información referida al mes de julio de 2024 se remitirá en régimen,…"
           }
         ]
       },
@@ -3096,12 +3096,12 @@
           {
             "fecha": "2023-04-01",
             "precision": "mes",
-            "contexto": "a de Normas para Bancos (RAN), dado que sus disposiciones quedaron sin efecto a partir de abril de 2023, de acuerdo con lo estable"
+            "contexto": "…de Normas para Bancos (RAN), dado que sus disposiciones quedaron sin efecto a partir de abril de 2023, de acuerdo con lo establecido…"
           },
           {
             "fecha": "2023-12-01",
             "precision": "mes",
-            "contexto": "os asociados a los riesgos de tasa de interés y reajustabilidad del libro de banca” hasta diciembre de 2023, quedando sin efecto e"
+            "contexto": "…asociados a los riesgos de tasa de interés y reajustabilidad del libro de banca” hasta diciembre de 2023, quedando sin efecto el…"
           }
         ]
       },
@@ -3197,7 +3197,7 @@
           {
             "fecha": "2023-09-01",
             "precision": "mes",
-            "contexto": "gún el tipo de operación de que se trate, en el primer reporte que corresponda remitir el mes de septiembre de 2023.” Tal como lo"
+            "contexto": "…el tipo de operación de que se trate, en el primer reporte que corresponda remitir el mes de septiembre de 2023.” Tal como lo…"
           }
         ]
       },
@@ -3480,12 +3480,12 @@
           {
             "fecha": "2022-12-31",
             "precision": "dia",
-            "contexto": "er comunicadas”. El nuevo criterio deberá ser considerado para la información referida al 31 de diciembre de 2022. En ese mismo se"
+            "contexto": "…comunicadas”. El nuevo criterio deberá ser considerado para la información referida al 31 de diciembre de 2022. En ese mismo…"
           },
           {
             "fecha": "2023-05-01",
             "precision": "dia",
-            "contexto": "ha información comience a ser incorporada en la nómina refundida de deudores a partir del 1° de mayo de 2023. Como resultado de lo"
+            "contexto": "…comience a ser incorporada en la nómina refundida de deudores a partir del 1° de mayo de 2023. Como resultado de los…"
           }
         ]
       },
@@ -3735,8 +3735,8 @@
           "numero_norma": 30,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3747,8 +3747,8 @@
           "numero_norma": 303,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3759,8 +3759,8 @@
           "numero_norma": 475,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3771,8 +3771,8 @@
           "numero_norma": 473,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -4104,22 +4104,22 @@
           {
             "fecha": "2022-06-01",
             "precision": "mes",
-            "contexto": "acelera el phase-in del LCR, aumentando el nivel mínimo exigido a 100% a partir del 1 de junio de 2022. b) Se modifica el tratami"
+            "contexto": "…acelera el phase-in del LCR, aumentando el nivel mínimo exigido a 100% a partir del 1 de junio de 2022. b) Se modifica el tratamiento…"
           },
           {
             "fecha": "2023-01-01",
             "precision": "dia",
-            "contexto": "Capítulo 12-20 de la RAN informar la base ajustada de los descalces de plazo a contar del 1 de enero de 2023. d) Se implementa gra"
+            "contexto": "…Capítulo 12-20 de la RAN informar la base ajustada de los descalces de plazo a contar del 1 de enero de 2023. d) Se implementa…"
           },
           {
             "fecha": "2026-01-01",
             "precision": "mes",
-            "contexto": "n una exigencia de 60% a partir del 1 de junio de 2022, para alcanzar un nivel de 100% en enero de 2026, entre otros ajustes. e) S"
+            "contexto": "…una exigencia de 60% a partir del 1 de junio de 2022, para alcanzar un nivel de 100% en enero de 2026, entre otros ajustes. e) Se…"
           },
           {
             "fecha": "2023-04-01",
             "precision": "mes",
-            "contexto": "resultado del proceso supervisor, el cual entra en vigencia en su versión simplificada en abril de 2023. 2. Ajustes a Tablas 87 y"
+            "contexto": "…resultado del proceso supervisor, el cual entra en vigencia en su versión simplificada en abril de 2023. 2. Ajustes a Tablas 87 y 88…"
           }
         ]
       },
@@ -4373,7 +4373,7 @@
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 342
+        "numero": 470
       },
       "tema": "",
       "resumen_acciones": []
@@ -4872,12 +4872,12 @@
           {
             "fecha": "2022-01-13",
             "precision": "dia",
-            "contexto": "el año 2021. El plazo estipulado para rectificar la información señalada es hasta el día 13 de enero de 2022, referida a los mese"
+            "contexto": "…el año 2021. El plazo estipulado para rectificar la información señalada es hasta el día 13 de enero de 2022, referida a los meses de…"
           },
           {
             "fecha": "2021-03-01",
             "precision": "mes",
-            "contexto": "o. El envío de la información rectificada correspondiente a los meses de enero, febrero y marzo de 2021 deberá ser efectuado media"
+            "contexto": "…envío de la información rectificada correspondiente a los meses de enero, febrero y marzo de 2021 deberá ser efectuado mediante…"
           }
         ]
       },
@@ -5069,12 +5069,12 @@
           {
             "fecha": "2022-01-01",
             "precision": "mes",
-            "contexto": "do capítulo. Este nuevo archivo deberá ser enviado a partir de la información referida al mes de enero de 2022 en adelante. No obs"
+            "contexto": "…capítulo. Este nuevo archivo deberá ser enviado a partir de la información referida al mes de enero de 2022 en adelante…"
           },
           {
             "fecha": "2022-04-01",
             "precision": "mes",
-            "contexto": "a información, excepcionalmente el envío de los archivos referidos a los meses de enero a abril de 2022 será realizado en el mes d"
+            "contexto": "…información, excepcionalmente el envío de los archivos referidos a los meses de enero a abril de 2022 será realizado en el mes de…"
           }
         ]
       },
@@ -5158,17 +5158,17 @@
           {
             "fecha": "2022-01-01",
             "precision": "dia",
-            "contexto": "as, las que consideran: - Su vigencia. Esta nueva versión del Compendio rige a partir del 1 de enero de 2022. - Un ajuste a las co"
+            "contexto": "…las que consideran: - Su vigencia. Esta nueva versión del Compendio rige a partir del 1 de enero de 2022. - Un ajuste a las…"
           },
           {
             "fecha": "2022-07-01",
             "precision": "dia",
-            "contexto": "ido en el literal i) del N°3 del Capítulo B-1, el que deberá ser considerado a partir del 1 de julio de 2022. 2. Manual del Sistem"
+            "contexto": "…en el literal i) del N°3 del Capítulo B-1, el que deberá ser considerado a partir del 1 de julio de 2022. 2. Manual del Sistema de…"
           },
           {
             "fecha": "2022-02-01",
             "precision": "mes",
-            "contexto": "referida al mes de enero de 2022, que se enviarán durante los primeros 7 días hábiles del mes de febrero de 2022. Como consecuenci"
+            "contexto": "…referida al mes de enero de 2022, que se enviarán durante los primeros 7 días hábiles del mes de febrero de 2022. Como consecuencia de…"
           }
         ]
       },
@@ -5224,12 +5224,12 @@
           {
             "fecha": "2020-12-01",
             "precision": "dia",
-            "contexto": "eben reunir las emisiones de bonos subordinados, podrán seguir siendo computados desde el 1 de diciembre de 2020. Sin embargo, la"
+            "contexto": "…reunir las emisiones de bonos subordinados, podrán seguir siendo computados desde el 1 de diciembre de 2020. Sin embargo, la razón…"
           },
           {
             "fecha": "2022-12-01",
             "precision": "dia",
-            "contexto": "e de 2020. Sin embargo, la razón de reconocimiento decrecerá en un 10% anual a partir del 1 de diciembre de 2022, hasta su exclusi"
+            "contexto": "…de 2020. Sin embargo, la razón de reconocimiento decrecerá en un 10% anual a partir del 1 de diciembre de 2022, hasta su exclusión…"
           }
         ]
       },
@@ -5343,17 +5343,17 @@
           {
             "fecha": "2021-04-01",
             "precision": "mes",
-            "contexto": "e remitirá la información mensual, referidas a operaciones correspondientes al cierre del mes de abril de 2021 en adelante, para i"
+            "contexto": "…remitirá la información mensual, referidas a operaciones correspondientes al cierre del mes de abril de 2021 en adelante, para…"
           },
           {
             "fecha": "2020-11-06",
             "precision": "dia",
-            "contexto": "web de esta Comisión, que fuera comunicado mediante Carta a Gerencia N°92025906, de fecha 6 de noviembre de 2020. Las instruccione"
+            "contexto": "…web de esta Comisión, que fuera comunicado mediante Carta a Gerencia N°92025906, de fecha 6 de noviembre de 2020. Las instrucciones…"
           },
           {
             "fecha": "2021-04-23",
             "precision": "dia",
-            "contexto": "tuados al amparo de los criterios establecidos en la Carta a Gerencia N°92105115 entre el 23 de abril del 2021 y el 31 de julio de"
+            "contexto": "…al amparo de los criterios establecidos en la Carta a Gerencia N°92105115 entre el 23 de abril del 2021 y el 31 de julio del…"
           }
         ]
       },

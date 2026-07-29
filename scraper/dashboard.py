@@ -383,8 +383,10 @@ def _render(
     hoy: datetime,
     ultima_actualizacion: str,
 ) -> str:
-    cuadro_html = _render_cuadro_mando(buckets, hoy, entradas)
+    cuadro_html = _render_cuadro_mando(buckets, hoy)
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
+    revision_html = _render_revision_manual(entradas)
+    n_revision = sum(1 for e in entradas if _requiere_revision(e))
     stats_html = _render_stats(_stats(entradas), len(entradas))
     filtros_html = _render_filtros()
     tabla_html = _render_tabla(entradas, [])
@@ -394,6 +396,11 @@ def _render(
         _TEMPLATE
         .replace("__CUADRO__", cuadro_html)
         .replace("__RELEVANTES__", relevantes_html)
+        .replace("__REVISION__", revision_html)
+        .replace(
+            "__REVISION_BADGE__",
+            f'<span class="tab-badge">{n_revision}</span>' if n_revision else "",
+        )
         .replace("__STATS__", stats_html)
         .replace("__FILTROS__", filtros_html)
         .replace("__TABLA__", tabla_html)
@@ -421,6 +428,30 @@ def _requiere_revision(e: dict) -> bool:
     return not any(_vigencia_resuelta(a.get("vigencia")) for a in archivos)
 
 
+def _etiqueta_documento(e: dict) -> str:
+    """Identifica el documento: 'Circular N°2.364', 'Oficio Circular N°1.375'.
+
+    Sin esto la fila sólo dice qué archivos cambian y desde cuándo no se sabe,
+    pero no de qué norma sale, y hay que abrir el PDF para averiguarlo.
+
+    `documento` es la identidad propia del documento y no la de las normas que
+    modifica — ver `_identidad_documento` en el parser. El respaldo por nombre
+    de archivo existe para las entradas antiguas que se guardaron antes de que
+    ese campo existiera y que no hayan pasado por reparse.
+    """
+    doc = e.get("documento") or {}
+    tipo, numero = doc.get("tipo"), doc.get("numero")
+    if tipo and numero:
+        return f"{tipo} N°{numero:,}".replace(",", ".")
+
+    url = (e.get("url_documento") or "").rsplit("/", 1)[-1]
+    m = re.match(r"(ncg|cir|ofc)_(\d+)_", url)
+    if m:
+        etiquetas = {"ncg": "NCG", "cir": "Circular", "ofc": "Oficio Circular"}
+        return f"{etiquetas[m.group(1)]} N°{int(m.group(2)):,}".replace(",", ".")
+    return "—"
+
+
 def _render_candidatas(e: dict) -> str:
     """Fechas del documento que podrían ser la vigencia, como pista de revisión.
 
@@ -443,12 +474,24 @@ def _render_candidatas(e: dict) -> str:
 
 
 def _render_revision_manual(entradas: list[dict]) -> str:
+    """Panel del tab 'Revisión manual'.
+
+    A diferencia de los otros tabs, éste rinde algo aunque esté vacío: que no
+    haya pendientes es información —significa que todo cambio de archivo tiene
+    fecha— y un panel en blanco se lee como si algo hubiera fallado.
+    """
     pendientes = [e for e in entradas if _requiere_revision(e)]
     if not pendientes:
-        return ""
+        return (
+            '<section id="revision-manual" class="rv-vacio">'
+            '<h2>Revisión manual</h2>'
+            '<p class="rv-nota">Ningún cambio de archivo normativo quedó sin fecha '
+            'de vigencia. No hay nada que revisar a mano.</p></section>'
+        )
     pendientes.sort(key=lambda e: e.get("fecha") or "", reverse=True)
     filas = "".join(
         f'<li><span class="rv-fecha">{html.escape(e.get("fecha") or "—")}</span>'
+        f'<span class="rv-doc">{html.escape(_etiqueta_documento(e))}</span>'
         f'<span class="rv-arch">'
         + "".join(
             f'<span class="chip">{html.escape(a.get("nombre",""))}</span>'
@@ -463,28 +506,29 @@ def _render_revision_manual(entradas: list[dict]) -> str:
             if e.get("url_documento") else ""
         )
         + "</li>"
-        for e in pendientes[:25]
+        # Sin recorte: es un tab dedicado, y la lista completa es justamente el
+        # producto. Recortarla escondería trabajo pendiente.
+        for e in pendientes
     )
-    extra = (
-        f'<p class="rv-extra">y {len(pendientes)-25} más.</p>'
-        if len(pendientes) > 25 else ""
+    con_pistas = sum(
+        1 for e in pendientes if (e.get("vigencia") or {}).get("candidatas")
     )
     return (
         f'<section id="revision-manual">'
-        f'<header><h3>Cambios de archivo sin fecha de vigencia</h3>'
+        f'<header><h2>Cambios de archivo sin fecha de vigencia</h2>'
         f'<span class="rv-count">{len(pendientes)}</span></header>'
         f'<p class="rv-nota">Estos documentos modifican archivos normativos del MSI '
         f'—lo que genera una obligación de reporte— pero no declaran desde cuándo '
         f'rige el cambio en una forma que se pueda extraer del PDF. '
-        f'Requieren revisión manual.</p>'
-        f'<ul class="rv-lista">{filas}</ul>{extra}</section>'
+        f'En {con_pistas} de ellos se listan las fechas que aparecen en el cuerpo '
+        f'del documento como pista; cuál de ellas rige es una decisión que hay que '
+        f'tomar leyendo el PDF.</p>'
+        f'<ul class="rv-lista">{filas}</ul></section>'
     )
 
 
 def _render_cuadro_mando(
-    buckets: tuple[list[dict], list[dict], list[dict]],
-    hoy: datetime,
-    entradas: list[dict],
+    buckets: tuple[list[dict], list[dict], list[dict]], hoy: datetime
 ) -> str:
     b30, b60, b90 = buckets
     fecha_txt = html.escape(hoy.strftime("%Y-%m-%d"))
@@ -503,10 +547,7 @@ def _render_cuadro_mando(
     vacias = "".join(_render_columna_tareas(*d) for d in defs if not d[3])
     llenas = "".join(_render_columna_tareas(*d) for d in defs if d[3])
     pila_vacias = f'<div class="cm-pila-vacias">{vacias}</div>' if vacias else ""
-    revision = _render_revision_manual(entradas)
-    return (
-        f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>{revision}'
-    )
+    return f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>'
 
 
 def _render_columna_tareas(
@@ -596,6 +637,7 @@ def _render_grupo_cuerpo(
         f'<table class="cr-tabla">'
         f'<thead><tr>'
         f'<th class="cr-th-fecha">Fecha</th>'
+        f'<th class="cr-th-doc">Norma</th>'
         f'<th>Tema</th>'
         f'<th class="cr-th-cambios">Cambios</th>'
         f'<th class="cr-th-pdf">PDF</th>'
@@ -634,13 +676,14 @@ def _render_fila_cuerpo(e: dict) -> str:
     )
     detalle_row = (
         f'<tr class="cr-detalle-row" data-open="0" style="display:none">'
-        f'<td colspan="4">{detalle_html}</td></tr>'
+        f'<td colspan="5">{detalle_html}</td></tr>'
         if detalle_html else ""
     )
 
     return (
         f'<tr class="cr-fila">'
         f'<td class="cr-td-fecha">{html.escape(str(fecha))}</td>'
+        f'<td class="cr-td-doc">{html.escape(_etiqueta_documento(e))}</td>'
         f'<td class="cr-td-tema">{html.escape(tema)}</td>'
         f'<td class="cr-td-cambios">{cambios_cell}</td>'
         f'<td class="cr-td-pdf">{pdf_cell}</td>'
@@ -1018,17 +1061,27 @@ _TEMPLATE = """<!DOCTYPE html>
                      font-style: italic; text-align: center; white-space: nowrap; }
 
     /* Revisión manual: cambios de archivo sin fecha de vigencia */
-    #revision-manual { margin-top: 24px; background: #fffbeb;
-                       border: 1px solid #fde68a; border-radius: 8px; padding: 14px 16px; }
-    #revision-manual header { display: flex; align-items: center; gap: 8px; }
-    #revision-manual h3 { font-size: 13px; color: #92400e; margin: 0; }
+    .tab-badge { background: #f59e0b; color: #fff; border-radius: 10px;
+                 padding: 1px 7px; font-size: 10.5px; font-weight: 600;
+                 margin-left: 5px; vertical-align: 1px; }
+    #revision-manual { background: #fffbeb; border: 1px solid #fde68a;
+                       border-radius: 8px; padding: 16px 18px; }
+    #revision-manual header { display: flex; align-items: center; gap: 10px;
+                              margin-bottom: 2px; }
+    #revision-manual h2 { font-size: 15px; color: #92400e; margin: 0;
+                          border: none; padding: 0; }
     .rv-count { background: #f59e0b; color: #fff; border-radius: 10px;
                 padding: 1px 8px; font-size: 11px; font-weight: 600; }
-    .rv-nota { font-size: 11.5px; color: #78350f; margin: 6px 0 10px; max-width: 74ch; }
+    .rv-nota { font-size: 12px; color: #78350f; margin: 6px 0 12px; max-width: 78ch;
+               line-height: 1.5; }
+    .rv-vacio { background: #f0fdf4; border-color: #bbf7d0; }
+    .rv-vacio h2 { color: #166534; }
+    .rv-vacio .rv-nota { color: #166534; margin-bottom: 0; }
     .rv-lista { list-style: none; margin: 0; padding: 0; }
-    .rv-lista li { display: flex; align-items: baseline; gap: 10px; padding: 6px 0;
-                   border-top: 1px solid #fef3c7; font-size: 12px; }
+    .rv-lista li { display: flex; align-items: baseline; gap: 10px; padding: 8px 0;
+                   border-top: 1px solid #fde68a; font-size: 12px; }
     .rv-fecha { color: #92400e; font-variant-numeric: tabular-nums; flex: 0 0 82px; }
+    .rv-doc { flex: 0 0 132px; font-weight: 600; color: #7c2d12; font-size: 11.5px; }
     .rv-arch { flex: 0 0 auto; display: flex; gap: 4px; flex-wrap: wrap; }
     .rv-tema { color: #444; flex: 1 1 auto; }
     .rv-pdf { flex: 0 0 auto; color: #92400e; text-decoration: none; }
@@ -1074,6 +1127,9 @@ _TEMPLATE = """<!DOCTYPE html>
     .cr-th-pdf { width: 80px; text-align: right; }
     .cr-td-fecha { color: #4b5563; white-space: nowrap;
                    font-variant-numeric: tabular-nums; }
+    .cr-th-doc { width: 140px; }
+    .cr-td-doc { color: #374151; font-weight: 600; font-size: 12px;
+                 white-space: nowrap; }
     .cr-td-tema { color: #111; line-height: 1.45; }
     .cr-td-cambios { font-size: 12px; }
     .cr-td-cambios b { color: #1a56db; font-size: 13px; margin-right: 2px; }
@@ -1229,6 +1285,7 @@ _TEMPLATE = """<!DOCTYPE html>
   <nav id="tabs">
     <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Agenda de tareas</button>
     <button class="tab" data-tab="relevantes" onclick="setTab(this)">Cambios relevantes</button>
+    <button class="tab" data-tab="revision" onclick="setTab(this)">Revisión manual __REVISION_BADGE__</button>
     <button class="tab" data-tab="listado" onclick="setTab(this)">Listado completo</button>
   </nav>
 
@@ -1238,6 +1295,10 @@ _TEMPLATE = """<!DOCTYPE html>
 
   <div class="tab-panel" data-panel="relevantes" style="display:none">
     __RELEVANTES__
+  </div>
+
+  <div class="tab-panel" data-panel="revision" style="display:none">
+    __REVISION__
   </div>
 
   <div class="tab-panel" data-panel="listado" style="display:none">

@@ -22,9 +22,9 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
+            "Agréguese",
             "Reemplácese",
-            "Elimínese",
-            "Agréguese"
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -259,8 +259,8 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese",
-            "Agréguese"
+            "Agréguese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "no especificado"
@@ -309,9 +309,9 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
+            "Agréguese",
             "Reemplácese",
-            "Agréguese"
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1013,10 +1013,10 @@
           "numero_norma": 243,
           "seccion_romana": null,
           "acciones": [
+            "Agréguese",
             "Reemplácese",
-            "Modifíquese",
             "Elimínese",
-            "Agréguese"
+            "Modifíquese"
           ],
           "vigencia": {
             "inicio": "no especificado"
@@ -1522,9 +1522,9 @@
           "numero_norma": 426,
           "seccion_romana": "I",
           "acciones": [
+            "Agréguese",
             "Elimínese",
-            "Modifíquese",
-            "Agréguese"
+            "Modifíquese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1724,9 +1724,9 @@
           "numero_norma": 325,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
+            "Agréguese",
             "Reemplácese",
-            "Agréguese"
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "ver texto"
