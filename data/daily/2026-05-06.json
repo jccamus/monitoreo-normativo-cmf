@@ -5,11 +5,7 @@
     {
       "clave": "2023_0497",
       "fecha": "2023-06-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "497",
-        "fecha": "2023-06-02"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 152,
       "tipo_acuerdo": "Modificación NCG",
@@ -23,8 +19,8 @@
           "seccion_romana": null,
           "acciones": [
             "Agréguese",
-            "Reemplácese",
-            "Elimínese"
+            "Elimínese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -52,11 +48,7 @@
     {
       "clave": "2022_0481",
       "fecha": "2022-07-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "481",
-        "fecha": "2022-07-25"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 323,
       "tipo_acuerdo": "Modificación NCG",
@@ -96,11 +88,7 @@
     {
       "clave": "2022_0466",
       "fecha": "2022-03-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "466",
-        "fecha": "2022-03-28"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 218,
       "tipo_acuerdo": "Modificación NCG",
@@ -162,11 +150,7 @@
     {
       "clave": "2022_0465",
       "fecha": "2022-02-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "465",
-        "fecha": "2022-02-25"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 398,
       "tipo_acuerdo": "Modificación NCG",
@@ -199,11 +183,7 @@
     {
       "clave": "2022_0464",
       "fecha": "2022-01-31",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "464",
-        "fecha": "2022-01-31"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 460,
       "tipo_acuerdo": "Modificación NCG",
@@ -242,11 +222,7 @@
     {
       "clave": "2022_0463",
       "fecha": "2022-01-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "463",
-        "fecha": "2022-01-05"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 152,
       "tipo_acuerdo": "Modificación NCG",
@@ -288,11 +264,7 @@
     {
       "clave": "2021_0458",
       "fecha": "2021-07-30",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "458",
-        "fecha": "2021-07-30"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 152,
       "documento": {
@@ -310,8 +282,8 @@
           "seccion_romana": null,
           "acciones": [
             "Agréguese",
-            "Reemplácese",
-            "Elimínese"
+            "Elimínese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -338,11 +310,7 @@
     {
       "clave": "2021_0455",
       "fecha": "2021-06-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "455",
-        "fecha": "2021-06-02"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 237,
@@ -396,11 +364,7 @@
     {
       "clave": "2021_0453",
       "fecha": "2021-04-30",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "453",
-        "fecha": "2021-04-30"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 323,
       "tipo_acuerdo": "Modificación NCG",
@@ -441,11 +405,7 @@
     {
       "clave": "2021_0452",
       "fecha": "2021-02-22",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "452",
-        "fecha": "2021-02-22"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 223,
@@ -685,11 +645,7 @@
     {
       "clave": "2026_0564",
       "fecha": "2026-04-20",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "564",
-        "fecha": "2026-04-20"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 550,
       "tipo_acuerdo": "Modificación NCG",
@@ -729,11 +685,7 @@
     {
       "clave": "2026_0563",
       "fecha": "2026-04-20",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "563",
-        "fecha": "2026-04-20"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 549,
       "tipo_acuerdo": "Modificación NCG",
@@ -773,11 +725,7 @@
     {
       "clave": "2026_0562",
       "fecha": "2026-04-20",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "562",
-        "fecha": "2026-04-20"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 492,
@@ -992,11 +940,7 @@
     {
       "clave": "2025_0553",
       "fecha": "2025-11-10",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "553",
-        "fecha": "2025-11-10"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 469,
@@ -1013,10 +957,10 @@
           "numero_norma": 243,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
-            "Reemplácese",
+            "Modifíquese",
             "Elimínese",
-            "Modifíquese"
+            "Agréguese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "no especificado"
@@ -1047,11 +991,7 @@
     {
       "clave": "2025_0550",
       "fecha": "2025-10-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "550",
-        "fecha": "2025-10-24"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 182,
       "tipo_acuerdo": "Modificación NCG",
@@ -1090,11 +1030,7 @@
     {
       "clave": "2025_0549",
       "fecha": "2025-10-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "549",
-        "fecha": "2025-10-24"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 16,
       "tipo_acuerdo": "Modificación NCG",
@@ -1135,11 +1071,7 @@
     {
       "clave": "2025_0548",
       "fecha": "2025-09-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "548",
-        "fecha": "2025-09-02"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 258,
       "tipo_acuerdo": "Modificación NCG",
@@ -1174,11 +1106,7 @@
     {
       "clave": "2025_0545",
       "fecha": "2025-08-19",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "545",
-        "fecha": "2025-08-19"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 526,
       "tipo_acuerdo": "Modificación NCG",
@@ -1217,11 +1145,7 @@
     {
       "clave": "2025_0542",
       "fecha": "2025-07-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "542",
-        "fecha": "2025-07-24"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 454,
@@ -1273,11 +1197,7 @@
     {
       "clave": "2025_0531",
       "fecha": "2025-01-15",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "531",
-        "fecha": "2025-01-15"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 529,
       "tipo_acuerdo": "Modificación NCG",
@@ -1316,11 +1236,7 @@
     {
       "clave": "2024_0525",
       "fecha": "2024-12-03",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "525",
-        "fecha": "2024-12-03"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 152,
       "tipo_acuerdo": "Modificación NCG",
@@ -1362,11 +1278,7 @@
     {
       "clave": "2024_0524",
       "fecha": "2024-12-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "524",
-        "fecha": "2024-12-02"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 420,
@@ -1414,11 +1326,7 @@
     {
       "clave": "2024_2360",
       "fecha": "2024-11-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2360",
-        "fecha": "2024-11-06"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1501,11 +1409,7 @@
     {
       "clave": "2024_0513",
       "fecha": "2024-06-10",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "513",
-        "fecha": "2024-06-10"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 394,
@@ -1522,9 +1426,9 @@
           "numero_norma": 426,
           "seccion_romana": "I",
           "acciones": [
-            "Agréguese",
+            "Modifíquese",
             "Elimínese",
-            "Modifíquese"
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1548,11 +1452,7 @@
     {
       "clave": "2024_0511",
       "fecha": "2024-05-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "511",
-        "fecha": "2024-05-24"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 511,
       "tipo_acuerdo": "Modificación NCG",
@@ -1603,11 +1503,7 @@
     {
       "clave": "2024_0510",
       "fecha": "2024-05-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "510",
-        "fecha": "2024-05-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 256,
       "tipo_acuerdo": "Modificación NCG",
@@ -1667,11 +1563,7 @@
     {
       "clave": "2024_0508",
       "fecha": "2024-05-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "508",
-        "fecha": "2024-05-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 480,
       "tipo_acuerdo": "Modificación NCG",
@@ -1707,11 +1599,7 @@
     {
       "clave": "2024_0506",
       "fecha": "2024-02-16",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "506",
-        "fecha": "2024-02-16"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 325,
       "tipo_acuerdo": "Modificación NCG",
@@ -1725,8 +1613,8 @@
           "seccion_romana": null,
           "acciones": [
             "Agréguese",
-            "Reemplácese",
-            "Elimínese"
+            "Elimínese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "ver texto"

@@ -38,7 +38,7 @@ import logging
 import sys
 from pathlib import Path
 
-from fetch import fetch_pdf
+from fetch import _fecha_y_numero_desde_url, fetch_pdf
 from parser import parse_pdf
 from store import ensamblar_entrada
 
@@ -124,10 +124,14 @@ def reparsear(
 
                 # Reconstruir la fila cruda del listado para reutilizar la misma
                 # lógica de ensamblado que usa el pipeline diario.
+                # `numero` se deriva de la URL, igual que en la corrida diaria,
+                # y no de `entrada["resolucion"]`: ese campo ahora sólo existe
+                # cuando el PDF declara una resolución exenta de verdad.
+                _, numero = _fecha_y_numero_desde_url(url)
                 raw = {
                     "_key": entrada.get("clave", ""),
                     "fecha": entrada.get("fecha"),
-                    "numero": (entrada.get("resolucion") or {}).get("numero"),
+                    "numero": numero,
                     "descripcion": entrada.get("descripcion_cmf", ""),
                     "url_documento": url,
                 }
@@ -141,9 +145,9 @@ def reparsear(
             # arreglo que sólo toque ese campo se descarta como "sin cambios" y
             # no llega nunca al histórico.
             campos = (
-                "fecha", "parsed", "documento", "vigencia", "tema",
-                "modifica", "archivos_afectados", "ran_referencias",
-                "msi_referencias", "resumen_acciones", "ncg",
+                "fecha", "parsed", "documento", "resolucion", "sesion",
+                "vigencia", "tema", "modifica", "archivos_afectados",
+                "ran_referencias", "msi_referencias", "resumen_acciones", "ncg",
             )
             if all(nueva.get(c) == entrada.get(c) for c in campos):
                 sin_cambio += 1

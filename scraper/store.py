@@ -36,11 +36,16 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     entrada = {
         "clave": raw.get("_key", ""),
         "fecha": fecha,
-        "resolucion": parsed.get("resolucion") or {
-            "tipo": "Exenta",
-            "numero": raw.get("numero"),
-            "fecha": raw.get("fecha"),
-        },
+        # Sólo la resolución que el PDF declara de verdad. Antes, cuando no
+        # había ninguna, se rellenaba con el número sacado del nombre del
+        # archivo —que es el número del propio documento, no de una
+        # resolución— y quedaba una "Resolución Exenta N°2.370" que no existe.
+        # Eran 600 de 607 entradas, y el dashboard las mostraba bajo el
+        # encabezado "N° Resolución".
+        #
+        # La identidad del documento vive en `documento`; la fecha no depende
+        # de este campo (usa `parsed["resolucion"]`, no el relleno).
+        "resolucion": parsed.get("resolucion"),
         "sesion": parsed.get("sesion"),
         "ncg": parsed.get("ncg"),
         "documento": parsed.get("documento"),

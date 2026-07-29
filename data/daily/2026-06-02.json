@@ -5,11 +5,7 @@
     {
       "clave": "2026_0568",
       "fecha": "2026-06-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "568",
-        "fecha": "2026-06-01"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 498,

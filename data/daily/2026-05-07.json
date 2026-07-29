@@ -5,11 +5,7 @@
     {
       "clave": "2026_1407",
       "fecha": "2026-02-27",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1407",
-        "fecha": "2026-02-27"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -36,11 +32,7 @@
     {
       "clave": "2026_2369",
       "fecha": "2026-02-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2369",
-        "fecha": "2026-02-09"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Extraordinaria",
         "numero": 160,
@@ -90,11 +82,7 @@
     {
       "clave": "2026_0559",
       "fecha": "2026-02-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "559",
-        "fecha": "2026-02-09"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 482,
@@ -124,11 +112,7 @@
     {
       "clave": "2026_2368",
       "fecha": "2026-01-30",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2368",
-        "fecha": "2026-01-30"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -153,11 +137,7 @@
     {
       "clave": "2026_1403",
       "fecha": "2026-01-22",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1403",
-        "fecha": "2026-01-22"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 540,
       "tipo_acuerdo": "Otro",
@@ -208,11 +188,7 @@
     {
       "clave": "2026_1402",
       "fecha": "2026-01-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1402",
-        "fecha": "2026-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": null,
@@ -231,11 +207,7 @@
     {
       "clave": "2025_0557",
       "fecha": "2025-12-10",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "557",
-        "fecha": "2025-12-10"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 473,
@@ -277,11 +249,7 @@
     {
       "clave": "2025_0556",
       "fecha": "2025-12-10",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "556",
-        "fecha": "2025-12-10"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 556,
       "tipo_acuerdo": "Otro",
@@ -337,11 +305,7 @@
     {
       "clave": "2025_1394",
       "fecha": "2025-11-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1394",
-        "fecha": "2025-11-24"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 530,
       "tipo_acuerdo": "Otro",
@@ -373,11 +337,7 @@
     {
       "clave": "2025_0554",
       "fecha": "2025-11-21",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "554",
-        "fecha": "2025-11-21"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 471,
@@ -430,11 +390,7 @@
     {
       "clave": "2025_0551",
       "fecha": "2025-11-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "551",
-        "fecha": "2025-11-05"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 551,
       "tipo_acuerdo": "Otro",
@@ -472,11 +428,7 @@
     {
       "clave": "2025_1387",
       "fecha": "2025-10-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1387",
-        "fecha": "2025-10-02"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 540,
       "tipo_acuerdo": "Otro",
@@ -558,11 +510,7 @@
     {
       "clave": "2025_1381",
       "fecha": "2025-08-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1381",
-        "fecha": "2025-08-28"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 487,
       "tipo_acuerdo": "Otro",
@@ -600,11 +548,7 @@
     {
       "clave": "2025_0547",
       "fecha": "2025-08-22",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "547",
-        "fecha": "2025-08-22"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 458,
@@ -654,11 +598,7 @@
     {
       "clave": "2025_0546",
       "fecha": "2025-08-22",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "546",
-        "fecha": "2025-08-22"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 458,
@@ -708,11 +648,7 @@
     {
       "clave": "2025_0544",
       "fecha": "2025-01-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "544",
-        "fecha": "2025-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 538,
       "documento": null,
@@ -744,11 +680,7 @@
     {
       "clave": "2025_1377",
       "fecha": "2025-01-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1377",
-        "fecha": "2025-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": null,
@@ -767,11 +699,7 @@
     {
       "clave": "2025_1376",
       "fecha": "2025-07-29",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1376",
-        "fecha": "2025-07-29"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -820,11 +748,7 @@
     {
       "clave": "2025_2366",
       "fecha": "2025-07-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2366",
-        "fecha": "2025-07-28"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -860,11 +784,7 @@
     {
       "clave": "2025_1375",
       "fecha": "2025-07-11",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1375",
-        "fecha": "2025-07-11"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -928,11 +848,7 @@
     {
       "clave": "2025_2365",
       "fecha": "2025-07-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2365",
-        "fecha": "2025-07-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -970,11 +886,7 @@
     {
       "clave": "2025_2364",
       "fecha": "2025-06-26",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2364",
-        "fecha": "2025-06-26"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1008,11 +920,7 @@
     {
       "clave": "2025_1368",
       "fecha": "2025-05-14",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1368",
-        "fecha": "2025-05-14"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1046,11 +954,7 @@
     {
       "clave": "2025_2363",
       "fecha": "2025-05-07",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2363",
-        "fecha": "2025-05-07"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1077,11 +981,7 @@
     {
       "clave": "2025_0534",
       "fecha": "2025-03-31",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "534",
-        "fecha": "2025-03-31"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 437,
@@ -1146,11 +1046,7 @@
     {
       "clave": "2025_2362",
       "fecha": "2025-03-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2362",
-        "fecha": "2025-03-06"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 434,
@@ -1205,11 +1101,7 @@
     {
       "clave": "2025_0533",
       "fecha": "2025-03-11",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "533",
-        "fecha": "2025-03-11"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 427,
@@ -1239,11 +1131,7 @@
     {
       "clave": "2025_0532",
       "fecha": "2025-02-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "532",
-        "fecha": "2025-02-28"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 433,
@@ -1313,11 +1201,7 @@
     {
       "clave": "2025_0530",
       "fecha": "2025-01-20",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "530",
-        "fecha": "2025-01-20"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 424,
@@ -1371,11 +1255,7 @@
     {
       "clave": "2024_0528",
       "fecha": "2024-12-27",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "528",
-        "fecha": "2024-12-27"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 528,
       "tipo_acuerdo": "Otro",
@@ -1411,11 +1291,7 @@
     {
       "clave": "2024_0527",
       "fecha": "2024-12-23",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "527",
-        "fecha": "2024-12-23"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 507,
       "tipo_acuerdo": "Otro",
@@ -1428,8 +1304,8 @@
           "numero_norma": 507,
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese",
-            "Elimínese"
+            "Elimínese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1458,11 +1334,7 @@
     {
       "clave": "2024_0526",
       "fecha": "2024-12-23",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "526",
-        "fecha": "2024-12-23"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 526,
       "tipo_acuerdo": "Otro",
@@ -1498,11 +1370,7 @@
     {
       "clave": "2024_1351",
       "fecha": "2024-12-19",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1351",
-        "fecha": "2024-12-19"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1547,11 +1415,7 @@
     {
       "clave": "2024_0523",
       "fecha": "2024-11-29",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "523",
-        "fecha": "2024-11-29"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 420,
@@ -1580,11 +1444,7 @@
     {
       "clave": "2024_0522",
       "fecha": "2024-11-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "522",
-        "fecha": "2024-11-28"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 522,
       "tipo_acuerdo": "Otro",
@@ -1609,11 +1469,7 @@
     {
       "clave": "2024_0521",
       "fecha": "2024-11-18",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "521",
-        "fecha": "2024-11-18"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 418,
@@ -1652,11 +1508,7 @@
     {
       "clave": "2024_0519",
       "fecha": "2024-10-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "519",
-        "fecha": "2024-10-28"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 414,
@@ -1713,11 +1565,7 @@
     {
       "clave": "2024_2359",
       "fecha": "2024-10-11",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2359",
-        "fecha": "2024-10-11"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1774,11 +1622,7 @@
     {
       "clave": "2024_2358",
       "fecha": "2024-10-11",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2358",
-        "fecha": "2024-10-11"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 409,
@@ -1807,11 +1651,7 @@
     {
       "clave": "2024_1341",
       "fecha": "2024-10-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1341",
-        "fecha": "2024-10-02"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -1860,11 +1700,7 @@
     {
       "clave": "2024_1336",
       "fecha": "2024-09-04",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1336",
-        "fecha": "2024-09-04"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 500,
       "tipo_acuerdo": "Otro",
@@ -1900,11 +1736,7 @@
     {
       "clave": "2024_2357",
       "fecha": "2024-08-27",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2357",
-        "fecha": "2024-08-27"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 406,
@@ -1961,11 +1793,7 @@
     {
       "clave": "2024_2356",
       "fecha": "2024-08-26",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2356",
-        "fecha": "2024-08-26"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 406,
@@ -2012,11 +1840,7 @@
     {
       "clave": "2024_0517",
       "fecha": "2024-08-26",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "517",
-        "fecha": "2024-08-26"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 406,
@@ -2057,11 +1881,7 @@
     {
       "clave": "2024_2354",
       "fecha": "2024-07-30",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2354",
-        "fecha": "2024-07-30"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 402,
@@ -2109,11 +1929,7 @@
     {
       "clave": "2024_2353",
       "fecha": "2024-07-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2353",
-        "fecha": "2024-07-25"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 401,
@@ -2157,11 +1973,7 @@
     {
       "clave": "2024_0516",
       "fecha": "2024-07-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "516",
-        "fecha": "2024-07-25"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 398,
@@ -2197,11 +2009,7 @@
     {
       "clave": "2024_1332",
       "fecha": "2024-07-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1332",
-        "fecha": "2024-07-24"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2261,11 +2069,7 @@
     {
       "clave": "2024_0514",
       "fecha": "2024-07-03",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "514",
-        "fecha": "2024-07-03"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Extraordinaria",
         "numero": 140,
@@ -2304,11 +2108,7 @@
     {
       "clave": "2024_2352",
       "fecha": "2024-06-11",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2352",
-        "fecha": "2024-06-11"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2349,11 +2149,7 @@
     {
       "clave": "2024_2348",
       "fecha": "2024-05-15",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2348",
-        "fecha": "2024-05-15"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2405,11 +2201,7 @@
     {
       "clave": "2024_0509",
       "fecha": "2024-05-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "509",
-        "fecha": "2024-05-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 509,
       "tipo_acuerdo": "Otro",
@@ -2434,11 +2226,7 @@
     {
       "clave": "2024_0507",
       "fecha": "2024-05-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "507",
-        "fecha": "2024-05-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 507,
       "tipo_acuerdo": "Otro",
@@ -2474,11 +2262,7 @@
     {
       "clave": "2024_2347",
       "fecha": "2024-04-24",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2347",
-        "fecha": "2024-04-24"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2560,11 +2344,7 @@
     {
       "clave": "2024_2346",
       "fecha": "2024-03-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2346",
-        "fecha": "2024-03-06"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2592,11 +2372,7 @@
     {
       "clave": "2024_2345",
       "fecha": "2024-02-26",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2345",
-        "fecha": "2024-02-26"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2635,11 +2411,7 @@
     {
       "clave": "2024_0505",
       "fecha": "2024-02-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "505",
-        "fecha": "2024-02-12"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 375,
@@ -2668,11 +2440,7 @@
     {
       "clave": "2024_2344",
       "fecha": "2024-02-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2344",
-        "fecha": "2024-02-09"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2700,11 +2468,7 @@
     {
       "clave": "2024_2343",
       "fecha": "2024-02-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2343",
-        "fecha": "2024-02-09"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -2753,11 +2517,7 @@
     {
       "clave": "2024_0504",
       "fecha": "2024-01-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "504",
-        "fecha": "2024-01-12"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 504,
       "tipo_acuerdo": "Otro",
@@ -2782,11 +2542,7 @@
     {
       "clave": "2024_0503",
       "fecha": "2024-01-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "503",
-        "fecha": "2024-01-12"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 503,
       "tipo_acuerdo": "Otro",
@@ -2811,11 +2567,7 @@
     {
       "clave": "2024_0502",
       "fecha": "2024-01-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "502",
-        "fecha": "2024-01-12"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 374,
@@ -2845,11 +2597,7 @@
     {
       "clave": "2024_0501",
       "fecha": "2024-01-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "501",
-        "fecha": "2024-01-08"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 370,
@@ -2894,11 +2642,7 @@
     {
       "clave": "0000_0014",
       "fecha": "2023-12-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "14",
-        "fecha": "2023-12-12"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 500,
       "tipo_acuerdo": "Otro",
@@ -2935,11 +2679,7 @@
     {
       "clave": "0000_1720",
       "fecha": "2023-12-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1720",
-        "fecha": "2023-12-05"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 499,
       "tipo_acuerdo": "Otro",
@@ -2975,11 +2715,7 @@
     {
       "clave": "0000_0003",
       "fecha": "2023-11-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "3",
-        "fecha": "2023-11-09"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3027,11 +2763,7 @@
     {
       "clave": "0000_0001",
       "fecha": "2023-10-11",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "1",
-        "fecha": "2023-10-11"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 359,
@@ -3073,11 +2805,7 @@
     {
       "clave": "2023_2336",
       "fecha": "2023-06-20",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2336",
-        "fecha": "2023-06-20"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3128,11 +2856,7 @@
     {
       "clave": "2023_2335",
       "fecha": "2023-06-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2335",
-        "fecha": "2023-06-05"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3174,11 +2898,7 @@
     {
       "clave": "2023_2333",
       "fecha": "2023-05-13",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2333",
-        "fecha": "2023-05-13"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3235,11 +2955,7 @@
     {
       "clave": "2023_2332",
       "fecha": "2023-01-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2332",
-        "fecha": "2023-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 495,
       "documento": {
@@ -3286,11 +3002,7 @@
     {
       "clave": "2023_0496",
       "fecha": "2023-03-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "496",
-        "fecha": "2023-03-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 318,
       "tipo_acuerdo": "Otro",
@@ -3303,8 +3015,8 @@
           "numero_norma": 318,
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese",
-            "Elimínese"
+            "Elimínese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "ver texto"
@@ -3333,11 +3045,7 @@
     {
       "clave": "2022_2329",
       "fecha": "2022-12-19",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2329",
-        "fecha": "2022-12-19"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 317,
@@ -3366,11 +3074,7 @@
     {
       "clave": "2022_2327",
       "fecha": "2022-11-21",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2327",
-        "fecha": "2022-11-21"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 489,
       "documento": {
@@ -3406,11 +3110,7 @@
     {
       "clave": "2022_0489",
       "fecha": "2022-11-21",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "489",
-        "fecha": "2022-11-21"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 313,
@@ -3457,11 +3157,7 @@
     {
       "clave": "2022_2326",
       "fecha": "2022-11-18",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2326",
-        "fecha": "2022-11-18"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3506,11 +3202,7 @@
     {
       "clave": "2022_2325",
       "fecha": "2022-11-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2325",
-        "fecha": "2022-11-09"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3535,11 +3227,7 @@
     {
       "clave": "2022_2324",
       "fecha": "2022-10-27",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2324",
-        "fecha": "2022-10-27"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 308,
@@ -3574,11 +3262,7 @@
     {
       "clave": "2022_2322",
       "fecha": "2022-10-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2322",
-        "fecha": "2022-10-06"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3625,11 +3309,7 @@
     {
       "clave": "2022_0487",
       "fecha": "2022-09-29",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "487",
-        "fecha": "2022-09-29"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 307,
@@ -3665,11 +3345,7 @@
     {
       "clave": "2022_2321",
       "fecha": "2022-09-23",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2321",
-        "fecha": "2022-09-23"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3694,11 +3370,7 @@
     {
       "clave": "2022_0486",
       "fecha": "2022-08-31",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "486",
-        "fecha": "2022-08-31"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 302,
@@ -3796,11 +3468,7 @@
     {
       "clave": "2022_0485",
       "fecha": "2022-08-30",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "485",
-        "fecha": "2022-08-30"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 302,
@@ -3829,11 +3497,7 @@
     {
       "clave": "2022_2318",
       "fecha": "2022-08-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2318",
-        "fecha": "2022-08-12"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -3877,11 +3541,7 @@
     {
       "clave": "2022_0484",
       "fecha": "2022-08-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "484",
-        "fecha": "2022-08-05"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 299,
@@ -3910,11 +3570,7 @@
     {
       "clave": "2022_0483",
       "fecha": "2022-08-04",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "483",
-        "fecha": "2022-08-04"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 299,
@@ -3955,11 +3611,7 @@
     {
       "clave": "2022_2317",
       "fecha": "2022-07-29",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2317",
-        "fecha": "2022-07-29"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4008,11 +3660,7 @@
     {
       "clave": "2022_0480",
       "fecha": "2022-07-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "480",
-        "fecha": "2022-07-25"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 297,
@@ -4041,11 +3689,7 @@
     {
       "clave": "2022_2316",
       "fecha": "2022-07-18",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2316",
-        "fecha": "2022-07-18"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4081,11 +3725,7 @@
     {
       "clave": "2022_2314",
       "fecha": "2022-06-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2314",
-        "fecha": "2022-06-06"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4153,11 +3793,7 @@
     {
       "clave": "2022_0479",
       "fecha": "2022-06-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "479",
-        "fecha": "2022-06-06"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 470,
       "tipo_acuerdo": "Otro",
@@ -4192,11 +3828,7 @@
     {
       "clave": "2022_0478",
       "fecha": "2022-05-30",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "478",
-        "fecha": "2022-05-30"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 470,
       "tipo_acuerdo": "Otro",
@@ -4231,11 +3863,7 @@
     {
       "clave": "2022_0477",
       "fecha": "2022-05-20",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "477",
-        "fecha": "2022-05-20"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 285,
@@ -4264,11 +3892,7 @@
     {
       "clave": "2022_0472",
       "fecha": "2022-04-13",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "472",
-        "fecha": "2022-04-13"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 282,
@@ -4297,11 +3921,7 @@
     {
       "clave": "2022_0471",
       "fecha": "2022-04-13",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "471",
-        "fecha": "2022-04-13"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 281,
@@ -4330,11 +3950,7 @@
     {
       "clave": "2022_0470",
       "fecha": "2022-04-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "470",
-        "fecha": "2022-04-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 342,
       "tipo_acuerdo": "Otro",
@@ -4381,11 +3997,7 @@
     {
       "clave": "2022_0469",
       "fecha": "2022-01-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "469",
-        "fecha": "2022-01-01"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 282,
@@ -4505,11 +4117,7 @@
     {
       "clave": "2022_2311",
       "fecha": "2022-04-04",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2311",
-        "fecha": "2022-04-04"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4536,11 +4144,7 @@
     {
       "clave": "2022_2309",
       "fecha": "2022-03-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2309",
-        "fecha": "2022-03-28"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 314,
       "documento": {
@@ -4577,11 +4181,7 @@
     {
       "clave": "2022_2308",
       "fecha": "2022-03-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2308",
-        "fecha": "2022-03-28"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 280,
@@ -4624,11 +4224,7 @@
     {
       "clave": "2022_2306",
       "fecha": "2022-02-17",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2306",
-        "fecha": "2022-02-17"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4680,11 +4276,7 @@
     {
       "clave": "2022_2305",
       "fecha": "2022-02-16",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2305",
-        "fecha": "2022-02-16"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4742,11 +4334,7 @@
     {
       "clave": "2022_2304",
       "fecha": "2022-01-31",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2304",
-        "fecha": "2022-01-31"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4773,11 +4361,7 @@
     {
       "clave": "2021_2302",
       "fecha": "2021-12-23",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2302",
-        "fecha": "2021-12-23"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4810,11 +4394,7 @@
     {
       "clave": "2021_0462",
       "fecha": "2021-12-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "462",
-        "fecha": "2021-12-01"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 263,
@@ -4849,11 +4429,7 @@
     {
       "clave": "2021_2300",
       "fecha": "2021-11-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2300",
-        "fecha": "2021-11-25"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4906,11 +4482,7 @@
     {
       "clave": "2021_0461",
       "fecha": "2021-11-12",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "461",
-        "fecha": "2021-11-12"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 261,
@@ -4944,11 +4516,7 @@
     {
       "clave": "2021_2299",
       "fecha": "2021-11-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2299",
-        "fecha": "2021-11-05"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -4994,11 +4562,7 @@
     {
       "clave": "2021_2298",
       "fecha": "2021-11-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2298",
-        "fecha": "2021-11-05"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5046,11 +4610,7 @@
     {
       "clave": "2021_2297",
       "fecha": "2021-11-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2297",
-        "fecha": "2021-11-02"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5093,11 +4653,7 @@
     {
       "clave": "2021_2296",
       "fecha": "2021-11-02",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2296",
-        "fecha": "2021-11-02"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5135,11 +4691,7 @@
     {
       "clave": "2021_2295",
       "fecha": "2021-10-07",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2295",
-        "fecha": "2021-10-07"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5197,11 +4749,7 @@
     {
       "clave": "2021_2292",
       "fecha": "2021-08-19",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2292",
-        "fecha": "2021-08-19"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 2409,
@@ -5251,11 +4799,7 @@
     {
       "clave": "2021_0457",
       "fecha": "2021-07-19",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "457",
-        "fecha": "2021-07-19"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 244,
@@ -5272,8 +4816,8 @@
           "numero_norma": 30,
           "seccion_romana": "I",
           "acciones": [
-            "Agrégase",
-            "Derógase"
+            "Derógase",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "ver texto"
@@ -5309,11 +4853,7 @@
     {
       "clave": "2021_2291",
       "fecha": "2021-07-08",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2291",
-        "fecha": "2021-07-08"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5392,11 +4932,7 @@
     {
       "clave": "2021_0456",
       "fecha": "2021-07-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "456",
-        "fecha": "2021-07-05"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 242,
@@ -5425,11 +4961,7 @@
     {
       "clave": "2021_2290",
       "fecha": "2021-05-28",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2290",
-        "fecha": "2021-05-28"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5471,11 +5003,7 @@
     {
       "clave": "2021_2287",
       "fecha": "2021-03-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2287",
-        "fecha": "2021-03-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
@@ -5513,11 +5041,7 @@
     {
       "clave": "2021_0451",
       "fecha": "2021-01-25",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "451",
-        "fecha": "2021-01-25"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 218,

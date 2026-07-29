@@ -193,6 +193,16 @@ def _normas_afectadas(entrada: dict) -> list[str]:
         nums.add(int(m))
     for m in _NCG_NUM_SHORT.findall(desc):
         nums.add(int(m))
+
+    # Una NCG no se modifica a sí misma. `ncg` y la descripción traen el número
+    # propio del documento cuando el documento *es* una NCG, y aparecía listado
+    # entre las normas afectadas: "NCG N°568 → afecta a NCG N°538, NCG N°568".
+    # Sólo se descarta cuando el documento es una NCG: en un oficio circular que
+    # modifica la NCG N°530, ese 530 sí es una norma afectada.
+    doc = entrada.get("documento") or {}
+    if doc.get("tipo") == "NCG" and isinstance(doc.get("numero"), int):
+        nums.discard(doc["numero"])
+
     return [f"NCG N°{n}" for n in sorted(nums)]
 
 
@@ -853,6 +863,7 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
     fecha = e.get("fecha") or (e.get("resolucion") or {}).get("fecha") or "—"
     res = e.get("resolucion") or {}
     num_res = res.get("numero") or "—"
+    documento = _etiqueta_documento(e)
     tipo_principal = e.get("tipo_acuerdo", "Otro")
     tipos = _tipos_de_entrada(e)
     descripcion = e.get("descripcion_cmf", "") or ""
@@ -869,7 +880,10 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
     )
 
     search_blob = " ".join([
-        clave, str(num_res), descripcion,
+        # `documento` va en el blob para poder buscar "circular 2370" o "2.370"
+        # tal como aparece en la columna; `num_res` sólo cuando el PDF declara
+        # una resolución exenta de verdad, que es raro pero es buscable.
+        clave, documento, str(num_res), descripcion,
         " ".join(normas),
         " ".join(e.get("ran_referencias") or []),
         " ".join(a.get("nombre", "") for a in e.get("archivos_afectados") or []),
@@ -884,7 +898,7 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
         f'data-search="{html.escape(search_blob)}" '
         f'onclick="toggleDetail(this)">'
         f'<td>{html.escape(fecha)}</td>'
-        f'<td><b>{html.escape(str(num_res))}</b></td>'
+        f'<td class="td-doc"><b>{html.escape(documento)}</b></td>'
         f'<td>{badges}</td>'
         f'<td class="td-normas">{normas_html}</td>'
         f'<td class="td-vig">{html.escape(vigencia)}</td>'
@@ -902,6 +916,18 @@ def _render_detalle(e: dict) -> str:
         bloques.append(
             f'<div class="d-bloque"><span class="d-label">Descripción CMF</span>'
             f'<p>{html.escape(desc)}</p></div>'
+        )
+
+    # Sólo las resoluciones exentas que el PDF declara. Son pocas —la mayoría de
+    # los documentos no ejecutan una resolución nominada— pero cuando existe es
+    # el acto administrativo que da origen al cambio.
+    res = e.get("resolucion") or {}
+    if res.get("numero"):
+        fecha_res = res.get("fecha") or "—"
+        bloques.append(
+            f'<div class="d-bloque"><span class="d-label">Resolución</span>'
+            f'<p>{html.escape(res.get("tipo") or "Exenta")} '
+            f'N°{html.escape(str(res["numero"]))} · {html.escape(fecha_res)}</p></div>'
         )
 
     sesion = e.get("sesion") or {}
@@ -1127,6 +1153,7 @@ _TEMPLATE = """<!DOCTYPE html>
     .cr-th-pdf { width: 80px; text-align: right; }
     .cr-td-fecha { color: #4b5563; white-space: nowrap;
                    font-variant-numeric: tabular-nums; }
+    .td-doc { white-space: nowrap; }
     .cr-th-doc { width: 140px; }
     .cr-td-doc { color: #374151; font-weight: 600; font-size: 12px;
                  white-space: nowrap; }
@@ -1315,11 +1342,11 @@ _TEMPLATE = """<!DOCTYPE html>
         <thead>
           <tr>
             <th>Fecha</th>
-            <th>N° Resolución</th>
+            <th>Norma</th>
             <th>Tipo de Acuerdo</th>
             <th>Norma(s) afectada(s)</th>
             <th>Vigencia</th>
-            <th>Documento</th>
+            <th>PDF</th>
           </tr>
         </thead>
         <tbody>

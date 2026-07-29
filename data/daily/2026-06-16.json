@@ -5,11 +5,7 @@
     {
       "clave": "2026_2371",
       "fecha": "2026-06-15",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "2371",
-        "fecha": "2026-06-15"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "documento": {
