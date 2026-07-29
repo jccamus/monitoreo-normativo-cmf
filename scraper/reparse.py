@@ -1,0 +1,159 @@
+"""Re-parsea entradas ya guardadas para corregir campos que quedaron vacíos.
+
+Existe porque `data/state.json` impide que una resolución ya vista se vuelva a
+procesar: si un arreglo del parser mejora la extracción, las entradas antiguas
+se quedan con los datos malos para siempre. Esta herramienta las recorre, baja
+el PDF de nuevo y reescribe la entrada dentro de su archivo `data/daily/`.
+
+Caso de uso original: la fecha del encabezado se buscaba sólo en los primeros
+500 caracteres, así que los documentos con bloque `REF:` largo perdían su fecha
+y caían al placeholder `YYYY-01-01` derivado de la URL. En el dashboard
+aparecían como 1 de enero y la actividad reciente quedaba invisible.
+
+    python scraper/reparse.py                    # entradas con fecha placeholder desde 2024
+    python scraper/reparse.py --desde 2020-01-01 # ampliar el rango
+    python scraper/reparse.py --todas            # todas las placeholder, sin filtro de año
+    python scraper/reparse.py --dry-run          # sólo informar, sin escribir
+
+No toca `state.json`: las claves ya vistas siguen vistas.
+"""
+import argparse
+import json
+import logging
+import sys
+from pathlib import Path
+
+from fetch import fetch_pdf
+from parser import parse_pdf
+from store import ensamblar_entrada
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)],
+)
+logger = logging.getLogger(__name__)
+
+DAILY_DIR = Path(__file__).parent.parent / "data" / "daily"
+
+
+def _es_placeholder(entrada: dict) -> bool:
+    """La fecha es el placeholder YYYY-01-01 derivado del nombre del PDF.
+
+    Un 1 de enero real es indistinguible de un placeholder, pero la CMF no
+    sesiona ese día, así que en la práctica no hay falsos positivos.
+    """
+    return (entrada.get("fecha") or "").endswith("-01-01")
+
+
+def _candidatas(entradas: list[dict], desde: str | None) -> list[dict]:
+    sel = [e for e in entradas if _es_placeholder(e)]
+    if desde:
+        sel = [e for e in sel if (e.get("fecha") or "") >= desde]
+    return sel
+
+
+def reparsear(desde: str | None, dry_run: bool) -> None:
+    archivos = sorted(DAILY_DIR.glob("*.json"))
+    if not archivos:
+        logger.error("No hay archivos en %s", DAILY_DIR)
+        sys.exit(1)
+
+    total = corregidas = sin_pdf = sin_cambio = 0
+
+    for path in archivos:
+        try:
+            with open(path, encoding="utf-8") as f:
+                payload = json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            logger.warning("No se pudo leer %s: %s — se omite", path.name, e)
+            continue
+
+        entradas = payload.get("new_entries", []) or []
+        objetivo = _candidatas(entradas, desde)
+        if not objetivo:
+            continue
+
+        total += len(objetivo)
+        logger.info("%s: %d entradas a revisar", path.name, len(objetivo))
+        modificado = False
+
+        for entrada in objetivo:
+            url = entrada.get("url_documento")
+            if not url:
+                sin_pdf += 1
+                continue
+
+            pdf_bytes = fetch_pdf(url)
+            if not pdf_bytes:
+                sin_pdf += 1
+                logger.warning("  sin PDF: %s", entrada.get("clave"))
+                continue
+
+            parsed = parse_pdf(pdf_bytes, url)
+
+            # Reconstruir la fila cruda del listado para reutilizar la misma
+            # lógica de ensamblado que usa el pipeline diario.
+            raw = {
+                "_key": entrada.get("clave", ""),
+                "fecha": entrada.get("fecha"),
+                "numero": (entrada.get("resolucion") or {}).get("numero"),
+                "descripcion": entrada.get("descripcion_cmf", ""),
+                "url_documento": url,
+            }
+            nueva = ensamblar_entrada(raw, parsed)
+
+            if nueva.get("fecha") == entrada.get("fecha"):
+                sin_cambio += 1
+                logger.info(
+                    "  %s sigue sin fecha en el PDF (%s)",
+                    entrada.get("clave"), entrada.get("fecha"),
+                )
+                continue
+
+            # Sin caracteres no-ASCII: la consola de Windows usa cp1252 por
+            # defecto y logging revienta al emitirlos.
+            logger.info(
+                "  %s  %s -> %s  (parsed %s -> %s)",
+                entrada.get("clave"), entrada.get("fecha"), nueva.get("fecha"),
+                entrada.get("parsed"), nueva.get("parsed"),
+            )
+            entrada.clear()
+            entrada.update(nueva)
+            corregidas += 1
+            modificado = True
+
+        if modificado and not dry_run:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            logger.info("%s reescrito", path.name)
+
+    logger.info(
+        "Revisadas %d | corregidas %d | sin cambio %d | sin PDF %d%s",
+        total, corregidas, sin_cambio, sin_pdf,
+        " (dry-run: no se escribio nada)" if dry_run else "",
+    )
+    if corregidas and not dry_run:
+        logger.info("Regenera el dashboard con: python scraper/dashboard.py")
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description="Re-parsea entradas con fecha placeholder")
+    ap.add_argument(
+        "--desde", metavar="YYYY-MM-DD", default="2024-01-01",
+        help="Sólo entradas con fecha >= este valor (por defecto 2024-01-01)",
+    )
+    ap.add_argument(
+        "--todas", action="store_true",
+        help="Sin filtro de año: revisa todas las entradas con placeholder",
+    )
+    ap.add_argument(
+        "--dry-run", action="store_true",
+        help="Informa qué cambiaría sin escribir los archivos",
+    )
+    args = ap.parse_args()
+    reparsear(None if args.todas else args.desde, args.dry_run)
+
+
+if __name__ == "__main__":
+    main()

@@ -25,11 +25,20 @@ _ACCION      = re.compile(
     re.IGNORECASE,
 )
 _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+", re.MULTILINE)
+# `del?` porque la CMF alterna entre "24 de noviembre de 2025" y
+# "24 de noviembre del 2025"; sin la variante, el oficio circular 1394/2025
+# perdía su fecha de encabezado.
 _FECHA_SPAN  = re.compile(
     r"(\d{1,2})\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
-    r"septiembre|octubre|noviembre|diciembre)\s+de\s+(\d{4})",
+    r"septiembre|octubre|noviembre|diciembre)\s+del?\s+(\d{4})",
     re.IGNORECASE,
 )
+# Línea de guiones bajos que cierra el bloque REF del encabezado. Ver
+# _fecha_encabezado: es el ancla para ubicar la fecha del documento.
+_SEPARADOR_ENCABEZADO = re.compile(r"\n\s*_{3,}\s*\n")
+_MAX_BUSQUEDA_SEPARADOR = 4000   # hasta dónde buscar el separador
+_VENTANA_TRAS_SEPARADOR = 300    # texto útil inmediatamente bajo el separador
+_VENTANA_ENCABEZADO     = 600    # respaldo cuando no hay separador
 
 # ── Patrones RAN / MSI ──────────────────────────────────────────────────────
 _RAN_CAP = re.compile(
@@ -150,10 +159,7 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
 
     # ── Fecha del documento (encabezado, si no hay resolución) ───────────────
     if not result.get("resolucion"):
-        fechas = _FECHA_SPAN.findall(text[:500])
-        if fechas:
-            d, mes, y = fechas[0]
-            result["fecha_documento"] = f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
+        result["fecha_documento"] = _fecha_encabezado(text)
 
     # ── Modificaciones ───────────────────────────────────────────────────────
     result["modifica"] = _parse_modificaciones(text)
@@ -175,6 +181,42 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
         result["parsed"] = False
 
     return result
+
+
+def _fecha_encabezado(text: str) -> str | None:
+    """Extrae la fecha del encabezado del documento.
+
+    Los documentos CMF abren con el bloque `REF:`, una línea de guiones bajos
+    y, justo debajo, la fecha:
+
+        REF: Modifica la Circular N°2.364 para bancos.
+        _________________________________
+        15 de junio de 2026
+        CIRCULAR N°2.371
+
+    El bloque `REF:` mide desde una línea hasta más de diez, así que anclar en
+    el separador es más fiable que mirar los primeros N caracteres. Con la
+    ventana fija de 500 que había antes, la circular 2.373/2026 perdía su fecha
+    por 17 caracteres (estaba en la posición 517) y terminaba archivada con el
+    placeholder `2026-01-01`, invisible en el dashboard.
+
+    Cuando hay separador se mira SÓLO debajo de él. La ventana amplia queda
+    reservada a los documentos sin separador: ampliarla indiscriminadamente
+    hace que se cuele una fecha del cuerpo — en el oficio circular 1394/2025
+    capturaba "15 de mayo de 2024", que es una referencia a otra resolución, y
+    fechaba el documento un año antes. Ante la duda es preferible devolver None
+    y dejar que store caiga al placeholder, que es visiblemente sospechoso.
+    """
+    m = _SEPARADOR_ENCABEZADO.search(text[:_MAX_BUSQUEDA_SEPARADOR])
+    ventana = (
+        text[m.end():m.end() + _VENTANA_TRAS_SEPARADOR] if m
+        else text[:_VENTANA_ENCABEZADO]
+    )
+    fechas = _FECHA_SPAN.findall(ventana)
+    if not fechas:
+        return None
+    d, mes, y = fechas[0]
+    return f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
 
 
 def _normaliza_frase(s: str, maxlen: int = 180) -> str:
