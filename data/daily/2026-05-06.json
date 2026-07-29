@@ -19,8 +19,8 @@
           "seccion_romana": null,
           "acciones": [
             "Agréguese",
-            "Elimínese",
-            "Reemplácese"
+            "Reemplácese",
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -448,35 +448,60 @@
     {
       "clave": "2020_0444",
       "fecha": "2020-06-19",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "444",
-        "fecha": "2020-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 234,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°234 QUE ESTABLECE NORMAS PARA LA CONTRATACIÓN DEL SEGURO DE INVALIDEZ Y SOBREVIVENCIA; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_444_2020.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°234",
+          "numero_norma": 234,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "NCG N°3",
+          "numero_norma": 3,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
       "vigencia": {
-        "inicio": "2020-06-19"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "documento": null
     },
     {
       "clave": "2020_0443",
       "fecha": "2020-06-15",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "443",
-        "fecha": "2020-01-01"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 187,
@@ -493,8 +518,8 @@
           "numero_norma": 30,
           "seccion_romana": "II",
           "acciones": [
-            "Modifíquese",
-            "Elimínese"
+            "Elimínese",
+            "Modifíquese"
           ],
           "vigencia": {
             "inicio": "ver texto"
@@ -502,22 +527,23 @@
         }
       ],
       "vigencia": {
-        "inicio": "2020-06-15"
+        "inicio": "2021-06-30",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "EXIME TEMPORALMENTE DE LA PRESENTACIÓN DE CIERTOS DOCUMENTOS EN LAS SOLICITUDES DE INSCRIPCIÓN DE VALORES DE OFERTA PÚBLICA Y MODIFICA LA NORMA DE CARÁCTER GENERAL N°30",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 443
+      }
     },
     {
       "clave": "2020_0442",
       "fecha": "2020-06-05",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "442",
-        "fecha": "2020-01-01"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
         "numero": 186,
@@ -528,33 +554,59 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°243 QUE ESTABLECE INSTRUCCIONES RELATIVAS A LA CONSTITUCION DE RESERVAS TECNICAS EN EL SEGURO DE INVALIDEZ Y SOBREVIVENCIA DEL D.L. N° 3.500 DE 1980; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_442_2020.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°243",
+          "numero_norma": 243,
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "2020-07-01"
+          }
+        }
+      ],
       "vigencia": {
-        "inicio": "2020-06-05"
+        "inicio": "2020-07-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 442
+      }
     },
     {
       "clave": "2020_0441",
       "fecha": "2020-05-13",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "441",
-        "fecha": "2020-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": 234,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°234 QUE ESTABLECE NORMAS PARA LA CONTRATACIÓN DEL SEGURO DE INVALIDEZ Y SOBREVIVENCIA; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_441_2020.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°234",
+          "numero_norma": 234,
+          "seccion_romana": null,
+          "acciones": [
+            "Agrégase"
+          ],
+          "vigencia": {
+            "inicio": "ver texto"
+          }
+        }
+      ],
       "vigencia": {
-        "inicio": "2020-05-13"
+        "inicio": "ver texto",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -563,16 +615,13 @@
       "resumen_acciones": [
         "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…",
         "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: 4 \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…"
-      ]
+      ],
+      "documento": null
     },
     {
       "clave": "2020_0440",
       "fecha": "2020-05-13",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "440",
-        "fecha": "2020-01-01"
-      },
+      "resolucion": null,
       "sesion": {
         "tipo": "Extraordinaria",
         "numero": 79,
@@ -597,7 +646,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2020-05-13"
+        "inicio": "2020-07-01",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -606,33 +656,53 @@
       "resumen_acciones": [
         "Reemplácese en el título III “Reserva Técnica de siniestros”, en su número 4 “Deducciones por reaseguro”, en los párrafos segundo, tercero y quinto, la referencia de clasificación…",
         "Reemplácese en todo el texto de la norma las frases “Superintendencia de Valores y Seguros” y “Superintendencia” por “Comisión para el Mercado Financiero” y “Comisión”,…"
-      ]
+      ],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 440
+      }
     },
     {
       "clave": "2020_0437",
       "fecha": "2020-04-09",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "437",
-        "fecha": "2020-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
-      "ncg": null,
+      "ncg": 200,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE\nRIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y\nOPERACIONES DE PRÉSTAMO DE ACCIONES; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_437_2020.pdf",
-      "parsed": false,
+      "parsed": true,
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 437
+      },
+      "modifica": [
+        {
+          "norma": "NCG N°200",
+          "numero_norma": 200,
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "no especificado"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
     },
     {
       "clave": "2018_0427",
       "fecha": "2018-01-01",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "427",
-        "fecha": "2018-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
       "ncg": null,
       "tipo_acuerdo": "Modificación NCG",
@@ -640,7 +710,24 @@
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_427_2018.pdf",
       "parsed": false,
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "documento": null,
+      "modifica": [
+        {
+          "norma": "NCG N°200",
+          "numero_norma": 200,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": []
     },
     {
       "clave": "2026_0564",
@@ -968,9 +1055,9 @@
           "seccion_romana": null,
           "acciones": [
             "Agréguese",
-            "Modifíquese",
+            "Reemplácese",
             "Elimínese",
-            "Reemplácese"
+            "Modifíquese"
           ],
           "vigencia": {
             "inicio": "no especificado"
@@ -1385,20 +1472,31 @@
     {
       "clave": "2024_0520",
       "fecha": "1995-11-06",
-      "resolucion": {
-        "tipo": "Exenta",
-        "numero": "520",
-        "fecha": "2024-01-01"
-      },
+      "resolucion": null,
       "sesion": null,
-      "ncg": 64,
+      "ncg": 200,
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_520_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°200",
+          "numero_norma": 200,
+          "seccion_romana": null,
+          "acciones": [
+            "Agréguese",
+            "Elimínese",
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "no especificado"
+          }
+        }
+      ],
       "vigencia": {
-        "inicio": "1995-11-06"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [
         "1-12",
@@ -1414,7 +1512,11 @@
         "Reemplácese en la letra a) del numeral 2.1 del título II, la expresión “Cámaras de Compensación”, por “Entidades de Contraparte Central”",
         "Reemplácese la letra a) del numeral 2.2 del título II, por lo siguiente: “Entidades de Contraparte Central regidas por el Título I de la ley Nº 20.345, sobre sistemas de…",
         "Reemplácese el numeral 4.6 del título II, por lo siguiente: “Las compañías podrán realizar operaciones de cobertura de riesgo con una misma Entidad de Contraparte Central o con…"
-      ]
+      ],
+      "documento": {
+        "tipo": "NCG",
+        "numero": 520
+      }
     },
     {
       "clave": "2024_0513",
@@ -1437,8 +1539,8 @@
           "seccion_romana": "I",
           "acciones": [
             "Agréguese",
-            "Modifíquese",
-            "Elimínese"
+            "Elimínese",
+            "Modifíquese"
           ],
           "vigencia": {
             "inicio": "inmediata"
