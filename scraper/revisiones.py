@@ -1,0 +1,201 @@
+"""Anotaciones manuales de vigencia, leídas desde `data/revisiones.csv`.
+
+Existe porque hay documentos —sobre todo oficios circulares— que declaran su
+fecha de aplicación entrelazada con el ciclo de reporte ("la información
+referida al cierre de agosto, y por lo tanto enviarse en septiembre de 2025").
+Cuál de esas fechas rige es un juicio, no un patrón, así que lo resuelve una
+persona leyendo el PDF.
+
+**Las anotaciones viven fuera de `data/daily/` a propósito.** Editar la entrada
+directamente no funciona por dos razones:
+
+- `reparse.py` hace `entrada.update(nueva)`, así que pisa todo campo que el
+  parser produce, incluida `vigencia`: la corrección se perdería en el próximo
+  `--recalcular`.
+- `store.guardar_diferencial` fusiona por `clave` reemplazando la entrada
+  entera, así que una recarga histórica también la borraría.
+
+Como capa aparte sobreviven a las dos cosas, y cada revisión queda como un
+commit atribuible en git.
+
+La capa se aplica **al renderizar**, no al guardar: los datos parseados quedan
+intactos y la anotación manda sin necesidad de reparsear nada.
+"""
+import csv
+import logging
+import re
+from datetime import datetime
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+CSV_PATH = Path(__file__).parent.parent / "data" / "revisiones.csv"
+
+# Columnas que llena la persona. El resto del archivo es contexto para poder
+# decidir sin abrir el PDF, y el cargador lo ignora.
+COLUMNAS_ENTRADA = ("clave", "vigencia", "sin_fecha", "archivos", "nota", "revisado")
+# Columnas de contexto que escribe `revisar.py`, en el orden en que conviene
+# leerlas en la planilla.
+COLUMNAS_CONTEXTO = (
+    "norma", "fecha_documento", "archivos_detectados", "fechas_candidatas", "pdf",
+)
+COLUMNAS = ("clave",) + COLUMNAS_CONTEXTO + COLUMNAS_ENTRADA[1:]
+
+_VERDADERO = {"si", "sí", "s", "x", "1", "true", "verdadero"}
+_FECHA_ISO = re.compile(r"^(\d{4})-(\d{2})(?:-(\d{2}))?$")
+
+
+def _leer_filas(path: Path) -> list[dict]:
+    """Filas del CSV, tolerando el separador que use Excel.
+
+    Excel en español usa `;` como separador de listas y `,` en inglés; el
+    archivo puede volver guardado con cualquiera de los dos según quién lo
+    edite. Se decide por la cabecera en vez de asumir.
+    """
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        cabecera = f.readline()
+        f.seek(0)
+        sep = ";" if cabecera.count(";") > cabecera.count(",") else ","
+        return list(csv.DictReader(f, delimiter=sep))
+
+
+def _parse_fecha(valor: str) -> tuple[str | None, str]:
+    """Acepta 'YYYY-MM-DD' y 'YYYY-MM'. Devuelve (iso, precisión)."""
+    m = _FECHA_ISO.match(valor.strip())
+    if not m:
+        return None, "dia"
+    año, mes, dia = m.group(1), m.group(2), m.group(3)
+    if not 1 <= int(mes) <= 12:
+        return None, "dia"
+    if dia is None:
+        # El documento fija sólo el mes: se normaliza al día 1 para poder
+        # ordenarlo, igual que hace el parser, y se marca la precisión.
+        return f"{año}-{mes}-01", "mes"
+    if not 1 <= int(dia) <= 31:
+        return None, "dia"
+    return f"{año}-{mes}-{dia}", "dia"
+
+
+def _parse_archivos(valor: str) -> dict[str, str]:
+    """'RDC40=2026-01-01;RDC02=2025-11-01' -> {'RDC40': '2026-01-01', ...}."""
+    fechas: dict[str, str] = {}
+    for par in re.split(r"[;,]", valor):
+        if "=" not in par:
+            continue
+        codigo, _, fecha = par.partition("=")
+        iso, _ = _parse_fecha(fecha)
+        if iso:
+            fechas[codigo.strip().upper()] = iso
+        else:
+            logger.warning("Fecha inválida para el archivo %r: %r", codigo, fecha)
+    return fechas
+
+
+def cargar(path: Path | None = None) -> dict[str, dict]:
+    """Anotaciones válidas, indexadas por `clave`.
+
+    Una fila mal formada se descarta con un aviso en vez de abortar: el
+    dashboard se regenera todos los días de forma desatendida y un error de
+    tipeo en la planilla no puede dejar el sitio sin construir.
+    """
+    path = path or CSV_PATH
+    if not path.exists():
+        return {}
+
+    try:
+        filas = _leer_filas(path)
+    except OSError as e:
+        logger.error("No se pudo leer %s: %s", path, e)
+        return {}
+
+    anotaciones: dict[str, dict] = {}
+    for n, fila in enumerate(filas, start=2):
+        clave = (fila.get("clave") or "").strip()
+        if not clave:
+            continue
+
+        sin_fecha = (fila.get("sin_fecha") or "").strip().lower() in _VERDADERO
+        crudo = (fila.get("vigencia") or "").strip()
+        nota = (fila.get("nota") or "").strip()
+        revisado = (fila.get("revisado") or "").strip()
+
+        if not crudo and not sin_fecha:
+            continue  # fila pendiente, todavía sin decidir
+
+        anotacion: dict = {
+            "sin_fecha": sin_fecha,
+            "nota": nota,
+            "revisado": revisado,
+            "archivos": _parse_archivos(fila.get("archivos") or ""),
+        }
+
+        if crudo:
+            iso, precision = _parse_fecha(crudo)
+            if not iso:
+                logger.warning(
+                    "revisiones.csv línea %d (%s): fecha %r no reconocida "
+                    "(se espera YYYY-MM-DD o YYYY-MM) — fila ignorada",
+                    n, clave, crudo,
+                )
+                continue
+            anotacion["inicio"] = iso
+            anotacion["precision"] = precision
+
+        anotaciones[clave] = anotacion
+
+    if anotaciones:
+        logger.info("Anotaciones manuales cargadas: %d", len(anotaciones))
+    return anotaciones
+
+
+def aplicar(entradas: list[dict], anotaciones: dict[str, dict]) -> None:
+    """Superpone las anotaciones sobre las entradas, in situ.
+
+    La vigencia anotada **pisa** a la parseada: quien anotó leyó el PDF. Queda
+    marcada con `fuente: "revision_manual"` para que el dashboard nunca la
+    presente como si viniera del parser, y con `discrepa` cuando el parser sí
+    tenía una fecha y no coincide — señal de que la anotación quizá ya sobra.
+    """
+    if not anotaciones:
+        return
+
+    for entrada in entradas:
+        anotacion = anotaciones.get(entrada.get("clave") or "")
+        if not anotacion:
+            continue
+
+        entrada["_revision"] = {
+            "nota": anotacion["nota"],
+            "revisado": anotacion["revisado"],
+            "sin_fecha": anotacion["sin_fecha"],
+        }
+
+        if anotacion["sin_fecha"]:
+            # Revisado y confirmado que el documento no declara fecha. No se
+            # inventa ninguna: sólo deja de figurar como pendiente.
+            continue
+
+        previa = (entrada.get("vigencia") or {}).get("inicio")
+        vigencia = {
+            "inicio": anotacion["inicio"],
+            "fuente": "revision_manual",
+        }
+        if anotacion["precision"] != "dia":
+            vigencia["precision"] = anotacion["precision"]
+        if previa and previa not in ("no especificado", "ver texto") \
+                and previa != anotacion["inicio"]:
+            vigencia["discrepa"] = previa
+        entrada["vigencia"] = vigencia
+
+        for archivo in entrada.get("archivos_afectados") or []:
+            codigo = (archivo.get("nombre") or "").upper()
+            archivo["vigencia"] = anotacion["archivos"].get(codigo, anotacion["inicio"])
+
+
+def discrepancias(entradas: list[dict]) -> list[dict]:
+    """Entradas donde el parser ahora propone otra fecha que la anotada.
+
+    Sirve para retirar anotaciones que dejaron de hacer falta cuando el parser
+    aprendió a leer ese documento.
+    """
+    return [e for e in entradas if (e.get("vigencia") or {}).get("discrepa")]

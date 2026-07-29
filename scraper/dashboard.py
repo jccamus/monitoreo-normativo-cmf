@@ -18,6 +18,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+import revisiones
+
 logger = logging.getLogger(__name__)
 
 DAILY_DIR = Path(__file__).parent.parent / "data" / "daily"
@@ -241,6 +243,11 @@ def _vigencia_fmt(v: dict | None) -> str:
     if not v:
         return "—"
     label = _fmt_inicio(v)
+    # Una fecha puesta por una persona nunca se presenta igual que una extraída
+    # del PDF: es el mismo criterio con que se marcan los plazos por mes y las
+    # fechas candidatas.
+    if v.get("fuente") == "revision_manual":
+        label += " · confirmada"
     plazos = v.get("plazos") or []
     if plazos:
         # El `inicio` global de un documento escalonado describe sólo el primer
@@ -435,6 +442,18 @@ def generar_html() -> None:
     diferenciales = _cargar_diferenciales()
     entradas = _flatten_entradas(diferenciales)
 
+    # Las anotaciones manuales se aplican acá, antes de clasificar: al
+    # renderizar y no al guardar, para que los datos parseados queden intactos
+    # y una anotación nueva sólo requiera regenerar el HTML.
+    revisiones.aplicar(entradas, revisiones.cargar())
+    for e in revisiones.discrepancias(entradas):
+        logger.warning(
+            "Anotación manual de %s (%s) discrepa del parser, que ahora propone %s "
+            "— revisar si la anotación todavía hace falta",
+            e.get("clave"), (e.get("vigencia") or {}).get("inicio"),
+            (e.get("vigencia") or {}).get("discrepa"),
+        )
+
     hoy = datetime.now(timezone.utc).replace(tzinfo=None, hour=0, minute=0, second=0, microsecond=0)
     b30, b60, b90 = _clasificar_tareas(entradas, hoy)
     retrospectiva = _clasificar_retrospectiva(entradas, hoy)
@@ -514,6 +533,10 @@ def _requiere_revision(e: dict) -> bool:
     archivos = e.get("archivos_afectados") or []
     if not archivos:
         return False
+    # Ya lo miró una persona: con fecha asignada o con la constancia de que el
+    # documento no la declara. En ninguno de los dos casos sigue pendiente.
+    if e.get("_revision"):
+        return False
     return not any(_vigencia_resuelta(a.get("vigencia")) for a in archivos)
 
 
@@ -575,7 +598,8 @@ def _render_revision_manual(entradas: list[dict]) -> str:
             '<section id="revision-manual" class="rv-vacio">'
             '<h2>Revisión manual</h2>'
             '<p class="rv-nota">Ningún cambio de archivo normativo quedó sin fecha '
-            'de vigencia. No hay nada que revisar a mano.</p></section>'
+            'de vigencia. No hay nada que revisar a mano.</p>'
+            + _render_revisados(entradas) + '</section>'
         )
     pendientes.sort(key=lambda e: e.get("fecha") or "", reverse=True)
     filas = "".join(
@@ -611,8 +635,33 @@ def _render_revision_manual(entradas: list[dict]) -> str:
         f'rige el cambio en una forma que se pueda extraer del PDF. '
         f'En {con_pistas} de ellos se listan las fechas que aparecen en el cuerpo '
         f'del documento como pista; cuál de ellas rige es una decisión que hay que '
-        f'tomar leyendo el PDF.</p>'
-        f'<ul class="rv-lista">{filas}</ul></section>'
+        f'tomar leyendo el PDF. Para anotar el resultado: '
+        f'<code>data/revisiones.csv</code>.</p>'
+        f'<ul class="rv-lista">{filas}</ul>{_render_revisados(entradas)}</section>'
+    )
+
+
+def _render_revisados(entradas: list[dict]) -> str:
+    """Constancia de lo ya revisado a mano.
+
+    Que un documento salga de la lista de pendientes no puede significar que
+    desaparezca sin dejar rastro: sin esta línea no habría forma de distinguir
+    "nadie lo miró todavía" de "lo miraron y no declara fecha".
+    """
+    revisados = [e for e in entradas if e.get("_revision")]
+    if not revisados:
+        return ""
+    sin_fecha = sum(1 for e in revisados if e["_revision"].get("sin_fecha"))
+    con_fecha = len(revisados) - sin_fecha
+    partes = []
+    if con_fecha:
+        partes.append(f"{con_fecha} con fecha asignada")
+    if sin_fecha:
+        partes.append(f"{sin_fecha} sin fecha declarada en el documento")
+    return (
+        f'<p class="rv-revisados"><b>{len(revisados)}</b> documento'
+        f'{"s" if len(revisados) != 1 else ""} ya revisado'
+        f'{"s" if len(revisados) != 1 else ""} a mano: {" · ".join(partes)}.</p>'
     )
 
 
@@ -1274,6 +1323,11 @@ _TEMPLATE = """<!DOCTYPE html>
     .rv-tema { color: #444; flex: 1 1 auto; }
     .rv-pdf { flex: 0 0 auto; color: #92400e; text-decoration: none; }
     .rv-extra { font-size: 11.5px; color: #78350f; margin: 8px 0 0; }
+    .rv-nota code { background: #fef3c7; border-radius: 3px; padding: 1px 5px;
+                    font-size: 11px; }
+    .rv-revisados { font-size: 11.5px; color: #166534; background: #f0fdf4;
+                    border: 1px solid #bbf7d0; border-radius: 6px;
+                    padding: 8px 12px; margin: 12px 0 0; }
     .rv-cand { margin-top: 4px; }
     .rv-cand-lbl { font-size: 10.5px; color: #a16207; text-transform: uppercase;
                    letter-spacing: 0.3px; }
