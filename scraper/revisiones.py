@@ -34,12 +34,17 @@ CSV_PATH = Path(__file__).parent.parent / "data" / "revisiones.csv"
 # Columnas que llena la persona. El resto del archivo es contexto para poder
 # decidir sin abrir el PDF, y el cargador lo ignora.
 COLUMNAS_ENTRADA = ("clave", "vigencia", "sin_fecha", "archivos", "nota", "revisado")
-# Columnas de contexto que escribe `revisar.py`, en el orden en que conviene
-# leerlas en la planilla.
+# Columnas de contexto que escribe `revisar.py`.
 COLUMNAS_CONTEXTO = (
     "norma", "fecha_documento", "archivos_detectados", "fechas_candidatas", "pdf",
 )
-COLUMNAS = ("clave",) + COLUMNAS_CONTEXTO + COLUMNAS_ENTRADA[1:]
+# Las de entrada van inmediatamente después de `clave`, antes del contexto.
+#
+# Al revés —contexto primero— la planilla es una trampa: en los documentos sin
+# fechas candidatas esa celda queda vacía y es la primera en blanco de la fila,
+# así que uno escribe ahí en vez de en `vigencia`, seis columnas más allá. Pasó
+# con los 7 documentos sin pistas en el primer uso real.
+COLUMNAS = COLUMNAS_ENTRADA + COLUMNAS_CONTEXTO
 
 _VERDADERO = {"si", "sí", "s", "x", "1", "true", "verdadero"}
 
@@ -135,6 +140,20 @@ def cargar(path: Path | None = None) -> dict[str, dict]:
         clave = (fila.get("clave") or "").strip()
         if not clave:
             continue
+
+        # Guardarraíl contra el error más probable: escribir la fecha en una
+        # columna de contexto. Las citas que genera `revisar.py` siempre traen
+        # puntos suspensivos, así que un valor sin ellos se escribió a mano.
+        # Sin este aviso el dato se pierde en silencio y el documento sigue
+        # figurando como pendiente sin explicación.
+        candidatas = (fila.get("fechas_candidatas") or "").strip()
+        if candidatas and "…" not in candidatas:
+            logger.warning(
+                "revisiones.csv línea %d (%s): %r está en la columna "
+                "'fechas_candidatas', que es de contexto y no se lee. "
+                "Si es la fecha de vigencia, va en la columna 'vigencia'.",
+                n, clave, candidatas,
+            )
 
         sin_fecha = (fila.get("sin_fecha") or "").strip().lower() in _VERDADERO
         crudo = (fila.get("vigencia") or "").strip()
