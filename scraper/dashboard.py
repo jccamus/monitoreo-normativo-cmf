@@ -1,15 +1,20 @@
 """Genera docs/index.html implementando los requisitos del brief
-'Propuesta - Cambios Normativos.txt' para journalists que monitorean la CMF.
+'Propuesta - Cambios Normativos.txt' para periodistas que monitorean la CMF.
 
-Estructura en dos pestañas:
-- **Agenda de tareas**: tres columnas (30 / 60 / 90+ días desde la fecha
+Estructura en cuatro pestañas:
+- **Agenda de tareas**: tres columnas (≤30 / 31–60 / 61+ días desde la fecha
   actual) con las resoluciones cuya vigencia entra a regir en cada
-  horizonte. Cada tarjeta muestra el tema oficial del documento (bloque
-  REF del PDF) y bullets accionables con los cambios concretos extraídos
-  por el parser.
+  horizonte, más una retrospectiva por mes de lo que ya debió aplicarse.
+  Cada tarjeta muestra el tema oficial del documento (bloque REF del PDF) y
+  bullets accionables con los cambios concretos extraídos por el parser.
+- **Cambios relevantes**: agrupados por cuerpo normativo (RAN, CNC, MSI…),
+  recortado a los últimos 5 años.
+- **Revisión manual**: los cambios de archivo del MSI sin fecha de vigencia
+  determinable. Rinde contenido aunque esté vacío — que no haya pendientes
+  es información, y un panel en blanco se lee como si algo hubiera fallado.
 - **Listado completo**: stats, filtros por tipo de acuerdo, búsqueda libre,
   tabla con detalle expandible (descripción, RAN, MSI, archivos, modifica
-  por sección) y línea de tiempo agrupada por NCG.
+  por sección) y línea de tiempo por NCG afectada.
 """
 import html
 import json
@@ -19,6 +24,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import revisiones
+import store
 
 logger = logging.getLogger(__name__)
 
@@ -26,8 +32,12 @@ DAILY_DIR = Path(__file__).parent.parent / "data" / "daily"
 DOCS_DIR = Path(__file__).parent.parent / "docs"
 OUTPUT = DOCS_DIR / "index.html"
 
-_NCG_NUM_DESC = re.compile(r"NORMA(?:S)?\s+DE\s+CARÁCTER\s+GENERAL\s+N[°o]\s*(\d+)", re.IGNORECASE)
-_NCG_NUM_SHORT = re.compile(r"\bNCG\s+N[°o]\s*(\d+)", re.IGNORECASE)
+# CARACTER sin tilde y el N° opcional: las descripciones del listado vienen en
+# mayúsculas sin acentuar y alternan "NCG N°306" con "NCG 306".
+_NCG_NUM_DESC = re.compile(
+    r"NORMAS?\s+DE\s+CAR[ÁA]CTER\s+GENERAL\s*(?:N[°o]\s*)?(\d+)", re.IGNORECASE
+)
+_NCG_NUM_SHORT = re.compile(r"\bNCG\s*(?:N[°o]\s*)?(\d+)", re.IGNORECASE)
 _DEROGA_RE = re.compile(r"\b(DEROGA|DERÓGASE|DEROGACIÓN)\b", re.IGNORECASE)
 
 # ── Clasificación por cuerpo normativo (tab "Cambios relevantes") ────────
@@ -144,10 +154,18 @@ def _agrupar_por_cuerpo(entradas: list[dict]) -> dict[str, list[dict]]:
         )
     return grupos
 
+# Un botón sin ninguna fila detrás sólo puede vaciar la tabla, así que
+# `_render_filtros` no rinde los que dan cero. Es data-driven a propósito: la
+# alternativa —borrar la categoría— deja el caso mudo si la CMF publica uno,
+# y acá el botón reaparece solo cuando aparece el primer dato.
+#
+# «Prórroga Consulta Pública» sí se eliminó del todo, a pedido: postergaba el
+# plazo de una consulta pública y no hay ni un caso en 607 resoluciones. No
+# confundirla con «Postergación de vigencia», que son otra cosa y sí existen.
 TIPOS_FILTRO = [
     ("todos", "Todos"),
     ("Consulta Pública", "Consulta Pública"),
-    ("Prórroga Consulta Pública", "Prórroga"),
+    ("Postergación de vigencia", "Postergación de vigencia"),
     ("Modificación NCG", "Modificación NCG"),
     ("Nueva Normativa", "Nueva Normativa"),
     ("Circular", "Circular"),
@@ -185,6 +203,17 @@ def _normas_afectadas(entrada: dict) -> list[str]:
     """NCGs afectadas combinando modifica[], campo ncg y regex de descripción."""
     nums: set[int] = set()
     for m in entrada.get("modifica", []) or []:
+        # Las entradas con fuente "descripcion_cmf" que hay guardadas en
+        # data/daily/ se generaron con un regex que capturaba cualquier "N° x"
+        # de la descripción y lo rotulaba NCG, así que traen números de
+        # circulares, leyes y decretos disfrazados de norma. Se ignoran y el
+        # número se vuelve a sacar de la descripción más abajo, con los dos
+        # patrones que sí exigen la designación de NCG. Se corrige acá y no
+        # sólo en `store` porque el arreglo del store únicamente alcanza a lo
+        # que entre de aquí en adelante: la descripción viaja dentro de la
+        # entrada, así que el histórico se repara al renderizar, sin reparse.
+        if m.get("fuente") == "descripcion_cmf":
+            continue
         n = m.get("numero_norma")
         if isinstance(n, int):
             nums.add(n)
@@ -275,20 +304,54 @@ def _render_plazos(v: dict | None) -> str:
 
 
 def _stats(entradas: list[dict]) -> dict[str, int]:
+    """Cuenta por las mismas categorías con que filtra la tabla.
+
+    Contaba sobre `tipo_acuerdo`, que es una sola categoría, mientras los
+    botones filtran sobre `_tipos_de_entrada`, que son varias: la píldora del
+    Resumen decía «Circular 0» y el botón «Circular» devolvía 2 filas. Un
+    conteo que no cuadra con lo que muestra el filtro de al lado se lee como
+    que uno de los dos está roto.
+    """
     counts: dict[str, int] = {}
     for e in entradas:
-        t = e.get("tipo_acuerdo", "Otro")
-        counts[t] = counts.get(t, 0) + 1
-        if _es_derogacion(e.get("descripcion_cmf", "")):
-            counts["Derogación"] = counts.get("Derogación", 0) + 1
+        for t in set(_tipos_de_entrada(e)):
+            counts[t] = counts.get(t, 0) + 1
     return counts
 
 
 def _tipos_de_entrada(entrada: dict) -> list[str]:
-    tipos = [entrada.get("tipo_acuerdo", "Otro")]
+    """Todas las categorías con las que la fila debe responder a los filtros.
+
+    Toma la lista completa y no sólo el `tipo_acuerdo` guardado, que es un
+    string y por tanto una única categoría: un documento que emite una
+    circular y además modifica una NCG tiene que aparecer bajo los dos
+    filtros, porque bajo ambos criterios es un resultado correcto.
+
+    Y suma lo que dice `_accion_sobre_norma`, que es la misma función con la
+    que la línea de tiempo rotula cada evento. Sin eso son **dos mecanismos
+    midiendo lo mismo por caminos distintos**, y divergen: la NCG N°209
+    mostraba «1 de 7 eventos · 5 la modifican», porque cuatro de esos cinco
+    dicen "APRUEBA MODIFICACIONES A LA NORMA DE CARÁCTER GENERAL N°209" y no
+    calzaban con el patrón de categoría. Ampliar el patrón arreglaba esos
+    cuatro y dejaba otros catorce; derivar ambas cosas del mismo análisis los
+    vuelve coherentes por construcción.
+    """
+    tipos = store.inferir_tipos_acuerdo(entrada.get("descripcion_cmf") or "")
+    for norma in _normas_afectadas(entrada):
+        m = re.search(r"\d+", norma)
+        if not m:
+            continue
+        accion = _accion_sobre_norma(entrada, int(m.group()))
+        if accion == "Modificada por":
+            tipos.append("Modificación NCG")
+        elif accion == "Derogada por":
+            tipos.append("Derogación")
     if _es_derogacion(entrada.get("descripcion_cmf", "")):
         tipos.append("Derogación")
-    return tipos
+    # "Otro" es el centinela de "ninguna categoría calzó": deja de aplicar en
+    # cuanto una calza, y si se queda infla su conteo y contradice al resto.
+    reales = [t for t in dict.fromkeys(tipos) if t != "Otro"]
+    return reales or ["Otro"]
 
 
 def _parse_iso(s: str | None) -> datetime | None:
@@ -420,17 +483,34 @@ def _clasificar_tareas(
     return b30, b60, b90
 
 
+# Una norma tocada una sola vez no tiene línea de tiempo que mostrar: es un
+# evento suelto, y ese evento ya está en la tabla de arriba con todo su detalle.
+# Sobre el histórico son 69 de 92 grupos, y son los que hacían que la sección se
+# leyera como un listado. Acá quedan las 23 normas con historia de verdad.
+_TIMELINE_MIN_EVENTOS = 2
+
+
 def _agrupar_por_norma(entradas: list[dict]) -> dict[str, list[dict]]:
     grupos: dict[str, list[dict]] = {}
     for e in entradas:
         for norma in _normas_afectadas(e):
             grupos.setdefault(norma, []).append(e)
+    grupos = {
+        norma: items
+        for norma, items in grupos.items()
+        if len(items) >= _TIMELINE_MIN_EVENTOS
+    }
     for norma in grupos:
         grupos[norma].sort(key=lambda x: x.get("fecha") or "")
 
     def _key(item):
+        # Primero las normas con más eventos: el sentido de una línea de tiempo
+        # es mostrar cuáles se han tocado repetidamente y cuándo. Ordenada por
+        # número ascendente abría en la NCG N°1 con un evento suelto, que es
+        # justo el caso donde no hay ninguna línea que ver. A igualdad de
+        # eventos, por número, para que el orden sea estable.
         m = re.search(r"\d+", item[0])
-        return int(m.group()) if m else 9999
+        return (-len(item[1]), int(m.group()) if m else 9999)
 
     return dict(sorted(grupos.items(), key=_key))
 
@@ -441,6 +521,25 @@ def generar_html() -> None:
     DOCS_DIR.mkdir(exist_ok=True)
     diferenciales = _cargar_diferenciales()
     entradas = _flatten_entradas(diferenciales)
+
+    # `tipo_acuerdo` se recalcula sobre lo ya guardado. Está grabado en cada
+    # JSON de data/daily/, así que el arreglo del calce en `store` sólo
+    # alcanzaría a lo que entre de aquí en adelante y el histórico quedaría
+    # con la clasificación vieja. La descripción viaja dentro de la entrada,
+    # de modo que se reclasifica acá y no hace falta reparsear. Se llama a la
+    # misma función de `store` a propósito: una sola fuente de verdad, para
+    # que lo que muestra el dashboard no pueda divergir de lo que se guarda.
+    reclasificadas = 0
+    for e in entradas:
+        nuevo = store.inferir_tipo_acuerdo(e.get("descripcion_cmf") or "")
+        if nuevo != e.get("tipo_acuerdo"):
+            e["tipo_acuerdo"] = nuevo
+            reclasificadas += 1
+    if reclasificadas:
+        logger.info(
+            "tipo_acuerdo recalculado en %d de %d entradas guardadas",
+            reclasificadas, len(entradas),
+        )
 
     # Las anotaciones manuales se aplican acá, antes de clasificar: al
     # renderizar y no al guardar, para que los datos parseados queden intactos
@@ -462,11 +561,17 @@ def generar_html() -> None:
         diferenciales[0].get("generated_at", "")[:10] if diferenciales else _hoy_iso()
     )
 
+    # Las novedades son las del archivo diario más reciente (`_cargar_dife-
+    # renciales` ordena descendente). Alimentan el resaltado de filas nuevas
+    # de la tabla, que hasta ahora recibía una lista vacía fija: el cálculo
+    # estaba escrito y funcionando, pero nunca se le pasaba nada.
+    novedades = diferenciales[0].get("new_entries", []) if diferenciales else []
+
     grupos = _agrupar_por_norma(entradas)
     grupos_cuerpo = _agrupar_por_cuerpo(entradas)
     html_doc = _render(
         entradas, (b30, b60, b90), retrospectiva, grupos, grupos_cuerpo, hoy,
-        ultima_actualizacion,
+        ultima_actualizacion, novedades,
     )
     OUTPUT.write_text(html_doc, encoding="utf-8")
     logger.info(
@@ -490,14 +595,18 @@ def _render(
     grupos_cuerpo: dict[str, list[dict]],
     hoy: datetime,
     ultima_actualizacion: str,
+    novedades: list[dict],
 ) -> str:
     cuadro_html = _render_cuadro_mando(buckets, hoy, retrospectiva)
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
     revision_html = _render_revision_manual(entradas)
     n_revision = sum(1 for e in entradas if _requiere_revision(e))
-    stats_html = _render_stats(_stats(entradas), len(entradas))
-    filtros_html = _render_filtros()
-    tabla_html = _render_tabla(entradas, [])
+    # Un solo conteo alimenta las píldoras del Resumen y los botones de filtro,
+    # para que no puedan decir cosas distintas.
+    counts = _stats(entradas)
+    stats_html = _render_stats(counts, len(entradas))
+    filtros_html = _render_filtros(counts)
+    tabla_html = _render_tabla(entradas, novedades)
     timeline_html = _render_timeline(grupos)
 
     return (
@@ -1027,9 +1136,14 @@ def _render_stats(counts: dict[str, int], total: int) -> str:
     return '<div id="stats">' + "".join(pills) + "</div>"
 
 
-def _render_filtros() -> str:
+def _render_filtros(counts: dict[str, int]) -> str:
     botones = []
     for tipo, label in TIPOS_FILTRO:
+        # Un botón que no tiene ninguna fila detrás sólo puede vaciar la tabla.
+        # Se omite en vez de rendirlo muerto — y reaparece solo el día que
+        # llegue el primer caso, sin tocar código.
+        if tipo != "todos" and not counts.get(tipo):
+            continue
         cls = "filtro-btn activo" if tipo == "todos" else "filtro-btn"
         botones.append(
             f'<button class="{cls}" data-tipo="{html.escape(tipo)}" '
@@ -1050,7 +1164,7 @@ def _tipo_class(tipo: str) -> str:
         "Nueva Normativa": "tag-nueva",
         "Modificación NCG": "tag-mod",
         "Circular": "tag-circular",
-        "Prórroga Consulta Pública": "tag-prorroga",
+        "Postergación de vigencia": "tag-postergacion",
         "Derogación": "tag-deroga",
     }.get(tipo, "tag-otro")
 
@@ -1061,7 +1175,7 @@ def _tipo_tag(tipo: str) -> str:
 
 def _render_tabla(entradas: list[dict], novedades: list[dict]) -> str:
     if not entradas:
-        return '<tr><td colspan="6" style="padding:24px;text-align:center;color:#6b7280">Sin datos aún.</td></tr>'
+        return '<tr><td colspan="6" class="td-vacio">Sin datos aún.</td></tr>'
 
     claves_nuevas = {e.get("clave") for e in novedades}
     filas: list[str] = []
@@ -1105,6 +1219,7 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
 
     return (
         f'<tr class="fila-principal{cls_nueva}" '
+        f'data-clave="{html.escape(clave)}" '
         f'data-tipos="{html.escape("|".join(tipos))}" '
         f'data-search="{html.escape(search_blob)}" '
         f'onclick="toggleDetail(this)">'
@@ -1208,7 +1323,10 @@ def _render_detalle(e: dict) -> str:
     if not e.get("parsed", False):
         bloques.append(
             '<div class="d-bloque d-warn">'
-            '<span class="d-label">⚠ PDF no procesado</span>'
+            # Sin glifo de advertencia: la guía de marca prohíbe el emoji en
+            # contexto institucional y U+26A0 se rinde como tal en Windows y
+            # Android. El tono de alerta lo da .d-warn, no un símbolo.
+            '<span class="d-label">PDF no procesado</span>'
             '<p>El parser no pudo extraer el texto del documento. '
             'Usar el enlace al PDF para revisión manual.</p></div>'
         )
@@ -1219,26 +1337,171 @@ def _render_detalle(e: dict) -> str:
     return '<div class="detalle">' + "".join(bloques) + "</div>"
 
 
+# Un punto es fin de oración salvo que venga de una abreviatura ("D.L.") o de
+# un separador de miles ("N°3.500"), que es donde se cortaba mal: la mención de
+# la NCG N°318 quedaba en una "oración" que empezaba en "L. N° 3500 DE 1980, Y
+# A LA", sin el verbo que la gobierna.
+_FIN_ORACION = re.compile(r"(?<![ .][A-Z])(?<![0-9])\.")
+
+
+def _inicio_de_oracion(texto: str, pos: int) -> int:
+    cortes = [m.end() for m in _FIN_ORACION.finditer(texto, 0, pos)]
+    return cortes[-1] if cortes else 0
+
+
+def _ultimo(patron: re.Pattern, texto: str) -> int | None:
+    """Posición del último match, o None. Para saber qué verbo manda."""
+    fin = None
+    for m in patron.finditer(texto):
+        fin = m.start()
+    return fin
+
+
+# Verbos de acción normativa, sobre texto ya normalizado (sin tildes).
+#
+# Los lookahead excluyen las nominalizaciones que nombran la *materia* y no un
+# cambio a la norma: el Oficio Circular N°502 imparte instrucciones sobre "la
+# INCORPORACIÓN de bienes raíces habitacionales como inversión representativa,
+# SEGÚN NCG N°152", y con `INCORPOR\w*` a secas ese sustantivo hacía pasar por
+# modificación lo que es una simple referencia. "MODIFICACIONES" en cambio se
+# conserva: "APRUEBA MODIFICACIONES A LA NCG N°209" sí es un cambio.
+_VERBO_MODIFICA = re.compile(
+    r"MODIFIC\w*|REEMPLAZ\w*|SUSTITU\w*|AJUST\w*|AGREG\w*|ELIMIN\w*"
+    r"|ACTUALIZ\w*|POSTERG\w*"
+    r"|INCORPORA(?!CION)\w*|INTRODUC(?!CION)\w*|COMPLEMENTA(?!CION)\w*"
+)
+
+# `_DEROGA_RE` lista DERÓGASE y DEROGACIÓN con tilde, así que sobre el texto
+# normalizado sólo calzaría "DEROGA". Acá hace falta la familia completa.
+_VERBO_DEROGA = re.compile(r"DEROG\w*")
+
+
+def _accion_sobre_norma(entrada: dict, numero: int) -> str:
+    """Cómo actúa este documento sobre *esa* norma.
+
+    Tres respuestas posibles y las tres importan:
+
+    - «Derogada por» — la deja sin efecto.
+    - «Modificada por» — le cambia el contenido.
+    - «Referida por» — sólo la nombra. El Oficio Circular N°502 imparte
+      instrucciones "SEGÚN NORMA DE CARÁCTER GENERAL N°152": la invoca, no la
+      toca. Llamar a eso una modificación es afirmar un cambio normativo que
+      no ocurrió, que es el error más caro que puede cometer este panel.
+
+    Por lo mismo no sirve `_es_derogacion` a secas, que sólo mira si la
+    palabra DEROGA aparece en algún lugar de la descripción: un documento que
+    modifica la NCG N°152 y de paso deroga una circular la contiene. Tanto la
+    derogación como la modificación tienen que estar referidas al número que
+    encabeza el grupo, no al documento en general.
+    """
+    # 1. Lo que dice el parser leyendo el PDF, que es la fuente más confiable.
+    #    Las de fuente "descripcion_cmf" que hay guardadas traen la acción
+    #    aplicada en bloque: si la descripción dice DEROGA en algún lado,
+    #    *todos* sus números quedaron marcados "Derógase". El 2009_0264
+    #    modifica la NCG N°152 y deroga el Oficio Circular N°502, y con esas
+    #    acciones la 152 aparecía derogada. Se ignoran, igual que en
+    #    `_normas_afectadas`.
+    for m in entrada.get("modifica") or []:
+        if m.get("fuente") == "descripcion_cmf" or m.get("numero_norma") != numero:
+            continue
+        if any(_DEROGA_RE.search(a or "") for a in m.get("acciones") or []):
+            return "Derogada por"
+        return "Modificada por"
+
+    # 2. Manda el último verbo que aparece antes de la mención dentro de su
+    #    misma oración. Exigir que el verbo esté pegado no sirve, porque la
+    #    CMF enumera: "DEROGA CIRCULAR N°1360, NORMA DE CARÁCTER GENERAL N°42
+    #    Y OFICIO CIRCULAR N°652" deroga las tres. Y una ventana de N
+    #    caracteres tampoco, porque el verbo puede quedar lejos y seguir
+    #    rigiendo: "APRUEBA MODIFICACIONES A LA NCG N°209 … Y A LA NCG N°318".
+    desc = store.normalizar(entrada.get("descripcion_cmf") or "")
+    mencion = rf"(?:NORMAS?\s+DE\s+CARACTER\s+GENERAL|NCG)\s*(?:N[°O]\s*)?0*{numero}\b"
+    menciones = list(re.finditer(mencion, desc))
+    for m in menciones:
+        oracion = desc[_inicio_de_oracion(desc, m.start()):m.start()]
+        mod = _ultimo(_VERBO_MODIFICA, oracion)
+        der = _ultimo(_VERBO_DEROGA, oracion)
+        if der is not None and (mod is None or der > mod):
+            return "Derogada por"
+        if mod is not None:
+            return "Modificada por"
+
+    # 3. Sin mención en la descripción no hay nada que interpretar: la norma
+    #    entró al grupo por los datos del PDF, o sea que el documento sí la
+    #    afecta. Marcarla "Referida por" por descarte sería negar un cambio.
+    return "Referida por" if menciones else "Modificada por"
+
+
+_DESGLOSE = {
+    "Modificada por": ("{n} la modifica", "{n} la modifican"),
+    "Derogada por": ("{n} la deroga", "{n} la derogan"),
+    "Referida por": ("{n} sólo la menciona", "{n} sólo la mencionan"),
+}
+
+# La barra de acento de cada evento dice la acción sin tener que leerla.
+_ACCION_CLASE = {
+    "Modificada por": "mod",
+    "Derogada por": "der",
+    "Referida por": "ref",
+}
+
+
+def _desglose_acciones(acciones: list[str]) -> str:
+    """«7 la modifican · 1 sólo la menciona».
+
+    Va en el encabezado del grupo y no sólo en cada evento porque con un
+    filtro activo los eventos que no calzan quedan ocultos: bajo «Modificación
+    NCG» la NCG N°152 mostraba «7 de 8» y sus siete modificaciones, sin manera
+    de saber qué era el octavo. La composición describe la historia completa
+    de la norma, así que no cambia con el filtro y responde esa pregunta sin
+    tener que sacar el filtro.
+    """
+    partes = []
+    for accion, (singular, plural) in _DESGLOSE.items():
+        n = acciones.count(accion)
+        if n:
+            partes.append((singular if n == 1 else plural).format(n=n))
+    return " · ".join(partes)
+
+
 def _render_timeline(grupos: dict[str, list[dict]]) -> str:
     if not grupos:
-        return "<p style='padding:18px;color:#6b7280'>Sin datos de línea de tiempo aún.</p>"
+        return '<p class="tl-vacio">Sin datos de línea de tiempo aún.</p>'
     bloques = []
     for norma, items in grupos.items():
         if len(items) == 0:
             continue
+        # `data-clave` es lo que ata cada evento a su fila de la tabla: el filtro
+        # decide qué filas se ven y la línea de tiempo se limita a seguirlas, en
+        # vez de reimplementar el filtrado por tipo y la búsqueda. Una sola
+        # fuente de verdad, y no pueden quedar en desacuerdo.
+        # El evento identifica al documento que actuó, no al tipo de acuerdo.
+        # Decía «2021-07-30 · Modificación NCG», que dentro de un grupo
+        # titulado «NCG N°152» y bajo el filtro «Modificación NCG» repetía dos
+        # veces lo que ya se sabía y no decía lo único que falta: cuál norma la
+        # modificó. Ahora dice «2021-07-30 · Modificada por NCG N°458».
+        m_num = re.search(r"\d+", norma)
+        numero = int(m_num.group()) if m_num else -1
+        acciones = [_accion_sobre_norma(i, numero) for i in items]
         items_html = "".join(
-            f'<a class="tl-item" href="{html.escape(i.get("url_documento") or "")}" target="_blank" rel="noopener" '
+            f'<a class="tl-item tl-{_ACCION_CLASE[accion]}" '
+            f'data-clave="{html.escape(i.get("clave") or "")}" '
+            f'href="{html.escape(i.get("url_documento") or "")}" target="_blank" rel="noopener" '
             f'title="{html.escape((i.get("descripcion_cmf") or "")[:200])}">'
             f'<b>{html.escape(i.get("fecha","?"))}</b> · '
-            f'{html.escape(i.get("tipo_acuerdo","")) }'
-            f'{" · DEROGA" if _es_derogacion(i.get("descripcion_cmf","")) else ""}'
+            f'{html.escape(accion)} '
+            f'<span class="tl-actor">{html.escape(_etiqueta_documento(i))}</span>'
             f'</a>'
-            for i in items
+            for i, accion in zip(items, acciones)
         )
         count = len(items)
         bloques.append(
             f'<div class="tl-norma">'
-            f'<h3>{html.escape(norma)} <span class="tl-count">{count} evento{"s" if count!=1 else ""}</span></h3>'
+            f'<h3>{html.escape(norma)} '
+            f'<span class="tl-count" data-total="{count}">'
+            f'{count} evento{"s" if count!=1 else ""}</span>'
+            f'<span class="tl-desglose">{html.escape(_desglose_acciones(acciones))}</span>'
+            f'</h3>'
             f'<div class="tl-items">{items_html}</div>'
             f'</div>'
         )
@@ -1252,293 +1515,767 @@ _TEMPLATE = """<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monitoreo Normativo CMF</title>
+  <title>Monitoreo normativo CMF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-           font-size: 14px; color: #222; background: #f7f8fa; }
-    a { color: #1a56db; }
+    /* ═══ CMF Design System — tokens ═══════════════════════════════════
+       Copiados textualmente de clauditapalma-prog/CMF-Design-System@c94ed2d
+       (cmf-design-system-8adfb247-…/tokens/): colors.css, typography.css,
+       spacing.css y base.css, en el orden que fija su styles.css.
 
-    header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 24px; }
-    header h1 { font-size: 22px; font-weight: 700; color: #111; }
-    header p { color: #6b7280; margin-top: 4px; font-size: 13px; }
+       Van EMBEBIDOS y no enlazados a propósito: el dashboard se publica
+       como un único HTML sin paso de build, así que un archivo de assets
+       que no llegue al commit dejaría la página entera sin estilos —y como
+       los tokens definen hasta el color del texto, se vería como si el
+       generador se hubiera roto. Para resincronizar con upstream, cambia
+       este bloque completo; no lo edites a mano.
 
-    main { max-width: 1280px; margin: 24px auto; padding: 0 16px; }
-    section { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
-              margin-bottom: 24px; overflow: hidden; }
-    section h2 { font-size: 15px; font-weight: 600; padding: 14px 18px;
-                 border-bottom: 1px solid #e5e7eb; background: #f9fafb;
-                 display: flex; align-items: center; justify-content: space-between; }
+       tokens/fonts.css es la única excepción: era un @import a Google
+       Fonts, que como <link> en el <head> carga antes y no bloquea el
+       resto del CSS. Trae sólo Source Sans 3 (--font-sans); JetBrains
+       Mono se omite porque el único uso de monoespaciada acá es un <code>
+       y --font-mono ya cae a la del sistema.
+       ═════════════════════════════════════════════════════════════════ */
+
+    /* ---- tokens/colors.css ---- */
+    :root {
+      /* Brand purple (primary identity) */
+      --cmf-purple-900: #3a1a53;
+      --cmf-purple-800: #4a2169;
+      --cmf-purple-700: #5b2b82;   /* Pantone 268 C — primary brand */
+      --cmf-purple-500: #8547ad;   /* Pantone 2587 C — secondary purple */
+      --cmf-purple-300: #b68fd0;
+      --cmf-purple-200: #d8c4e6;
+      --cmf-purple-100: #ece1f3;
+      --cmf-purple-50:  #f6f1fa;
+      /* Neutral / ink (Pantone 424 C family) */
+      --cmf-ink-900: #2c2c2b;
+      --cmf-ink-800: #444444;
+      --cmf-ink-700: #575756;
+      --cmf-ink-500: #717271;      /* Pantone 424 C */
+      --cmf-ink-400: #969695;
+      --cmf-ink-300: #bcbcbb;
+      --cmf-ink-200: #d7d7d6;
+      --cmf-ink-100: #e9e9e8;
+      --cmf-ink-50:  #f5f5f4;
+      --cmf-white:   #ffffff;
+      /* Graphic-support / accent palette */
+      --cmf-navy:       #162c55;
+      --cmf-indigo:     #3f3a7e;
+      --cmf-teal:       #12a095;
+      --cmf-teal-deep:  #0e6e68;
+      --cmf-teal-200:   #97d6d2;
+      --cmf-teal-50:    #e4f4f2;
+      /* Functional / status */
+      --cmf-success:    #1e8a5b;
+      --cmf-success-bg: #e6f3ec;
+      --cmf-warning:    #b97708;
+      --cmf-warning-bg: #fbf0dc;
+      --cmf-danger:     #c0392b;
+      --cmf-danger-bg:  #f9e7e4;
+      --cmf-info:       #162c55;
+      --cmf-info-bg:    #e7ecf4;
+      /* Semantic aliases — usar estos en los componentes */
+      --color-brand:            var(--cmf-purple-700);
+      --color-brand-strong:     var(--cmf-purple-800);
+      --color-brand-soft:       var(--cmf-purple-500);
+      --color-brand-tint:       var(--cmf-purple-100);
+      --color-brand-tint-faint: var(--cmf-purple-50);
+      --color-accent:           var(--cmf-teal);
+      --color-accent-deep:      var(--cmf-teal-deep);
+      --color-accent-tint:      var(--cmf-teal-50);
+      --text-strong:    var(--cmf-ink-900);
+      --text-body:      var(--cmf-ink-700);
+      --text-muted:     var(--cmf-ink-500);
+      --text-faint:     var(--cmf-ink-400);
+      --text-on-brand:  var(--cmf-white);
+      --text-link:      var(--cmf-purple-700);
+      --text-link-hover:var(--cmf-purple-800);
+      --surface-page:    var(--cmf-ink-50);
+      --surface-card:    var(--cmf-white);
+      --surface-sunken:  var(--cmf-ink-100);
+      --surface-brand:   var(--cmf-purple-700);
+      --surface-navy:    var(--cmf-navy);
+      --surface-inverse: var(--cmf-navy);
+      --border-subtle:  var(--cmf-ink-200);
+      --border-default: var(--cmf-ink-300);
+      --border-strong:  var(--cmf-ink-500);
+      --border-brand:   var(--cmf-purple-700);
+      --focus-ring: var(--cmf-purple-500);
+    }
+
+    /* ---- tokens/typography.css ---- */
+    :root {
+      --font-brand: "Verdana", "Source Sans 3", system-ui, sans-serif;
+      --font-sans:  "Source Sans 3", "Verdana", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-mono:  "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+      --fw-regular: 400;
+      --fw-medium:  500;
+      --fw-semibold:600;
+      --fw-bold:    700;
+      --fs-display: 3.052rem;
+      --fs-h1:      2.441rem;
+      --fs-h2:      1.953rem;
+      --fs-h3:      1.563rem;
+      --fs-h4:      1.25rem;
+      --fs-lg:      1.125rem;
+      --fs-body:    1rem;
+      --fs-sm:      0.875rem;
+      --fs-xs:      0.75rem;
+      --lh-tight:   1.15;
+      --lh-snug:    1.3;
+      --lh-normal:  1.5;
+      --lh-relaxed: 1.65;
+      --ls-tight:   -0.01em;
+      --ls-normal:  0;
+      --ls-wide:    0.04em;
+      --ls-caps:    0.08em;
+    }
+
+    /* ---- tokens/spacing.css ---- */
+    :root {
+      --space-0: 0;
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --space-9: 6rem;
+      --radius-xs: 3px;
+      --radius-sm: 5px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 999px;
+      --border-w: 1px;
+      --border-w-thick: 2px;
+      --accent-bar-w: 4px;
+      --shadow-xs: 0 1px 2px rgba(44, 44, 43, 0.06);
+      --shadow-sm: 0 1px 3px rgba(44, 44, 43, 0.08), 0 1px 2px rgba(44, 44, 43, 0.06);
+      --shadow-md: 0 4px 12px rgba(44, 44, 43, 0.10), 0 2px 4px rgba(44, 44, 43, 0.06);
+      --shadow-lg: 0 12px 28px rgba(44, 44, 43, 0.14), 0 4px 8px rgba(44, 44, 43, 0.06);
+      --shadow-brand: 0 8px 24px rgba(91, 43, 130, 0.22);
+      --container-max: 1200px;
+      --container-narrow: 760px;
+      --header-h: 72px;
+      --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-fast: 120ms;
+      --dur-base: 200ms;
+      --dur-slow: 320ms;
+    }
+
+    /* ---- tokens/base.css ---- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: var(--fs-body);
+      line-height: var(--lh-normal);
+      color: var(--text-body);
+      background: var(--surface-page);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-sans);
+      color: var(--text-strong);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight);
+      margin: 0 0 var(--space-4);
+      font-weight: var(--fw-bold);
+    }
+    h1 { font-size: var(--fs-h1); }
+    h2 { font-size: var(--fs-h2); }
+    h3 { font-size: var(--fs-h3); }
+    h4 { font-size: var(--fs-h4); font-weight: var(--fw-semibold); }
+    p { margin: 0 0 var(--space-4); text-wrap: pretty; }
+    a {
+      color: var(--text-link);
+      text-decoration: none;
+      transition: color var(--dur-fast) var(--ease-standard);
+    }
+    a:hover { color: var(--text-link-hover); text-decoration: underline; }
+    :focus-visible {
+      outline: var(--border-w-thick) solid var(--focus-ring);
+      outline-offset: 2px;
+      border-radius: var(--radius-xs);
+    }
+    /* Antetítulo — etiqueta en mayúsculas con tracking, motivo recurrente CMF */
+    .cmf-eyebrow {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--color-brand-soft);
+    }
+    /* Regla de acento — la barra morada corta bajo el logo / los títulos */
+    .cmf-rule {
+      height: var(--accent-bar-w);
+      width: 56px;
+      background: var(--color-brand);
+      border: 0;
+      border-radius: var(--radius-pill);
+      margin: var(--space-3) 0;
+    }
+
+    /* ═══ Aplicación al dashboard ══════════════════════════════════════
+       De acá abajo es CSS propio. Los componentes del sistema (Button,
+       Card, Badge, Alert, Input, Tabs) vienen del bundle React de upstream
+       y no se pueden montar en esta página —no hay React ni bundler—, así
+       que su especificación visual está portada a los selectores que ya
+       emiten las funciones _render_*. Es fiel porque esos componentes
+       estilan sólo con los tokens de arriba: no traen CSS propio.
+       Ningún valor de acá debería ser un hex literal; si necesitas uno,
+       falta un token.
+       ═════════════════════════════════════════════════════════════════ */
+
+    /* Tintas de las variantes «subtle» de Badge y Alert. Upstream las
+       hardcodea dentro de los componentes y no las expone en colors.css,
+       así que se declaran acá con exactamente el mismo valor. Importan:
+       el color sólido sobre su propio fondo tintado no llega a AA
+       (success 3,8:1 · warning 3,3:1), estas tintas sí. */
+    :root {
+      --ink-on-success-bg: #13643f;
+      --ink-on-warning-bg: #8a5905;
+      --ink-on-danger-bg:  #922a1f;
+    }
+
+    /* base.css asume una página de prosa: h1–h4 y p traen margen inferior y
+       la escala de titulares parte en 39px. Este dashboard es una UI densa
+       de tablas y tarjetas, así que se neutraliza el flujo del documento y
+       cada componente declara su propio tamaño y espaciado. */
+    h1, h2, h3, h4, p, ul, ol, figure { margin: 0; }
+    ul, ol { padding: 0; }
+    button { font-family: var(--font-sans); }
+
+    /* Cabecera — tratamiento de portada navy del sistema. La banda oficial
+       usa la textura de red (assets/backgrounds/cmf-network-texture.jpeg),
+       que no está publicada en el repo del sistema, así que va navy plano. */
+    /* Va como `body > header` y no como `header` a secas porque las columnas
+       del Cuadro de mando y el aviso de revisión manual también abren un
+       <header>: sin acotar, quedaban con fondo navy. */
+    body > header { background: var(--surface-navy);
+                    padding: var(--space-7) var(--space-6); }
+    .hd-inner { max-width: var(--container-max); margin: 0 auto; }
+    /* Logo oficial, en la forma «blanco total» que el manual permite para
+       fondo oscuro. Va inline y no como <img> por dos razones: la página se
+       publica como un único HTML —un archivo suelto que no llegue al commit
+       deja la cabecera rota— y así el blanco lo hereda de `color`, sin
+       tocar la geometría ni recolorear a mano trazado por trazado.
+       El SVG viene de cmfchile.cl con los rellenos originales #52307E y
+       #6D4C95 (isotipo) y #737373 (logotipo), sustituidos por currentColor;
+       los stroke-width se conservan, que son los que dan el grosor de las
+       letras. Restituir la versión a color = devolver esos tres valores.
+
+       El manual pide un margen de protección ≈ la altura de la «F», que en
+       este trazado mide 35,89 de las 37,59 unidades del viewBox, o sea casi
+       el alto completo: con 34px de logo son ~32px libres, que es lo que dan
+       el padding del header y el margen inferior. */
+    .hd-logo { color: var(--cmf-white); margin-bottom: var(--space-6);
+               line-height: 0; }
+    .hd-logo svg { height: 34px; width: auto; max-width: 100%; display: block; }
+    body > header h1 { font-size: var(--fs-h3); font-weight: var(--fw-bold);
+                       color: var(--cmf-white); }
+    /* La regla de acento es morada sobre fondo claro, como manda el manual,
+       pero el morado 2587 C sobre navy da ~2:1 y desaparece; sobre oscuro va
+       en el teal de la paleta de apoyo. */
+    body > header .cmf-rule { background: var(--color-accent); }
+    .hd-sub { color: var(--cmf-ink-200); font-size: var(--fs-sm);
+              max-width: 78ch; }
+
+    main { max-width: var(--container-max); margin: var(--space-5) auto;
+           padding: 0 var(--space-4); }
+    /* Card */
+    section { background: var(--surface-card);
+              border: var(--border-w) solid var(--border-subtle);
+              border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+              margin-bottom: var(--space-5); overflow: hidden; }
+    section h2 { font-size: var(--fs-body); font-weight: var(--fw-semibold);
+                 padding: var(--space-3) var(--space-5);
+                 border-bottom: var(--border-w) solid var(--border-subtle);
+                 background: var(--cmf-ink-50);
+                 display: flex; align-items: center; justify-content: space-between;
+                 letter-spacing: var(--ls-normal); }
+    .h2-hint { font-size: var(--fs-xs); color: var(--text-muted);
+               font-weight: var(--fw-regular); }
 
     /* Tabs */
-    #tabs { display: flex; gap: 4px; border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 20px; }
-    .tab { background: transparent; border: none; padding: 10px 18px;
-           font-size: 14px; font-weight: 500; color: #6b7280; cursor: pointer;
-           border-bottom: 3px solid transparent; }
-    .tab:hover { color: #111; }
-    .tab.activo { color: #1a56db; border-bottom-color: #1a56db; font-weight: 600; }
-    .tab-panel { animation: fadeIn 0.15s ease-out; }
+    #tabs { display: flex; gap: var(--space-5);
+            border-bottom: var(--border-w) solid var(--border-subtle);
+            margin-bottom: var(--space-5); }
+    .tab { background: transparent; border: 0; cursor: pointer;
+           padding: var(--space-3) 0; font-size: var(--fs-body);
+           font-weight: var(--fw-medium); color: var(--text-muted);
+           border-bottom: 3px solid transparent;
+           transition: color var(--dur-fast) var(--ease-standard),
+                       border-color var(--dur-base) var(--ease-out); }
+    .tab:hover { color: var(--text-strong); }
+    .tab.activo { color: var(--color-brand); border-bottom-color: var(--color-brand);
+                  font-weight: var(--fw-bold); }
+    .tab-panel { animation: fadeIn var(--dur-fast) var(--ease-standard); }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    /* «Animación discreta y funcional… respeta prefers-reduced-motion» */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
 
     /* Cuadro de mando */
     #cm-encabezado { display: flex; justify-content: space-between; align-items: center;
-                     padding: 12px 4px 16px; font-size: 13px; color: #4b5563; }
-    #cm-encabezado b { color: #111; font-size: 16px; }
-    .cm-hoy { color: #6b7280; font-size: 12px; }
-    #cuadro-mando { display: flex; gap: 16px; align-items: flex-start; }
-    .cm-pila-vacias { display: flex; flex-direction: column; gap: 12px;
+                     padding: var(--space-3) var(--space-1) var(--space-4);
+                     font-size: var(--fs-sm); color: var(--text-body); }
+    #cm-encabezado b { color: var(--text-strong); font-size: var(--fs-lg); }
+    .cm-hoy { color: var(--text-muted); font-size: var(--fs-xs); }
+    #cuadro-mando { display: flex; gap: var(--space-4); align-items: flex-start; }
+    .cm-pila-vacias { display: flex; flex-direction: column; gap: var(--space-3);
                       flex: 0 0 auto; }
-    .cm-columna { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+    /* Card + barra de acento superior (el borde expresivo del sistema): el
+       color lo pone cada .col-* según urgencia. */
+    .cm-columna { background: var(--surface-card);
+                  border: var(--border-w) solid var(--border-subtle);
+                  border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+                  border-top: var(--accent-bar-w) solid var(--border-default);
                   display: flex; flex-direction: column; overflow: hidden;
                   flex: 1 1 0; min-width: 280px; }
     .cm-columna.vacia { flex: 0 0 auto; min-width: auto; opacity: 0.7; }
     .cm-columna.vacia .cm-tareas { padding: 0; }
-    .cm-sin-tareas { padding: 10px 16px; color: #6b7280; font-size: 11.5px;
-                     font-style: italic; text-align: center; white-space: nowrap; }
+    .cm-sin-tareas { padding: var(--space-2) var(--space-4); color: var(--text-muted);
+                     font-size: var(--fs-xs); font-style: italic;
+                     text-align: center; white-space: nowrap; }
 
-    /* Revisión manual: cambios de archivo sin fecha de vigencia */
-    .tab-badge { background: #f59e0b; color: #fff; border-radius: 10px;
-                 padding: 1px 7px; font-size: 10.5px; font-weight: 600;
-                 margin-left: 5px; vertical-align: 1px; }
-    #revision-manual { background: #fffbeb; border: 1px solid #fde68a;
-                       border-radius: 8px; padding: 16px 18px; }
-    #revision-manual header { display: flex; align-items: center; gap: 10px;
-                              margin-bottom: 2px; }
-    #revision-manual h2 { font-size: 15px; color: #92400e; margin: 0;
-                          border: none; padding: 0; }
-    .rv-count { background: #f59e0b; color: #fff; border-radius: 10px;
-                padding: 1px 8px; font-size: 11px; font-weight: 600; }
-    .rv-nota { font-size: 12px; color: #78350f; margin: 6px 0 12px; max-width: 78ch;
-               line-height: 1.5; }
-    .rv-vacio { background: #f0fdf4; border-color: #bbf7d0; }
-    .rv-vacio h2 { color: #166534; }
-    .rv-vacio .rv-nota { color: #166534; margin-bottom: 0; }
+    /* Revisión manual: cambios de archivo sin fecha de vigencia.
+       Es el componente Alert en tono warning —fondo tintado y barra de
+       acento de 4px a la izquierda—, y pasa a tono success cuando no queda
+       nada pendiente (.rv-vacio). */
+    /* Badge en variante subtle y no solid: el solid de tono warning es blanco
+       sobre #b97708 y da 3,68:1, bajo AA. Es de las pocas combinaciones del
+       sistema que no llega; el resto de los tonos sólidos sí. */
+    .tab-badge { background: var(--cmf-warning-bg); color: var(--ink-on-warning-bg);
+                 border-radius: var(--radius-pill); padding: 3px 8px;
+                 font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                 letter-spacing: var(--ls-wide); line-height: 1;
+                 margin-left: var(--space-2); vertical-align: 1px; }
+    #revision-manual { background: var(--cmf-warning-bg);
+                       border-left: var(--accent-bar-w) solid var(--cmf-warning);
+                       border-radius: var(--radius-sm);
+                       padding: var(--space-4) var(--space-5); }
+    #revision-manual header { display: flex; align-items: center; gap: var(--space-2);
+                              margin-bottom: 2px; background: none; padding: 0; }
+    #revision-manual h2 { font-size: var(--fs-body); color: var(--ink-on-warning-bg);
+                          margin: 0; border: none; padding: 0; background: none;
+                          font-weight: var(--fw-bold); }
+    /* Sobre el fondo tintado del Alert un badge subtle se perdería, así que
+       éste va sobre superficie blanca con filete warning. Misma razón que
+       .tab-badge para no usar el solid. */
+    .rv-count { background: var(--surface-card); color: var(--ink-on-warning-bg);
+                border: var(--border-w) solid var(--cmf-warning);
+                border-radius: var(--radius-pill); padding: 3px 9px;
+                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                letter-spacing: var(--ls-wide); line-height: 1; }
+    .rv-nota { font-size: var(--fs-sm); color: var(--text-body);
+               margin: var(--space-2) 0 var(--space-3); max-width: 78ch;
+               line-height: var(--lh-normal); }
+    .rv-vacio { background: var(--cmf-success-bg);
+                border-left-color: var(--cmf-success); }
+    .rv-vacio h2 { color: var(--ink-on-success-bg); }
+    .rv-vacio .rv-nota { margin-bottom: 0; }
     .rv-lista { list-style: none; margin: 0; padding: 0; }
-    .rv-lista li { display: flex; align-items: baseline; gap: 10px; padding: 8px 0;
-                   border-top: 1px solid #fde68a; font-size: 12px; }
-    .rv-fecha { color: #92400e; font-variant-numeric: tabular-nums; flex: 0 0 82px; }
-    .rv-doc { flex: 0 0 132px; font-weight: 600; color: #7c2d12; font-size: 11.5px; }
-    .rv-arch { flex: 0 0 auto; display: flex; gap: 4px; flex-wrap: wrap; }
-    .rv-tema { color: #444; flex: 1 1 auto; }
-    .rv-pdf { flex: 0 0 auto; color: #92400e; text-decoration: none; }
-    .rv-extra { font-size: 11.5px; color: #78350f; margin: 8px 0 0; }
-    .rv-nota code { background: #fef3c7; border-radius: 3px; padding: 1px 5px;
-                    font-size: 11px; }
-    .rv-revisados { font-size: 11.5px; color: #166534; background: #f0fdf4;
-                    border: 1px solid #bbf7d0; border-radius: 6px;
-                    padding: 8px 12px; margin: 12px 0 0; }
-    .rv-cand { margin-top: 4px; }
-    .rv-cand-lbl { font-size: 10.5px; color: #a16207; text-transform: uppercase;
-                   letter-spacing: 0.3px; }
+    .rv-lista li { display: flex; align-items: baseline; gap: var(--space-3);
+                   padding: var(--space-2) 0;
+                   border-top: var(--border-w) solid var(--border-subtle);
+                   font-size: var(--fs-sm); }
+    .rv-fecha { color: var(--ink-on-warning-bg); font-variant-numeric: tabular-nums;
+                flex: 0 0 92px; }
+    .rv-doc { flex: 0 0 152px; font-weight: var(--fw-semibold);
+              color: var(--text-strong); font-size: var(--fs-xs); }
+    .rv-arch { flex: 0 0 auto; display: flex; gap: var(--space-1); flex-wrap: wrap; }
+    .rv-tema { color: var(--text-body); flex: 1 1 auto; }
+    .rv-pdf { flex: 0 0 auto; }
+    .rv-extra { font-size: var(--fs-xs); color: var(--text-muted);
+                margin: var(--space-2) 0 0; }
+    .rv-nota code { font-family: var(--font-mono); background: var(--cmf-white);
+                    border: var(--border-w) solid var(--border-subtle);
+                    border-radius: var(--radius-xs); padding: 1px 5px;
+                    font-size: var(--fs-xs); }
+    .rv-revisados { font-size: var(--fs-xs); color: var(--ink-on-success-bg);
+                    background: var(--cmf-success-bg);
+                    border-left: var(--accent-bar-w) solid var(--cmf-success);
+                    border-radius: var(--radius-sm);
+                    padding: var(--space-2) var(--space-3);
+                    margin: var(--space-3) 0 0; }
+    .rv-cand { margin-top: var(--space-1); }
+    .rv-cand-lbl { font-size: var(--fs-xs); color: var(--text-muted);
+                   text-transform: uppercase; letter-spacing: var(--ls-caps);
+                   font-weight: var(--fw-bold); }
     .rv-cand ul { list-style: none; margin: 2px 0 0; padding: 0; }
-    .rv-cand li { font-size: 11px; color: #6b7280; padding: 1px 0; border: 0; }
-    .rv-cand b { color: #92400e; font-variant-numeric: tabular-nums; }
+    .rv-cand li { font-size: var(--fs-xs); color: var(--text-muted);
+                  padding: 1px 0; border: 0; }
+    .rv-cand b { color: var(--ink-on-warning-bg); font-variant-numeric: tabular-nums; }
 
     /* Cambios relevantes */
-    #cambios-relevantes { display: flex; flex-direction: column; gap: 16px; }
-    .cr-intro { padding: 0 4px 4px; font-size: 13px; color: #4b5563; }
-    .cr-grupo { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
-                overflow: hidden; }
-    .cr-grupo.abierto { border-color: #c7d2fe; }
-    .cr-cab { padding: 14px 18px; background: #f9fafb;
-              transition: background 0.15s; }
-    .cr-grupo.abierto .cr-cab { border-bottom: 1px solid #e5e7eb;
-                                 background: #eef2ff; }
-    .cr-cab-tit { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .cr-cab h2 { font-size: 16px; font-weight: 700; color: #111; }
-    .cr-count { background: #1a56db; color: #fff; border-radius: 999px;
-                padding: 1px 10px; font-size: 12px; font-weight: 700; }
-    .cr-total { font-size: 11px; color: #6b7280; }
-    .cr-revisar { margin-left: auto; background: #fff; border: 1px solid #d1d5db;
-                  color: #1a56db; font-weight: 600; font-size: 12px;
-                  padding: 5px 14px; border-radius: 6px; cursor: pointer; }
-    .cr-revisar:hover { background: #1a56db; color: #fff; border-color: #1a56db; }
-    .cr-grupo.abierto .cr-revisar { background: #1a56db; color: #fff;
-                                     border-color: #1a56db; }
-    .cr-desc { font-size: 12px; color: #6b7280; margin-top: 4px; }
-    .cr-tabla { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .cr-tabla th { background: #fbfcfd; text-align: left; padding: 9px 14px;
-                   font-weight: 600; border-bottom: 1px solid #e5e7eb;
-                   font-size: 11px; text-transform: uppercase;
-                   letter-spacing: 0.04em; color: #4b5563; }
-    .cr-tabla td { padding: 9px 14px; border-bottom: 1px solid #f3f4f6;
+    #cambios-relevantes { display: flex; flex-direction: column; gap: var(--space-4); }
+    .cr-intro { padding: 0 var(--space-1) var(--space-1); font-size: var(--fs-sm);
+                color: var(--text-body); }
+    /* Card interactiva: se eleva 2px al hover y oscurece el borde. */
+    .cr-grupo { background: var(--surface-card);
+                border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+                overflow: hidden;
+                transition: box-shadow var(--dur-base) var(--ease-standard),
+                            transform var(--dur-base) var(--ease-standard),
+                            border-color var(--dur-base) var(--ease-standard); }
+    .cr-grupo:hover { box-shadow: var(--shadow-md); transform: translateY(-2px);
+                      border-color: var(--border-default); }
+    .cr-grupo.abierto { border-color: var(--border-brand); transform: none; }
+    .cr-cab { padding: var(--space-3) var(--space-5); background: var(--cmf-ink-50);
+              transition: background var(--dur-fast) var(--ease-standard); }
+    .cr-grupo.abierto .cr-cab {
+        border-bottom: var(--border-w) solid var(--border-subtle);
+        background: var(--color-brand-tint-faint); }
+    .cr-cab-tit { display: flex; align-items: center; gap: var(--space-3);
+                  flex-wrap: wrap; }
+    .cr-cab h2 { font-size: var(--fs-lg); font-weight: var(--fw-bold);
+                 color: var(--text-strong); padding: 0; border: 0;
+                 background: none; }
+    .cr-count { background: var(--color-brand); color: var(--text-on-brand);
+                border-radius: var(--radius-pill); padding: 5px 10px;
+                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                letter-spacing: var(--ls-wide); line-height: 1; }
+    .cr-total { font-size: var(--fs-xs); color: var(--text-muted); }
+    /* Button, variante secondary → primary cuando el grupo queda abierto */
+    .cr-revisar { margin-left: auto; display: inline-flex; align-items: center;
+                  justify-content: center; gap: var(--space-2);
+                  height: 34px; padding: 0 var(--space-3);
+                  background: transparent; color: var(--color-brand);
+                  border: var(--border-w-thick) solid var(--color-brand);
+                  border-radius: var(--radius-sm);
+                  font-weight: var(--fw-semibold); font-size: var(--fs-sm);
+                  line-height: 1; white-space: nowrap; cursor: pointer;
+                  transition: background var(--dur-fast) var(--ease-standard),
+                              color var(--dur-fast) var(--ease-standard),
+                              transform var(--dur-fast) var(--ease-standard); }
+    .cr-revisar:hover { background: var(--color-brand-tint-faint); }
+    .cr-revisar:active { transform: translateY(1px); }
+    .cr-grupo.abierto .cr-revisar { background: var(--color-brand);
+                                     color: var(--text-on-brand);
+                                     border-color: var(--color-brand); }
+    .cr-grupo.abierto .cr-revisar:hover { background: var(--color-brand-strong);
+                                           border-color: var(--color-brand-strong); }
+    .cr-desc { font-size: var(--fs-sm); color: var(--text-muted);
+               margin-top: var(--space-1); }
+    .cr-tabla { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+    .cr-tabla th { background: var(--cmf-ink-50); text-align: left;
+                   padding: var(--space-2) var(--space-3);
+                   font-weight: var(--fw-bold);
+                   border-bottom: var(--border-w) solid var(--border-subtle);
+                   font-size: var(--fs-xs); text-transform: uppercase;
+                   letter-spacing: var(--ls-caps); color: var(--text-body); }
+    .cr-tabla td { padding: var(--space-2) var(--space-3);
+                   border-bottom: var(--border-w) solid var(--cmf-ink-100);
                    vertical-align: top; }
     .cr-th-fecha { width: 110px; }
     .cr-th-cambios { width: 130px; }
     .cr-th-pdf { width: 80px; text-align: right; }
-    .cr-td-fecha { color: #4b5563; white-space: nowrap;
+    .cr-td-fecha { color: var(--text-body); white-space: nowrap;
                    font-variant-numeric: tabular-nums; }
     .td-doc { white-space: nowrap; }
-    .cr-th-doc { width: 140px; }
-    .cr-td-doc { color: #374151; font-weight: 600; font-size: 12px;
-                 white-space: nowrap; }
-    .cr-td-tema { color: #111; line-height: 1.45; }
-    .cr-td-cambios { font-size: 12px; }
-    .cr-td-cambios b { color: #1a56db; font-size: 13px; margin-right: 2px; }
+    .cr-th-doc { width: 150px; }
+    .cr-td-doc { color: var(--text-strong); font-weight: var(--fw-semibold);
+                 font-size: var(--fs-xs); white-space: nowrap; }
+    .cr-td-tema { color: var(--text-strong); line-height: var(--lh-normal); }
+    .cr-td-cambios { font-size: var(--fs-xs); }
+    .cr-td-cambios b { color: var(--color-brand); font-size: var(--fs-sm);
+                       margin-right: 2px; }
     .cr-td-pdf { text-align: right; }
-    .cr-td-pdf a { text-decoration: none; }
-    .cr-td-pdf a:hover { text-decoration: underline; }
-    .cr-detalle-toggle { cursor: pointer; color: #1a56db; }
-    .cr-sin-detalle { color: #9ca3af; }
+    .cr-detalle-toggle { cursor: pointer; color: var(--text-link); }
+    .cr-sin-detalle { color: var(--text-muted); }
     /* `_render_detalle_tarea` envuelve su contenido en .cm-detalle, que nace
        oculto porque en las tarjetas del Cuadro de mando lo despliega la clase
        .abierto. En esta tabla el que se despliega es el <tr>, así que el div
        tiene que estar visible siempre: si no, la fila se abre vacía. */
     .cr-detalle-row .cm-detalle { display: block; margin: 0; padding-top: 0;
                                   border-top: none; }
-    .cr-detalle-row > td { background: #fafbfc !important; padding: 14px 24px;
-                           border-bottom: 2px solid #e5e7eb; }
-    .cr-vacio { padding: 32px; color: #9ca3af; text-align: center;
-                font-style: italic; }
-    .cm-cab { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
+    .cr-detalle-row > td { background: var(--cmf-ink-50) !important;
+                           padding: var(--space-3) var(--space-5);
+                           border-bottom: var(--border-w-thick) solid var(--border-subtle); }
+    .cr-vacio { padding: var(--space-6); color: var(--text-muted);
+                text-align: center; font-style: italic; }
+    .cm-cab { padding: var(--space-3) var(--space-4); background: var(--cmf-ink-50);
+              border-bottom: var(--border-w) solid var(--border-subtle); }
     .cm-cab-tit { display: flex; justify-content: space-between; align-items: center; }
-    .cm-cab h3 { font-size: 14px; font-weight: 700; color: #111; }
-    .cm-sub { font-size: 11px; color: #6b7280; text-transform: uppercase;
-              letter-spacing: 0.04em; }
-    .cm-count { background: #fff; border: 1px solid #e5e7eb; border-radius: 999px;
-                padding: 1px 10px; font-size: 12px; font-weight: 700; color: #374151; }
-    /* Retrospectiva: lo que ya debió implementarse, por mes. Violeta para no
-       mezclarla con la escala rojo→azul de urgencia futura de las columnas. */
-    #retrospectiva { margin-top: 28px; border-top: 1px solid #e5e7eb;
-                     padding-top: 20px; }
-    .rt-head { display: flex; align-items: center; gap: 10px; }
-    #retrospectiva h2 { font-size: 15px; margin: 0; border: none; padding: 0;
-                        color: #5b21b6; }
-    .rt-total { background: #7c3aed; color: #fff; border-radius: 10px;
-                padding: 1px 8px; font-size: 11px; font-weight: 600; }
-    .rt-intro { font-size: 12px; color: #6b7280; margin: 6px 0 14px;
-                max-width: 78ch; line-height: 1.5; }
-    .rt-vacio { font-size: 12px; color: #6b7280; font-style: italic; }
-    .rt-mes { margin-bottom: 16px; border: 1px solid #e5e7eb; border-radius: 8px;
-              overflow: hidden; background: #fff; }
-    .rt-mes-actual { border-color: #ddd6fe; box-shadow: 0 0 0 2px #f5f3ff; }
-    .rt-cab { display: flex; align-items: center; gap: 8px; padding: 9px 14px;
-              background: #faf9fc; border-bottom: 1px solid #e5e7eb; }
-    .rt-cab h3 { margin: 0; font-size: 13px; color: #4c1d95;
+    .cm-cab h3 { font-size: var(--fs-sm); font-weight: var(--fw-bold);
+                 color: var(--text-strong); }
+    /* Antetítulo del sistema: mayúsculas con tracking amplio */
+    .cm-sub { font-size: var(--fs-xs); color: var(--text-muted);
+              text-transform: uppercase; letter-spacing: var(--ls-caps);
+              font-weight: var(--fw-semibold); }
+    .cm-count { background: var(--surface-card);
+                border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-pill); padding: 4px 10px;
+                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                letter-spacing: var(--ls-wide); line-height: 1;
+                color: var(--text-body); }
+    /* Retrospectiva: lo que ya debió implementarse, por mes. Iba en violeta
+       para no mezclarla con la escala de urgencia futura de las columnas, y
+       ese sigue siendo el criterio — pero ahora el morado es el color de
+       marca y está en todas partes, así que el que distingue es el índigo
+       #3F3A7E de la paleta de apoyo: misma familia, distinto rol. */
+    #retrospectiva { margin-top: var(--space-6);
+                     border-top: var(--border-w) solid var(--border-subtle);
+                     padding-top: var(--space-5); }
+    .rt-head { display: flex; align-items: center; gap: var(--space-2); }
+    #retrospectiva h2 { font-size: var(--fs-body); margin: 0; border: none;
+                        padding: 0; background: none; color: var(--cmf-indigo); }
+    .rt-total { background: var(--cmf-indigo); color: var(--cmf-white);
+                border-radius: var(--radius-pill); padding: 4px 9px;
+                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                letter-spacing: var(--ls-wide); line-height: 1; }
+    .rt-intro { font-size: var(--fs-sm); color: var(--text-muted);
+                margin: var(--space-2) 0 var(--space-3); max-width: 78ch;
+                line-height: var(--lh-normal); }
+    .rt-vacio { font-size: var(--fs-sm); color: var(--text-muted);
+                font-style: italic; }
+    .rt-mes { margin-bottom: var(--space-4);
+              border: var(--border-w) solid var(--border-subtle);
+              border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+              overflow: hidden; background: var(--surface-card); }
+    .rt-mes-actual { border-color: var(--cmf-indigo);
+                     border-left: var(--accent-bar-w) solid var(--cmf-indigo); }
+    .rt-cab { display: flex; align-items: center; gap: var(--space-2);
+              padding: var(--space-2) var(--space-3); background: var(--cmf-ink-50);
+              border-bottom: var(--border-w) solid var(--border-subtle); }
+    .rt-cab h3 { margin: 0; font-size: var(--fs-sm); color: var(--cmf-indigo);
                  text-transform: capitalize; }
-    .rt-count { background: #ede9fe; color: #5b21b6; border-radius: 10px;
-                padding: 0 7px; font-size: 11px; font-weight: 600; }
-    .rt-inm { margin-left: 6px; background: #ede9fe; color: #5b21b6;
-              border-radius: 3px; padding: 0 5px; font-size: 10px;
-              font-weight: 600; }
-    .col-30 .cm-cab { background: #fef2f2; border-color: #fecaca; }
-    .col-30 .cm-cab h3 { color: #991b1b; }
-    .col-60 .cm-cab { background: #fffbeb; border-color: #fde68a; }
-    .col-60 .cm-cab h3 { color: #92400e; }
-    .col-90 .cm-cab { background: #eff6ff; border-color: #bfdbfe; }
-    .col-90 .cm-cab h3 { color: #1e40af; }
-    .cm-tareas { padding: 12px; display: flex; flex-direction: column; gap: 10px;
-                 max-height: 70vh; overflow-y: auto; }
-    .cm-tarea { border: 1px solid #e5e7eb; border-radius: 6px; padding: 10px 12px;
-                background: #fafbfc; }
-    .cm-tarea:hover { background: #fff; border-color: #d1d5db; }
-    .cm-fecha { font-size: 12px; color: #1a56db; margin-bottom: 6px; }
-    .cm-fecha b { color: #111; font-weight: 700; }
-    .cm-dias { color: #6b7280; }
-    .cm-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
-               margin-bottom: 6px; }
-    .cm-norma { color: #1a56db; font-weight: 500; font-size: 12px; }
-    .cm-resumen { font-size: 12.5px; color: #111; line-height: 1.45;
-                  font-weight: 500; margin-bottom: 6px; }
-    .cm-conteo { font-size: 11.5px; color: #6b7280; margin: 0 0 6px; }
-    .cm-conteo b { color: #1a56db; font-size: 13px; }
-    .cm-acciones { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
-    .cm-link { font-size: 12px; }
+    .rt-count { background: var(--cmf-info-bg); color: var(--cmf-indigo);
+                border-radius: var(--radius-pill); padding: 4px 9px;
+                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                letter-spacing: var(--ls-wide); line-height: 1; }
+    .rt-inm { margin-left: var(--space-1); background: var(--cmf-info-bg);
+              color: var(--cmf-indigo); border-radius: var(--radius-pill);
+              padding: 3px 8px; font-size: var(--fs-xs);
+              font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);
+              line-height: 1; }
+    /* Escala de urgencia sobre los tokens funcionales: danger → warning →
+       navy. El navy es el "info" del sistema, así que reemplaza al azul. */
+    .col-30 { border-top-color: var(--cmf-danger); }
+    .col-30 .cm-cab { background: var(--cmf-danger-bg); }
+    .col-30 .cm-cab h3 { color: var(--ink-on-danger-bg); }
+    .col-60 { border-top-color: var(--cmf-warning); }
+    .col-60 .cm-cab { background: var(--cmf-warning-bg); }
+    .col-60 .cm-cab h3 { color: var(--ink-on-warning-bg); }
+    .col-90 { border-top-color: var(--cmf-navy); }
+    .col-90 .cm-cab { background: var(--cmf-info-bg); }
+    .col-90 .cm-cab h3 { color: var(--cmf-navy); }
+    .cm-tareas { padding: var(--space-3); display: flex; flex-direction: column;
+                 gap: var(--space-2); max-height: 70vh; overflow-y: auto; }
+    /* Card interactiva */
+    .cm-tarea { border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-md); padding: var(--space-2) var(--space-3);
+                background: var(--surface-card); box-shadow: var(--shadow-xs);
+                transition: box-shadow var(--dur-base) var(--ease-standard),
+                            transform var(--dur-base) var(--ease-standard),
+                            border-color var(--dur-base) var(--ease-standard); }
+    .cm-tarea:hover { box-shadow: var(--shadow-md); transform: translateY(-2px);
+                      border-color: var(--border-default); }
+    .cm-fecha { font-size: var(--fs-sm); color: var(--color-brand);
+                margin-bottom: var(--space-2); }
+    .cm-fecha b { color: var(--text-strong); font-weight: var(--fw-bold); }
+    .cm-dias { color: var(--text-muted); }
+    .cm-meta { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;
+               margin-bottom: var(--space-2); }
+    .cm-norma { color: var(--color-brand); font-weight: var(--fw-medium);
+                font-size: var(--fs-xs); }
+    .cm-resumen { font-size: var(--fs-sm); color: var(--text-strong);
+                  line-height: var(--lh-normal); font-weight: var(--fw-medium);
+                  margin-bottom: var(--space-2); }
+    .cm-conteo { font-size: var(--fs-xs); color: var(--text-muted);
+                 margin: 0 0 var(--space-2); }
+    .cm-conteo b { color: var(--color-brand); font-size: var(--fs-sm); }
+    .cm-acciones { display: flex; gap: var(--space-3); margin-top: var(--space-2);
+                   flex-wrap: wrap; }
+    .cm-link { font-size: var(--fs-sm); }
     .cm-detalle-toggle { cursor: pointer; }
-    .cm-detalle { display: none; margin-top: 10px; padding-top: 10px;
-                  border-top: 1px dashed #e5e7eb; }
+    .cm-detalle { display: none; margin-top: var(--space-2);
+                  padding-top: var(--space-2);
+                  border-top: var(--border-w) dashed var(--border-subtle); }
     .cm-detalle.abierto { display: block; }
-    .cm-det-bloque { margin-bottom: 10px; }
+    .cm-det-bloque { margin-bottom: var(--space-2); }
     .cm-det-bloque:last-child { margin-bottom: 0; }
-    .cm-det-label { display: block; font-size: 10.5px; font-weight: 700;
-                    text-transform: uppercase; letter-spacing: 0.05em;
-                    color: #6b7280; margin-bottom: 4px; }
-    .cm-bullets { font-size: 11.5px; color: #374151; line-height: 1.45;
-                  padding-left: 18px;
+    .cm-det-label { display: block; font-size: var(--fs-xs);
+                    font-weight: var(--fw-bold); text-transform: uppercase;
+                    letter-spacing: var(--ls-caps); color: var(--text-muted);
+                    margin-bottom: var(--space-1); }
+    .cm-bullets { font-size: var(--fs-xs); color: var(--text-body);
+                  line-height: var(--lh-normal); padding-left: var(--space-5);
                   display: flex; flex-direction: column; gap: 3px; }
-    .cm-bullets li::marker { color: #9ca3af; }
-    .cm-archivos { font-size: 11px; padding-left: 0; list-style: none;
+    .cm-bullets li::marker { color: var(--text-faint); }
+    .cm-archivos { font-size: var(--fs-xs); padding-left: 0; list-style: none;
                    display: flex; flex-direction: column; gap: 3px; }
-    .cm-archivos .chip { margin-right: 4px; }
+    .cm-archivos .chip { margin-right: var(--space-1); }
 
-    #stats { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 18px;
-             border-bottom: 1px solid #e5e7eb; background: #fbfcfd; }
-    .stat { padding: 4px 12px; border-radius: 999px; font-size: 12px;
-            background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; }
-    .stat b { color: #111; margin-right: 4px; }
+    /* Badge, variante neutral subtle */
+    #stats { display: flex; gap: var(--space-2); flex-wrap: wrap;
+             padding: var(--space-3) var(--space-5);
+             border-bottom: var(--border-w) solid var(--border-subtle);
+             background: var(--cmf-ink-50); }
+    .stat { padding: 5px 10px; border-radius: var(--radius-pill);
+            font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+            letter-spacing: var(--ls-wide); line-height: 1;
+            background: var(--surface-sunken); color: var(--text-body); }
+    .stat b { color: var(--text-strong); margin-right: var(--space-1); }
 
-    #filtros { padding: 12px 18px; display: flex; gap: 8px; flex-wrap: wrap;
-               border-bottom: 1px solid #e5e7eb; background: #f9fafb;
-               align-items: center; }
-    .filtro-btn { border: 1px solid #d1d5db; background: #fff; padding: 5px 12px;
-                  border-radius: 6px; cursor: pointer; font-size: 12px; }
-    .filtro-btn.activo { background: #1a56db; color: #fff; border-color: #1a56db; }
-    #search { flex: 1; min-width: 220px; padding: 6px 10px; border: 1px solid #d1d5db;
-              border-radius: 6px; font-size: 12px; }
+    #filtros { padding: var(--space-3) var(--space-5); display: flex;
+               gap: var(--space-2); flex-wrap: wrap;
+               border-bottom: var(--border-w) solid var(--border-subtle);
+               background: var(--cmf-ink-50); align-items: center; }
+    /* Button sm, variante secondary → primary cuando está activo */
+    .filtro-btn { display: inline-flex; align-items: center; justify-content: center;
+                  height: 34px; padding: 0 var(--space-3);
+                  background: transparent; color: var(--color-brand);
+                  border: var(--border-w-thick) solid var(--color-brand);
+                  border-radius: var(--radius-sm); cursor: pointer;
+                  font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+                  line-height: 1; white-space: nowrap;
+                  transition: background var(--dur-fast) var(--ease-standard),
+                              color var(--dur-fast) var(--ease-standard),
+                              transform var(--dur-fast) var(--ease-standard); }
+    .filtro-btn:hover { background: var(--color-brand-tint-faint); }
+    .filtro-btn:active { transform: translateY(1px); }
+    .filtro-btn.activo { background: var(--color-brand); color: var(--text-on-brand);
+                         border-color: var(--color-brand); }
+    .filtro-btn.activo:hover { background: var(--color-brand-strong);
+                               border-color: var(--color-brand-strong); }
+    /* Input */
+    #search { flex: 1; min-width: 220px; height: 34px; padding: 0 var(--space-3);
+              background: var(--surface-card); color: var(--text-strong);
+              border: var(--border-w) solid var(--border-default);
+              border-radius: var(--radius-sm); outline: none;
+              font-family: var(--font-sans); font-size: var(--fs-sm);
+              transition: border-color var(--dur-fast) var(--ease-standard),
+                          box-shadow var(--dur-fast) var(--ease-standard); }
+    #search::placeholder { color: var(--text-muted); }
+    #search:focus { border-color: var(--color-brand-soft);
+                    box-shadow: 0 0 0 3px var(--color-brand-tint); }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th { background: #f3f4f6; text-align: left; padding: 9px 12px;
-         font-weight: 600; border-bottom: 1px solid #e5e7eb; font-size: 12px;
-         text-transform: uppercase; letter-spacing: 0.03em; color: #4b5563; }
-    td { padding: 9px 12px; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+    table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+    /* --text-muted sobre el gris hundido da 3,98:1 y estos encabezados van en
+       12px: la tinta de cuerpo es la que llega a AA. */
+    th { background: var(--surface-sunken); text-align: left;
+         padding: var(--space-2) var(--space-3); font-weight: var(--fw-bold);
+         border-bottom: var(--border-w) solid var(--border-subtle);
+         font-size: var(--fs-xs); text-transform: uppercase;
+         letter-spacing: var(--ls-caps); color: var(--text-body); }
+    td { padding: var(--space-2) var(--space-3);
+         border-bottom: var(--border-w) solid var(--cmf-ink-100);
+         vertical-align: top; }
     tr.fila-principal { cursor: pointer; }
-    tr.fila-principal:hover td { background: #f9fafb; }
-    tr.fila-principal.nueva td { background: #eff6ff; }
-    .td-normas { color: #1a56db; font-weight: 500; }
-    .td-vig { color: #4b5563; font-size: 12px; }
-    .td-link a { text-decoration: none; }
-    .td-link a:hover { text-decoration: underline; }
+    tr.fila-principal:hover td { background: var(--cmf-ink-50); }
+    tr.fila-principal.nueva td { background: var(--color-brand-tint-faint); }
+    .td-normas { color: var(--color-brand); font-weight: var(--fw-medium); }
+    .td-vig { color: var(--text-body); font-size: var(--fs-xs); }
+    .td-vacio { padding: var(--space-5); text-align: center;
+                color: var(--text-muted); font-style: italic; }
+    .tl-vacio, .tl-sin-resultados { padding: var(--space-5);
+                color: var(--text-muted); font-style: italic; }
 
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px;
-           font-size: 11px; font-weight: 600; margin-right: 4px; }
-    .tag-consulta { background: #fef3c7; color: #92400e; }
-    .tag-nueva    { background: #d1fae5; color: #065f46; }
-    .tag-mod      { background: #dbeafe; color: #1e40af; }
-    .tag-circular { background: #ede9fe; color: #5b21b6; }
-    .tag-prorroga { background: #fce7f3; color: #9d174d; }
-    .tag-deroga   { background: #fee2e2; color: #991b1b; }
-    .tag-otro     { background: #f3f4f6; color: #374151; }
+    /* Badge, variantes subtle. El tono lo fija el significado, no el gusto:
+       nueva→success, modifica→navy(info), deroga→danger, consulta→warning,
+       circular→brand, prórroga→accent, otro→neutral. */
+    .tag { display: inline-flex; align-items: center; padding: 5px 10px;
+           border-radius: var(--radius-pill); font-size: var(--fs-xs);
+           font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);
+           line-height: 1; margin-right: var(--space-1); white-space: nowrap; }
+    .tag-consulta { background: var(--cmf-warning-bg); color: var(--ink-on-warning-bg); }
+    .tag-nueva    { background: var(--cmf-success-bg); color: var(--ink-on-success-bg); }
+    .tag-mod      { background: var(--cmf-info-bg);    color: var(--cmf-navy); }
+    .tag-circular { background: var(--color-brand-tint); color: var(--cmf-purple-800); }
+    .tag-postergacion { background: var(--cmf-teal-50); color: var(--cmf-teal-deep); }
+    .tag-deroga   { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
+    .tag-otro     { background: var(--surface-sunken); color: var(--text-body); }
 
     tr.detail-row { display: none; }
-    tr.detail-row > td { background: #fafbfc !important; padding: 16px 24px;
-                         border-bottom: 2px solid #e5e7eb; }
-    .detalle { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .d-bloque { background: #fff; border: 1px solid #e5e7eb; border-radius: 6px;
-                padding: 10px 14px; }
-    .d-bloque.d-warn { background: #fffbeb; border-color: #fcd34d; }
-    .d-label { display: block; font-size: 11px; font-weight: 700;
-               text-transform: uppercase; letter-spacing: 0.05em;
-               color: #6b7280; margin-bottom: 6px; }
-    .d-bloque p { font-size: 12px; line-height: 1.5; color: #374151; }
-    .d-bloque ul { font-size: 12px; line-height: 1.6; padding-left: 16px; color: #374151; }
-    .d-msi li { color: #6b7280; font-style: italic; font-size: 11px; }
-    .d-extra { font-size: 11px; color: #6b7280; margin-top: 4px; }
-    .d-vacio { padding: 8px; color: #9ca3af; font-style: italic; font-size: 12px; }
+    tr.detail-row > td { background: var(--cmf-ink-50) !important;
+                         padding: var(--space-4) var(--space-5);
+                         border-bottom: var(--border-w-thick) solid var(--border-subtle); }
+    .detalle { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .d-bloque { background: var(--surface-card);
+                border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
+                padding: var(--space-2) var(--space-3); }
+    /* Alert warning: barra de acento a la izquierda, no borde completo */
+    .d-bloque.d-warn { background: var(--cmf-warning-bg); border-color: transparent;
+                       border-left: var(--accent-bar-w) solid var(--cmf-warning);
+                       border-radius: var(--radius-sm); box-shadow: none; }
+    .d-label { display: block; font-size: var(--fs-xs); font-weight: var(--fw-bold);
+               text-transform: uppercase; letter-spacing: var(--ls-caps);
+               color: var(--text-muted); margin-bottom: var(--space-2); }
+    .d-warn .d-label { color: var(--ink-on-warning-bg); }
+    .d-bloque p { font-size: var(--fs-sm); line-height: var(--lh-normal);
+                  color: var(--text-body); }
+    .d-bloque ul { font-size: var(--fs-sm); line-height: var(--lh-relaxed);
+                   padding-left: var(--space-4); color: var(--text-body); }
+    .d-msi li { color: var(--text-muted); font-style: italic; font-size: var(--fs-xs); }
+    .d-extra { font-size: var(--fs-xs); color: var(--text-muted);
+               margin-top: var(--space-1); }
+    .d-vacio { padding: var(--space-2); color: var(--text-muted);
+               font-style: italic; font-size: var(--fs-sm); }
 
-    .chips { display: flex; flex-wrap: wrap; gap: 4px; }
-    .chip { display: inline-block; background: #eef2ff; color: #3730a3;
-            border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
-    .chip-crear     { background: #d1fae5; color: #065f46; }
-    .chip-modificar { background: #dbeafe; color: #1e40af; }
-    .chip-eliminar  { background: #fee2e2; color: #991b1b; }
+    /* Badge subtle en su forma más chica */
+    .chips { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+    .chip { display: inline-flex; align-items: center;
+            background: var(--color-brand-tint); color: var(--cmf-purple-800);
+            border-radius: var(--radius-pill); padding: 4px 9px;
+            font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+            letter-spacing: var(--ls-wide); line-height: 1; white-space: nowrap; }
+    .chip-crear     { background: var(--cmf-success-bg); color: var(--ink-on-success-bg); }
+    .chip-modificar { background: var(--cmf-info-bg);    color: var(--cmf-navy); }
+    .chip-eliminar  { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
 
-    .tl-norma { padding: 12px 18px; border-bottom: 1px solid #f3f4f6; }
-    .tl-norma h3 { font-size: 13px; font-weight: 600; color: #1a56db;
-                   margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-    .tl-count { font-size: 11px; font-weight: 500; color: #6b7280;
-                background: #f3f4f6; padding: 1px 8px; border-radius: 999px; }
-    .tl-items { display: flex; flex-wrap: wrap; gap: 6px; }
-    .tl-item { background: #f3f4f6; border-radius: 6px; padding: 4px 10px;
-               font-size: 12px; border-left: 3px solid #1a56db;
-               text-decoration: none; color: #374151; }
-    .tl-item:hover { background: #e5e7eb; }
+    .tl-norma { padding: var(--space-3) var(--space-5);
+                border-bottom: var(--border-w) solid var(--cmf-ink-100); }
+    .tl-norma h3 { font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+                   color: var(--color-brand); margin-bottom: var(--space-2);
+                   display: flex; align-items: center; gap: var(--space-2); }
+    .tl-count { font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                letter-spacing: var(--ls-wide); line-height: 1;
+                color: var(--text-body); background: var(--surface-sunken);
+                padding: 4px 9px; border-radius: var(--radius-pill); }
+    .tl-items { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    /* Barra de acento a la izquierda, el borde expresivo del sistema */
+    .tl-item { background: var(--cmf-ink-50); border-radius: var(--radius-sm);
+               padding: var(--space-1) var(--space-3); font-size: var(--fs-sm);
+               border-left: var(--accent-bar-w) solid var(--color-brand);
+               color: var(--text-body);
+               transition: background var(--dur-fast) var(--ease-standard); }
+    .tl-item:hover { background: var(--surface-sunken); color: var(--text-strong);
+                     text-decoration: none; }
+    .tl-actor { font-weight: var(--fw-semibold); color: var(--color-brand); }
+    /* La barra izquierda codifica la acción: morado modifica, rojo deroga,
+       gris apenas menciona. Nunca va sola — el texto del evento dice lo mismo
+       en palabras, porque el color por sí solo no es un canal accesible. */
+    .tl-der { border-left-color: var(--cmf-danger); }
+    .tl-ref { border-left-color: var(--border-default); }
+    .tl-ref .tl-actor { color: var(--text-muted); font-weight: var(--fw-medium); }
+    .tl-desglose { font-size: var(--fs-xs); font-weight: var(--fw-regular);
+                   color: var(--text-muted); letter-spacing: var(--ls-normal); }
 
-    footer { text-align: center; color: #9ca3af; font-size: 12px;
-             padding: 20px; margin-top: 8px; }
+    /* Pie navy, como la franja de cierre de las piezas oficiales */
+    footer { text-align: center; color: var(--cmf-ink-200); font-size: var(--fs-sm);
+             background: var(--surface-navy); padding: var(--space-5);
+             margin-top: var(--space-6); }
+    footer a { color: var(--cmf-teal-200); }
+    footer a:hover { color: var(--cmf-white); }
 
     @media (max-width: 900px) {
-      #cuadro-mando { grid-template-columns: 1fr; }
+      /* #cuadro-mando es flex, no grid: la regla anterior fijaba
+         grid-template-columns y por eso no hacía nada. */
+      #cuadro-mando { flex-direction: column; }
+      .cm-pila-vacias { flex-direction: row; flex-wrap: wrap; }
     }
     @media (max-width: 800px) {
       .detalle { grid-template-columns: 1fr; }
@@ -1549,8 +2286,12 @@ _TEMPLATE = """<!DOCTYPE html>
 <body>
 
 <header>
-  <h1>Monitoreo Normativo CMF</h1>
-  <p>Seguimiento automático diario de resoluciones normativas de la Comisión para el Mercado Financiero de Chile.</p>
+  <div class="hd-inner">
+    <div class="hd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200.15 37.59" role="img" aria-label="Comisión para el Mercado Financiero" focusable="false"><g><rect x="83.71" y="1.7" width="0.56" height="35.89" style="fill: currentColor"/><polygon points="66.98 37.59 66.95 21.83 76.63 21.83 76.63 15.68 66.94 15.68 66.93 7.85 78.49 7.85 78.49 1.7 59.11 1.7 59.17 34.36 66.98 37.59" style="fill: currentColor"/><polygon points="46.48 12.88 46.48 29.11 53.08 31.85 53.08 1.7 35.49 10.65 17.9 1.7 17.9 10.09 35.49 17.36 46.48 12.88" style="fill: currentColor"/><path d="M97.79,3.25v1l0,0h0a3.34,3.34,0,0,0-4.5.26,3.36,3.36,0,0,0-1,2.44,3.34,3.34,0,0,0,1,2.43,3.24,3.24,0,0,0,2.39,1,3.31,3.31,0,0,0,2.11-.74s0,0,0,0a.05.05,0,0,1,0,0v.65a.52.52,0,0,1-.31.5A4.21,4.21,0,0,1,92.62,10a4.24,4.24,0,0,1-1.24-3,4.24,4.24,0,0,1,1.24-3.06,4.06,4.06,0,0,1,3-1.26,4.14,4.14,0,0,1,2.15.59.05.05,0,0,1,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M101.74,4.5a3.36,3.36,0,0,0-1,2.44,3.34,3.34,0,0,0,1,2.43,3.33,3.33,0,0,0,4.78,0,3.34,3.34,0,0,0,1-2.43,3.37,3.37,0,0,0-1-2.44,3.33,3.33,0,0,0-4.78,0m6.63,2.44A4.2,4.2,0,0,1,107.13,10a4.2,4.2,0,0,1-6,0,4.2,4.2,0,0,1-1.24-3,4.2,4.2,0,0,1,1.24-3.06,4.2,4.2,0,0,1,6,0,4.2,4.2,0,0,1,1.24,3.06" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M111.14,2.81l3.71,4.84,3.7-4.84a.16.16,0,0,1,.18-.05.15.15,0,0,1,.1.15V11s0,0,0,0h-.51a.29.29,0,0,1-.22-.09.33.33,0,0,1-.09-.23V5l-3.07,4a.09.09,0,0,1-.06,0,.09.09,0,0,1-.07,0l-3.07-4v6a0,0,0,0,1,0,0h-.78s0,0,0,0V2.91a.15.15,0,0,1,.1-.15.16.16,0,0,1,.18.05" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M122.82,11.07H122s0,0,0,0V2.84s0,0,0,0h.78a0,0,0,0,1,0,0V11a0,0,0,0,1,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M128,10.39a3,3,0,0,0,1.09-.2,1.28,1.28,0,0,0,.67-.7,1.32,1.32,0,0,0,0-1.05,1.47,1.47,0,0,0-.77-.8l-2.44-1.15-.08,0a1.94,1.94,0,0,1-1-1.1,1.88,1.88,0,0,1,0-1.15,1.86,1.86,0,0,1,.33-.66,2.14,2.14,0,0,1,1.06-.73,3.45,3.45,0,0,1,.67-.15,4.59,4.59,0,0,1,.75,0,5,5,0,0,1,2.08.49s0,0,0,0V4s0,0,0,0h0L130.26,4a4.11,4.11,0,0,0-1.92-.51,3.25,3.25,0,0,0-.63,0,2.64,2.64,0,0,0-.52.12,1.48,1.48,0,0,0-.52.3,1,1,0,0,0-.31.52,1.06,1.06,0,0,0,0,.61,1.26,1.26,0,0,0,.69.67l2.35,1.11a2.25,2.25,0,0,1,1.2,1.26,2.19,2.19,0,0,1,0,1.72A2.1,2.1,0,0,1,129.47,11a3.6,3.6,0,0,1-1.41.28,4.33,4.33,0,0,1-2.13-.47.52.52,0,0,1-.3-.5V9.64s0,0,0,0,0,0,0,0a4.44,4.44,0,0,0,.38.27,3.49,3.49,0,0,0,2,.51" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M134.1,11.07h-.78a0,0,0,0,1,0,0V2.84a0,0,0,0,1,0,0h.78a0,0,0,0,1,0,0V11a0,0,0,0,1,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M140.49,2.18l-.31-.3a.05.05,0,0,1,0-.06L141.41.57h.8l0,0s0,0,0,.05L140.7,2.18a.12.12,0,0,1-.21,0m-2,2.32a3.36,3.36,0,0,0-1,2.44,3.34,3.34,0,0,0,1,2.43,3.34,3.34,0,0,0,4.79,0,3.34,3.34,0,0,0,1-2.43,3.36,3.36,0,0,0-1-2.44,3.34,3.34,0,0,0-4.79,0m6.64,2.44A4.21,4.21,0,0,1,143.86,10a4.19,4.19,0,0,1-6,0,4.21,4.21,0,0,1-1.25-3,4.21,4.21,0,0,1,1.25-3.06,4.19,4.19,0,0,1,6,0,4.21,4.21,0,0,1,1.25,3.06" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M153.2,11.11a.14.14,0,0,1-.18-.06L148.45,5v6a0,0,0,0,1,0,0h-.78a0,0,0,0,1,0,0V2.92a.16.16,0,0,1,.11-.16.15.15,0,0,1,.19.06l4.57,6.06V3.12a.29.29,0,0,1,.09-.22.28.28,0,0,1,.22-.1h.51a0,0,0,0,1,0,0V11a.16.16,0,0,1-.12.16" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M92.24,19.79H94.1a1.29,1.29,0,0,0,1.31-.87,1.92,1.92,0,0,0,0-1.28,1.29,1.29,0,0,0-1.31-.87H92.24Zm0,.87v3.46a0,0,0,0,1,0,0h-.78a0,0,0,0,1,0,0V15.93s0,0,0,0H94.1a2.15,2.15,0,0,1,2.1,1.43,2.64,2.64,0,0,1,.18,1,2.55,2.55,0,0,1-.18.95,2.17,2.17,0,0,1-.75,1,2.21,2.21,0,0,1-1.35.41Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M101,17.7,99.4,21.44h3.22Zm-2.78,6.43a0,0,0,0,1,0,0h-.85l0,0a.06.06,0,0,1,0,0L100.83,16a.18.18,0,0,1,.18-.11.2.2,0,0,1,.18.11l3.51,8.15a0,0,0,0,1,0,0l0,0h-.62a.37.37,0,0,1-.36-.24l-.7-1.61H99Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M107.37,19.79h1.87a1.27,1.27,0,0,0,1.3-.87,1.92,1.92,0,0,0,0-1.28,1.27,1.27,0,0,0-1.3-.87h-1.87Zm0,.87v3.46a0,0,0,0,1,0,0h-.78s0,0,0,0V15.93s0,0,0,0h2.69a2.16,2.16,0,0,1,1.34.42,2.28,2.28,0,0,1,.76,1,2.63,2.63,0,0,1,.17,1,2.54,2.54,0,0,1-.17.95,2.06,2.06,0,0,1-1.82,1.42L112,24.09s0,0,0,0a0,0,0,0,1,0,0h-.75a.46.46,0,0,1-.38-.2l-2.32-3.2a.23.23,0,0,0-.19-.1Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M116.54,17.7l-1.61,3.74h3.22Zm-2.78,6.43a0,0,0,0,1,0,0h-.85l0,0a.06.06,0,0,1,0,0L116.36,16a.18.18,0,0,1,.18-.11.2.2,0,0,1,.18.11l3.51,8.15a0,0,0,0,1,0,0l0,0h-.61a.37.37,0,0,1-.36-.24l-.7-1.61h-4Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M127.26,19.38h2.31s0,0,0,.05v.51a.29.29,0,0,1-.09.22.27.27,0,0,1-.22.1h-2v3h2a.3.3,0,0,1,.22.1.29.29,0,0,1,.09.22v.52a0,0,0,0,1,0,0h-2.86a.27.27,0,0,1-.22-.1.29.29,0,0,1-.09-.22V15.93s0,0,0,0h3.14s0,0,0,0v.79s0,.05,0,.05h-2.31Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M135.34,23.29a.31.31,0,0,1,.22.09.29.29,0,0,1,.09.22v.52a0,0,0,0,1,0,0h-2.86a.3.3,0,0,1-.23-.1.29.29,0,0,1-.09-.22V15.93a0,0,0,0,1,0,0h.78s0,0,0,0v7.36Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M142.69,15.9l3.71,4.84,3.71-4.84a.15.15,0,0,1,.18-.05.14.14,0,0,1,.1.15v8.12a0,0,0,0,1,0,0h-.51a.28.28,0,0,1-.22-.1.29.29,0,0,1-.09-.22V18.07l-3.07,4a.08.08,0,0,1-.12,0l-3.07-4v6.05a0,0,0,0,1,0,0h-.78a0,0,0,0,1,0,0V16a.16.16,0,0,1,.28-.1" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M154.42,19.38h2.32a0,0,0,0,1,0,.05v.51a.29.29,0,0,1-.09.22.29.29,0,0,1-.23.1h-2v3h2a.33.33,0,0,1,.23.1.29.29,0,0,1,.09.22v.52a0,0,0,0,1,0,0h-2.87a.28.28,0,0,1-.22-.1.29.29,0,0,1-.09-.22V15.93s0,0,0,0h3.14a0,0,0,0,1,0,0v.79a0,0,0,0,1,0,.05h-2.32Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M160.46,19.79h1.86a1.27,1.27,0,0,0,1.3-.87,1.77,1.77,0,0,0,0-1.28,1.27,1.27,0,0,0-1.3-.87h-1.86Zm0,.87v3.46a0,0,0,0,1-.05,0h-.77a0,0,0,0,1,0,0V15.93s0,0,0,0h2.68a2.16,2.16,0,0,1,1.34.42,2.21,2.21,0,0,1,.76,1,2.63,2.63,0,0,1,.17,1,2.54,2.54,0,0,1-.17.95,2.06,2.06,0,0,1-1.82,1.42l2.49,3.44s0,0,0,0a0,0,0,0,1,0,0h-.75a.46.46,0,0,1-.38-.2l-2.32-3.2a.22.22,0,0,0-.18-.1Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M173,16.33v1s0,0,0,0a0,0,0,0,1,0,0,3.34,3.34,0,0,0-4.5.26,3.49,3.49,0,0,0,0,4.87,3.34,3.34,0,0,0,4.5.26h0s0,0,0,0v.66a.53.53,0,0,1-.3.5,4.16,4.16,0,0,1-1.86.43,4.06,4.06,0,0,1-3-1.26,4.36,4.36,0,0,1,0-6.11,4.06,4.06,0,0,1,3-1.26,4.13,4.13,0,0,1,2.14.59s0,0,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M178.13,17.7l-1.62,3.74h3.23Zm-2.78,6.43a0,0,0,0,1,0,0h-.85a.05.05,0,0,1,0,0v0L178,16a.18.18,0,0,1,.18-.11.18.18,0,0,1,.17.11l3.52,8.15a0,0,0,0,1,0,0,.05.05,0,0,1,0,0h-.62a.35.35,0,0,1-.35-.24l-.7-1.61h-4Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M184.49,23.29h1.59a2.55,2.55,0,0,0,1.63-.55,2.93,2.93,0,0,0,.93-1.35,4.34,4.34,0,0,0,0-2.73,2.88,2.88,0,0,0-.93-1.35,2.54,2.54,0,0,0-1.63-.54h-1.59Zm3.74-6.68a3.74,3.74,0,0,1,1.21,1.76,5,5,0,0,1,0,3.31,3.74,3.74,0,0,1-1.21,1.76,3.34,3.34,0,0,1-2.15.72H184a.34.34,0,0,1-.23-.1.29.29,0,0,1-.09-.22V15.93a0,0,0,0,1,0,0h2.41a3.34,3.34,0,0,1,2.15.72" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M193.36,17.59a3.49,3.49,0,0,0,0,4.87,3.34,3.34,0,0,0,4.79,0,3.49,3.49,0,0,0,0-4.87,3.34,3.34,0,0,0-4.79,0M200,20a4.2,4.2,0,0,1-1.24,3,4.2,4.2,0,0,1-6,0,4.36,4.36,0,0,1,0-6.11,4.2,4.2,0,0,1,6,0A4.19,4.19,0,0,1,200,20" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M92.24,37.17s0,0,0,0h-.78s0,0,0,0V29s0,0,0,0h3.14a0,0,0,0,1,0,0v.79a0,0,0,0,1,0,0H92.24v2.62h2.32a0,0,0,0,1,0,0V33a.29.29,0,0,1-.09.22.33.33,0,0,1-.23.1h-2Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M98.09,37.2h-.78a0,0,0,0,1,0,0V29s0,0,0,0h.78s0,0,0,0v8.19s0,0,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M106.92,37.25a.17.17,0,0,1-.19-.06l-4.57-6.07v6.05s0,0,0,0h-.78a0,0,0,0,1,0,0V29.06a.14.14,0,0,1,.11-.16.15.15,0,0,1,.19.06L106.17,35V29.26a.33.33,0,0,1,.1-.23.29.29,0,0,1,.22-.09h.5s0,0,0,0v8.11a.16.16,0,0,1-.11.16" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M112.54,30.75l-1.61,3.74h3.22Zm-2.77,6.43s0,0,0,0h-.88s0,0,0,0L112.36,29a.18.18,0,0,1,.18-.12.19.19,0,0,1,.18.12l3.51,8.15s0,0,0,0h-.65a.36.36,0,0,1-.36-.23l-.69-1.61h-4Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M123.66,37.25a.18.18,0,0,1-.19-.06l-4.56-6.07v6.05s0,0,0,0h-.78s0,0,0,0V29.06a.15.15,0,0,1,.11-.16.15.15,0,0,1,.19.06L122.92,35V29.26A.32.32,0,0,1,123,29a.29.29,0,0,1,.22-.09h.51s0,0,0,0v8.11a.15.15,0,0,1-.11.16" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M132.67,29.38v1s0,0,0,0,0,0,0,0a3.32,3.32,0,0,0-4.49.26,3.49,3.49,0,0,0,0,4.87,3.32,3.32,0,0,0,4.49.26s0,0,0,0a0,0,0,0,1,0,0v.66a.51.51,0,0,1-.31.49,4.17,4.17,0,0,1-1.86.44,4.06,4.06,0,0,1-3-1.26,4.38,4.38,0,0,1,0-6.11,4.21,4.21,0,0,1,5.15-.67l0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M136.27,37.2h-.78s0,0,0,0V29a0,0,0,0,1,0,0h.78s0,0,0,0v8.19s0,0,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M140.34,32.43h2.32a0,0,0,0,1,0,0V33a.29.29,0,0,1-.09.22.32.32,0,0,1-.22.1h-2v3h2a.31.31,0,0,1,.22.09.33.33,0,0,1,.09.23v.52s0,0,0,0h-2.87a.33.33,0,0,1-.22-.09.29.29,0,0,1-.09-.22V29a0,0,0,0,1,0,0h3.14s0,0,0,0v.79s0,0,0,0h-2.32Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M146.38,32.84h1.86a1.27,1.27,0,0,0,1.3-.87,1.79,1.79,0,0,0,0-1.29,1.27,1.27,0,0,0-1.3-.87h-1.86Zm0,.87v3.46s0,0,0,0h-.78s0,0,0,0V29s0,0,0,0h2.68a2.22,2.22,0,0,1,1.34.41,2.19,2.19,0,0,1,.76,1,2.6,2.6,0,0,1,.18,1,2.55,2.55,0,0,1-.18,1,2.06,2.06,0,0,1-1.82,1.42L151,37.14s0,0,0,0,0,0,0,0h-.75a.42.42,0,0,1-.37-.19l-2.32-3.2a.22.22,0,0,0-.19-.1Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M154.36,30.64a3.49,3.49,0,0,0,0,4.87,3.34,3.34,0,0,0,4.79,0,3.49,3.49,0,0,0,0-4.87,3.34,3.34,0,0,0-4.79,0M161,33.07a4.22,4.22,0,0,1-1.24,3.06,4.2,4.2,0,0,1-6,0,4.38,4.38,0,0,1,0-6.11,4.2,4.2,0,0,1,6,0A4.18,4.18,0,0,1,161,33.07" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M27.35,21.62a9.16,9.16,0,0,1-.44,1.75,10.09,10.09,0,0,1-9.34,6.7A10,10,0,0,1,7.69,20a10.15,10.15,0,0,1,1.8-5.78l-7.23-3A18,18,0,0,0,0,20,17.75,17.75,0,0,0,17.57,37.9a17.74,17.74,0,0,0,17-13.3Z" transform="translate(0 -0.41)" style="fill: currentColor"/></g></svg></div>
+    <h1>Monitoreo normativo CMF</h1>
+    <hr class="cmf-rule">
+    <p class="hd-sub">Seguimiento automático diario de resoluciones normativas de la Comisión para el Mercado Financiero de Chile.</p>
+  </div>
 </header>
 
 <main>
@@ -1582,14 +2323,14 @@ _TEMPLATE = """<!DOCTYPE html>
     </section>
 
     <section id="tabla">
-      <h2>Resoluciones normativas <span style="font-size:11px;color:#9ca3af;font-weight:400">click en una fila para ver detalle</span></h2>
+      <h2>Resoluciones normativas <span class="h2-hint">Haz clic en una fila para ver el detalle</span></h2>
       __FILTROS__
       <table id="tabla-resoluciones">
         <thead>
           <tr>
             <th>Fecha</th>
             <th>Norma</th>
-            <th>Tipo de Acuerdo</th>
+            <th>Tipo de acuerdo</th>
             <th>Norma(s) afectada(s)</th>
             <th>Vigencia</th>
             <th>PDF</th>
@@ -1601,8 +2342,9 @@ _TEMPLATE = """<!DOCTYPE html>
       </table>
     </section>
 
-    <section>
-      <h2>Línea de tiempo por NCG</h2>
+    <section id="timeline">
+      <h2>Línea de tiempo por NCG <span class="h2-hint">Normas afectadas más de una vez, primero las más modificadas</span></h2>
+      <p class="tl-sin-resultados" style="display:none">Ninguna norma afectada calza con el filtro.</p>
       __TIMELINE__
     </section>
 
@@ -1670,17 +2412,51 @@ _TEMPLATE = """<!DOCTYPE html>
     const activo = document.querySelector('.filtro-btn.activo');
     const tipoActivo = activo ? activo.dataset.tipo : 'todos';
     const q = (document.getElementById('search').value || '').toLowerCase().trim();
+    const visibles = new Set();
     document.querySelectorAll('#tabla-resoluciones tbody tr.fila-principal').forEach(tr => {
       const tipos = (tr.dataset.tipos || '').split('|');
       const matchTipo = tipoActivo === 'todos' || tipos.includes(tipoActivo);
       const matchQ = !q || (tr.dataset.search || '').includes(q);
       const visible = matchTipo && matchQ;
       tr.style.display = visible ? '' : 'none';
+      if (visible) visibles.add(tr.dataset.clave);
       const detail = tr.nextElementSibling;
       if (detail && detail.classList.contains('detail-row')) {
         detail.style.display = (visible && detail.dataset.open === '1') ? 'table-row' : 'none';
       }
     });
+    filtrarTimeline(visibles);
+  }
+
+  // La línea de tiempo vive en su propia <section> y hasta ahora el filtro no la
+  // tocaba: al elegir "Circular" la tabla se reducía y abajo seguían apareciendo
+  // todas las normas, sin relación con lo seleccionado. Sigue a la tabla por
+  // clave en vez de repetir la lógica de filtrado.
+  function filtrarTimeline(visibles) {
+    let gruposVisibles = 0;
+    document.querySelectorAll('#timeline .tl-norma').forEach(grupo => {
+      let vistos = 0;
+      grupo.querySelectorAll('.tl-item').forEach(item => {
+        const on = visibles.has(item.dataset.clave);
+        item.style.display = on ? '' : 'none';
+        if (on) vistos++;
+      });
+      // Una norma sin ningún evento visible no es una línea de tiempo vacía:
+      // es una norma que no aplica al filtro, y no tiene por qué figurar.
+      grupo.style.display = vistos ? '' : 'none';
+      if (vistos) gruposVisibles++;
+      const badge = grupo.querySelector('.tl-count');
+      if (badge) {
+        const total = Number(badge.dataset.total || vistos);
+        // "4 de 8" a secas no dice de qué son los 8 y se lee como si faltaran
+        // cuatro por dibujar. La palabra "eventos" va siempre.
+        badge.textContent = vistos === total
+          ? vistos + ' evento' + (vistos === 1 ? '' : 's')
+          : vistos + ' de ' + total + ' eventos';
+      }
+    });
+    const vacio = document.querySelector('#timeline .tl-sin-resultados');
+    if (vacio) vacio.style.display = gruposVisibles ? 'none' : '';
   }
 </script>
 

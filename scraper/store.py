@@ -1,30 +1,110 @@
 import json
 import logging
 import re
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-_NCG_EN_DESC = re.compile(r"N[°o]\s*(\d+)", re.IGNORECASE)
+# El número tiene que venir precedido de la designación de NCG para contar como
+# tal. Antes esto era `N[°o]\s*(\d+)`, que capturaba cualquier "N° x" de la
+# descripción del listado y lo etiquetaba como NCG — y la descripción nombra
+# circulares, oficios, leyes y decretos con exactamente esa misma forma. Así,
+# "MODIFICA CIRCULAR N°2022" producía una «NCG N°2022», "LEY N° 18490" una
+# «NCG N°20285». Sobre el histórico eran 244 normas en la línea de tiempo
+# donde hay 60, con números que no existen: la NCG más alta es la 570.
+# El N° es opcional porque el listado escribe tanto "NCG N°306" como "NCG 306",
+# y CARACTER va sin tilde porque las descripciones vienen en mayúsculas sin
+# acentuar.
+_NCG_EN_DESC = re.compile(
+    r"(?:NORMAS?\s+DE\s+CAR[ÁA]CTER\s+GENERAL|NCG)\s*(?:N[°o]\s*)?(\d+)",
+    re.IGNORECASE,
+)
+
+# Verbos que gobiernan cada mención, para atribuirle su propia acción.
+_DEROGA_VERBO = re.compile(r"DEROGA\w*", re.IGNORECASE)
+_MODIFICA_VERBO = re.compile(r"MODIFIC\w*", re.IGNORECASE)
 
 logger = logging.getLogger(__name__)
 
 DAILY_DIR = Path(__file__).parent.parent / "data" / "daily"
 
+def normalizar(texto: str) -> str:
+    """Mayúsculas, sin tildes y con los espacios colapsados.
+
+    Las descripciones del listado llegan de las dos formas —`CARÁCTER` y
+    `CARACTER`, con saltos de línea y espacios dobles— porque abarcan
+    décadas de capturas distintas. Comparar sobre el texto crudo hace que
+    el mismo caso caiga en categorías distintas según cómo se tipeó.
+    """
+    desc = unicodedata.normalize("NFD", (texto or "").upper())
+    return " ".join("".join(c for c in desc if unicodedata.category(c) != "Mn").split())
+
+
+# Patrones (ya normalizados: MAYÚSCULAS, sin tildes) → categoría. El orden
+# manda: gana el primero que calce.
+#
+# Eran frases literales que se buscaban con `in` sobre el texto crudo, y por
+# eso el artículo y las tildes decidían la categoría: la clave decía
+# "MODIFICA LA NORMA DE CARÁCTER GENERAL" y las 35 descripciones que escriben
+# "MODIFICA NORMA DE CARACTER GENERAL N°507" —sin «la», sin tilde— no calzaban
+# y caían al centinela "Otro". El filtro «Modificación NCG» del dashboard
+# mostraba 37 entradas donde hay 72.
+#
+# Sigue habiendo asimetría con `fetch.FRASES_CLAVE` (~35 frases de captura
+# contra 5 categorías), así que "Otro" continúa siendo el caso mayoritario;
+# eso es una decisión de clasificación pendiente, no un defecto de este calce.
 TIPO_ACUERDO_MAP = {
-    "APRUEBA CONSULTA PÚBLICA": "Consulta Pública",
-    "POSPONER EL PLAZO LÍMITE DE LA CONSULTA PÚBLICA": "Prórroga Consulta Pública",
-    "MODIFICA LA NORMA DE CARÁCTER GENERAL": "Modificación NCG",
-    "APRUEBA NUEVA NORMATIVA": "Nueva Normativa",
-    "EMITE CIRCULAR": "Circular",
+    r"APRUEBA\s+(?:LA\s+)?CONSULTA\s+PUBLICA": "Consulta Pública",
+    # "Prórroga Consulta Pública" se eliminó: venía del brief y en 607
+    # resoluciones no hay ninguna que posponga un plazo, así que su filtro sólo
+    # podía vaciar la tabla. El botón correspondiente salió de
+    # `dashboard.TIPOS_FILTRO`; reponer uno exige reponer el otro.
+    # Postergar la entrada en vigencia de una norma es mover una fecha de
+    # cumplimiento, que es exactamente lo que este panel existe para seguir.
+    # Estaba invisible: no hay frase de captura para esto —entran por
+    # "APRUEBA LA CIRCULAR QUE" o "MODIFICA LA NORMA…"— y ninguna categoría lo
+    # nombraba, así que caían en "Modificación NCG" u "Otro". Ojo: no es la
+    # antigua "Prórroga Consulta Pública", que postergaba el plazo de una
+    # consulta y de la que no hay ni un caso en 607 resoluciones.
+    r"(?:POSTERG\w*|POSPON\w*|PRORROG\w*)\s+(?:LA\s+|SU\s+|EL\s+)?"
+    r"(?:ENTRADA\s+EN\s+)?(?:VIGENCIA|APLICACION|PLAZO)": "Postergación de vigencia",
+    # `MODIFIC\w*` y el conector opcional cubren la nominalización: la CMF
+    # escribe tanto "MODIFICA LA NORMA DE CARÁCTER GENERAL N°209" como
+    # "APRUEBA MODIFICACIONES **A** LA NORMA DE CARÁCTER GENERAL N°209", y con
+    # `MODIFICA\s+` la segunda no calzaba —el patrón exigía un espacio donde
+    # va la "C" de MODIFICACIONES—.
+    r"MODIFIC\w*\s+(?:A\s+|AL\s+)?(?:LA\s+|LAS\s+)?"
+    r"(?:NORMAS?\s+DE\s+CARACTER\s+GENERAL|NCG)\b": "Modificación NCG",
+    r"APRUEBA\s+(?:LA\s+)?NUEVA\s+NORMATIVA": "Nueva Normativa",
+    r"EMITE\s+(?:LA\s+)?CIRCULAR": "Circular",
 }
 
+_TIPO_ACUERDO_RX = tuple(
+    (re.compile(patron), tipo) for patron, tipo in TIPO_ACUERDO_MAP.items()
+)
 
-def _inferir_tipo_acuerdo(descripcion: str) -> str:
-    desc_upper = descripcion.upper()
-    for frase, tipo in TIPO_ACUERDO_MAP.items():
-        if frase in desc_upper:
-            return tipo
-    return "Otro"
+
+def inferir_tipos_acuerdo(descripcion: str) -> list[str]:
+    """Todas las categorías que calzan, no sólo la primera.
+
+    Las categorías no son excluyentes y hay documentos que hacen dos cosas a
+    la vez: la circular 2370/2026 emite una circular *y* modifica las NCG
+    N°303 y N°451. Con una sola etiqueta ganaba la primera del orden y el
+    documento desaparecía del otro filtro — quedaba invisible justo para
+    quien buscara por el criterio equivocado.
+    """
+    desc = normalizar(descripcion)
+    tipos = [tipo for rx, tipo in _TIPO_ACUERDO_RX if rx.search(desc)]
+    return tipos or ["Otro"]
+
+
+def inferir_tipo_acuerdo(descripcion: str) -> str:
+    """La categoría principal: la primera que calza, para el campo guardado."""
+    return inferir_tipos_acuerdo(descripcion)[0]
+
+
+# El dashboard lo recalcula al renderizar sobre el histórico ya guardado.
+_inferir_tipo_acuerdo = inferir_tipo_acuerdo
 
 
 def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
@@ -85,13 +165,23 @@ def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
     desc_upper = descripcion.upper()
     if "MODIFICA" not in desc_upper and "DEROGA" not in desc_upper:
         return []
-    numeros = _NCG_EN_DESC.findall(descripcion)
     resultado = []
-    for num in numeros:
-        accion = "Derógase" if "DEROGA" in desc_upper else "Modifícase"
+    for m in _NCG_EN_DESC.finditer(descripcion):
+        # La acción se decide por norma y no para toda la descripción. Antes
+        # era `"Derógase" if "DEROGA" in desc_upper else "Modifícase"`, o sea
+        # en bloque: "MODIFICA NORMA DE CARÁCTER GENERAL N°152 … DEROGA OFICIO
+        # CIRCULAR N°502" dejaba también la 152 como derogada. Manda el verbo
+        # que gobierna a *esa* mención, que es el más cercano por la izquierda.
+        previo = desc_upper[max(0, m.start() - 60):m.start()]
+        deroga = _DEROGA_VERBO.search(previo)
+        modifica = _MODIFICA_VERBO.search(previo)
+        if deroga and (not modifica or deroga.start() > modifica.start()):
+            accion = "Derógase"
+        else:
+            accion = "Modifícase"
         resultado.append({
-            "norma": f"NCG N°{num}",
-            "numero_norma": int(num),
+            "norma": f"NCG N°{m.group(1)}",
+            "numero_norma": int(m.group(1)),
             "seccion_romana": None,
             "acciones": [accion],
             "vigencia": {},
