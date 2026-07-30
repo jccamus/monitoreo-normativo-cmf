@@ -13,3 +13,13 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Configuración local de la máquina (permisos, rutas): no viaja al repo
+.claude/settings.local.json
+
+# Andamiaje de OpenSpec duplicado para otros asistentes. El flujo se conserva
+# en `.claude/`, que es el que se usa; estas dos son las mismas cuatro skills
+# repetidas para Gemini y para el runner genérico, heredadas del curso.
+# Quedan en disco por si las necesitas, pero fuera del repo.
+.agent/
+.gemini/

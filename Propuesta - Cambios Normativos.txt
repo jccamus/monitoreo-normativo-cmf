@@ -1,0 +1,30 @@
+Monitoreo de cambios normativos
+
+1. Necesito hacer un seguimiento del mercado financiero en Chile utilizando la información que proporciona la Comisión para el Mercado Financiero, más conocida como CMF, que es la agencia gubernamental encargada de supervisar su actividad.
+La información se entrega a través de la URL 
+https://www.cmfchile.cl/institucional/legislacion_normativa/normativa2.php?tiponorma=ALL&numero=&dd=&mm=&aa=&dd2=&mm2=&aa2=&buscar=&entidad_web=ALL&materia=ALL&enviado=1&hidden_mercado=%25
+
+2. La idea es obtener a diario los informes que dan cuenta de que se ha ejecutado un acuerdo del Consejo de la Comisión en relación con la normativa, mediante la creación de nuevas Normas de Carácter General o la modificación de alguna de ellas; también cuando se informa la consulta pública.
+La idea es crear un archivo .json por día en el que se incluyan los nombres de entidades, temas, fechas, motivos, leyes, decretos u otras normas. Me interesan principalmente las resoluciones que incluyen las frases APRUEBA CONSULTA PÚBLICA DE LA NORMA DE CARÁCTER GENERAL..., POSPONER EL PLAZO LÍMITE DE LA CONSULTA PÚBLICA..., MODIFICA LA NORMA DE CARÁCTER GENERAL..., APRUEBA NUEVA NORMATIVA..., EMITE CIRCULAR
+
+3. en el caso de que se mencione la RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS, es importante recoger la información de los capítulos a los que se refiere, como también si se menciona el MANUAL DE SISTEMAS DE INFORMACIÓN.
+
+4. En el caso de que se mencionen archivos determinados que se deben crear, cambiar o eliminar, se debe recuperar esa información con el objetivo de ofrecer información acerca de la nueva situación que se defina a través de la norma que se esta publicando.
+
+5. Si en la descripción de los datos recogidos no queda clara la información o no se tiene precisión se debe descargar y/o analizar el documento que se referencia, para buscar los datos que ayuden a crear el json que se pide más adelante.
+
+6. A continuación, organiza esa información por diferentes conceptos (resolución, tipo de norma, número, enlace a los documentos, nuevas normas, cambio de normas, tipos de entidad, archivos, etc.) y crea el archivo json que corresponde con el máximo de detalle posible.
+
+7. El siguiente paso consiste en crear un panel de control por tipos de norma, indicando datos como fecha, Número de Resolución, tipo de acuerdo que se ejecuta (Consulta Pública, Nueva Norma, Cambio de Norma, Derogación de norma). 
+
+8. Dado que en varios casos habrá cambios que afecten al mismo tipo de Norma o Archivo, nos interesa que esa relación quede documentada, ya que un subproducto de este trabajo será la construcción de una línea de tiempo para mostrar los cambios que se vayan haciendo en este tipo de documentos.
+
+9. La URL que se consulta tiene pocos cambios en el tiempo, por lo que el json diario debería incluir la información distinta respecto del último json construido de tal manera de que sólo incorpore el diferencial. De esa manera se optimiza el uso de los recursos. En el caso de los archivos se requiere conocer la fecha de vigencia por lo que hay que conseguir esa información; si en la descripción de los datos recogidos no queda clara la información o no se tiene precisión se debe descargar y/o analizar el documento que se referencia.
+
+10. Como título de la página debe ir Monitoreo Normativo CMF, con una explicación de una línea que indique a qué se refiere la información que se recopila.
+
+11. Puedes documentar todo lo realizado, de manera de presentarlo ante las personas de tecnologías de información y sepan qué deben generar como ambiente para instalar esta aplicación en un servidor? De qué manera se puede asegurar que este sistema haga la revisión diaria? Qué instalar y dónde?
+
+
+Carpeta:
+
