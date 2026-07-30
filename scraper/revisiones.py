@@ -48,6 +48,14 @@ COLUMNAS = COLUMNAS_ENTRADA + COLUMNAS_CONTEXTO
 
 _VERDADERO = {"si", "sí", "s", "x", "1", "true", "verdadero"}
 
+# Un documento que no declara vigencia rige desde su publicación. Se anota como
+# "inmediata" y no con la fecha del propio documento: la fecha afirmaría que el
+# texto la declara, y es justamente la confusión que originó los bugs de este
+# proyecto —600 resoluciones y 126 vigencias rellenadas con la fecha del
+# documento—. `inmediata` dice lo que de verdad pasa, y aguas abajo se fecha con
+# la publicación igual que las que el parser detecta.
+_INMEDIATA = {"inmediata", "inmediato", "inm", "publicacion", "publicación"}
+
 # Formatos que puede tener la celda al volver de Excel. Se escribe YYYY-MM-DD,
 # pero Excel en español reformatea la celda al guardar y la devuelve como
 # DD-MM-YYYY o DD/MM/YYYY. Rechazarlas obligaría a pelear con el formato de
@@ -171,16 +179,21 @@ def cargar(path: Path | None = None) -> dict[str, dict]:
         }
 
         if crudo:
-            iso, precision = _parse_fecha(crudo)
-            if not iso:
-                logger.warning(
-                    "revisiones.csv línea %d (%s): fecha %r no reconocida "
-                    "(se espera YYYY-MM-DD o YYYY-MM) — fila ignorada",
-                    n, clave, crudo,
-                )
-                continue
-            anotacion["inicio"] = iso
-            anotacion["precision"] = precision
+            if crudo.lower() in _INMEDIATA:
+                anotacion["inicio"] = "inmediata"
+                anotacion["precision"] = "dia"
+            else:
+                iso, precision = _parse_fecha(crudo)
+                if not iso:
+                    logger.warning(
+                        "revisiones.csv línea %d (%s): %r no se reconoce como fecha "
+                        "(se espera YYYY-MM-DD, YYYY-MM, DD-MM-YYYY o la palabra "
+                        "'inmediata') — fila ignorada",
+                        n, clave, crudo,
+                    )
+                    continue
+                anotacion["inicio"] = iso
+                anotacion["precision"] = precision
 
         anotaciones[clave] = anotacion
 
