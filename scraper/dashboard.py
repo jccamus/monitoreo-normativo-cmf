@@ -2,11 +2,11 @@
 'Propuesta - Cambios Normativos.txt' para periodistas que monitorean la CMF.
 
 Estructura en cuatro pestañas:
-- **Agenda de tareas**: tres columnas (≤30 / 31–60 / 61+ días desde la fecha
-  actual) con las resoluciones cuya vigencia entra a regir en cada
-  horizonte, más una retrospectiva por mes de lo que ya debió aplicarse.
-  Cada tarjeta muestra el tema oficial del documento (bloque REF del PDF) y
-  bullets accionables con los cambios concretos extraídos por el parser.
+- **Agenda de tareas**: un calendario horizontal de ±6 meses alrededor de hoy,
+  donde cada tarjeta es una fecha en que algo entra a regir. Los meses sin
+  nada agendado se apilan en un mazo. Arriba, tres paneles —cuerpo normativo,
+  proyectos por mes y las obligaciones sin fecha que el eje no puede
+  mostrar— y un buscador sobre todo el corpus.
 - **Cambios relevantes**: agrupados por cuerpo normativo (RAN, CNC, MSI…),
   recortado a los últimos 5 años.
 - **Revisión manual**: los cambios de archivo del MSI sin fecha de vigencia
@@ -20,6 +20,7 @@ import html
 import json
 import logging
 import re
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -162,6 +163,12 @@ def _agrupar_por_cuerpo(entradas: list[dict]) -> dict[str, list[dict]]:
 # «Prórroga Consulta Pública» sí se eliminó del todo, a pedido: postergaba el
 # plazo de una consulta pública y no hay ni un caso en 607 resoluciones. No
 # confundirla con «Postergación de vigencia», que son otra cosa y sí existen.
+#
+# Ojo con «Derogación»: es la única categoría de esta lista que NO tiene patrón
+# en `store.TIPO_ACUERDO_MAP`. Se genera acá, en `_tipos_de_entrada`, a partir de
+# `_accion_sobre_norma` («Derogada por») y de `_es_derogacion` sobre la
+# descripción. Buscar su patrón en `store.py` no lleva a ninguna parte, y es la
+# segunda categoría más poblada del histórico.
 TIPOS_FILTRO = [
     ("todos", "Todos"),
     ("Consulta Pública", "Consulta Pública"),
@@ -381,10 +388,6 @@ def _fechas_futuras(entrada: dict, hoy: datetime) -> list[datetime]:
     return fechas
 
 
-# Meses hacia atrás que cubre la retrospectiva de la agenda.
-MESES_RETROSPECTIVA = 6
-
-
 def _fuentes_vigencia(entrada: dict) -> list[dict]:
     """Todos los dicts de vigencia de una entrada: propia, modifica[] y plazos."""
     fuentes: list[dict] = [entrada.get("vigencia") or {}]
@@ -415,72 +418,174 @@ def _fechas_vigencia(entrada: dict) -> list[tuple[datetime, bool]]:
     return fechas
 
 
-def _clasificar_retrospectiva(
-    entradas: list[dict], hoy: datetime, meses: int = MESES_RETROSPECTIVA
-) -> list[tuple[str, list[dict]]]:
-    """Lo que debió implementarse, agrupado por mes, hacia el pasado reciente.
 
-    Devuelve [(clave_mes, items)] del mes más reciente al más antiguo, cubriendo
-    una ventana móvil de `meses` meses. Un documento con dos plazos vencidos en
-    meses distintos aparece en cada uno: son obligaciones separadas. Dentro de
-    un mismo mes se muestra una sola vez.
+
+# ── Agenda: el calendario de vigencias ───────────────────────────────────
+#
+# Reemplaza las tres columnas por plazo (≤30 / 31–60 / 61+ días) por un eje
+# temporal continuo que cruza el día de hoy. Las columnas por plazo obligaban
+# a leer «faltan 47 días» y traducirlo mentalmente a un mes; el eje lo dice
+# directo, y además deja ver los meses vacíos, que también son información.
+
+MESES_AGENDA = 6   # meses hacia atrás y hacia adelante que cubre el riel
+
+
+def _indice_mes(dt: datetime) -> int:
+    """Mes como entero absoluto, para poder restar meses sin pelear con años."""
+    return dt.year * 12 + dt.month - 1
+
+
+def _clave_mes(indice: int) -> str:
+    return f"{indice // 12:04d}-{indice % 12 + 1:02d}"
+
+
+def _precision_de(entrada: dict, iso: str) -> str:
+    """La precisión con que el documento declaró esa fecha: 'dia' o 'mes'.
+
+    Una fecha de precisión mensual se guarda normalizada al día 1 para poder
+    ordenarla. Mostrarla como «1 de diciembre» afirmaría una exactitud que el
+    documento no da, así que la precisión tiene que viajar hasta el render.
     """
-    ancla = (hoy.year * 12 + hoy.month - 1) - (meses - 1)
-    por_mes: dict[str, dict[str, dict]] = {}
+    for v in _fuentes_vigencia(entrada):
+        for k in ("inicio", "plazo_transicion"):
+            if v.get(k) == iso:
+                return v.get("precision") or "dia"
+    return "dia"
 
+
+def _fuente_vigencia(entrada: dict) -> str:
+    """De dónde salió la fecha, para poder mostrarlo junto al dato.
+
+    No son equivalentes: `seccion` la declara el PDF, `clausula_aplicacion` es
+    un respaldo más frágil y `revision_manual` la puso una persona que leyó el
+    documento. Presentarlas iguales sería repetir el error que originó los bugs
+    de vigencia de este proyecto.
+    """
+    fuente = (entrada.get("vigencia") or {}).get("fuente")
+    return fuente if fuente in ("revision_manual", "clausula_aplicacion") else "seccion"
+
+
+def _hitos_agenda(entradas: list[dict], hoy: datetime) -> list[dict]:
+    """Un hito por cada (documento, mes en que algo suyo entra a regir).
+
+    El eje son fechas de vigencia, no documentos: un documento con dos plazos
+    en meses distintos son dos obligaciones y aparece dos veces. Dentro de un
+    mismo mes se muestra una sola vez: son la misma obligación vista dos veces.
+    """
+    con_timeline = set(_agrupar_por_norma(entradas).keys())
+    hitos: list[dict] = []
     for e in entradas:
+        afectadas = [n for n in _normas_afectadas(e) if n in con_timeline]
+        vistos: set[str] = set()
         for fecha, inmediata in _fechas_vigencia(e):
-            if fecha > hoy:
+            mes = fecha.strftime("%Y-%m")
+            if mes in vistos:
                 continue
-            indice = fecha.year * 12 + fecha.month - 1
-            if indice < ancla:
-                continue
-            mes = f"{fecha.year:04d}-{fecha.month:02d}"
-            slot = por_mes.setdefault(mes, {})
-            clave = e.get("clave") or e.get("url_documento") or ""
-            previo = slot.get(clave)
-            # Ante dos fechas del mismo documento en el mismo mes, la primera.
-            if previo and previo["_fecha_aplicacion"] <= fecha.strftime("%Y-%m-%d"):
-                continue
-            item = dict(e)
-            item["_fecha_aplicacion"] = fecha.strftime("%Y-%m-%d")
-            item["_inmediata"] = inmediata
-            slot[clave] = item
+            vistos.add(mes)
+            iso = fecha.strftime("%Y-%m-%d")
+            hito = dict(e)
+            hito["_fecha_aplicacion"] = iso
+            hito["_mes"] = mes
+            hito["_indice_mes"] = _indice_mes(fecha)
+            hito["_inmediata"] = inmediata
+            # Una vigencia inmediata se fecha con la publicación, así que su
+            # precisión es la del documento y no la de un plazo declarado.
+            hito["_precision"] = "dia" if inmediata else _precision_de(e, iso)
+            hito["_vencida"] = fecha <= hoy
+            hito["_fuente_vigencia"] = _fuente_vigencia(e)
+            hito["_afectadas"] = afectadas[:3]
+            hitos.append(hito)
+    return hitos
 
-    salida: list[tuple[str, list[dict]]] = []
-    for mes in sorted(por_mes, reverse=True):
+
+def _calendario_agenda(
+    hitos: list[dict], hoy: datetime, meses: int = MESES_AGENDA
+) -> list[dict]:
+    """La ventana del riel: un tramo por mes, del más antiguo al más futuro."""
+    ancla = _indice_mes(hoy)
+    salida = []
+    for i in range(ancla - meses, ancla + meses + 1):
         items = sorted(
-            por_mes[mes].values(), key=lambda x: x["_fecha_aplicacion"], reverse=True
+            (h for h in hitos if h["_indice_mes"] == i),
+            key=lambda h: h["_fecha_aplicacion"],
         )
-        salida.append((mes, items))
+        salida.append({"mes": _clave_mes(i), "offset": i - ancla, "items": items})
     return salida
 
 
-def _clasificar_tareas(
-    entradas: list[dict], hoy: datetime
-) -> tuple[list[dict], list[dict], list[dict]]:
-    """Reparte las entradas con vigencia futura en buckets ≤30, 31–60, 61+ días."""
-    b30: list[dict] = []
-    b60: list[dict] = []
-    b90: list[dict] = []
+def _hitos_lejanos(
+    hitos: list[dict], hoy: datetime, meses: int = MESES_AGENDA
+) -> list[dict]:
+    """Lo agendado más allá del borde derecho del riel."""
+    corte = _indice_mes(hoy) + meses
+    return sorted(
+        (h for h in hitos if h["_indice_mes"] > corte),
+        key=lambda h: h["_fecha_aplicacion"],
+    )
+
+
+def _sin_fecha_agenda(entradas: list[dict]) -> list[dict]:
+    """Obligaciones que el calendario no puede mostrar porque no tienen cuándo.
+
+    Es el punto ciego de una vista con eje temporal, y por eso se declara en
+    vez de omitirse: un cambio a un archivo del MSI genera obligación de
+    reporte, y un plazo relativo («120 días después de su emisión») también es
+    trabajo comprometido. Dejarlos fuera en silencio haría que el calendario
+    mintiera por omisión, que es exactamente el modo de falla que este proyecto
+    ya pagó caro con las fechas inventadas.
+    """
+    salida = []
     for e in entradas:
-        fechas = _fechas_futuras(e, hoy)
-        if not fechas:
+        vig = e.get("vigencia") or {}
+        por_archivo = _requiere_revision(e)
+        relativo = vig.get("inicio") == "ver texto"
+        if not (por_archivo or relativo):
             continue
-        prox = min(fechas)
-        dias = (prox - hoy).days
         item = dict(e)
-        item["_fecha_aplicacion"] = prox.strftime("%Y-%m-%d")
-        item["_dias_restantes"] = dias
-        if dias <= 30:
-            b30.append(item)
-        elif dias <= 60:
-            b60.append(item)
-        else:
-            b90.append(item)
-    for b in (b30, b60, b90):
-        b.sort(key=lambda x: x["_fecha_aplicacion"])
-    return b30, b60, b90
+        item["_motivo"] = "archivo" if por_archivo else "relativo"
+        salida.append(item)
+    salida.sort(key=lambda e: e.get("fecha") or "", reverse=True)
+    return salida
+
+
+def _situacion(e: dict, hoy: datetime) -> str:
+    """En qué estado está una entrada respecto del eje temporal."""
+    if _fechas_futuras(e, hoy):
+        return "futuro"
+    if _fechas_vigencia(e):
+        return "pasado"
+    vig = e.get("vigencia") or {}
+    if _requiere_revision(e) or vig.get("inicio") == "ver texto":
+        return "sinfecha"
+    return "sinvigencia"
+
+
+def _indice_busqueda(entradas: list[dict], hoy: datetime) -> list[dict]:
+    """Índice del buscador: TODO el corpus, no sólo la ventana del riel.
+
+    Si el buscador mirara únicamente los 13 meses del calendario, responder
+    «no hay cambios normativos en relación con el archivo consultado» sería
+    falso para cualquier cosa fuera de la ventana — que es donde está la
+    inmensa mayoría de los documentos.
+    """
+    indice = []
+    for e in entradas:
+        fechas = _fechas_vigencia(e)
+        vig = e.get("vigencia") or {}
+        indice.append({
+            "c": e.get("clave") or "",
+            "n": _etiqueta_documento(e),
+            "f": e.get("fecha") or "",
+            "d": " ".join((e.get("tema") or e.get("descripcion_cmf") or "").split())[:110],
+            "g": [t for c, t, _ in GRUPOS_CUERPO_NORMATIVO if c in _grupos_de_entrada(e)],
+            # El código del archivo vive en `nombre`, no en `codigo`.
+            "a": [a.get("nombre") for a in (e.get("archivos_afectados") or []) if a.get("nombre")],
+            "m": _normas_afectadas(e)[:4],
+            "v": fechas[0][0].strftime("%Y-%m-%d") if fechas else (vig.get("inicio") or ""),
+            "u": e.get("url_documento") or "",
+            "s": _situacion(e, hoy),
+        })
+    return indice
 
 
 # Una norma tocada una sola vez no tiene línea de tiempo que mostrar: es un
@@ -554,8 +659,6 @@ def generar_html() -> None:
         )
 
     hoy = datetime.now(timezone.utc).replace(tzinfo=None, hour=0, minute=0, second=0, microsecond=0)
-    b30, b60, b90 = _clasificar_tareas(entradas, hoy)
-    retrospectiva = _clasificar_retrospectiva(entradas, hoy)
 
     ultima_actualizacion = (
         diferenciales[0].get("generated_at", "")[:10] if diferenciales else _hoy_iso()
@@ -570,14 +673,19 @@ def generar_html() -> None:
     grupos = _agrupar_por_norma(entradas)
     grupos_cuerpo = _agrupar_por_cuerpo(entradas)
     html_doc = _render(
-        entradas, (b30, b60, b90), retrospectiva, grupos, grupos_cuerpo, hoy,
-        ultima_actualizacion, novedades,
+        entradas, grupos, grupos_cuerpo, hoy, ultima_actualizacion, novedades,
     )
     OUTPUT.write_text(html_doc, encoding="utf-8")
+
+    hitos = _hitos_agenda(entradas, hoy)
+    calendario = _calendario_agenda(hitos, hoy)
+    en_ventana = sum(len(m["items"]) for m in calendario)
     logger.info(
-        "Dashboard generado: %s (%d entradas | agenda 30/60/90: %d/%d/%d | retrospectiva: %d en %d meses)",
-        OUTPUT, len(entradas), len(b30), len(b60), len(b90),
-        sum(len(i) for _, i in retrospectiva), len(retrospectiva),
+        "Dashboard generado: %s (%d entradas | agenda: %d hitos en %d de %d meses, "
+        "%d más allá de %d meses, %d sin fecha)",
+        OUTPUT, len(entradas), en_ventana,
+        sum(1 for m in calendario if m["items"]), len(calendario),
+        len(_hitos_lejanos(hitos, hoy)), MESES_AGENDA, len(_sin_fecha_agenda(entradas)),
     )
 
 
@@ -589,15 +697,13 @@ def _hoy_iso() -> str:
 
 def _render(
     entradas: list[dict],
-    buckets: tuple[list[dict], list[dict], list[dict]],
-    retrospectiva: list[tuple[str, list[dict]]],
     grupos: dict[str, list[dict]],
     grupos_cuerpo: dict[str, list[dict]],
     hoy: datetime,
     ultima_actualizacion: str,
     novedades: list[dict],
 ) -> str:
-    cuadro_html = _render_cuadro_mando(buckets, hoy, retrospectiva)
+    cuadro_html = _render_agenda(entradas, hoy, _indice_busqueda(entradas, hoy))
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
     revision_html = _render_revision_manual(entradas)
     n_revision = sum(1 for e in entradas if _requiere_revision(e))
@@ -782,96 +888,438 @@ def _mes_legible(mes: str) -> str:
         return mes
 
 
-def _render_retrospectiva(meses: list[tuple[str, list[dict]]], hoy: datetime) -> str:
-    """Lo que debió implementarse, un bloque por mes, hacia el pasado reciente."""
-    total = sum(len(items) for _, items in meses)
-    intro = (
-        f'<p class="rt-intro">Cambios cuya vigencia ya empezó, agrupados por el mes '
-        f'en que entraron a regir. Ventana móvil de los últimos '
-        f'{MESES_RETROSPECTIVA} meses.</p>'
-    )
-    if not meses:
-        return (
-            f'<section id="retrospectiva"><h2>Debió implementarse</h2>{intro}'
-            f'<p class="rt-vacio">Ningún cambio entró en vigencia en los últimos '
-            f'{MESES_RETROSPECTIVA} meses.</p></section>'
-        )
 
-    bloques = []
-    for mes, items in meses:
-        filas = "".join(
-            _render_fila_cuerpo(e, fecha=e["_fecha_aplicacion"], inmediata=e.get("_inmediata"))
-            for e in items
-        )
-        actual = " rt-mes-actual" if mes == hoy.strftime("%Y-%m") else ""
-        bloques.append(
-            f'<section class="rt-mes{actual}">'
-            f'<header class="rt-cab"><h3>{html.escape(_mes_legible(mes))}</h3>'
-            f'<span class="rt-count">{len(items)}</span></header>'
-            f'<table class="cr-tabla">'
-            f'<thead><tr>'
-            f'<th class="cr-th-fecha">Fecha</th>'
-            f'<th class="cr-th-doc">Norma</th>'
-            f'<th>Tema</th>'
-            f'<th class="cr-th-cambios">Cambios</th>'
-            f'<th class="cr-th-pdf">PDF</th>'
-            f'</tr></thead><tbody>{filas}</tbody></table>'
-            f'</section>'
-        )
-    return (
-        f'<section id="retrospectiva">'
-        f'<header class="rt-head"><h2>Debió implementarse</h2>'
-        f'<span class="rt-total">{total}</span></header>'
-        f'{intro}{"".join(bloques)}</section>'
-    )
-
-
-def _render_cuadro_mando(
-    buckets: tuple[list[dict], list[dict], list[dict]],
-    hoy: datetime,
-    retrospectiva: list[tuple[str, list[dict]]],
+def _render_agenda(
+    entradas: list[dict], hoy: datetime, indice: list[dict]
 ) -> str:
-    b30, b60, b90 = buckets
-    fecha_txt = html.escape(hoy.strftime("%Y-%m-%d"))
-    total = len(b30) + len(b60) + len(b90)
-    encabezado = (
-        f'<div id="cm-encabezado">'
-        f'<span><b>{total}</b> tarea{"s" if total != 1 else ""} con vigencia futura</span>'
-        f'<span class="cm-hoy">Calculado al {fecha_txt}</span>'
+    """La Agenda completa: buscador, paneles, calendario y lo que viene después.
+
+    Sustituye las tres columnas por plazo. El eje temporal continuo dice
+    directamente en qué mes cae cada obligación, en vez de obligar a traducir
+    «faltan 47 días» a una fecha, y deja ver los meses sin nada agendado, que
+    también son información.
+    """
+    hitos = _hitos_agenda(entradas, hoy)
+    calendario = _calendario_agenda(hitos, hoy)
+    lejanos = _hitos_lejanos(hitos, hoy)
+    sin_fecha = _sin_fecha_agenda(entradas)
+    en_ventana = [h for m in calendario for h in m["items"]]
+
+    por_cuerpo = Counter(
+        t for h in en_ventana for c, t, _ in GRUPOS_CUERPO_NORMATIVO
+        if c in _grupos_de_entrada(h)
+    )
+    # Los últimos 12 meses miden actividad del regulador —cuándo publicó— y no
+    # trabajo pendiente, así que cuentan por fecha de publicación.
+    corte = _indice_mes(hoy) - 12
+    doce = Counter(
+        t for e in entradas
+        for c, t, _ in GRUPOS_CUERPO_NORMATIVO
+        if c in _grupos_de_entrada(e)
+        and (f := _parse_iso(e.get("fecha"))) and corte < _indice_mes(f) <= _indice_mes(hoy)
+    )
+
+    datos = json.dumps(
+        {"indice": indice, "hoy": hoy.strftime("%Y-%m-%d")},
+        ensure_ascii=False, separators=(",", ":"),
+    )
+    return (
+        f'<div id="agenda">'
+        f'{_render_ag_buscador(len(indice))}'
+        f'{_render_ag_stats(en_ventana, calendario, lejanos, sin_fecha, hoy)}'
+        f'<div class="ag-paneles">'
+        f'{_render_ag_panel_cuerpo(por_cuerpo, doce, len(en_ventana))}'
+        f'{_render_ag_panel_meses(calendario, hoy)}'
+        f'{_render_ag_panel_sinfecha(sin_fecha)}'
+        f'</div>'
+        f'{_render_ag_riel(calendario, hoy, len(sin_fecha), len(en_ventana))}'
+        f'{_render_ag_lejanos(lejanos, hoy)}'
+        f'<script type="application/json" id="ag-datos">'
+        f'{datos.replace("</", chr(60) + chr(92) + "/")}</script>'
         f'</div>'
     )
-    defs = [
-        ("Próximos 30 días", "col-30", "Acción inmediata", b30),
-        ("Entre 31 y 60 días", "col-60", "Por planificar", b60),
-        ("60 días o más", "col-90", "Mediano plazo", b90),
+
+
+def _render_ag_buscador(total: int) -> str:
+    ejemplos = "".join(
+        f'<button type="button" data-q="{html.escape(q)}">{html.escape(q)}</button>'
+        for q in ("R06", "RDC40", "C11", "NCG N°550")
+    )
+    return (
+        f'<section class="ag-buscador">'
+        f'<div class="ag-caja">'
+        f'<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" '
+        f'stroke-width="1.7" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/>'
+        f'<path d="M10.4 10.4 L14 14"/></svg>'
+        f'<input id="ag-q" type="search" autocomplete="off" spellcheck="false" '
+        f'aria-label="Buscar en los cambios normativos" '
+        f'placeholder="Busca un archivo (R06), una norma (NCG 550) o cualquier texto…">'
+        f'<button type="button" class="ag-x" id="ag-q-x" hidden '
+        f'aria-label="Limpiar la búsqueda">×</button>'
+        f'</div>'
+        f'<div class="ag-ejemplos"><span>Prueba con</span>{ejemplos}'
+        f'<span>· busca en los {total} documentos del histórico, no sólo en el calendario</span>'
+        f'</div>'
+        f'<div class="ag-respuesta" id="ag-respuesta"></div>'
+        f'</section>'
+    )
+
+
+def _render_ag_stats(
+    en_ventana: list[dict], calendario: list[dict],
+    lejanos: list[dict], sin_fecha: list[dict], hoy: datetime,
+) -> str:
+    con_datos = sum(1 for m in calendario if m["items"])
+    celdas = [
+        (str(len(en_ventana)), "hitos de vigencia en la ventana", True),
+        (f'{con_datos} <span class="ag-de">/ {len(calendario)}</span>',
+         "meses con actividad", False),
+        (str(len(lejanos)), f"más allá de {MESES_AGENDA} meses", False),
+        (str(len(sin_fecha)), "obligaciones sin fecha", False),
+        (html.escape(hoy.strftime("%Y-%m-%d")), "calculado al", False),
     ]
-    vacias = "".join(_render_columna_tareas(*d) for d in defs if not d[3])
-    llenas = "".join(_render_columna_tareas(*d) for d in defs if d[3])
-    pila_vacias = f'<div class="cm-pila-vacias">{vacias}</div>' if vacias else ""
-    return (
-        f'{encabezado}<div id="cuadro-mando">{pila_vacias}{llenas}</div>'
-        f'{_render_retrospectiva(retrospectiva, hoy)}'
-    )
+    return '<div class="ag-stats">' + "".join(
+        f'<div class="ag-stat{" es-clave" if clave else ""}">'
+        f'<b class="ag-num">{v}</b><span>{html.escape(t)}</span></div>'
+        for v, t, clave in celdas
+    ) + '</div>'
 
 
-def _render_columna_tareas(
-    titulo: str, cls: str, subtitulo: str, tareas: list[dict]
+def _render_ag_barras(filas: list[tuple[str, int]], fill: str, filtrable: bool) -> str:
+    """Barras horizontales ordenadas por magnitud.
+
+    «Otros» va siempre al final y rayado: es el residuo de la clasificación,
+    no un cuerpo normativo, y ordenado por tamaño aparecía encabezando.
+    """
+    if not filas:
+        return '<p class="ag-vacio">Sin datos en este período.</p>'
+    orden = sorted(filas, key=lambda f: (f[0] == "Otros", -f[1]))
+    tope = max(n for _, n in orden) or 1
+    salida = []
+    for nombre, n in orden:
+        residual = " es-residual" if nombre == "Otros" else ""
+        titulo = f"Filtrar el calendario por {nombre}" if filtrable else f"{nombre}: {n}"
+        salida.append(
+            f'<button type="button" class="ag-hbar{residual}" '
+            f'data-cuerpo="{html.escape(nombre)}" title="{html.escape(titulo)}"'
+            f'{"" if filtrable else " disabled"}>'
+            f'<span class="ag-hbar-lbl">{html.escape(nombre)}</span>'
+            f'<span class="ag-hbar-track"><span class="ag-hbar-fill" '
+            f'style="width:{max(n / tope * 100, 3):.1f}%;--ag-fill:{fill}"></span></span>'
+            f'<span class="ag-hbar-val ag-num">{n}</span></button>'
+        )
+    return "".join(salida)
+
+
+def _render_ag_panel_cuerpo(
+    por_cuerpo: Counter, doce: Counter, total_ventana: int
 ) -> str:
-    vacia_cls = " vacia" if not tareas else ""
-    if tareas:
-        cards = "".join(_render_tarjeta_tarea(t) for t in tareas)
-    else:
-        cards = '<p class="cm-sin-tareas">Sin tareas en este plazo</p>'
+    """Un panel con conmutador en vez de dos gráficos gemelos.
+
+    Las dos medidas comparten forma y dimensión —cuerpo normativo— y sólo
+    cambia qué se cuenta, así que en paneles separados se leían como si fueran
+    lo mismo dos veces.
+    """
     return (
-        f'<div class="cm-columna {html.escape(cls)}{vacia_cls}">'
-        f'<header class="cm-cab">'
-        f'<div class="cm-cab-tit"><h3>{html.escape(titulo)}</h3>'
-        f'<span class="cm-count">{len(tareas)}</span></div>'
-        f'<span class="cm-sub">{html.escape(subtitulo)}</span>'
-        f'</header>'
-        f'<div class="cm-tareas">{cards}</div>'
-        f'</div>'
+        f'<section class="ag-panel">'
+        f'<div class="ag-panel-head"><h3>Por cuerpo normativo</h3>'
+        f'<div class="ag-switch" role="tablist" aria-label="Medida">'
+        f'<button type="button" role="tab" data-medida="tareas" aria-selected="true">Tareas</button>'
+        f'<button type="button" role="tab" data-medida="cambios" aria-selected="false">Cambios</button>'
+        f'</div></div>'
+        f'<p class="ag-sub" data-medida="tareas">Hitos de vigencia en la ventana. '
+        f'Una tarea puede tocar más de un cuerpo, así que las barras suman más '
+        f'que los {total_ventana} hitos. <b>Haz clic para filtrar el calendario.</b></p>'
+        f'<p class="ag-sub" data-medida="cambios" hidden>Documentos publicados en los '
+        f'últimos 12 meses. Mide actividad del regulador, no trabajo pendiente.</p>'
+        f'<div class="ag-medida" data-medida="tareas">'
+        f'{_render_ag_barras(list(por_cuerpo.items()), "var(--ag-dato-1)", True)}</div>'
+        f'<div class="ag-medida" data-medida="cambios" hidden>'
+        f'{_render_ag_barras(list(doce.items()), "var(--ag-dato-2)", False)}</div>'
+        f'</section>'
     )
+
+
+def _render_ag_panel_meses(calendario: list[dict], hoy: datetime) -> str:
+    tope = max((len(m["items"]) for m in calendario), default=0) or 1
+    cols, ejes = [], []
+    for m in calendario:
+        n = len(m["items"])
+        clases = " ".join(filter(None, [
+            "es-futuro" if m["offset"] > 0 else "",
+            "es-cero" if n == 0 else "",
+            "es-hoy" if m["offset"] == 0 else "",
+        ]))
+        cols.append(
+            f'<div class="ag-col {clases}" title="{html.escape(_mes_legible(m["mes"]))}: {n}">'
+            f'{"<span class=ag-seam></span>" if m["offset"] == 0 else ""}'
+            f'<span class="ag-col-n ag-num">{n}</span>'
+            f'<span class="ag-col-bar" style="height:{n / tope * 82:.1f}%"></span></div>'
+        )
+        mes_num = int(m["mes"][5:7])
+        etiqueta = m["mes"][2:4] if mes_num == 1 else _MESES_ES[mes_num - 1][0]
+        ejes.append(
+            f'<span class="ag-col-x{" es-hoy" if m["offset"] == 0 else ""}">'
+            f'{html.escape(etiqueta)}</span>'
+        )
+    return (
+        f'<section class="ag-panel"><h3>Proyectos por mes</h3>'
+        f'<p class="ag-sub">Seis meses cumplidos y seis por delante. '
+        f'La línea marca hoy.</p>'
+        f'<div class="ag-cols">{"".join(cols)}</div>'
+        f'<div class="ag-cols-x">{"".join(ejes)}</div>'
+        f'<div class="ag-legend">'
+        f'<span><i style="background:var(--ag-dato-pasado)"></i>Ya debió aplicarse</span>'
+        f'<span><i style="background:var(--ag-dato-1)"></i>Por venir</span>'
+        f'</div></section>'
+    )
+
+
+def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
+    """El punto ciego del eje temporal, declarado en vez de omitido."""
+    total = len(sin_fecha)
+    if not total:
+        return (
+            '<section class="ag-panel es-alerta"><h3>Obligaciones sin fecha</h3>'
+            '<p class="ag-sub">Todo lo que genera trabajo tiene una fecha asociada. '
+            'Nada queda fuera del calendario.</p></section>'
+        )
+    por_archivo = sum(1 for s in sin_fecha if s["_motivo"] == "archivo")
+    relativas = total - por_archivo
+    filas = "".join(
+        f'<div class="ag-sf-fila" title="{html.escape(ayuda)}">'
+        f'<div class="ag-sf-top"><span>{html.escape(nombre)}</span>'
+        f'<b class="ag-num">{n}</b></div>'
+        f'<div class="ag-sf-track"><div class="ag-sf-fill{cls}" '
+        f'style="width:{n / total * 100:.1f}%"></div></div></div>'
+        for nombre, n, cls, ayuda in (
+            ("Modifican un archivo del MSI", por_archivo, "",
+             "Generan obligación de reporte y no se pudo determinar desde cuándo"),
+            ("Plazo relativo, sin fecha", relativas, " es-alt",
+             "«120 días después de su emisión», «a contar de diciembre», sin día"),
+        )
+    )
+    lista = "".join(
+        f'<div class="ag-sf-item"><b>{html.escape(_etiqueta_documento(e))}</b>'
+        f'<span>{html.escape(_tema_corto(e, 70))}</span>'
+        f'<em>{html.escape(e.get("fecha") or "")}'
+        f'{_sufijo_archivos(e)}</em></div>'
+        for e in sin_fecha[:14]
+    )
+    return (
+        f'<section class="ag-panel es-alerta"><h3>Obligaciones sin fecha</h3>'
+        f'<p class="ag-sub">Generan trabajo pero no tienen cuándo, así que '
+        f'<b>no aparecen en el calendario</b>. Es el punto ciego de esta vista.</p>'
+        f'<div class="ag-sf-total"><b class="ag-num">{total}</b>'
+        f'<span>documentos fuera del calendario</span></div>{filas}'
+        f'<p class="ag-sf-pie">No es deuda de regex: la fecha viene entrelazada con '
+        f'el ciclo de reporte («al cierre de agosto y, por lo tanto, enviarse en '
+        f'septiembre»), y cuál de las dos rige es un juicio. Se resuelven anotando '
+        f'en <code>revisiones.csv</code>.</p>'
+        f'<details class="ag-datos"><summary>Ver las más recientes</summary>'
+        f'<div class="ag-sf-lista">{lista}</div></details></section>'
+    )
+
+
+def _tema_corto(e: dict, largo: int) -> str:
+    txt = " ".join((e.get("tema") or e.get("descripcion_cmf") or "").split())
+    return txt if len(txt) <= largo else txt[: largo - 1] + "…"
+
+
+def _sufijo_archivos(e: dict) -> str:
+    codigos = [a.get("nombre") for a in (e.get("archivos_afectados") or []) if a.get("nombre")]
+    return f" · {', '.join(codigos[:4])}" if codigos else ""
+
+
+_ROTULO_FUENTE = {
+    "seccion": ("", "sección", "Fecha declarada en la sección Vigencia del PDF"),
+    "clausula_aplicacion": ("es-clausula", "cláusula",
+                            "Deducida de una cláusula de aplicación — respaldo más frágil"),
+    "revision_manual": ("es-manual", "confirmada",
+                        "Confirmada a mano tras leer el PDF"),
+}
+
+
+def _render_ag_riel(
+    calendario: list[dict], hoy: datetime, n_sin_fecha: int, n_ventana: int
+) -> str:
+    """El eje temporal. Los meses vacíos consecutivos se apilan en un mazo.
+
+    El mes en curso nunca se apila, aunque esté vacío: es el ancla del eje y
+    esconderlo deja el riel sin punto de referencia.
+    """
+    piezas: list[str] = []
+    pendientes: list[dict] = []
+
+    def vaciar() -> None:
+        if pendientes:
+            piezas.append(_render_ag_mazo(pendientes))
+            pendientes.clear()
+
+    for m in calendario:
+        if not m["items"] and m["offset"] != 0:
+            pendientes.append(m)
+            continue
+        vaciar()
+        piezas.append(_render_ag_mes(m))
+    vaciar()
+
+    aviso = (
+        f'<div class="ag-nota-riel"><b class="ag-num">{n_sin_fecha}</b> '
+        f'obligaciones sin fecha determinada quedan fuera de este eje — '
+        f'están en el panel de arriba.</div>'
+        if n_sin_fecha else ""
+    )
+    return (
+        f'<div class="ag-sec-head"><h2>Calendario de vigencias</h2>'
+        f'<div class="ag-riel-ctrl">'
+        f'<span class="ag-hint">A la izquierda lo cumplido, a la derecha lo que viene</span>'
+        f'<button type="button" id="ag-izq" aria-label="Meses anteriores">‹</button>'
+        f'<button type="button" id="ag-hoy" class="es-hoy">Hoy</button>'
+        f'<button type="button" id="ag-der" aria-label="Meses siguientes">›</button>'
+        f'</div></div>'
+        f'{aviso}'
+        f'<div class="ag-filtro" id="ag-filtro" data-total="{n_ventana}"></div>'
+        f'<div class="ag-riel-outer">'
+        f'<div class="ag-riel" id="ag-riel" tabindex="0" role="region" '
+        f'aria-label="Calendario de vigencias, {len(calendario)} meses">'
+        f'{"".join(piezas)}</div></div>'
+    )
+
+
+def _render_ag_mes(m: dict) -> str:
+    estado = "es-pasado" if m["offset"] < 0 else ("es-hoy" if m["offset"] == 0 else "es-futuro")
+    mes_num = int(m["mes"][5:7])
+    if m["items"]:
+        cuerpo = "".join(_render_ag_tarjeta(h) for h in m["items"])
+    else:
+        cuerpo = (
+            '<div class="ag-mes-vacio"><span class="ag-regla"></span>'
+            '<span>No hay proyectos de cambio agendados para este mes</span></div>'
+        )
+    marca = (
+        '<span class="ag-hoy-chip">hoy</span>' if m["offset"] == 0
+        else f'<span class="ag-mes-n ag-num">{len(m["items"])}</span>'
+    )
+    return (
+        f'<article class="ag-mes {estado}" data-mes="{html.escape(m["mes"])}"'
+        f'{" id=ag-mes-hoy" if m["offset"] == 0 else ""}>'
+        f'<div class="ag-mes-head"><span class="ag-mes-nom">'
+        f'{html.escape(_MESES_ES[mes_num - 1])}<small>{html.escape(m["mes"][:4])}</small>'
+        f'</span>{marca}</div>'
+        f'<div class="ag-mes-body">{cuerpo}'
+        f'<div class="ag-mes-filtrado" hidden><span class="ag-regla"></span>'
+        f'<span>Ningún proyecto de este cuerpo normativo en el mes</span></div>'
+        f'</div></article>'
+    )
+
+
+def _render_ag_mazo(meses: list[dict]) -> str:
+    """Los meses sin actividad, uno sobre otro.
+
+    Apilarlos en vez de repetir tarjetas idénticas hace que el ojo salte los
+    tramos quietos, y de paso los vuelve visibles como tramo: cinco meses en
+    blanco seguidos dicen algo que cinco tarjetas iguales no dicen.
+    """
+    plural = len(meses) > 1
+    capas = "".join('<div class="ag-mazo-capa"></div>' for _ in range(min(len(meses) - 1, 2)))
+    etiquetas = "".join(
+        f'<span class="ag-mazo-mes">{html.escape(_MESES_ES[int(m["mes"][5:7]) - 1][:3])}'
+        f'<small> {html.escape(m["mes"][2:4])}</small></span>'
+        for m in meses
+    )
+    titulo = ", ".join(_mes_legible(m["mes"]) for m in meses)
+    return (
+        f'<div class="ag-mazo" title="{html.escape(titulo)}: sin actividad">'
+        f'<div class="ag-mazo-stack">{capas}'
+        f'<div class="ag-mazo-front"><div class="ag-mazo-meses">{etiquetas}</div>'
+        f'<span class="ag-regla"></span>'
+        f'<span class="ag-mazo-msg">No hay proyectos de cambio agendados para '
+        f'est{"os meses" if plural else "e mes"}</span>'
+        f'</div></div></div>'
+    )
+
+
+def _fecha_hito(h: dict) -> str:
+    """Día y mes, salvo cuando el documento sólo declaró el mes."""
+    iso = h["_fecha_aplicacion"]
+    mes = _MESES_ES[int(iso[5:7]) - 1][:3]
+    return mes if h.get("_precision") == "mes" else f"{int(iso[8:10])} {mes}"
+
+
+def _render_ag_tarjeta(h: dict) -> str:
+    cls_fuente, rotulo, ayuda = _ROTULO_FUENTE.get(
+        h.get("_fuente_vigencia") or "seccion", _ROTULO_FUENTE["seccion"]
+    )
+    cuerpos = [t for c, t, _ in GRUPOS_CUERPO_NORMATIVO if c in _grupos_de_entrada(h)]
+    archivos = [a for a in (h.get("archivos_afectados") or []) if a.get("nombre")][:4]
+    chips = "".join(filter(None, [
+        '<span class="ag-chip es-inm">vigencia inmediata</span>' if h.get("_inmediata") else "",
+        *(f'<span class="ag-chip es-archivo" title="Archivo del MSI'
+          f'{" · rige " + html.escape(str(a.get("vigencia"))) if a.get("vigencia") else ""}">'
+          f'{html.escape(str(a["nombre"]))}</span>' for a in archivos),
+        *(f'<span class="ag-chip">{html.escape(c)}</span>' for c in cuerpos),
+    ]))
+    saltos = "".join(
+        f'<button type="button" class="ag-chip es-norma" data-timeline="{html.escape(n)}" '
+        f'title="Ver la línea de tiempo de {html.escape(n)}">↗ {html.escape(n)}</button>'
+        for n in (h.get("_afectadas") or [])
+    )
+    url = h.get("url_documento")
+    pdf = (
+        f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF</a>'
+        if url else ""
+    )
+    return (
+        f'<div class="ag-tarea{" es-vencida" if h.get("_vencida") else ""}" '
+        f'data-cuerpos="{html.escape("|".join(cuerpos))}">'
+        f'<div class="ag-tarea-top">'
+        f'<span class="ag-tarea-norma">{html.escape(_etiqueta_documento(h))}</span>'
+        f'<span class="ag-tarea-fecha ag-num">{html.escape(_fecha_hito(h))}</span></div>'
+        f'<div class="ag-tarea-desc">{html.escape(_tema_corto(h, 90))}</div>'
+        f'<div class="ag-chips">{chips}</div>'
+        f'{f"<div class=ag-chips>{saltos}</div>" if saltos else ""}'
+        f'<div class="ag-tarea-links">{pdf}'
+        f'<button type="button" data-fila="{html.escape(h.get("clave") or "")}">'
+        f'Ver en el listado</button>'
+        f'<span class="ag-fuente {cls_fuente}" title="{html.escape(ayuda)}">{rotulo}</span>'
+        f'</div></div>'
+    )
+
+
+def _render_ag_lejanos(lejanos: list[dict], hoy: datetime) -> str:
+    if not lejanos:
+        return ""
+    por_fecha: dict[str, list[dict]] = {}
+    for h in lejanos:
+        por_fecha.setdefault(h["_fecha_aplicacion"], []).append(h)
+    ancla = _indice_mes(hoy)
+    grupos = []
+    for fecha in sorted(por_fecha):
+        items = por_fecha[fecha]
+        meses = (int(fecha[:4]) * 12 + int(fecha[5:7]) - 1) - ancla
+        filas = "".join(
+            f'<div class="ag-lejos-item">'
+            f'<span class="ag-lejos-norma">{html.escape(_etiqueta_documento(h))}</span>'
+            f'<span class="ag-lejos-desc">{html.escape(_tema_corto(h, 120))}</span></div>'
+            for h in items
+        )
+        grupos.append(
+            f'<div class="ag-lejos-grupo"><div class="ag-lejos-fecha">'
+            f'<b class="ag-num">{int(fecha[8:10])} '
+            f'{html.escape(_MESES_ES[int(fecha[5:7]) - 1][:3])} {fecha[:4]}</b>'
+            f'<span>en {meses} meses · {len(items)} '
+            f'{"tarea" if len(items) == 1 else "tareas"}</span></div>'
+            f'<div class="ag-lejos-items">{filas}</div></div>'
+        )
+    ultima = max(por_fecha)
+    return (
+        f'<div class="ag-sec-head"><h2>Más allá de {MESES_AGENDA} meses</h2>'
+        f'<span class="ag-hint">{len(lejanos)} tareas en {len(por_fecha)} fechas, '
+        f'hasta {html.escape(_mes_legible(ultima[:7]))}</span></div>'
+        f'<div class="ag-lejos">{"".join(grupos)}</div>'
+    )
+
 
 
 def _render_cambios_relevantes(
@@ -1013,57 +1461,6 @@ def _render_fila_cuerpo(
         f'</tr>{detalle_row}'
     )
 
-
-def _render_tarjeta_tarea(t: dict) -> str:
-    fecha_apl = t.get("_fecha_aplicacion", "—")
-    dias = t.get("_dias_restantes", 0)
-    # Negativo = ya rige, y se lee "hace N días"; positivo = falta.
-    if dias == 0:
-        dias_txt = "hoy"
-    elif dias < 0:
-        n = -dias
-        dias_txt = f'hace {n} día{"s" if n != 1 else ""}'
-    else:
-        dias_txt = f'en {dias} día{"s" if dias != 1 else ""}'
-    normas = ", ".join(_normas_afectadas(t)) or "—"
-    resumen = _resumen_minimo(t)
-    bullets = t.get("resumen_acciones") or []
-    archivos = t.get("archivos_afectados") or []
-
-    n = len(bullets)
-    conteo_html = ""
-    if n:
-        conteo_html = (
-            f'<p class="cm-conteo"><b>{n}</b> cambio{"s" if n != 1 else ""} '
-            f'especificado{"s" if n != 1 else ""} en el documento</p>'
-        )
-
-    detalle_html = _render_detalle_tarea(bullets, archivos, t.get("vigencia"))
-    tiene_detalle = bool(detalle_html)
-
-    url = t.get("url_documento") or ""
-    pdf_link = (
-        f'<a class="cm-link" href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
-        if url else ""
-    )
-    detalle_link = (
-        '<a class="cm-link cm-detalle-toggle" href="javascript:void(0)" '
-        'onclick="toggleDetalleTarea(this)">Detalle de cambios →</a>'
-        if tiene_detalle else ""
-    )
-    tipo = _tipo_tag(t.get("tipo_acuerdo", "Otro"))
-    return (
-        f'<article class="cm-tarea">'
-        f'<header class="cm-fecha"><b>{html.escape(fecha_apl)}</b> '
-        f'<span class="cm-dias">· {dias_txt}</span></header>'
-        f'<div class="cm-meta">{tipo}'
-        f'<span class="cm-norma">{html.escape(normas)}</span></div>'
-        f'<p class="cm-resumen">{html.escape(resumen)}</p>'
-        f'{conteo_html}'
-        f'<div class="cm-acciones">{pdf_link}{detalle_link}</div>'
-        f'{detalle_html}'
-        f'</article>'
-    )
 
 
 def _render_detalle_tarea(
@@ -1825,28 +2222,358 @@ _TEMPLATE = """<!DOCTYPE html>
         animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     }
 
-    /* Cuadro de mando */
-    #cm-encabezado { display: flex; justify-content: space-between; align-items: center;
-                     padding: var(--space-3) var(--space-1) var(--space-4);
-                     font-size: var(--fs-sm); color: var(--text-body); }
-    #cm-encabezado b { color: var(--text-strong); font-size: var(--fs-lg); }
-    .cm-hoy { color: var(--text-muted); font-size: var(--fs-xs); }
-    #cuadro-mando { display: flex; gap: var(--space-4); align-items: flex-start; }
-    .cm-pila-vacias { display: flex; flex-direction: column; gap: var(--space-3);
-                      flex: 0 0 auto; }
-    /* Card + barra de acento superior (el borde expresivo del sistema): el
-       color lo pone cada .col-* según urgencia. */
-    .cm-columna { background: var(--surface-card);
-                  border: var(--border-w) solid var(--border-subtle);
-                  border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
-                  border-top: var(--accent-bar-w) solid var(--border-default);
-                  display: flex; flex-direction: column; overflow: hidden;
-                  flex: 1 1 0; min-width: 280px; }
-    .cm-columna.vacia { flex: 0 0 auto; min-width: auto; opacity: 0.7; }
-    .cm-columna.vacia .cm-tareas { padding: 0; }
-    .cm-sin-tareas { padding: var(--space-2) var(--space-4); color: var(--text-muted);
-                     font-size: var(--fs-xs); font-style: italic;
-                     text-align: center; white-space: nowrap; }
+    /* ── Agenda de tareas ──────────────────────────────────────────────
+       Los pasos de dato son los de la rampa CMF, pero un escalón más claro
+       que los de marca: el morado 700 no pasa la banda de luminosidad para
+       rellenos sobre superficie clara. */
+    #agenda { --ag-dato-1: var(--cmf-purple-500);
+              --ag-dato-2: var(--cmf-teal);
+              --ag-dato-3: var(--cmf-warning);
+              --ag-dato-pasado: var(--cmf-ink-300);
+              --ag-grid: rgba(44,44,43,.10); }
+    .ag-num { font-variant-numeric: tabular-nums; }
+    .ag-de { color: var(--text-faint); }
+    .ag-vacio { font-size: var(--fs-xs); color: var(--text-muted); font-style: italic; }
+    .ag-regla { display: block; width: 22px; height: 1px; background: var(--border-default); }
+
+    /* Buscador */
+    .ag-buscador { margin-bottom: var(--space-5); }
+    .ag-caja { display: flex; align-items: center; gap: var(--space-2);
+               background: var(--surface-card);
+               border: var(--border-w) solid var(--border-default);
+               border-radius: var(--radius-md); padding: 0 var(--space-3);
+               transition: border-color var(--dur-fast) var(--ease-standard); }
+    .ag-caja:focus-within { border-color: var(--color-brand);
+                            box-shadow: 0 0 0 3px var(--color-brand-tint); }
+    .ag-caja svg { flex: none; color: var(--text-faint); }
+    .ag-caja input { flex: 1; border: 0; background: none; font: inherit;
+                     font-size: var(--fs-body); color: var(--text-strong);
+                     padding: 11px 0; outline: none; min-width: 0; }
+    .ag-x { border: 0; background: none; color: var(--text-faint); cursor: pointer;
+            font-size: var(--fs-lg); line-height: 1; padding: 4px; }
+    .ag-x:hover { color: var(--color-brand); }
+    .ag-ejemplos { display: flex; flex-wrap: wrap; gap: var(--space-1);
+                   align-items: center; margin-top: var(--space-2);
+                   font-size: var(--fs-xs); color: var(--text-faint); }
+    .ag-ejemplos button { border: var(--border-w) solid var(--border-subtle);
+                          background: var(--surface-card); color: var(--text-muted);
+                          font: inherit; font-size: var(--fs-xs);
+                          font-weight: var(--fw-semibold); padding: 2px 9px;
+                          border-radius: var(--radius-pill); cursor: pointer;
+                          font-variant-numeric: tabular-nums; }
+    .ag-ejemplos button:hover { border-color: var(--color-brand); color: var(--color-brand); }
+    .ag-respuesta { margin-top: var(--space-3); }
+    .ag-frase { font-size: var(--fs-body); color: var(--text-strong);
+                line-height: var(--lh-normal); padding: var(--space-3) var(--space-4);
+                border-radius: var(--radius-md); background: var(--color-brand-tint-faint);
+                border-left: var(--accent-bar-w) solid var(--color-brand); margin: 0; }
+    .ag-frase.es-nada { background: var(--surface-sunken); color: var(--text-muted);
+                        border-left-color: var(--border-default); }
+    .ag-frase b { color: var(--color-brand-strong); }
+    .ag-hits { margin-top: var(--space-2);
+               border: var(--border-w) solid var(--border-subtle);
+               border-radius: var(--radius-md); overflow: hidden;
+               display: grid; gap: 1px; background: var(--border-subtle); }
+    .ag-hit { background: var(--surface-card); padding: var(--space-3) var(--space-4);
+              display: grid; grid-template-columns: 1fr auto; gap: 4px var(--space-4);
+              align-items: baseline; }
+    .ag-hit-norma { font-size: var(--fs-sm); font-weight: var(--fw-bold);
+                    color: var(--text-strong); }
+    .ag-hit-norma a { color: inherit; }
+    .ag-hit-meta { font-size: var(--fs-xs); color: var(--text-muted);
+                   font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+    .ag-hit-desc, .ag-hit-chips { grid-column: 1 / -1; }
+    .ag-hit-desc { font-size: var(--fs-xs); color: var(--text-muted);
+                   line-height: var(--lh-normal); }
+    .ag-hit-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+    .ag-hit mark { background: var(--cmf-warning-bg); color: inherit;
+                   border-radius: 2px; padding: 0 2px; }
+    .ag-hits-mas { background: var(--surface-sunken); padding: var(--space-2) var(--space-4);
+                   font-size: var(--fs-xs); color: var(--text-muted); }
+    .ag-estado { font-size: 10px; font-weight: var(--fw-bold);
+                 letter-spacing: var(--ls-wide); padding: 1px 7px;
+                 border-radius: var(--radius-pill); white-space: nowrap; }
+    .ag-estado.es-futuro { background: var(--color-brand-tint); color: var(--color-brand-strong); }
+    .ag-estado.es-pasado { background: var(--surface-sunken); color: var(--text-muted); }
+    .ag-estado.es-sinfecha { background: var(--cmf-warning-bg); color: var(--ink-on-warning-bg); }
+    .ag-estado.es-sinvigencia { background: var(--surface-sunken); color: var(--text-faint); }
+
+    /* Cifras */
+    .ag-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1px; background: var(--border-subtle);
+                border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-md); overflow: hidden;
+                margin-bottom: var(--space-5); }
+    .ag-stat { background: var(--surface-card); padding: var(--space-3) var(--space-4); }
+    .ag-stat b { display: block; font-size: var(--fs-h2); font-weight: var(--fw-regular);
+                 color: var(--text-strong); line-height: var(--lh-tight); }
+    .ag-stat span { display: block; font-size: var(--fs-xs); color: var(--text-muted);
+                    margin-top: 4px; }
+    .ag-stat.es-clave b { color: var(--color-brand); }
+
+    /* Paneles */
+    .ag-paneles { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                  gap: var(--space-4); margin-bottom: var(--space-6); }
+    .ag-panel { background: var(--surface-card);
+                border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-lg); padding: var(--space-5);
+                box-shadow: var(--shadow-xs); min-width: 0; }
+    .ag-panel h3 { margin: 0; font-size: var(--fs-sm); font-weight: var(--fw-semibold); }
+    .ag-panel .ag-sub { font-size: var(--fs-xs); color: var(--text-muted);
+                        margin: 4px 0 var(--space-4); line-height: var(--lh-normal); }
+    .ag-panel-head { display: flex; align-items: center; justify-content: space-between;
+                     gap: var(--space-3); }
+    .ag-switch { display: inline-flex; background: var(--surface-sunken);
+                 border-radius: var(--radius-pill); padding: 2px; }
+    .ag-switch button { border: 0; background: none; font: inherit; font-size: var(--fs-xs);
+                        font-weight: var(--fw-semibold); color: var(--text-muted);
+                        padding: 3px 10px; border-radius: var(--radius-pill); cursor: pointer; }
+    .ag-switch button[aria-selected="true"] { background: var(--surface-card);
+                        color: var(--color-brand); box-shadow: var(--shadow-xs); }
+
+    .ag-hbar { display: grid; grid-template-columns: 86px 1fr 28px; align-items: center;
+               gap: var(--space-2); margin-bottom: 7px; font-size: var(--fs-xs);
+               width: 100%; border: 0; background: none; padding: 0; font-family: inherit;
+               text-align: left; cursor: pointer; }
+    .ag-hbar:disabled { cursor: default; }
+    .ag-hbar-lbl { color: var(--text-body); text-align: right; overflow: hidden;
+                   text-overflow: ellipsis; white-space: nowrap; }
+    .ag-hbar-track { background: var(--surface-sunken); border-radius: var(--radius-pill);
+                     height: 14px; }
+    .ag-hbar-fill { display: block; height: 100%; border-radius: var(--radius-pill);
+                    background: var(--ag-fill, var(--ag-dato-1)); }
+    .ag-hbar:hover:not(:disabled) .ag-hbar-lbl { color: var(--color-brand); }
+    .ag-hbar-val { font-variant-numeric: tabular-nums; color: var(--text-muted);
+                   font-weight: var(--fw-semibold); }
+    .ag-hbar.es-off { opacity: .35; }
+    /* «Otros» es el residuo de la clasificación, no un cuerpo normativo: va
+       rayado para que no se lea como la categoría más activa. */
+    .ag-hbar.es-residual .ag-hbar-fill {
+        background: repeating-linear-gradient(135deg, var(--ag-dato-pasado) 0 5px,
+                                              transparent 5px 10px);
+        border: var(--border-w) solid var(--ag-dato-pasado); }
+    .ag-hbar.es-residual .ag-hbar-lbl { color: var(--text-faint); font-style: italic; }
+
+    .ag-cols { display: flex; align-items: flex-end; gap: 2px; height: 132px;
+               border-bottom: var(--border-w) solid var(--border-default);
+               position: relative; margin-bottom: 6px; }
+    .ag-cols::before, .ag-cols::after { content: ""; position: absolute;
+               left: 0; right: 0; height: 1px; background: var(--ag-grid); }
+    .ag-cols::before { top: 33%; } .ag-cols::after { top: 66%; }
+    .ag-col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+              align-items: center; height: 100%; position: relative; min-width: 0; }
+    .ag-col-bar { width: 100%; background: var(--ag-dato-pasado); border-radius: 4px 4px 0 0; }
+    .ag-col.es-futuro .ag-col-bar { background: var(--ag-dato-1); }
+    .ag-col.es-cero .ag-col-bar { height: 2px !important; background: var(--border-default);
+                                  border-radius: 0; opacity: .7; }
+    .ag-col-n { font-size: 10px; font-variant-numeric: tabular-nums;
+                color: var(--text-muted); margin-bottom: 3px; font-weight: var(--fw-semibold); }
+    .ag-col.es-cero .ag-col-n { color: var(--text-faint); font-weight: var(--fw-regular); }
+    .ag-seam { position: absolute; top: -4px; bottom: -1px; width: 2px;
+               background: var(--color-brand); opacity: .55; }
+    .ag-cols-x { display: flex; gap: 2px; }
+    .ag-col-x { flex: 1; text-align: center; font-size: 9px; color: var(--text-faint);
+                text-transform: uppercase; letter-spacing: var(--ls-wide); }
+    .ag-col-x.es-hoy { color: var(--color-brand); font-weight: var(--fw-bold); }
+    .ag-legend { display: flex; flex-wrap: wrap; gap: var(--space-3);
+                 margin-top: var(--space-3); font-size: var(--fs-xs); color: var(--text-muted); }
+    .ag-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px;
+                   margin-right: 5px; vertical-align: -1px; }
+
+    /* Panel de obligaciones sin fecha: el punto ciego del eje temporal. */
+    .ag-panel.es-alerta { border-color: var(--cmf-warning);
+                          background: linear-gradient(180deg, var(--cmf-warning-bg) 0 60px,
+                                                       var(--surface-card) 60px); }
+    .ag-sf-total { display: flex; align-items: baseline; gap: var(--space-2);
+                   margin-bottom: var(--space-4); }
+    .ag-sf-total b { font-size: var(--fs-h1); line-height: 1;
+                     color: var(--ink-on-warning-bg); font-weight: var(--fw-regular); }
+    .ag-sf-total span { font-size: var(--fs-xs); color: var(--text-body); }
+    .ag-sf-fila { margin-bottom: var(--space-3); }
+    .ag-sf-top { display: flex; justify-content: space-between; align-items: baseline;
+                 font-size: var(--fs-xs); margin-bottom: 5px; color: var(--text-muted); }
+    .ag-sf-top b { color: var(--text-strong); font-variant-numeric: tabular-nums; }
+    .ag-sf-track { height: 8px; background: var(--surface-sunken);
+                   border-radius: var(--radius-pill); }
+    .ag-sf-fill { height: 100%; border-radius: var(--radius-pill); background: var(--ag-dato-3); }
+    .ag-sf-fill.es-alt { background: repeating-linear-gradient(135deg,
+                         var(--ag-dato-3) 0 6px, var(--cmf-warning-bg) 6px 12px); }
+    .ag-sf-pie { font-size: var(--fs-xs); color: var(--text-muted);
+                 line-height: var(--lh-normal);
+                 border-top: var(--border-w) solid var(--border-subtle);
+                 padding-top: var(--space-3); margin: var(--space-4) 0 0; }
+    .ag-datos summary { font-size: var(--fs-xs); color: var(--text-muted); cursor: pointer; }
+    .ag-datos summary:hover { color: var(--color-brand); }
+    .ag-sf-lista { margin-top: var(--space-2); max-height: 210px; overflow-y: auto;
+                   display: grid; gap: 1px; background: var(--border-subtle);
+                   border: var(--border-w) solid var(--border-subtle);
+                   border-radius: var(--radius-sm); }
+    .ag-sf-item { background: var(--surface-card); padding: 7px 10px; font-size: var(--fs-xs); }
+    .ag-sf-item b { display: block; color: var(--text-strong); }
+    .ag-sf-item span { color: var(--text-muted); display: block; overflow: hidden;
+                       text-overflow: ellipsis; white-space: nowrap; margin-top: 2px; }
+    .ag-sf-item em { font-style: normal; color: var(--text-faint); font-size: 10px; }
+
+    /* Riel de calendario */
+    .ag-sec-head { display: flex; align-items: baseline; justify-content: space-between;
+                   gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-3); }
+    .ag-sec-head h2 { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-semibold); }
+    .ag-hint { font-size: var(--fs-xs); color: var(--text-muted); }
+    .ag-riel-ctrl { display: inline-flex; align-items: center; gap: 4px; }
+    .ag-riel-ctrl .ag-hint { margin-right: 6px; }
+    .ag-riel-ctrl button { border: var(--border-w) solid var(--border-default);
+                           background: var(--surface-card); color: var(--text-muted);
+                           font: inherit; font-size: var(--fs-sm);
+                           font-weight: var(--fw-semibold); cursor: pointer; height: 28px;
+                           min-width: 28px; padding: 0 9px; border-radius: var(--radius-sm); }
+    .ag-riel-ctrl button:hover:not(:disabled) { border-color: var(--color-brand);
+                           color: var(--color-brand); }
+    .ag-riel-ctrl button:disabled { opacity: .4; cursor: default; }
+    .ag-riel-ctrl .es-hoy { color: var(--color-brand); border-color: var(--color-brand-soft); }
+    .ag-nota-riel { font-size: var(--fs-xs); color: var(--text-muted);
+                    margin-bottom: var(--space-3); }
+    .ag-nota-riel b { color: var(--ink-on-warning-bg); font-variant-numeric: tabular-nums; }
+    .ag-filtro { display: flex; align-items: center; gap: var(--space-2);
+                 font-size: var(--fs-xs); margin-bottom: var(--space-3); min-height: 26px;
+                 color: var(--text-muted); }
+    .ag-filtro-pill { display: inline-flex; align-items: center; gap: 7px;
+                      background: var(--color-brand-tint); color: var(--color-brand-strong);
+                      border-radius: var(--radius-pill); padding: 3px 6px 3px 12px;
+                      font-weight: var(--fw-semibold); }
+    .ag-filtro-pill button { border: 0; background: var(--color-brand);
+                      color: var(--text-on-brand); width: 16px; height: 16px;
+                      border-radius: 50%; cursor: pointer; font-size: var(--fs-xs);
+                      line-height: 1; padding: 0; font-family: inherit; }
+
+    .ag-riel-outer { background: var(--surface-sunken);
+                     border: var(--border-w) solid var(--border-subtle);
+                     border-radius: var(--radius-lg); padding: var(--space-4) 0 6px;
+                     margin-bottom: var(--space-6); position: relative; }
+    /* Difuminado en los bordes: dice "hay más hacia allá" sin ocupar espacio.
+       Se apaga al llegar al extremo, para no prometer contenido que no hay. */
+    .ag-riel-outer::before, .ag-riel-outer::after { content: ""; position: absolute;
+                     top: 1px; bottom: 14px; width: 44px; pointer-events: none; z-index: 2;
+                     opacity: 0; transition: opacity var(--dur-base) var(--ease-standard); }
+    .ag-riel-outer::before { left: 1px;
+                     background: linear-gradient(90deg, var(--surface-sunken) 25%, transparent); }
+    .ag-riel-outer::after { right: 1px;
+                     background: linear-gradient(270deg, var(--surface-sunken) 25%, transparent); }
+    .ag-riel-outer.puede-izq::before, .ag-riel-outer.puede-der::after { opacity: 1; }
+    .ag-riel { display: flex; gap: var(--space-3); overflow-x: auto;
+               padding: 0 var(--space-4) var(--space-4); align-items: stretch;
+               scroll-snap-type: x proximity; }
+    .ag-mes { flex: 0 0 232px; scroll-snap-align: center; background: var(--surface-card);
+              border: var(--border-w) solid var(--border-subtle);
+              border-radius: var(--radius-md); display: flex; flex-direction: column;
+              overflow: hidden; }
+    .ag-mes-head { padding: 11px var(--space-3) 9px;
+                   border-bottom: var(--border-w) solid var(--border-subtle);
+                   display: flex; align-items: baseline; justify-content: space-between;
+                   gap: var(--space-2); }
+    .ag-mes-nom { font-size: var(--fs-sm); color: var(--text-strong);
+                  text-transform: capitalize; }
+    .ag-mes-nom small { font-size: var(--fs-xs); color: var(--text-faint); margin-left: 5px; }
+    .ag-mes-n { font-size: var(--fs-xs); font-weight: var(--fw-bold); color: var(--text-muted);
+                font-variant-numeric: tabular-nums; background: var(--surface-sunken);
+                border-radius: var(--radius-pill); padding: 2px 8px; }
+    .ag-mes.es-pasado .ag-mes-head { background: var(--surface-sunken); }
+    .ag-mes.es-hoy { border-color: var(--color-brand);
+                     box-shadow: 0 0 0 2px var(--color-brand-tint); }
+    .ag-mes.es-hoy .ag-mes-head { background: var(--color-brand-tint-faint);
+                     border-bottom-color: var(--color-brand-soft); }
+    .ag-mes.es-hoy .ag-mes-nom { color: var(--color-brand-strong); }
+    .ag-hoy-chip { font-size: 9px; font-weight: var(--fw-bold); letter-spacing: var(--ls-caps);
+                   text-transform: uppercase; color: var(--text-on-brand);
+                   background: var(--color-brand); padding: 2px 7px;
+                   border-radius: var(--radius-pill); }
+    .ag-mes-body { padding: var(--space-2); display: flex; flex-direction: column;
+                   gap: var(--space-2); flex: 1; }
+    .ag-mes-vacio, .ag-mes-filtrado { display: flex; flex-direction: column;
+                   align-items: center; justify-content: center; gap: 9px; flex: 1;
+                   padding: var(--space-3) var(--space-2); text-align: center;
+                   font-size: var(--fs-xs); color: var(--text-faint); }
+
+    .ag-tarea { border-left: 3px solid var(--ag-dato-1); background: var(--surface-sunken);
+                border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-2) 10px; }
+    .ag-tarea.es-vencida { border-left-color: var(--ag-dato-3); }
+    .ag-tarea-top { display: flex; align-items: baseline; justify-content: space-between;
+                    gap: var(--space-2); }
+    .ag-tarea-norma { font-size: var(--fs-xs); font-weight: var(--fw-bold);
+                      color: var(--text-strong); }
+    .ag-tarea-fecha { font-size: 10px; color: var(--text-muted);
+                      font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .ag-tarea-desc { font-size: 10.5px; color: var(--text-muted); line-height: var(--lh-normal);
+                     margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2;
+                     -webkit-box-orient: vertical; overflow: hidden; }
+    .ag-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; align-items: center; }
+    .ag-chip { font-size: 9px; padding: 1px 6px; border-radius: var(--radius-pill);
+               background: var(--color-brand-tint); color: var(--color-brand-strong);
+               font-weight: var(--fw-semibold); border: 0; font-family: inherit; }
+    .ag-chip.es-inm { background: var(--cmf-warning-bg); color: var(--ink-on-warning-bg); }
+    .ag-chip.es-archivo { background: var(--cmf-teal-50); color: var(--color-accent-deep);
+                          font-variant-numeric: tabular-nums; }
+    .ag-chip.es-norma { background: none; border: var(--border-w) solid var(--border-default);
+                        color: var(--text-muted); cursor: pointer; }
+    .ag-chip.es-norma:hover { border-color: var(--color-brand); color: var(--color-brand); }
+    .ag-tarea-links { display: flex; gap: 10px; margin-top: 7px; font-size: 9.5px;
+                      align-items: center; }
+    .ag-tarea-links a, .ag-tarea-links button { color: var(--color-brand);
+                      text-decoration: none; border: 0; background: none; padding: 0;
+                      font: inherit; font-weight: var(--fw-semibold); cursor: pointer; }
+    .ag-tarea-links a:hover, .ag-tarea-links button:hover { text-decoration: underline; }
+    /* La procedencia de la fecha no es decorativa: `sección` la declara el
+       PDF, `cláusula` es un respaldo más frágil y `confirmada` la puso una
+       persona. Mostrarlas iguales sería repetir el bug de las fechas
+       inventadas. */
+    .ag-fuente { display: inline-flex; align-items: center; gap: 4px;
+                 font-size: 9px; color: var(--text-faint); margin-left: auto; }
+    .ag-fuente::before { content: ""; width: 5px; height: 5px; border-radius: 50%;
+                         background: var(--ag-dato-2); }
+    .ag-fuente.es-clausula::before { background: var(--ag-dato-3); }
+    .ag-fuente.es-manual::before { background: var(--color-brand); }
+
+    /* El mazo: meses sin actividad, uno sobre otro. */
+    .ag-mazo { flex: 0 0 108px; scroll-snap-align: center; position: relative;
+               display: flex; align-items: stretch; padding: 5px 6px 5px 0; }
+    .ag-mazo-stack { position: relative; flex: 1; }
+    .ag-mazo-capa { position: absolute; inset: 0;
+                    border: var(--border-w) dashed var(--border-default);
+                    border-radius: var(--radius-md); background: var(--surface-card); }
+    .ag-mazo-capa:nth-child(1) { transform: translate(6px, -5px); opacity: .4; }
+    .ag-mazo-capa:nth-child(2) { transform: translate(3px, -2.5px); opacity: .65; }
+    .ag-mazo-front { position: relative; height: 100%;
+                     border: var(--border-w) dashed var(--border-default);
+                     border-radius: var(--radius-md); background: var(--surface-card);
+                     display: flex; flex-direction: column; align-items: center;
+                     justify-content: center; gap: 9px; padding: var(--space-3) var(--space-2);
+                     text-align: center; }
+    .ag-mazo-meses { display: flex; flex-direction: column; gap: 2px; }
+    .ag-mazo-mes { font-size: var(--fs-xs); color: var(--text-faint);
+                   text-transform: capitalize; }
+    .ag-mazo-msg { font-size: 9.5px; color: var(--text-faint); line-height: 1.35; }
+
+    /* Más allá del riel */
+    .ag-lejos { background: var(--surface-card);
+                border: var(--border-w) solid var(--border-subtle);
+                border-radius: var(--radius-lg); overflow: hidden; }
+    .ag-lejos-grupo { border-top: var(--border-w) solid var(--border-subtle);
+                      display: grid; grid-template-columns: 156px 1fr; }
+    .ag-lejos-grupo:first-child { border-top: 0; }
+    .ag-lejos-fecha { padding: var(--space-3) var(--space-4); background: var(--surface-sunken);
+                      border-right: var(--border-w) solid var(--border-subtle); }
+    .ag-lejos-fecha b { display: block; font-size: var(--fs-lg); color: var(--text-strong);
+                        font-weight: var(--fw-regular); font-variant-numeric: tabular-nums; }
+    .ag-lejos-fecha span { font-size: var(--fs-xs); color: var(--text-muted); }
+    .ag-lejos-items { padding: var(--space-2) var(--space-4); display: flex;
+                      flex-direction: column; }
+    .ag-lejos-item { display: flex; align-items: baseline; gap: var(--space-3);
+                     padding: 7px 0; border-bottom: 1px dotted var(--border-subtle); }
+    .ag-lejos-item:last-child { border-bottom: 0; }
+    .ag-lejos-norma { font-size: var(--fs-sm); font-weight: var(--fw-bold);
+                      color: var(--text-strong); flex: 0 0 122px; }
+    .ag-lejos-desc { font-size: var(--fs-xs); color: var(--text-muted); flex: 1;
+                     min-width: 0; overflow: hidden; text-overflow: ellipsis;
+                     white-space: nowrap; }
 
     /* Revisión manual: cambios de archivo sin fecha de vigencia.
        Es el componente Alert en tono warning —fondo tintado y barra de
@@ -2005,56 +2732,12 @@ _TEMPLATE = """<!DOCTYPE html>
                            border-bottom: var(--border-w-thick) solid var(--border-subtle); }
     .cr-vacio { padding: var(--space-6); color: var(--text-muted);
                 text-align: center; font-style: italic; }
-    .cm-cab { padding: var(--space-3) var(--space-4); background: var(--cmf-ink-50);
-              border-bottom: var(--border-w) solid var(--border-subtle); }
-    .cm-cab-tit { display: flex; justify-content: space-between; align-items: center; }
-    .cm-cab h3 { font-size: var(--fs-sm); font-weight: var(--fw-bold);
-                 color: var(--text-strong); }
     /* Antetítulo del sistema: mayúsculas con tracking amplio */
-    .cm-sub { font-size: var(--fs-xs); color: var(--text-muted);
-              text-transform: uppercase; letter-spacing: var(--ls-caps);
-              font-weight: var(--fw-semibold); }
-    .cm-count { background: var(--surface-card);
-                border: var(--border-w) solid var(--border-subtle);
-                border-radius: var(--radius-pill); padding: 4px 10px;
-                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
-                letter-spacing: var(--ls-wide); line-height: 1;
-                color: var(--text-body); }
     /* Retrospectiva: lo que ya debió implementarse, por mes. Iba en violeta
        para no mezclarla con la escala de urgencia futura de las columnas, y
        ese sigue siendo el criterio — pero ahora el morado es el color de
        marca y está en todas partes, así que el que distingue es el índigo
        #3F3A7E de la paleta de apoyo: misma familia, distinto rol. */
-    #retrospectiva { margin-top: var(--space-6);
-                     border-top: var(--border-w) solid var(--border-subtle);
-                     padding-top: var(--space-5); }
-    .rt-head { display: flex; align-items: center; gap: var(--space-2); }
-    #retrospectiva h2 { font-size: var(--fs-body); margin: 0; border: none;
-                        padding: 0; background: none; color: var(--cmf-indigo); }
-    .rt-total { background: var(--cmf-indigo); color: var(--cmf-white);
-                border-radius: var(--radius-pill); padding: 4px 9px;
-                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
-                letter-spacing: var(--ls-wide); line-height: 1; }
-    .rt-intro { font-size: var(--fs-sm); color: var(--text-muted);
-                margin: var(--space-2) 0 var(--space-3); max-width: 78ch;
-                line-height: var(--lh-normal); }
-    .rt-vacio { font-size: var(--fs-sm); color: var(--text-muted);
-                font-style: italic; }
-    .rt-mes { margin-bottom: var(--space-4);
-              border: var(--border-w) solid var(--border-subtle);
-              border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
-              overflow: hidden; background: var(--surface-card); }
-    .rt-mes-actual { border-color: var(--cmf-indigo);
-                     border-left: var(--accent-bar-w) solid var(--cmf-indigo); }
-    .rt-cab { display: flex; align-items: center; gap: var(--space-2);
-              padding: var(--space-2) var(--space-3); background: var(--cmf-ink-50);
-              border-bottom: var(--border-w) solid var(--border-subtle); }
-    .rt-cab h3 { margin: 0; font-size: var(--fs-sm); color: var(--cmf-indigo);
-                 text-transform: capitalize; }
-    .rt-count { background: var(--cmf-info-bg); color: var(--cmf-indigo);
-                border-radius: var(--radius-pill); padding: 4px 9px;
-                font-size: var(--fs-xs); font-weight: var(--fw-semibold);
-                letter-spacing: var(--ls-wide); line-height: 1; }
     .rt-inm { margin-left: var(--space-1); background: var(--cmf-info-bg);
               color: var(--cmf-indigo); border-radius: var(--radius-pill);
               padding: 3px 8px; font-size: var(--fs-xs);
@@ -2062,17 +2745,6 @@ _TEMPLATE = """<!DOCTYPE html>
               line-height: 1; }
     /* Escala de urgencia sobre los tokens funcionales: danger → warning →
        navy. El navy es el "info" del sistema, así que reemplaza al azul. */
-    .col-30 { border-top-color: var(--cmf-danger); }
-    .col-30 .cm-cab { background: var(--cmf-danger-bg); }
-    .col-30 .cm-cab h3 { color: var(--ink-on-danger-bg); }
-    .col-60 { border-top-color: var(--cmf-warning); }
-    .col-60 .cm-cab { background: var(--cmf-warning-bg); }
-    .col-60 .cm-cab h3 { color: var(--ink-on-warning-bg); }
-    .col-90 { border-top-color: var(--cmf-navy); }
-    .col-90 .cm-cab { background: var(--cmf-info-bg); }
-    .col-90 .cm-cab h3 { color: var(--cmf-navy); }
-    .cm-tareas { padding: var(--space-3); display: flex; flex-direction: column;
-                 gap: var(--space-2); max-height: 70vh; overflow-y: auto; }
     /* Card interactiva */
     .cm-tarea { border: var(--border-w) solid var(--border-subtle);
                 border-radius: var(--radius-md); padding: var(--space-2) var(--space-3);
@@ -2082,22 +2754,14 @@ _TEMPLATE = """<!DOCTYPE html>
                             border-color var(--dur-base) var(--ease-standard); }
     .cm-tarea:hover { box-shadow: var(--shadow-md); transform: translateY(-2px);
                       border-color: var(--border-default); }
-    .cm-fecha { font-size: var(--fs-sm); color: var(--color-brand);
-                margin-bottom: var(--space-2); }
-    .cm-fecha b { color: var(--text-strong); font-weight: var(--fw-bold); }
-    .cm-dias { color: var(--text-muted); }
     .cm-meta { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;
                margin-bottom: var(--space-2); }
-    .cm-norma { color: var(--color-brand); font-weight: var(--fw-medium);
-                font-size: var(--fs-xs); }
     .cm-resumen { font-size: var(--fs-sm); color: var(--text-strong);
                   line-height: var(--lh-normal); font-weight: var(--fw-medium);
                   margin-bottom: var(--space-2); }
     .cm-conteo { font-size: var(--fs-xs); color: var(--text-muted);
                  margin: 0 0 var(--space-2); }
     .cm-conteo b { color: var(--color-brand); font-size: var(--fs-sm); }
-    .cm-acciones { display: flex; gap: var(--space-3); margin-top: var(--space-2);
-                   flex-wrap: wrap; }
     .cm-link { font-size: var(--fs-sm); }
     .cm-detalle-toggle { cursor: pointer; }
     .cm-detalle { display: none; margin-top: var(--space-2);
@@ -2110,10 +2774,6 @@ _TEMPLATE = """<!DOCTYPE html>
                     font-weight: var(--fw-bold); text-transform: uppercase;
                     letter-spacing: var(--ls-caps); color: var(--text-muted);
                     margin-bottom: var(--space-1); }
-    .cm-bullets { font-size: var(--fs-xs); color: var(--text-body);
-                  line-height: var(--lh-normal); padding-left: var(--space-5);
-                  display: flex; flex-direction: column; gap: 3px; }
-    .cm-bullets li::marker { color: var(--text-faint); }
     .cm-archivos { font-size: var(--fs-xs); padding-left: 0; list-style: none;
                    display: flex; flex-direction: column; gap: 3px; }
     .cm-archivos .chip { margin-right: var(--space-1); }
@@ -2274,8 +2934,6 @@ _TEMPLATE = """<!DOCTYPE html>
     @media (max-width: 900px) {
       /* #cuadro-mando es flex, no grid: la regla anterior fijaba
          grid-template-columns y por eso no hacía nada. */
-      #cuadro-mando { flex-direction: column; }
-      .cm-pila-vacias { flex-direction: row; flex-wrap: wrap; }
     }
     @media (max-width: 800px) {
       .detalle { grid-template-columns: 1fr; }
@@ -2458,6 +3116,261 @@ _TEMPLATE = """<!DOCTYPE html>
     const vacio = document.querySelector('#timeline .tl-sin-resultados');
     if (vacio) vacio.style.display = gruposVisibles ? 'none' : '';
   }
+
+  /* ── Agenda de tareas ─────────────────────────────────────────────── */
+  (function () {
+    const raiz = document.getElementById('agenda');
+    if (!raiz) return;
+    const AG = JSON.parse(document.getElementById('ag-datos').textContent);
+    const riel = document.getElementById('ag-riel');
+    const cajaFiltro = document.getElementById('ag-filtro');
+    let filtro = null;
+
+    const esc = s => String(s ?? '').replace(/[&<>"]/g,
+      c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const corta = (s, n) => { s = String(s || '').trim();
+      return s.length > n ? s.slice(0, n - 1) + '…' : s; };
+
+    /* ── Centrado del riel ──────────────────────────────────────────
+       Se mide con getBoundingClientRect y no con offsetLeft: offsetLeft
+       cuenta desde el ancestro posicionado —.ag-riel-outer— y no desde el
+       contenedor que hace scroll, así que el riel abría en el primer mes,
+       que es justo el que no dice nada. El rAF espera a que el navegador
+       termine de maquetar; medir antes devuelve ceros. */
+    function centrarEnHoy(suave) {
+      requestAnimationFrame(function () {
+        const hoyEl = document.getElementById('ag-mes-hoy');
+        if (!hoyEl) return;
+        const r = riel.getBoundingClientRect(), h = hoyEl.getBoundingClientRect();
+        const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        riel.scrollTo({ left: riel.scrollLeft + (h.left - r.left) - (r.width - h.width) / 2,
+                        behavior: suave && !quieto ? 'smooth' : 'auto' });
+        bordes();
+      });
+    }
+
+    function bordes() {
+      const caja = riel.parentElement;
+      const max = riel.scrollWidth - riel.clientWidth;
+      caja.classList.toggle('puede-izq', riel.scrollLeft > 4);
+      caja.classList.toggle('puede-der', riel.scrollLeft < max - 4);
+      document.getElementById('ag-izq').disabled = riel.scrollLeft <= 4;
+      document.getElementById('ag-der').disabled = riel.scrollLeft >= max - 4;
+    }
+
+    function correr(dir) {
+      const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      riel.scrollBy({ left: dir * Math.max(riel.clientWidth * 0.7, 244),
+                      behavior: quieto ? 'auto' : 'smooth' });
+    }
+
+    /* ── Filtro por cuerpo normativo ────────────────────────────────
+       Un solo estado manda sobre las barras y sobre el riel. Con estados
+       separados divergen, que es exactamente cómo la línea de tiempo y la
+       tabla del Listado llegaron a mostrar cosas distintas.
+
+       Los meses ya apilados en un mazo no se recalculan al filtrar: el mazo
+       describe los meses estructuralmente vacíos, y un mes que el filtro
+       deja sin tarjetas muestra el aviso en su lugar. Recolapsar haría
+       saltar el riel entero con cada clic. */
+    function aplicarFiltro() {
+      let visibles = 0;
+      riel.querySelectorAll('.ag-mes').forEach(function (mes) {
+        let n = 0;
+        mes.querySelectorAll('.ag-tarea').forEach(function (t) {
+          const calza = !filtro || (t.dataset.cuerpos || '').split('|').includes(filtro);
+          t.hidden = !calza;
+          if (calza) n++;
+        });
+        const propio = mes.querySelector('.ag-mes-vacio');
+        const filtrado = mes.querySelector('.ag-mes-filtrado');
+        const tieneTareas = mes.querySelector('.ag-tarea') !== null;
+        if (filtrado) filtrado.hidden = !(filtro && tieneTareas && n === 0);
+        if (propio) propio.hidden = filtro !== null && tieneTareas;
+        const badge = mes.querySelector('.ag-mes-n');
+        if (badge) badge.textContent = n;
+        visibles += n;
+      });
+      raiz.querySelectorAll('.ag-medida[data-medida="tareas"] .ag-hbar').forEach(function (b) {
+        b.classList.toggle('es-off', filtro !== null && b.dataset.cuerpo !== filtro);
+      });
+      const total = cajaFiltro.dataset.total;
+      cajaFiltro.innerHTML = filtro
+        ? '<span class="ag-filtro-pill">' + esc(filtro) + ' · ' + visibles +
+          (visibles === 1 ? ' hito' : ' hitos') +
+          ' <button type="button" aria-label="Quitar el filtro">×</button></span>' +
+          '<span>El calendario y el conteo siguen al filtro.</span>'
+        : '<span>Sin filtro · ' + total + ' hitos en la ventana. ' +
+          'Haz clic en una barra de «Por cuerpo normativo» para acotar.</span>';
+      centrarEnHoy(false);
+    }
+
+    /* ── Buscador ───────────────────────────────────────────────────
+       Busca sobre TODO el corpus y no sobre la ventana del calendario: si
+       mirara sólo los meses del riel, «no hay cambios normativos en
+       relación con el archivo consultado» sería falso para casi todo. */
+    const IX = AG.indice;
+    /* Sólo se quita el símbolo de grado, no la letra que lo precede: con
+       n[°ºo] la «no» de «norma» también calzaba y quedaba en «rma». */
+    const norm = s => String(s || '').toLowerCase().normalize('NFD')
+      .replace(/[̀-ͯ]/g, '').replace(/[°º]/g, '')
+      .replace(/[.\\s]+/g, ' ').trim();
+    const ES_ARCHIVO = /^[a-z]{1,3}\\s*\\d{2,3}$/i;
+    const ESTADOS = { futuro: 'por aplicarse', pasado: 'ya aplicado',
+                      sinfecha: 'sin fecha', sinvigencia: 'sin vigencia declarada' };
+    IX.forEach(function (e) {
+      e._h = norm([e.n, e.d, e.a.join(' '), e.m.join(' '), e.g.join(' '), e.c].join(' '));
+    });
+
+    function buscar(q) {
+      const n = norm(q);
+      if (!n) return [];
+      const codigo = ES_ARCHIVO.test(q.trim()) ? n.replace(/\\s/g, '') : null;
+      return IX.map(function (e) {
+        let peso = 0;
+        if (codigo && e.a.some(a => norm(a).replace(/\\s/g, '') === codigo)) peso = 4;
+        else if (norm(e.n).includes(n)) peso = 3;
+        else if (e.m.some(m => norm(m).includes(n))) peso = 2;
+        else if (e._h.includes(n)) peso = 1;
+        return peso ? { e: e, peso: peso } : null;
+      }).filter(Boolean)
+        .sort((a, b) => b.peso - a.peso || (b.e.f || '').localeCompare(a.e.f || ''))
+        .map(x => x.e);
+    }
+
+    /* El resaltado busca sobre el texto crudo, sólo insensible a mayúsculas:
+       plegar acentos cambia el largo de la cadena y el <mark> queda corrido. */
+    function resaltar(txt, q) {
+      const t = String(txt || ''), term = q.trim();
+      if (term.length < 2) return esc(t);
+      const i = t.toLowerCase().indexOf(term.toLowerCase());
+      if (i < 0) return esc(t);
+      return esc(t.slice(0, i)) + '<mark>' + esc(t.slice(i, i + term.length)) +
+             '</mark>' + esc(t.slice(i + term.length));
+    }
+
+    const TOPE = 12;
+    function responder(q) {
+      const caja = document.getElementById('ag-respuesta');
+      document.getElementById('ag-q-x').hidden = !q.trim();
+      if (!q.trim()) { caja.innerHTML = ''; return; }
+      const hits = buscar(q), term = q.trim(), esArchivo = ES_ARCHIVO.test(term);
+
+      let frase;
+      if (!hits.length) {
+        frase = esArchivo
+          ? 'No hay cambios normativos en relación con el archivo consultado.'
+          : 'No hay cambios normativos en relación con «' + esc(term) + '».';
+      } else if (esArchivo) {
+        const cabeza = 'El archivo <b>' + esc(term.toUpperCase()) + '</b> está incluido en ';
+        if (hits.length === 1) {
+          const h = hits[0];
+          frase = cabeza + 'el cambio normativo <b>' + esc(h.n) + '</b>' +
+            (h.v && h.v.slice(0, 2) === '20' ? ', con vigencia desde el ' + esc(h.v) : '') + '.';
+        } else {
+          frase = cabeza + '<b>' + hits.length + '</b> cambios normativos.';
+        }
+      } else {
+        frase = hits.length === 1
+          ? '«' + esc(term) + '» aparece en un cambio normativo: <b>' + esc(hits[0].n) + '</b>.'
+          : '«' + esc(term) + '» aparece en <b>' + hits.length + '</b> cambios normativos.';
+      }
+
+      const filas = hits.slice(0, TOPE).map(function (e) {
+        const vig = e.v && e.v.slice(0, 2) === '20' ? 'rige ' + e.v : (e.v || '—');
+        const norma = e.u
+          ? '<a href="' + esc(e.u) + '" target="_blank" rel="noopener">' + resaltar(e.n, term) + '</a>'
+          : resaltar(e.n, term);
+        return '<div class="ag-hit"><span class="ag-hit-norma">' + norma + '</span>' +
+          '<span class="ag-hit-meta">' + esc(e.f) + ' · ' + esc(vig) + '</span>' +
+          '<span class="ag-hit-desc">' + resaltar(corta(e.d, 130), term) + '</span>' +
+          '<span class="ag-hit-chips"><span class="ag-estado es-' + e.s + '">' +
+          ESTADOS[e.s] + '</span>' +
+          e.a.map(a => '<span class="ag-chip es-archivo">' + resaltar(a, term) + '</span>').join('') +
+          e.g.map(g => '<span class="ag-chip">' + esc(g) + '</span>').join('') +
+          '</span></div>';
+      }).join('');
+
+      caja.innerHTML = '<p class="ag-frase' + (hits.length ? '' : ' es-nada') + '">' + frase + '</p>' +
+        (hits.length ? '<div class="ag-hits">' + filas +
+          (hits.length > TOPE
+            ? '<div class="ag-hits-mas">y ' + (hits.length - TOPE) +
+              ' más — afina la búsqueda para verlos.</div>'
+            : '') + '</div>' : '');
+    }
+
+    const q = document.getElementById('ag-q');
+    q.addEventListener('input', () => responder(q.value));
+    document.getElementById('ag-q-x').addEventListener('click', function () {
+      q.value = ''; responder(''); q.focus();
+    });
+
+    /* Un solo manejador para todo lo pinchable de la agenda. */
+    raiz.addEventListener('click', function (ev) {
+      const ejemplo = ev.target.closest('.ag-ejemplos button[data-q]');
+      if (ejemplo) { q.value = ejemplo.dataset.q; return responder(ejemplo.dataset.q); }
+
+      const medida = ev.target.closest('.ag-switch button[data-medida]');
+      if (medida) {
+        const cual = medida.dataset.medida;
+        raiz.querySelectorAll('.ag-switch button').forEach(b =>
+          b.setAttribute('aria-selected', String(b.dataset.medida === cual)));
+        raiz.querySelectorAll('.ag-medida, .ag-sub[data-medida]').forEach(el => {
+          el.hidden = el.dataset.medida !== cual;
+        });
+        return;
+      }
+
+      const barra = ev.target.closest('.ag-medida[data-medida="tareas"] .ag-hbar');
+      if (barra && !barra.disabled) {
+        filtro = filtro === barra.dataset.cuerpo ? null : barra.dataset.cuerpo;
+        return aplicarFiltro();
+      }
+      if (ev.target.closest('#ag-filtro button')) { filtro = null; return aplicarFiltro(); }
+
+      const tl = ev.target.closest('[data-timeline]');
+      if (tl) return irATimeline(tl.dataset.timeline);
+      const fila = ev.target.closest('[data-fila]');
+      if (fila) return irAFila(fila.dataset.fila);
+    });
+
+    /* Los saltos no duplican el detalle: llevan a donde ya está. */
+    function irAListado() {
+      const btn = document.querySelector('#tabs .tab[data-tab="listado"]');
+      if (btn) setTab(btn);
+    }
+    function irAFila(clave) {
+      irAListado();
+      const fila = document.querySelector('#tabla tr[data-clave="' + CSS.escape(clave) + '"]');
+      if (!fila) return;
+      const detalle = fila.nextElementSibling;
+      if (detalle && detalle.classList.contains('detail-row') && detalle.dataset.open !== '1') {
+        toggleDetail(fila);
+      }
+      fila.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      fila.classList.add('nueva');
+    }
+    function irATimeline(norma) {
+      irAListado();
+      const buscada = norma.trim();
+      for (const g of document.querySelectorAll('#timeline .tl-norma')) {
+        const h = g.querySelector('h3');
+        // El h3 lleva el nombre y además los badges de conteo y desglose, así
+        // que se compara sólo el primer nodo de texto.
+        if (h && (h.firstChild.textContent || '').trim() === buscada) {
+          g.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          return;
+        }
+      }
+    }
+
+    document.getElementById('ag-izq').addEventListener('click', () => correr(-1));
+    document.getElementById('ag-der').addEventListener('click', () => correr(1));
+    document.getElementById('ag-hoy').addEventListener('click', () => centrarEnHoy(true));
+    riel.addEventListener('scroll', bordes, { passive: true });
+    addEventListener('resize', bordes);
+    aplicarFiltro();
+  })();
 </script>
 
 </body>
