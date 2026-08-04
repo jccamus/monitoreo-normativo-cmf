@@ -1127,8 +1127,17 @@ def _tema_corto(e: dict, largo: int) -> str:
 
 
 def _sufijo_archivos(e: dict) -> str:
+    """Códigos de archivo del MSI, ya escapados.
+
+    Escapa acá y no en quien llama: el valor se interpola directo en el HTML,
+    y el resto de este módulo escapa en el punto de interpolación, así que un
+    helper que devuelve texto crudo se lee como si ya estuviera a salvo. Hoy
+    el patrón del parser sólo produce letras y dígitos (`_COD_ARCHIVO`), pero
+    eso es una propiedad de otro archivo y puede cambiar sin que nadie mire
+    esta línea.
+    """
     codigos = [a.get("nombre") for a in (e.get("archivos_afectados") or []) if a.get("nombre")]
-    return f" · {', '.join(codigos[:4])}" if codigos else ""
+    return f" · {html.escape(', '.join(str(c) for c in codigos[:4]))}" if codigos else ""
 
 
 _ROTULO_FUENTE = {
@@ -3356,8 +3365,10 @@ _TEMPLATE = """<!DOCTYPE html>
       for (const g of document.querySelectorAll('#timeline .tl-norma')) {
         const h = g.querySelector('h3');
         // El h3 lleva el nombre y además los badges de conteo y desglose, así
-        // que se compara sólo el primer nodo de texto.
-        if (h && (h.firstChild.textContent || '').trim() === buscada) {
+        // que se compara sólo el primer nodo de texto. El `?.` es por si algún
+        // día el h3 queda vacío: sin él, un solo grupo así corta el bucle con
+        // un TypeError y el salto deja de funcionar para todas las normas.
+        if (h && (h.firstChild?.textContent || '').trim() === buscada) {
           g.scrollIntoView({ block: 'center', behavior: 'smooth' });
           return;
         }

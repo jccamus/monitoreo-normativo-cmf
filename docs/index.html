@@ -2435,8 +2435,10 @@ Nº 1352, DE 23 DE OCTUBRE DE 1997.</p></div><div class="d-bloque d-warn"><span 
       for (const g of document.querySelectorAll('#timeline .tl-norma')) {
         const h = g.querySelector('h3');
         // El h3 lleva el nombre y además los badges de conteo y desglose, así
-        // que se compara sólo el primer nodo de texto.
-        if (h && (h.firstChild.textContent || '').trim() === buscada) {
+        // que se compara sólo el primer nodo de texto. El `?.` es por si algún
+        // día el h3 queda vacío: sin él, un solo grupo así corta el bucle con
+        // un TypeError y el salto deja de funcionar para todas las normas.
+        if (h && (h.firstChild?.textContent || '').trim() === buscada) {
           g.scrollIntoView({ block: 'center', behavior: 'smooth' });
           return;
         }
