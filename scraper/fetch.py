@@ -74,9 +74,24 @@ HEADERS = {
 }
 
 
-TIMEOUT_LISTADO = 300   # 5 minutos para la página principal
+# Los timeouts van separados a propósito. `requests` aplica un timeout escalar
+# tanto al handshake TCP como a la lectura del cuerpo, y acá los dos casos no se
+# parecen en nada: leer el listado son 5,4 MB que legítimamente tardan un minuto,
+# pero una conexión que no se abrió en 15 s no se va a abrir nunca. El 05-08-2026
+# la CMF quedó inalcanzable desde el runner y los tres intentos gastaron
+# ConnectTimeout de 300 s cada uno: 8 min 32 s de reloj para tres handshakes que
+# fallaban en el primer segundo. Con el connect acotado, esa misma corrida habría
+# agotado los reintentos en ~2 min.
+TIMEOUT_CONEXION = 15   # abrir la conexión TCP
+TIMEOUT_LISTADO = 300   # 5 minutos para leer la página principal
 TIMEOUT_PDF     = 120   # 2 minutos por PDF
-MAX_REINTENTOS  = 3
+# 5 y no 3 porque el connect acotado liberó reloj: cinco intentos contra un host
+# caído son ~6 min, y la caída del 05-08-2026 duró más que los 8 min que aguantaba
+# la configuración anterior. El techo lo pone el otro modo de falla, el 200 sin
+# tabla, que sí lee hasta TIMEOUT_LISTADO: 5·300 s + 300 s de backoff = 30 min.
+# Por eso `timeout-minutes` del workflow subió a 45 — si lo bajas de nuevo, baja
+# también este número, o el job muere por timeout de GitHub y sin log de error.
+MAX_REINTENTOS  = 5
 
 
 def _pause():
@@ -100,7 +115,9 @@ def _get_con_reintentos(
     for intento in range(1, MAX_REINTENTOS + 1):
         try:
             logger.info("Intento %d/%d: %s", intento, MAX_REINTENTOS, url[:80])
-            r = requests.get(url, headers=HEADERS, timeout=timeout)
+            r = requests.get(
+                url, headers=HEADERS, timeout=(TIMEOUT_CONEXION, timeout)
+            )
             r.raise_for_status()
             if validar is None or validar(r):
                 return r

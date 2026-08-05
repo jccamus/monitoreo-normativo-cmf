@@ -11,7 +11,9 @@ permissions:
 jobs:
   monitoreo:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # 45 y no 30: el peor caso de fetch.MAX_REINTENTOS son 30 min justos, así que
+    # 30 dejaba al job muriendo por timeout de GitHub en vez de fallar con log.
+    timeout-minutes: 45
 
     steps:
       - name: Checkout repositorio
