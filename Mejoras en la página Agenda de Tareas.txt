@@ -1,0 +1,7 @@
+Mejoras en la página Agenda de Tareas
+
+Necesito hacer un cambio en la página Agenda de Tareas para mejorar la información acerca del conjunto de actividades que se desprenden de la información disponible que se ha obtenido a partir de la revisión de las fuentes de datos. La idea es la siguiente:
+1. La sección Tareas con vigencia futura se reemplaza con un dashboard con tres gráficos: a) gráfico con actividades separadas por cuerpo normativo; b) número de proyectos a realizar con un gráfico que muestre los 6 meses pasados y los 6 meses siguientes; c) gráfico que muestre el cuerpo normativo que ha recibido más cambios en los pasados 12 meses.
+2. La sección Debió implementarse se funde con la actual sección Tareas con vigencia futura y muestra un calendario de actividades organizado de manera horizontal. Hacia la izquierda y con scroll aparece lo anterior al día actual con 6 tarjetas, una por mes y hacia la derecha, lo mismo, con los siguientes meses.
+3. Aparece una zona inferior llamada Más allá de 6 ,eeses y muestra una lista de tareas que corresponda a lo que está agendado para los períodos posteriores a los cubiertos por la sección2.
+Todo esto me interesa verlo en un artefacto antes de hacerlo. Y en caso de hacerlo, que este sea un proyecto nuevo, tipo rama de los anteriores.
