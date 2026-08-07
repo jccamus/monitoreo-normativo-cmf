@@ -24,7 +24,6 @@ intactos y la anotación manda sin necesidad de reparsear nada.
 import csv
 import logging
 import re
-from datetime import datetime
 from pathlib import Path
 
 logger = logging.getLogger(__name__)

@@ -37,8 +37,9 @@ archivo llegó a describir columnas del dashboard que no existían en el código
 Si encuentras una ruta que empiece con `proyecto/`, está vieja.
 
 - **`scraper/`** — el pipeline. Ver «Arquitectura» más abajo.
-- **`data/`** — el estado: `state.json` (claves vistas), `daily/YYYY-MM-DD.json`
-  (diferenciales) y `revisiones.csv` (anotaciones manuales).
+- **`data/`** — el estado: `state.json` (claves vistas y sello de la última
+  consulta), `daily/YYYY-MM-DD.json` (diferenciales) y `revisiones.csv`
+  (anotaciones manuales).
 - **`docs/`** — lo que sirve GitHub Pages. `index.html` es generado; no lo edites
   a mano, se reescribe en cada corrida.
 - **`openspec/`** — la propuesta, el diseño y las tareas del cambio original
@@ -89,8 +90,9 @@ Tests: no hay tests. Valida los cambios corriendo `main.py` y revisando el nuevo
 hermanos (`from fetch import …`). Córrelo como `python scraper/main.py` para que
 Python agregue `scraper/` al `sys.path` automáticamente. NO lo "arregles"
 convirtiéndolo en un paquete para correrlo como `python -m scraper.main` — los
-imports se van a romper. Existe un `scraper/__init__.py` vacío que hace parecer
-lo contrario: es vestigial, no lo tomes como señal de que el paquete funciona.
+imports se van a romper. Hubo un `scraper/__init__.py` vacío que hacía parecer
+lo contrario; se eliminó el 07-08-2026 justamente porque inducía a ese error. No
+lo vuelvas a crear.
 
 ## Arquitectura del pipeline
 
@@ -108,9 +110,21 @@ lo contrario: es vestigial, no lo tomes como señal de que el paquete funciona.
    devolver `[]`, que aguas abajo se leería como "sin novedades"— y **un HTTP 200
    sin tabla cuenta como intento fallido**, vía el parámetro `validar` de
    `_get_con_reintentos`.
-2. **`diff.get_nuevas(resoluciones)`** — carga `data/state.json` (`{"seen": [...]}`,
-   claves `YYYY_NNNN`), se queda con las no vistas y le estampa `_key` a cada
-   una. `diff.commit_nuevas` escribe las claves de vuelta al final.
+2. **`diff.get_nuevas(resoluciones)`** — carga `data/state.json`, se queda con
+   las no vistas y le estampa `_key` a cada una. `diff.commit_nuevas` escribe
+   las claves de vuelta al final.
+
+   `state.json` tiene dos llaves: `seen` (las claves `YYYY_NNNN`) y
+   `ultima_consulta` (ISO con hora, lo que el dashboard rotula «Última
+   actualización»). Lo escribe `diff.registrar_consulta()`, que `main.py` llama
+   **apenas el fetch resulta y antes del corte por «sin novedades»**: un día sin
+   resoluciones nuevas igual es un día en que se revisó. Consecuencia operativa:
+   **`state.json` cambia todos los días**, así que el commit diario lo incluye
+   aunque no haya novedades.
+
+   Al tocar `diff._save_state`, lee y reescribe el archivo completo. Emitir
+   `{"seen": ...}` a secas borra `ultima_consulta`, y sólo los días con
+   novedades — o sea, falla de forma intermitente.
 3. **`fetch.fetch_pdf(url)`** — descarga el PDF de cada resolución nueva.
 4. **`parser.parse_pdf(pdf_bytes, url)`** — texto con pdfplumber, respaldo
    PyMuPDF, y luego regex de dominio para poblar `ncg`, `resolucion`, `sesion`,
@@ -136,10 +150,11 @@ lo contrario: es vestigial, no lo tomes como señal de que el paquete funciona.
    `*.json.corrupt-<timestamp>` en vez de descartarse en silencio.
 6. **`dashboard.generar_html()`** — lee `data/daily/`, aplana y arma
    `docs/index.html` de una pasada. Es el módulo más grande con diferencia
-   (~3.400 líneas, más de la mitad de la base de código) porque el HTML/CSS/JS va en
+   (~3.900 líneas, más de la mitad de la base de código) porque el HTML/CSS/JS va en
    línea en `_TEMPLATE` más funciones `_render_*`; no hay paso de build. Rinde
    **cuatro** pestañas:
-   - **Agenda de tareas** — un **calendario horizontal** de ±`MESES_AGENDA`
+   - **Agenda de tareas** — el **«Calendario de modificaciones»**, un riel
+     horizontal de ±`MESES_AGENDA`
      meses alrededor de hoy (`_calendario_agenda`). La unidad no es el
      documento sino el **hito**: una fecha en que algo entra a regir
      (`_hitos_agenda`), así que un documento con dos plazos en meses distintos
@@ -162,6 +177,12 @@ lo contrario: es vestigial, no lo tomes como señal de que el paquete funciona.
      y plazos relativos. Se declaran en vez de omitirse: un calendario que las
      esconde miente por omisión.
 
+     Entre los paneles y el riel va **«Último cambio publicado»**
+     (`_render_ag_ultimo`): la resolución más reciente, con enlace a su fila en
+     el Listado. Reusa `_render_detalle` —el mismo detalle de la tabla— y el
+     mismo orden que `_render_tabla`, así que «lo último» y «la primera fila de
+     allá» no pueden divergir. Si cambias uno, cambia el otro.
+
      El buscador (`_indice_busqueda`) mira **todo el corpus, no la ventana**.
      Si mirara sólo los 13 meses del riel, «no hay cambios normativos en
      relación con el archivo consultado» sería falso para casi todo.
@@ -179,6 +200,22 @@ lo contrario: es vestigial, no lo tomes como señal de que el paquete funciona.
      (`_normas_afectadas`, que descarta el número propio cuando el documento *es*
      una NCG). Y la línea de tiempo **sigue a la tabla por `data-clave`** en vez
      de reimplementar el filtrado.
+
+### Dos reglas del front-end que se rompen solas si no las conoces
+
+**El estado de un desplegable va en una clase, nunca en `style.display`.** Un
+`display` en línea le gana a cualquier media query, y la vista de celular
+convierte las tablas en tarjetas: una fila abierta tiene que poder ser `block`
+allá y `table-row` acá. Por eso `toggleDetail`, `toggleDetalleCR` y
+`aplicarFiltros` conmutan `.abierto` y el CSS decide por breakpoint. Si escribes
+`elemento.style.display = 'table-row'`, el celular se rompe en silencio: se ve
+bien hasta que alguien abre un detalle.
+
+**Bajo 640px todas las tablas son tarjetas.** `#tabla-resoluciones`, `.cr-tabla`
+y «Más allá de N meses» pasan a `display: block` y sus filas a `grid` con
+`grid-template-areas`. Consecuencia: **cada `<td>` necesita clase**, incluidas
+las que en escritorio no la necesitaban, porque una celda sin nombre no se puede
+colocar en la grilla. Si agregas una columna, dale clase y ubícala en las áreas.
 
 ## Los modos de falla que no se ven
 
@@ -511,7 +548,8 @@ bug** — pero es lo primero que hay que revisar cuando una resolución aparece 
 `.github/workflows/monitoreo.yml` corre `python scraper/main.py` a diario a las
 11:00 UTC (≈ 8:00 AM de Chile en verano) y luego hace commit de cualquier cambio
 bajo `data/` y `docs/` de vuelta al repo. GitHub Pages sirve `/docs`. El runner
-tiene permiso `contents: write` y un timeout de 30 minutos.
+tiene permiso `contents: write` y un timeout de 45 minutos, atado al peor caso
+de `fetch.MAX_REINTENTOS` (ver su comentario: si bajas uno, baja el otro).
 
 **El workflow commitea a `main`.** Un arreglo que viva en otra rama no llega a
 producción hasta que se mergea. Y como el repo local no se actualiza solo, es fácil

@@ -628,7 +628,7 @@ def _parse_vigencia_seccion(segmento: str, num_rom: str, seccion_vigencia: str) 
     )
     m = patron_sec.search(seccion_vigencia)
     if m:
-        return _clasificar_vigencia(m.group(1))
+        return _parse_vigencia_global(m.group(1))
     return _parse_vigencia_global(seccion_vigencia)
 
 
@@ -774,9 +774,6 @@ def _parse_vigencia_global(texto_vigencia: str | None) -> dict:
 
     return resultado
 
-
-def _clasificar_vigencia(texto: str) -> dict:
-    return _parse_vigencia_global(texto)
 
 
 def _parse_ran(text: str) -> list[str]:

@@ -101,7 +101,7 @@ def _pause():
 def _get_con_reintentos(
     url: str,
     timeout: int = TIMEOUT_LISTADO,
-    validar: "Callable[[requests.Response], bool] | None" = None,
+    validar: Callable[[requests.Response], bool] | None = None,
 ) -> requests.Response | None:
     """GET con reintentos y backoff lineal (30 s · número de intento).
 
@@ -314,30 +314,6 @@ def _filtrar_desde(resoluciones: list[dict], from_date: str) -> list[dict]:
         except (ValueError, TypeError):
             resultado.append(r)  # incluir si no hay fecha
     return resultado
-
-
-def _es_fecha(texto: str) -> bool:
-    return bool(re.match(r"\d{1,2}[/-]\d{1,2}[/-]\d{2,4}", texto.strip()))
-
-
-def _normalizar_fecha(texto: str) -> str:
-    """Convierte fecha dd/mm/aaaa o dd-mm-aaaa a formato ISO YYYY-MM-DD."""
-    m = re.search(r"(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})", texto)
-    if not m:
-        return texto
-    d, mo, y = m.group(1), m.group(2), m.group(3)
-    if len(y) == 2:
-        y = "20" + y
-    return f"{y}-{int(mo):02d}-{int(d):02d}"
-
-
-def _es_numero_resolucion(texto: str) -> bool:
-    return bool(re.match(r"^[\d.]+$", texto.strip()))
-
-
-def _extraer_numero(texto: str) -> str | None:
-    m = re.search(r"(\d+)", texto)
-    return m.group(1) if m else None
 
 
 def _extraer_numero_de_texto(texto: str) -> str | None:

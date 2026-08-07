@@ -103,9 +103,6 @@ def inferir_tipo_acuerdo(descripcion: str) -> str:
     return inferir_tipos_acuerdo(descripcion)[0]
 
 
-# El dashboard lo recalcula al renderizar sobre el histórico ya guardado.
-_inferir_tipo_acuerdo = inferir_tipo_acuerdo
-
 
 def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     """Combina los datos del listado HTML con el parsing del PDF."""
@@ -129,7 +126,7 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
         "sesion": parsed.get("sesion"),
         "ncg": parsed.get("ncg"),
         "documento": parsed.get("documento"),
-        "tipo_acuerdo": _inferir_tipo_acuerdo(raw.get("descripcion", "")),
+        "tipo_acuerdo": inferir_tipo_acuerdo(raw.get("descripcion", "")),
         "descripcion_cmf": raw.get("descripcion", ""),
         "url_documento": raw.get("url_documento"),
         "parsed": parsed.get("parsed", False),
@@ -141,7 +138,7 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     # es el caso de casi toda circular u oficio circular. Pero ese documento
     # igual pudo aportar vigencia, capítulos RAN, referencias MSI o el bloque
     # REF. Condicionar el guardado al flag tiraba todo eso a la basura: el
-    # dashboard construye el Cuadro de mando a partir de `vigencia` y las
+    # dashboard construye la Agenda de tareas a partir de `vigencia` y las
     # tarjetas a partir de `tema`/`resumen_acciones`, así que las pestañas
     # quedaban vacías para el 83% de las entradas.
     modifica = parsed.get("modifica") or []
