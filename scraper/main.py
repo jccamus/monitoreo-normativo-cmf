@@ -4,7 +4,7 @@ import logging
 import sys
 
 from fetch import fetch_listado, fetch_pdf
-from diff import get_nuevas, commit_nuevas
+from diff import get_nuevas, commit_nuevas, registrar_consulta
 from parser import parse_pdf
 from store import ensamblar_entrada, guardar_diferencial
 from dashboard import generar_html
@@ -22,6 +22,13 @@ def main() -> None:
 
     # 1. Obtener resoluciones relevantes del sitio CMF
     resoluciones = fetch_listado(from_date=args.from_date)
+
+    # Acá, y no más abajo: `fetch_listado` aborta el proceso si no logra traer
+    # ni una fila, así que llegar a esta línea ya significa que la consulta a la
+    # CMF resultó. Es lo que el dashboard muestra como «Última actualización»,
+    # y va antes del corte por «sin novedades» de más abajo: un día sin
+    # resoluciones nuevas igual es un día en que se revisó.
+    registrar_consulta()
 
     # 2. Filtrar solo las nuevas (diferencial)
     nuevas_raw = get_nuevas(resoluciones)

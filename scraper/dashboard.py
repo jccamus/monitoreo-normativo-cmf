@@ -23,7 +23,9 @@ import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+import diff
 import revisiones
 import store
 
@@ -377,7 +379,7 @@ def _fechas_futuras(entrada: dict, hoy: datetime) -> list[datetime]:
     fuentes.extend(m.get("vigencia") or {} for m in (entrada.get("modifica") or []))
     # Los plazos por viñeta cuentan como fechas propias: un documento con
     # aplicación inmediata para unos capítulos y una fecha futura para otros
-    # tiene que aparecer en el cuadro de mando por esa fecha futura, aunque su
+    # tiene que aparecer en la Agenda de tareas por esa fecha futura, aunque su
     # `inicio` global diga "inmediata".
     fuentes.extend(p for v in list(fuentes) for p in (v.get("plazos") or []))
     for v in fuentes:
@@ -658,10 +660,27 @@ def generar_html() -> None:
             (e.get("vigencia") or {}).get("discrepa"),
         )
 
-    hoy = datetime.now(timezone.utc).replace(tzinfo=None, hour=0, minute=0, second=0, microsecond=0)
+    # `hoy` es el día del render, truncado a medianoche porque toda la
+    # aritmética de la agenda cuenta días enteros. Es el ancla del calendario y
+    # tiene que ser el día de verdad —dónde estamos parados—, distinto de
+    # `ultima_consulta`, que es cuándo se habló con la CMF.
+    hoy = datetime.now(timezone.utc).replace(
+        tzinfo=None, hour=0, minute=0, second=0, microsecond=0
+    )
 
-    ultima_actualizacion = (
-        diferenciales[0].get("generated_at", "")[:10] if diferenciales else _hoy_iso()
+    # «Última actualización» responde «¿esto está al día?», así que es cuándo se
+    # consultó la CMF y no cuándo se armó este HTML. Los dos difieren cada vez
+    # que se regenera la página sin tocar la fuente —`python scraper/dashboard.py`,
+    # el paso redundante del workflow, cualquier cambio de diseño—, y usar la
+    # hora del render hacía que la página se declarara recién actualizada
+    # habiendo hablado con la CMF por última vez semanas antes.
+    #
+    # Lo escribe `diff.registrar_consulta()` desde `main.py`. Si falta —state.json
+    # de antes de que esto existiera— se cae al `generated_at` del diferencial
+    # más reciente, que es la mejor cota inferior disponible: se sabe que ese día
+    # sí hubo consulta. La primera corrida del pipeline lo deja exacto.
+    ultima_consulta = diff.ultima_consulta() or (
+        diferenciales[0].get("generated_at") if diferenciales else None
     )
 
     # Las novedades son las del archivo diario más reciente (`_cargar_dife-
@@ -673,7 +692,7 @@ def generar_html() -> None:
     grupos = _agrupar_por_norma(entradas)
     grupos_cuerpo = _agrupar_por_cuerpo(entradas)
     html_doc = _render(
-        entradas, grupos, grupos_cuerpo, hoy, ultima_actualizacion, novedades,
+        entradas, grupos, grupos_cuerpo, hoy, ultima_consulta, novedades,
     )
     OUTPUT.write_text(html_doc, encoding="utf-8")
 
@@ -689,8 +708,48 @@ def generar_html() -> None:
     )
 
 
-def _hoy_iso() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+# Todo el pipeline trabaja en UTC, pero la CMF y quien lee esto están en Chile:
+# el proceso corre a las 8 de la mañana y un sello sin convertir diría "12:15",
+# o sea mediodía. `tzdata` está en requirements.txt porque Windows no trae base
+# de zonas horarias y sin ella `ZoneInfo` levanta ZoneInfoNotFoundError.
+#
+# Si aun así falta, se informa UTC **rotulado como UTC**. Un offset fijo sería
+# peor que inútil: Chile cambia de hora, así que acertaría medio año y mentiría
+# el otro medio, sin que nada lo delate.
+_TZ_PRESENTACION = "America/Santiago"
+
+
+def _fecha_hora_partes(momento: datetime | str | None) -> tuple[str, str]:
+    """`("2026-07-16", "08:15 hrs")`. La hora va aparte para poder rotularla."""
+    if isinstance(momento, str):
+        # Una fecha pelada no se convierte de zona. `fromisoformat` la lee como
+        # medianoche UTC y pasarla a Chile la retrocede al día anterior a las
+        # 20:00: el sello terminaba informando un día que no era. Sin hora en el
+        # origen no hay hora que mostrar, y la fecha se devuelve tal cual.
+        if "T" not in momento and " " not in momento:
+            return momento[:10], ""
+        try:
+            momento = datetime.fromisoformat(momento)
+        except ValueError:
+            # Un `generated_at` que no parsea igual trae la fecha adelante; se
+            # muestra sin hora antes que perder el dato entero.
+            return momento[:10], ""
+    if momento is None:
+        return "", ""
+    if momento.tzinfo is None:
+        momento = momento.replace(tzinfo=timezone.utc)
+    try:
+        local = momento.astimezone(ZoneInfo(_TZ_PRESENTACION))
+        return local.strftime("%Y-%m-%d"), local.strftime("%H:%M hrs")
+    except ZoneInfoNotFoundError:
+        utc = momento.astimezone(timezone.utc)
+        return utc.strftime("%Y-%m-%d"), utc.strftime("%H:%M UTC")
+
+
+def _fecha_hora(momento: datetime | str | None) -> str:
+    fecha, hora = _fecha_hora_partes(momento)
+    return f"{fecha}, {hora}" if hora else fecha
 
 
 # ── Render ───────────────────────────────────────────────────────────────
@@ -700,10 +759,12 @@ def _render(
     grupos: dict[str, list[dict]],
     grupos_cuerpo: dict[str, list[dict]],
     hoy: datetime,
-    ultima_actualizacion: str,
+    ultima_consulta: str | None,
     novedades: list[dict],
 ) -> str:
-    cuadro_html = _render_agenda(entradas, hoy, _indice_busqueda(entradas, hoy))
+    cuadro_html = _render_agenda(
+        entradas, hoy, _indice_busqueda(entradas, hoy), ultima_consulta
+    )
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
     revision_html = _render_revision_manual(entradas)
     n_revision = sum(1 for e in entradas if _requiere_revision(e))
@@ -728,7 +789,7 @@ def _render(
         .replace("__FILTROS__", filtros_html)
         .replace("__TABLA__", tabla_html)
         .replace("__TIMELINE__", timeline_html)
-        .replace("__ACTUALIZADO__", html.escape(ultima_actualizacion))
+        .replace("__ACTUALIZADO__", html.escape(_fecha_hora(ultima_consulta) or "—"))
     )
 
 
@@ -890,7 +951,8 @@ def _mes_legible(mes: str) -> str:
 
 
 def _render_agenda(
-    entradas: list[dict], hoy: datetime, indice: list[dict]
+    entradas: list[dict], hoy: datetime, indice: list[dict],
+    ultima_consulta: str | None,
 ) -> str:
     """La Agenda completa: buscador, paneles, calendario y lo que viene después.
 
@@ -926,12 +988,13 @@ def _render_agenda(
     return (
         f'<div id="agenda">'
         f'{_render_ag_buscador(len(indice))}'
-        f'{_render_ag_stats(en_ventana, calendario, lejanos, sin_fecha, hoy)}'
+        f'{_render_ag_stats(en_ventana, calendario, lejanos, sin_fecha, ultima_consulta)}'
         f'<div class="ag-paneles">'
         f'{_render_ag_panel_cuerpo(por_cuerpo, doce, len(en_ventana))}'
         f'{_render_ag_panel_meses(calendario, hoy)}'
         f'{_render_ag_panel_sinfecha(sin_fecha)}'
         f'</div>'
+        f'{_render_ag_ultimo(entradas, hoy)}'
         f'{_render_ag_riel(calendario, hoy, len(sin_fecha), len(en_ventana))}'
         f'{_render_ag_lejanos(lejanos, hoy)}'
         f'<script type="application/json" id="ag-datos">'
@@ -967,16 +1030,18 @@ def _render_ag_buscador(total: int) -> str:
 
 def _render_ag_stats(
     en_ventana: list[dict], calendario: list[dict],
-    lejanos: list[dict], sin_fecha: list[dict], hoy: datetime,
+    lejanos: list[dict], sin_fecha: list[dict], ultima_consulta: str | None,
 ) -> str:
     con_datos = sum(1 for m in calendario if m["items"])
+    gen_fecha, gen_hora = _fecha_hora_partes(ultima_consulta)
     celdas = [
         (str(len(en_ventana)), "hitos de vigencia en la ventana", True),
         (f'{con_datos} <span class="ag-de">/ {len(calendario)}</span>',
          "meses con actividad", False),
         (str(len(lejanos)), f"más allá de {MESES_AGENDA} meses", False),
         (str(len(sin_fecha)), "obligaciones sin fecha", False),
-        (html.escape(hoy.strftime("%Y-%m-%d")), "calculado al", False),
+        (f'{html.escape(gen_fecha)} <span class="ag-de">{html.escape(gen_hora)}</span>',
+         "última actualización", False),
     ]
     return '<div class="ag-stats">' + "".join(
         f'<div class="ag-stat{" es-clave" if clave else ""}">'
@@ -1149,6 +1214,87 @@ _ROTULO_FUENTE = {
 }
 
 
+def _render_ag_ultimo(entradas: list[dict], hoy: datetime) -> str:
+    """La resolución publicada más recientemente, con su detalle desplegable.
+
+    La agenda mira hacia adelante —cuándo hay que tener algo hecho— y por eso
+    no contestaba la otra pregunta con que se abre el dashboard: qué salió
+    último. Había que saltar al Listado completo y leer la primera fila.
+
+    Dos decisiones que evitan que esto se despegue del listado:
+
+    - El orden es el mismo que usa `_render_tabla` (`fecha`, `clave`,
+      descendente), así que «el último publicado» y «la primera fila de allá»
+      no pueden divergir. Si cambias uno, cambia el otro.
+    - El detalle sale de `_render_detalle`, el mismo del listado, en vez de un
+      resumen propio: cuando esa función gane un bloque, este lo hereda solo.
+    """
+    if not entradas:
+        return ""
+
+    e = max(entradas, key=lambda x: (x.get("fecha") or "", x.get("clave") or ""))
+    clave = e.get("clave", "")
+    url = e.get("url_documento") or ""
+    normas = _normas_afectadas(e)
+
+    # El "hace N días" se calcula sobre la fecha guardada, que puede ser el
+    # placeholder YYYY-01-01 (ver el modo de falla 1 en CLAUDE.md). No se
+    # corrige acá: si el dato está mal, que se note en la portada de la agenda
+    # es mejor que maquillarlo.
+    f = _parse_iso(e.get("fecha"))
+    dias = (hoy - f).days if f else None
+    if dias is None:
+        rel = "sin fecha legible"
+    elif dias <= 0:
+        rel = "hoy"
+    elif dias == 1:
+        rel = "ayer"
+    else:
+        rel = f"hace {dias} días"
+
+    badges = "".join(_tipo_tag(t) for t in _tipos_de_entrada(e))
+    meta = "".join(
+        f'<div class="ag-ult-dato"><span>{k}</span><b>{v}</b></div>'
+        for k, v in (
+            ("Norma(s) afectada(s)", ", ".join(html.escape(n) for n in normas)
+             if normas else "—"),
+            ("Vigencia", html.escape(_vigencia_fmt(e.get("vigencia")))),
+        )
+    )
+    pdf = (
+        f'<a class="ag-ult-pdf" href="{html.escape(url)}" target="_blank" '
+        f'rel="noopener">PDF ↗</a>' if url else ""
+    )
+
+    return (
+        # <div> y no <section>: la regla global `section {…}` le pone fondo
+        # blanco, borde y sombra al bloque, y `section h2 {…}` le mete el título
+        # en una barra gris propia. Eso encajona el encabezado en un parche que
+        # no se parece a nada en esta pestaña — el riel y «Más allá de 6 meses»
+        # cuelgan su `ag-sec-head` directo del fondo de la página. El único
+        # blanco acá lo pone la tarjeta de adentro, que sí es una tarjeta.
+        f'<div class="ag-ultimo">'
+        f'<div class="ag-sec-head"><h2>Último cambio publicado</h2>'
+        f'<span class="ag-hint">{html.escape(rel)} · lo mismo que encabeza el '
+        f'Listado completo</span></div>'
+        f'<article class="ag-ult-card">'
+        f'<div class="ag-ult-top">'
+        f'<span class="ag-ult-fecha">{html.escape(e.get("fecha") or "—")}</span>'
+        f'<b class="ag-ult-doc">{html.escape(_etiqueta_documento(e))}</b>'
+        f'<span class="ag-ult-tags">{badges}</span></div>'
+        f'<p class="ag-ult-tema">{html.escape(_resumen_minimo(e))}</p>'
+        f'<div class="ag-ult-meta">{meta}</div>'
+        f'<div class="ag-ult-acciones">'
+        f'<button type="button" class="btn-revisar" data-ult-toggle '
+        f'aria-expanded="false"><span class="rv-txt">Revisar ▾</span></button>'
+        f'<button type="button" class="ag-ult-ir" data-fila="{html.escape(clave)}">'
+        f'Ver en el Listado completo ↗</button>'
+        f'{pdf}</div>'
+        f'<div class="ag-ult-detalle" hidden>{_render_detalle(e)}</div>'
+        f'</article></div>'
+    )
+
+
 def _render_ag_riel(
     calendario: list[dict], hoy: datetime, n_sin_fecha: int, n_ventana: int
 ) -> str:
@@ -1180,7 +1326,7 @@ def _render_ag_riel(
         if n_sin_fecha else ""
     )
     return (
-        f'<div class="ag-sec-head"><h2>Calendario de vigencias</h2>'
+        f'<div class="ag-sec-head"><h2>Calendario de modificaciones</h2>'
         f'<div class="ag-riel-ctrl">'
         f'<span class="ag-hint">A la izquierda lo cumplido, a la derecha lo que viene</span>'
         f'<button type="button" id="ag-izq" aria-label="Meses anteriores">‹</button>'
@@ -1191,7 +1337,7 @@ def _render_ag_riel(
         f'<div class="ag-filtro" id="ag-filtro" data-total="{n_ventana}"></div>'
         f'<div class="ag-riel-outer">'
         f'<div class="ag-riel" id="ag-riel" tabindex="0" role="region" '
-        f'aria-label="Calendario de vigencias, {len(calendario)} meses">'
+        f'aria-label="Calendario de modificaciones, {len(calendario)} meses">'
         f'{"".join(piezas)}</div></div>'
     )
 
@@ -1390,7 +1536,9 @@ def _render_grupo_cuerpo(
         f'<h2>{html.escape(titulo)}</h2>'
         f'<span class="cr-count">{n_recientes}</span>'
         f'{extra_total}'
-        f'<button class="cr-revisar" onclick="toggleGrupoCR(this)">Revisar →</button>'
+        f'<button type="button" class="cr-revisar" aria-expanded="false" '
+        f'onclick="toggleGrupoCR(this)"><span class="rv-txt">Revisar ▾</span>'
+        f'</button>'
         f'</div>'
         f'<p class="cr-desc">{html.escape(descripcion)}</p>'
         f'</header>'
@@ -1429,7 +1577,6 @@ def _render_fila_cuerpo(
     tema = _resumen_minimo(e)
     bullets = e.get("resumen_acciones") or []
     archivos = e.get("archivos_afectados") or []
-    plazos = (e.get("vigencia") or {}).get("plazos") or []
     url = e.get("url_documento") or ""
 
     detalle_html = _render_detalle_tarea(bullets, archivos, e.get("vigencia"))
@@ -1442,9 +1589,13 @@ def _render_fila_cuerpo(
         etiqueta_detalle = f'<b>{n_cambios}</b> cambio{"s" if n_cambios != 1 else ""}'
     else:
         etiqueta_detalle = "plazos"
+    # Botón y no enlace: "3 cambios →" se leía como un dato de la fila y no
+    # como un control, así que el desglose quedaba sin descubrir. El conteo se
+    # conserva porque dice cuánto hay detrás antes de abrir.
     cambios_cell = (
-        f'<a class="cr-detalle-toggle" href="javascript:void(0)" '
-        f'onclick="toggleDetalleCR(this)">{etiqueta_detalle} →</a>'
+        f'<button type="button" class="btn-revisar cr-detalle-toggle" '
+        f'aria-expanded="false" onclick="toggleDetalleCR(this)">'
+        f'{etiqueta_detalle} · <span class="rv-txt">Revisar ▾</span></button>'
         if detalle_html else
         # Sin detalle no hay nada que contar: un "0" suelto se lee como un dato
         # y en realidad significa que del PDF no se pudo extraer el desglose.
@@ -1455,7 +1606,13 @@ def _render_fila_cuerpo(
         if url else "—"
     )
     detalle_row = (
-        f'<tr class="cr-detalle-row" data-open="0" style="display:none">'
+        # El estado va en una clase y no en `style="display:none"` + un
+        # `style.display = 'table-row'` desde el JS. El display en línea gana
+        # sobre cualquier media query, así que con el valor incrustado no había
+        # forma de que en celular la fila abierta dejara de ser `table-row`
+        # dentro de un contenedor que allá es `block`. Con la clase, cada
+        # breakpoint decide cómo se muestra.
+        f'<tr class="cr-detalle-row" data-open="0">'
         f'<td colspan="5">{detalle_html}</td></tr>'
         if detalle_html else ""
     )
@@ -1581,7 +1738,7 @@ def _tipo_tag(tipo: str) -> str:
 
 def _render_tabla(entradas: list[dict], novedades: list[dict]) -> str:
     if not entradas:
-        return '<tr><td colspan="6" class="td-vacio">Sin datos aún.</td></tr>'
+        return '<tr><td colspan="7" class="td-vacio">Sin datos aún.</td></tr>'
 
     claves_nuevas = {e.get("clave") for e in novedades}
     filas: list[str] = []
@@ -1595,7 +1752,6 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
     res = e.get("resolucion") or {}
     num_res = res.get("numero") or "—"
     documento = _etiqueta_documento(e)
-    tipo_principal = e.get("tipo_acuerdo", "Otro")
     tipos = _tipos_de_entrada(e)
     descripcion = e.get("descripcion_cmf", "") or ""
     normas = _normas_afectadas(e) or ["—"]
@@ -1629,14 +1785,27 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
         f'data-tipos="{html.escape("|".join(tipos))}" '
         f'data-search="{html.escape(search_blob)}" '
         f'onclick="toggleDetail(this)">'
-        f'<td>{html.escape(fecha)}</td>'
+        # Todas las celdas llevan clase, incluidas fecha y tipos, que antes no
+        # la necesitaban: en celular la fila se reordena con `grid-area` y una
+        # celda sin nombre no se puede colocar.
+        f'<td class="td-fecha">{html.escape(fecha)}</td>'
         f'<td class="td-doc"><b>{html.escape(documento)}</b></td>'
-        f'<td>{badges}</td>'
+        f'<td class="td-tipos">{badges}</td>'
         f'<td class="td-normas">{normas_html}</td>'
         f'<td class="td-vig">{html.escape(vigencia)}</td>'
         f'<td class="td-link">{link}</td>'
+        # El botón no lleva onclick propio: el click burbujea al <tr>, que ya
+        # gobierna el despliegue. Poniéndole uno, la fila se abría y se cerraba
+        # en el mismo click. Su valor es doble — anuncia que la fila es
+        # pinchable, cosa que `cursor: pointer` sólo revela si ya pasaste el
+        # mouse por encima, y hace la tabla operable con teclado, porque el
+        # botón sí es tabulable y el <tr> con onclick nunca lo fue.
+        f'<td class="td-revisar">'
+        f'<button type="button" class="btn-revisar" tabindex="0" '
+        f'aria-expanded="false"><span class="rv-txt">Revisar ▾</span>'
+        f'</button></td>'
         f'</tr>'
-        f'<tr class="detail-row" data-open="0"><td colspan="6">{detalle}</td></tr>'
+        f'<tr class="detail-row" data-open="0"><td colspan="7">{detalle}</td></tr>'
     )
 
 
@@ -2111,14 +2280,6 @@ _TEMPLATE = """<!DOCTYPE html>
       outline-offset: 2px;
       border-radius: var(--radius-xs);
     }
-    /* Antetítulo — etiqueta en mayúsculas con tracking, motivo recurrente CMF */
-    .cmf-eyebrow {
-      font-size: var(--fs-xs);
-      font-weight: var(--fw-bold);
-      letter-spacing: var(--ls-caps);
-      text-transform: uppercase;
-      color: var(--color-brand-soft);
-    }
     /* Regla de acento — la barra morada corta bajo el logo / los títulos */
     .cmf-rule {
       height: var(--accent-bar-w);
@@ -2162,9 +2323,9 @@ _TEMPLATE = """<!DOCTYPE html>
     /* Cabecera — tratamiento de portada navy del sistema. La banda oficial
        usa la textura de red (assets/backgrounds/cmf-network-texture.jpeg),
        que no está publicada en el repo del sistema, así que va navy plano. */
-    /* Va como `body > header` y no como `header` a secas porque las columnas
-       del Cuadro de mando y el aviso de revisión manual también abren un
-       <header>: sin acotar, quedaban con fondo navy. */
+    /* Va como `body > header` y no como `header` a secas porque el aviso de
+       revisión manual también abre un <header>: sin acotar, quedaba con fondo
+       navy. */
     body > header { background: var(--surface-navy);
                     padding: var(--space-7) var(--space-6); }
     .hd-inner { max-width: var(--container-max); margin: 0 auto; }
@@ -2211,9 +2372,54 @@ _TEMPLATE = """<!DOCTYPE html>
                font-weight: var(--fw-regular); }
 
     /* Tabs */
-    #tabs { display: flex; gap: var(--space-5);
-            border-bottom: var(--border-w) solid var(--border-subtle);
-            margin-bottom: var(--space-5); }
+    /* La barra de pestañas scrollea cuando no cabe, y es todo el mecanismo de
+       navegación del dashboard: sin una señal de que sigue hacia el lado, quien
+       no arrastra nunca se entera de que existe «Listado completo». Mismo
+       recurso que el riel del calendario —difuminado en los bordes, encendido
+       sólo cuando de verdad hay más— y encima un chevrón, porque acá lo que
+       queda fuera de cuadro no es contenido sino secciones enteras.
+
+       Las clases las pone `bordesTabs()` midiendo el overflow real, así que en
+       escritorio, donde las cuatro caben, no aparece nada. El borde inferior y
+       el margen se mudan al envoltorio: en el elemento que scrollea, el borde
+       se corta al ancho visible en vez de acompañar a la barra. */
+    #tabs-outer { position: relative; margin-bottom: var(--space-5);
+                  border-bottom: var(--border-w) solid var(--border-subtle); }
+    /* Los chevrones son <button> y no ::before/::after. Como pseudo-elementos
+       llevaban `pointer-events: none` —obligatorio, si no tapan las pestañas de
+       abajo— y el resultado era un control que se ve como control y no hace
+       nada al tocarlo. El degradado viaja en el botón, así que un solo elemento
+       señala y opera. */
+    .tabs-nav { position: absolute; top: 0; bottom: 0; width: 40px; z-index: 2;
+                display: flex; align-items: center; border: 0; padding: 0;
+                font: inherit; font-size: 19px; line-height: 1;
+                color: var(--color-brand); cursor: pointer;
+                /* `visibility` y no sólo `opacity`: un botón transparente sigue
+                   siendo enfocable y anunciado por un lector de pantalla, así
+                   que en escritorio —donde las cuatro pestañas caben y estos
+                   nunca aparecen— el tabulador caía en dos controles
+                   invisibles. `visibility: hidden` los saca del orden de foco y
+                   del árbol de accesibilidad. El delay difiere el ocultamiento
+                   hasta que termina el fundido; al aparecer es inmediato. */
+                opacity: 0; visibility: hidden; pointer-events: none;
+                transition: opacity var(--dur-base) var(--ease-standard),
+                            visibility 0s linear var(--dur-base); }
+    #tabs-izq { left: 0; justify-content: flex-start;
+                background: linear-gradient(90deg, var(--surface-page) 45%, transparent); }
+    #tabs-der { right: 0; justify-content: flex-end;
+                background: linear-gradient(270deg, var(--surface-page) 45%, transparent); }
+    #tabs-outer.puede-izq #tabs-izq,
+    #tabs-outer.puede-der #tabs-der { opacity: 1; visibility: visible;
+                pointer-events: auto; transition-delay: 0s; }
+    .tabs-nav:focus-visible { outline: 2px solid var(--color-brand);
+                outline-offset: -2px; }
+    /* `scroll-padding-inline` deja libre el ancho del chevrón cuando algo se
+       trae a la vista con scrollIntoView. Sin esto la pestaña activa quedaba
+       justo debajo del botón y se leía a medias («mbios relevantes»). */
+    #tabs { display: flex; gap: var(--space-5); overflow-x: auto;
+            flex-wrap: nowrap; scrollbar-width: none;
+            scroll-padding-inline: 44px; }
+    #tabs::-webkit-scrollbar { display: none; }
     .tab { background: transparent; border: 0; cursor: pointer;
            padding: var(--space-3) 0; font-size: var(--fs-body);
            font-weight: var(--fw-medium); color: var(--text-muted);
@@ -2246,7 +2452,12 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-regla { display: block; width: 22px; height: 1px; background: var(--border-default); }
 
     /* Buscador */
-    .ag-buscador { margin-bottom: var(--space-5); }
+    /* `.ag-buscador` es un <section>, así que la regla global le da fondo
+       blanco, borde y esquinas redondeadas — pero el padding no viene con el
+       lote, y sin él la caja de búsqueda y los ejemplos quedaban pegados al
+       borde de su propia tarjeta. Los otros bloques de la agenda ya lo traen
+       (`.ag-panel`, `.ag-stat`); este era el único sin él. */
+    .ag-buscador { margin-bottom: var(--space-5); padding: var(--space-4); }
     .ag-caja { display: flex; align-items: center; gap: var(--space-2);
                background: var(--surface-card);
                border: var(--border-w) solid var(--border-default);
@@ -2442,6 +2653,46 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-nota-riel { font-size: var(--fs-xs); color: var(--text-muted);
                     margin-bottom: var(--space-3); }
     .ag-nota-riel b { color: var(--ink-on-warning-bg); font-variant-numeric: tabular-nums; }
+
+    /* Último cambio publicado. Va entre los paneles y el riel porque contesta
+       una pregunta distinta —qué salió recién— y el riel arranca centrado en
+       hoy, o sea con la vista puesta en lo que viene. */
+    .ag-ultimo { margin-bottom: var(--space-5); }
+    .ag-ult-card { background: var(--surface-card);
+                   border: var(--border-w) solid var(--border-subtle);
+                   border-left: var(--accent-bar-w) solid var(--color-brand);
+                   border-radius: var(--radius-md); box-shadow: var(--shadow-xs);
+                   padding: var(--space-4) var(--space-5); }
+    .ag-ult-top { display: flex; align-items: center; gap: var(--space-3);
+                  flex-wrap: wrap; margin-bottom: var(--space-2); }
+    .ag-ult-fecha { font-size: var(--fs-xs); color: var(--text-muted);
+                    font-variant-numeric: tabular-nums; }
+    .ag-ult-doc { font-size: var(--fs-body); font-weight: var(--fw-bold);
+                  color: var(--text-strong); }
+    .ag-ult-tags { display: inline-flex; flex-wrap: wrap; gap: 2px; }
+    .ag-ult-tema { font-size: var(--fs-sm); line-height: var(--lh-normal);
+                   color: var(--text-strong); margin: 0 0 var(--space-3); }
+    .ag-ult-meta { display: flex; flex-wrap: wrap; gap: var(--space-5);
+                   margin-bottom: var(--space-3); }
+    .ag-ult-dato span { display: block; font-size: var(--fs-xs);
+                        text-transform: uppercase; letter-spacing: var(--ls-caps);
+                        color: var(--text-muted); margin-bottom: 2px; }
+    .ag-ult-dato b { font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+                     color: var(--color-brand); }
+    .ag-ult-acciones { display: flex; align-items: center; gap: var(--space-2);
+                       flex-wrap: wrap; }
+    .ag-ult-ir { border: 0; background: none; color: var(--text-link);
+                 font: inherit; font-size: var(--fs-xs);
+                 font-weight: var(--fw-semibold); cursor: pointer; padding: 6px 2px; }
+    .ag-ult-ir:hover { text-decoration: underline; }
+    .ag-ult-pdf { font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                  margin-left: auto; }
+    /* `_render_detalle` trae su propia grilla de dos columnas; acá sólo hay que
+       darle el respiro que en el listado le da `tr.detail-row > td`. */
+    .ag-ult-detalle { margin-top: var(--space-4);
+                      padding-top: var(--space-4);
+                      border-top: var(--border-w) solid var(--border-subtle); }
+    .ag-ult-detalle[hidden] { display: none; }
     .ag-filtro { display: flex; align-items: center; gap: var(--space-2);
                  font-size: var(--fs-xs); margin-bottom: var(--space-3); min-height: 26px;
                  color: var(--text-muted); }
@@ -2573,8 +2824,13 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-lejos-fecha b { display: block; font-size: var(--fs-lg); color: var(--text-strong);
                         font-weight: var(--fw-regular); font-variant-numeric: tabular-nums; }
     .ag-lejos-fecha span { font-size: var(--fs-xs); color: var(--text-muted); }
+    /* `min-width: 0` no es cosmético: sin él la elipsis de .ag-lejos-desc nunca
+       aparece. Un grid item nace con `min-width: auto`, o sea no baja de su
+       min-content, y el min-content de un texto en `nowrap` es el texto entero.
+       La columna 1fr se desbordaba y el `overflow: hidden` de .ag-lejos cortaba
+       la descripción a la mitad de una palabra, sin puntos suspensivos. */
     .ag-lejos-items { padding: var(--space-2) var(--space-4); display: flex;
-                      flex-direction: column; }
+                      flex-direction: column; min-width: 0; }
     .ag-lejos-item { display: flex; align-items: baseline; gap: var(--space-3);
                      padding: 7px 0; border-bottom: 1px dotted var(--border-subtle); }
     .ag-lejos-item:last-child { border-bottom: 0; }
@@ -2632,8 +2888,6 @@ _TEMPLATE = """<!DOCTYPE html>
     .rv-arch { flex: 0 0 auto; display: flex; gap: var(--space-1); flex-wrap: wrap; }
     .rv-tema { color: var(--text-body); flex: 1 1 auto; }
     .rv-pdf { flex: 0 0 auto; }
-    .rv-extra { font-size: var(--fs-xs); color: var(--text-muted);
-                margin: var(--space-2) 0 0; }
     .rv-nota code { font-family: var(--font-mono); background: var(--cmf-white);
                     border: var(--border-w) solid var(--border-subtle);
                     border-radius: var(--radius-xs); padding: 1px 5px;
@@ -2715,7 +2969,7 @@ _TEMPLATE = """<!DOCTYPE html>
                    border-bottom: var(--border-w) solid var(--cmf-ink-100);
                    vertical-align: top; }
     .cr-th-fecha { width: 110px; }
-    .cr-th-cambios { width: 130px; }
+    .cr-th-cambios { width: 170px; }
     .cr-th-pdf { width: 80px; text-align: right; }
     .cr-td-fecha { color: var(--text-body); white-space: nowrap;
                    font-variant-numeric: tabular-nums; }
@@ -2730,12 +2984,13 @@ _TEMPLATE = """<!DOCTYPE html>
     .cr-td-pdf { text-align: right; }
     .cr-detalle-toggle { cursor: pointer; color: var(--text-link); }
     .cr-sin-detalle { color: var(--text-muted); }
-    /* `_render_detalle_tarea` envuelve su contenido en .cm-detalle, que nace
-       oculto porque en las tarjetas del Cuadro de mando lo despliega la clase
-       .abierto. En esta tabla el que se despliega es el <tr>, así que el div
-       tiene que estar visible siempre: si no, la fila se abre vacía. */
-    .cr-detalle-row .cm-detalle { display: block; margin: 0; padding-top: 0;
-                                  border-top: none; }
+    /* `_render_detalle_tarea` sólo se usa dentro de la fila de detalle de
+       Cambios relevantes, y ahí el que se despliega es el <tr>. El display:none
+       con su override venía de unas tarjetas que la Agenda de tareas tuvo
+       antes de ser un calendario, y que ya no existen. */
+    .cr-detalle-row .cm-detalle { margin: 0; padding-top: 0; border-top: none; }
+    .cr-detalle-row { display: none; }
+    .cr-detalle-row.abierto { display: table-row; }
     .cr-detalle-row > td { background: var(--cmf-ink-50) !important;
                            padding: var(--space-3) var(--space-5);
                            border-bottom: var(--border-w-thick) solid var(--border-subtle); }
@@ -2754,29 +3009,8 @@ _TEMPLATE = """<!DOCTYPE html>
               line-height: 1; }
     /* Escala de urgencia sobre los tokens funcionales: danger → warning →
        navy. El navy es el "info" del sistema, así que reemplaza al azul. */
-    /* Card interactiva */
-    .cm-tarea { border: var(--border-w) solid var(--border-subtle);
-                border-radius: var(--radius-md); padding: var(--space-2) var(--space-3);
-                background: var(--surface-card); box-shadow: var(--shadow-xs);
-                transition: box-shadow var(--dur-base) var(--ease-standard),
-                            transform var(--dur-base) var(--ease-standard),
-                            border-color var(--dur-base) var(--ease-standard); }
-    .cm-tarea:hover { box-shadow: var(--shadow-md); transform: translateY(-2px);
-                      border-color: var(--border-default); }
-    .cm-meta { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;
-               margin-bottom: var(--space-2); }
-    .cm-resumen { font-size: var(--fs-sm); color: var(--text-strong);
-                  line-height: var(--lh-normal); font-weight: var(--fw-medium);
-                  margin-bottom: var(--space-2); }
-    .cm-conteo { font-size: var(--fs-xs); color: var(--text-muted);
-                 margin: 0 0 var(--space-2); }
-    .cm-conteo b { color: var(--color-brand); font-size: var(--fs-sm); }
-    .cm-link { font-size: var(--fs-sm); }
-    .cm-detalle-toggle { cursor: pointer; }
-    .cm-detalle { display: none; margin-top: var(--space-2);
-                  padding-top: var(--space-2);
+    .cm-detalle { margin-top: var(--space-2); padding-top: var(--space-2);
                   border-top: var(--border-w) dashed var(--border-subtle); }
-    .cm-detalle.abierto { display: block; }
     .cm-det-bloque { margin-bottom: var(--space-2); }
     .cm-det-bloque:last-child { margin-bottom: 0; }
     .cm-det-label { display: block; font-size: var(--fs-xs);
@@ -2867,7 +3101,30 @@ _TEMPLATE = """<!DOCTYPE html>
     .tag-deroga   { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
     .tag-otro     { background: var(--surface-sunken); color: var(--text-body); }
 
+    /* Control de despliegue compartido por el listado, Cambios relevantes y el
+       Último cambio publicado. Es discreto a propósito —borde y no relleno—
+       porque se repite en cada fila de una tabla de 607: un botón sólido por
+       fila convertiría la tabla en una pared de botones y taparía el dato, que
+       es lo que la persona vino a leer. Lo que tiene que lograr es sólo
+       anunciar que ahí hay algo que abrir. */
+    .btn-revisar { border: var(--border-w) solid var(--border-default);
+                   background: var(--surface-card); color: var(--text-muted);
+                   font: inherit; font-size: var(--fs-xs);
+                   font-weight: var(--fw-semibold); letter-spacing: var(--ls-wide);
+                   line-height: 1; white-space: nowrap; cursor: pointer;
+                   padding: 6px 10px; border-radius: var(--radius-sm);
+                   transition: color var(--dur-fast) var(--ease-standard),
+                               border-color var(--dur-fast) var(--ease-standard); }
+    .btn-revisar:hover, tr.fila-principal:hover .btn-revisar {
+                   border-color: var(--color-brand); color: var(--color-brand); }
+    .btn-revisar[aria-expanded="true"] { border-color: var(--border-brand);
+                   color: var(--color-brand); background: var(--color-brand-tint-faint); }
+    .btn-revisar:focus-visible { outline: 2px solid var(--color-brand);
+                   outline-offset: 2px; }
+    .td-revisar { text-align: right; white-space: nowrap; }
+
     tr.detail-row { display: none; }
+    tr.detail-row.abierto { display: table-row; }
     tr.detail-row > td { background: var(--cmf-ink-50) !important;
                          padding: var(--space-4) var(--space-5);
                          border-bottom: var(--border-w-thick) solid var(--border-subtle); }
@@ -2940,13 +3197,155 @@ _TEMPLATE = """<!DOCTYPE html>
     footer a { color: var(--cmf-teal-200); }
     footer a:hover { color: var(--cmf-white); }
 
-    @media (max-width: 900px) {
-      /* #cuadro-mando es flex, no grid: la regla anterior fijaba
-         grid-template-columns y por eso no hacía nada. */
-    }
     @media (max-width: 800px) {
       .detalle { grid-template-columns: 1fr; }
-      .td-vig, .td-link { display: none; }
+      /* Los <th> se ocultan junto con sus <td>. Antes la regla nombraba sólo
+         las celdas y los encabezados quedaban en pie: bajo 800px la cabecera
+         tenía dos columnas más que el cuerpo y toda la tabla se leía corrida.
+         Si agregas una columna ocultable, nómbrala en los dos lados. */
+      .td-vig, .th-vig, .td-link, .th-link { display: none; }
+    }
+
+    /* En celular «Más allá de N meses» dejaba de ser una tabla y no llegaba a
+       ser una tarjeta: la fecha y los documentos son dos columnas fijas —156px
+       y 122px— que en 570px de ancho no dejan lugar para la descripción, así
+       que el texto quedaba cortado contra el borde y el bloque se leía como una
+       tabla a la que le falta la mitad derecha.
+
+       Acá el grupo se convierte en lo que ya era conceptualmente: una tarjeta
+       por fecha, con la fecha de encabezado y los documentos debajo. El
+       contenedor pierde su marco —lo toma cada grupo— para que se lean como
+       piezas separadas y no como filas de algo. */
+    @media (max-width: 640px) {
+      .ag-lejos { background: none; border: 0; border-radius: 0;
+                  overflow: visible; display: flex; flex-direction: column;
+                  gap: var(--space-3); }
+      .ag-lejos-grupo { display: block; border-top: 0;
+                        background: var(--surface-card);
+                        border: var(--border-w) solid var(--border-subtle);
+                        border-radius: var(--radius-md); overflow: hidden; }
+      .ag-lejos-fecha { display: flex; align-items: baseline; flex-wrap: wrap;
+                        gap: var(--space-2); border-right: 0;
+                        border-bottom: var(--border-w) solid var(--border-subtle); }
+      .ag-lejos-fecha b { display: inline; font-size: var(--fs-body); }
+      /* La descripción pasa a envolver en vez de recortarse: `_tema_corto` ya
+         la deja en 120 caracteres, así que son dos o tres líneas, no un muro. */
+      .ag-lejos-item { display: block; padding: var(--space-2) 0; }
+      .ag-lejos-norma { display: block; flex: none; margin-bottom: 2px; }
+      .ag-lejos-desc { white-space: normal; overflow: visible;
+                       text-overflow: clip; line-height: var(--lh-normal); }
+
+      /* Cambios relevantes, mismo problema: cinco columnas con cuatro anchos
+         fijos (110+150+170+80) dejan a «Tema» sin ancho, y ahí el texto baja a
+         una palabra por línea mientras las dos últimas columnas se salen del
+         borde. Cada fila pasa a ser una tarjeta.
+
+         La grilla se aplica sobre el propio <tr>, sin envoltorios nuevos: así
+         `fecha` y `PDF` comparten la primera línea —son las dos referencias
+         cortas— y norma, tema y el botón ocupan el ancho completo debajo. El
+         <thead> se oculta porque los rótulos de columna no describen nada
+         cuando ya no hay columnas. */
+      .cr-tabla, .cr-tabla tbody { display: block; }
+      .cr-tabla thead { display: none; }
+      .cr-fila { display: grid; grid-template-columns: 1fr auto;
+                 grid-template-areas: "fecha pdf" "doc doc" "tema tema"
+                                      "cambios cambios";
+                 gap: 2px var(--space-3);
+                 background: var(--surface-card);
+                 border: var(--border-w) solid var(--border-subtle);
+                 border-radius: var(--radius-md);
+                 padding: var(--space-3); margin-bottom: var(--space-3); }
+      .cr-fila > td { display: block; border-bottom: 0; padding: 0; }
+      .cr-td-fecha { grid-area: fecha; }
+      .cr-td-pdf { grid-area: pdf; }
+      .cr-td-doc { grid-area: doc; white-space: normal; font-size: var(--fs-sm); }
+      .cr-td-tema { grid-area: tema; margin-bottom: var(--space-2); }
+      .cr-td-cambios { grid-area: cambios; }
+      /* El detalle se pega a su tarjeta en vez de flotar como bloque suelto:
+         la de arriba pierde el redondeo inferior mientras está abierto. */
+      .cr-fila:has(+ .cr-detalle-row.abierto) {
+                 border-radius: var(--radius-md) var(--radius-md) 0 0;
+                 margin-bottom: 0; }
+      .cr-detalle-row.abierto { display: block;
+                 border: var(--border-w) solid var(--border-subtle);
+                 border-top: 0; border-radius: 0 0 var(--radius-md) var(--radius-md);
+                 margin-bottom: var(--space-3); }
+      .cr-detalle-row > td { display: block; padding: var(--space-3);
+                 border-bottom: 0; }
+
+      /* Las cuatro pestañas no caben en una línea. El scroll y su señal ya
+         están definidos arriba; acá sólo se aprieta el espaciado y se reserva
+         el ancho del chevrón para que la última no quede debajo de él. */
+      /* Sin padding lateral a propósito: los chevrones se apagan justo en los
+         extremos, así que la primera y la última pestaña nunca quedan debajo de
+         uno. Reservarles espacio fijo sólo dejaría la barra indentada 40px en
+         reposo, desalineada del contenido. De los casos intermedios se encarga
+         `scroll-padding-inline`. */
+      #tabs { gap: var(--space-4); }
+      .tab { white-space: nowrap; font-size: var(--fs-sm); }
+
+      /* Listado completo: siete columnas es la tabla más ancha del dashboard.
+         Misma conversión a tarjeta que Cambios relevantes.
+
+         Acá sí vuelven Vigencia y PDF, que el breakpoint de 800px escondía por
+         falta de ancho: apiladas ya no compiten por él, y esconder la vigencia
+         —el dato que contesta para cuándo hay que tener esto hecho— era la
+         peor de las pérdidas posibles. Como el <thead> desaparece, las dos que
+         no se explican solas llevan su rótulo en un ::before. */
+      #tabla-resoluciones, #tabla-resoluciones tbody { display: block; }
+      #tabla-resoluciones thead { display: none; }
+      tr.fila-principal { display: grid; grid-template-columns: 1fr auto;
+                 grid-template-areas: "fecha pdf" "doc doc" "tipos tipos"
+                                      "normas normas" "vig vig"
+                                      "revisar revisar";
+                 gap: 2px var(--space-3);
+                 background: var(--surface-card);
+                 border: var(--border-w) solid var(--border-subtle);
+                 border-radius: var(--radius-md);
+                 padding: var(--space-3); margin-bottom: var(--space-3); }
+      tr.fila-principal > td { display: block; border-bottom: 0; padding: 0; }
+      /* El resaltado de «nueva» pintaba las celdas. Como tarjeta hay `gap`
+         entre ellas, así que el color salía a manchones: lo toma la tarjeta. */
+      tr.fila-principal.nueva { background: var(--color-brand-tint-faint); }
+      tr.fila-principal.nueva > td,
+      tr.fila-principal:hover > td { background: none; }
+      .td-fecha { grid-area: fecha; font-size: var(--fs-xs);
+                  color: var(--text-muted); }
+      .td-link { display: block; grid-area: pdf; text-align: right; }
+      .td-doc { grid-area: doc; white-space: normal; font-size: var(--fs-sm); }
+      .td-tipos { grid-area: tipos; margin: 2px 0; }
+      .td-normas { grid-area: normas; }
+      .td-vig { display: block; grid-area: vig; }
+      .td-revisar { grid-area: revisar; text-align: left;
+                    margin-top: var(--space-2); }
+      .td-normas::before, .td-vig::before {
+                    color: var(--text-muted); font-weight: var(--fw-regular);
+                    text-transform: uppercase; letter-spacing: var(--ls-caps);
+                    font-size: var(--fs-xs); }
+      .td-normas::before { content: "Afecta a "; }
+      .td-vig::before { content: "Vigencia "; }
+      tr.fila-principal:has(+ .detail-row.abierto) {
+                 border-radius: var(--radius-md) var(--radius-md) 0 0;
+                 margin-bottom: 0; }
+      tr.detail-row.abierto { display: block;
+                 border: var(--border-w) solid var(--border-subtle);
+                 border-top: 0; border-radius: 0 0 var(--radius-md) var(--radius-md);
+                 margin-bottom: var(--space-3); }
+      tr.detail-row > td { display: block; padding: var(--space-3);
+                 border-bottom: 0; }
+
+      /* Revisión manual: la lista es un flex con fecha y norma en anchos fijos
+         (92px + 152px) que dejan al tema sin espacio. Se apila. */
+      .rv-lista li { display: block; }
+      .rv-fecha, .rv-doc { flex: none; }
+      .rv-fecha { font-size: var(--fs-xs); color: var(--text-muted); }
+      .rv-doc { display: block; margin: 2px 0; }
+      .rv-pdf { display: inline-block; margin-top: var(--space-2); }
+
+      /* El encabezado azul se come media pantalla con el padding de escritorio. */
+      body > header { padding: var(--space-5) var(--space-4); }
+      .hd-logo { margin-bottom: var(--space-4); }
+      main { padding: 0 var(--space-3); }
     }
   </style>
 </head>
@@ -2963,12 +3362,18 @@ _TEMPLATE = """<!DOCTYPE html>
 
 <main>
 
-  <nav id="tabs">
-    <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Agenda de tareas</button>
-    <button class="tab" data-tab="relevantes" onclick="setTab(this)">Cambios relevantes</button>
-    <button class="tab" data-tab="revision" onclick="setTab(this)">Revisión manual __REVISION_BADGE__</button>
-    <button class="tab" data-tab="listado" onclick="setTab(this)">Listado completo</button>
-  </nav>
+  <div id="tabs-outer">
+    <button type="button" class="tabs-nav" id="tabs-izq"
+            aria-label="Ver las secciones anteriores">‹</button>
+    <button type="button" class="tabs-nav" id="tabs-der"
+            aria-label="Ver las secciones siguientes">›</button>
+    <nav id="tabs">
+      <button class="tab activo" data-tab="cuadro" onclick="setTab(this)">Agenda de tareas</button>
+      <button class="tab" data-tab="relevantes" onclick="setTab(this)">Cambios relevantes</button>
+      <button class="tab" data-tab="revision" onclick="setTab(this)">Revisión manual __REVISION_BADGE__</button>
+      <button class="tab" data-tab="listado" onclick="setTab(this)">Listado completo</button>
+    </nav>
+  </div>
 
   <div class="tab-panel" data-panel="cuadro">
     __CUADRO__
@@ -2999,8 +3404,9 @@ _TEMPLATE = """<!DOCTYPE html>
             <th>Norma</th>
             <th>Tipo de acuerdo</th>
             <th>Norma(s) afectada(s)</th>
-            <th>Vigencia</th>
-            <th>PDF</th>
+            <th class="th-vig">Vigencia</th>
+            <th class="th-link">PDF</th>
+            <th class="th-revisar">Detalle</th>
           </tr>
         </thead>
         <tbody>
@@ -3033,23 +3439,61 @@ _TEMPLATE = """<!DOCTYPE html>
     document.querySelectorAll('.tab-panel').forEach(p => {
       p.style.display = p.dataset.panel === target ? '' : 'none';
     });
+    // La pestaña elegida se trae a la vista. Sin esto, al saltar al Listado
+    // desde la agenda (irAListado) la pestaña activa quedaba fuera de cuadro y
+    // la barra seguía mostrando "Agenda de tareas" subrayada… en otro scroll.
+    // `nearest` en los dos ejes: mueve lo mínimo y no arrastra la página.
+    if (btn.scrollIntoView) {
+      btn.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+    }
+    bordesTabs();
   }
 
-  function toggleDetalleTarea(link) {
-    const tarjeta = link.closest('.cm-tarea');
-    const detalle = tarjeta.querySelector('.cm-detalle');
-    if (!detalle) return;
-    const abierto = detalle.classList.toggle('abierto');
-    link.textContent = abierto ? 'Ocultar detalle ↑' : 'Detalle de cambios →';
+  /* Enciende el difuminado del lado que tenga más contenido. Mide el overflow
+     real en vez de asumir un breakpoint, así que si algún día se agrega una
+     quinta pestaña la señal aparece sola, también en escritorio. */
+  function bordesTabs() {
+    const tabs = document.getElementById('tabs');
+    const caja = document.getElementById('tabs-outer');
+    if (!tabs || !caja) return;
+    const max = tabs.scrollWidth - tabs.clientWidth;
+    caja.classList.toggle('puede-izq', tabs.scrollLeft > 4);
+    caja.classList.toggle('puede-der', tabs.scrollLeft < max - 4);
   }
 
-  function toggleDetalleCR(link) {
-    const fila = link.closest('tr');
+  /* Corre la barra un poco menos de un ancho visible: así siempre queda a la
+     vista la pestaña del borde, que es la referencia de dónde quedaste. Mismo
+     criterio que `correr()` en el riel del calendario. */
+  function correrTabs(dir) {
+    const tabs = document.getElementById('tabs');
+    if (!tabs) return;
+    const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    tabs.scrollBy({
+      left: dir * Math.max(tabs.clientWidth * 0.6, 140),
+      behavior: quieto ? 'auto' : 'smooth',
+    });
+  }
+
+  /* Un solo lugar decide cómo se ve un control de despliegue. Cada toggle
+     escribía su propio rótulo y ya habían divergido en tres formas ('→', '↑' y
+     ningún estado en la tabla del listado), que es como el mismo gesto termina
+     pareciendo tres cosas distintas. El <span class="rv-txt"> existe para poder
+     conservar lo que va antes, como el conteo "3 cambios ·". */
+  function marcarRevisar(btn, abierto) {
+    if (!btn) return;
+    btn.setAttribute('aria-expanded', String(abierto));
+    (btn.querySelector('.rv-txt') || btn).textContent =
+      abierto ? 'Cerrar ▴' : 'Revisar ▾';
+  }
+
+  function toggleDetalleCR(btn) {
+    const fila = btn.closest('tr');
     const detalle = fila.nextElementSibling;
     if (!detalle || !detalle.classList.contains('cr-detalle-row')) return;
     const abierto = detalle.dataset.open === '1';
     detalle.dataset.open = abierto ? '0' : '1';
-    detalle.style.display = abierto ? 'none' : 'table-row';
+    detalle.classList.toggle('abierto', !abierto);
+    marcarRevisar(btn, !abierto);
   }
 
   function toggleGrupoCR(btn) {
@@ -3058,7 +3502,7 @@ _TEMPLATE = """<!DOCTYPE html>
     if (!cuerpo) return;
     const abierto = grupo.classList.toggle('abierto');
     cuerpo.style.display = abierto ? '' : 'none';
-    btn.textContent = abierto ? 'Cerrar ↑' : 'Revisar →';
+    marcarRevisar(btn, abierto);
   }
 
   function toggleDetail(row) {
@@ -3066,7 +3510,8 @@ _TEMPLATE = """<!DOCTYPE html>
     if (!next || !next.classList.contains('detail-row')) return;
     const open = next.dataset.open === '1';
     next.dataset.open = open ? '0' : '1';
-    next.style.display = open ? 'none' : 'table-row';
+    next.classList.toggle('abierto', !open);
+    marcarRevisar(row.querySelector('.btn-revisar'), !open);
   }
 
   function setTipo(btn) {
@@ -3089,7 +3534,12 @@ _TEMPLATE = """<!DOCTYPE html>
       if (visible) visibles.add(tr.dataset.clave);
       const detail = tr.nextElementSibling;
       if (detail && detail.classList.contains('detail-row')) {
-        detail.style.display = (visible && detail.dataset.open === '1') ? 'table-row' : 'none';
+        // Igual que en Cambios relevantes: el estado va en la clase, nunca en
+        // `style.display`, porque el display en línea le gana a la media query
+        // y en celular la fila abierta tiene que ser `block`, no `table-row`.
+        // `dataset.open` se conserva, así que al volver a entrar en el filtro
+        // la fila reaparece abierta si lo estaba.
+        detail.classList.toggle('abierto', visible && detail.dataset.open === '1');
       }
     });
     filtrarTimeline(visibles);
@@ -3337,6 +3787,15 @@ _TEMPLATE = """<!DOCTYPE html>
       }
       if (ev.target.closest('#ag-filtro button')) { filtro = null; return aplicarFiltro(); }
 
+      const ult = ev.target.closest('[data-ult-toggle]');
+      if (ult) {
+        const det = raiz.querySelector('.ag-ult-detalle');
+        if (!det) return;
+        det.hidden = !det.hidden;
+        marcarRevisar(ult, !det.hidden);
+        return;
+      }
+
       const tl = ev.target.closest('[data-timeline]');
       if (tl) return irATimeline(tl.dataset.timeline);
       const fila = ev.target.closest('[data-fila]');
@@ -3381,6 +3840,18 @@ _TEMPLATE = """<!DOCTYPE html>
     riel.addEventListener('scroll', bordes, { passive: true });
     addEventListener('resize', bordes);
     aplicarFiltro();
+  })();
+
+  /* Las pestañas se cablean fuera del IIFE de la agenda: la barra pertenece a
+     toda la página, no a una pestaña. Va al final para que el <nav> ya exista. */
+  (function () {
+    const tabs = document.getElementById('tabs');
+    if (!tabs) return;
+    tabs.addEventListener('scroll', bordesTabs, { passive: true });
+    addEventListener('resize', bordesTabs);
+    document.getElementById('tabs-izq').addEventListener('click', () => correrTabs(-1));
+    document.getElementById('tabs-der').addEventListener('click', () => correrTabs(1));
+    bordesTabs();
   })();
 </script>
 

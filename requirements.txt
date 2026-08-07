@@ -2,5 +2,8 @@ requests>=2.31.0
 beautifulsoup4>=4.12.0
 pdfplumber>=0.10.0
 PyMuPDF>=1.23.0
-python-dateutil>=2.8.0
 lxml>=4.9.0
+# Base de zonas horarias. Linux la trae del sistema, Windows no: sin esto
+# `ZoneInfo("America/Santiago")` falla y el dashboard sella las horas en UTC,
+# tres o cuatro horas adelantadas respecto de la hora que espera quien lee.
+tzdata>=2024.1
