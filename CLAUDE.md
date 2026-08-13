@@ -545,9 +545,18 @@ bug** — pero es lo primero que hay que revisar cuando una resolución aparece 
 
 ## Agendamiento
 
-`.github/workflows/monitoreo.yml` corre `python scraper/main.py` a diario a las
-11:00 UTC (≈ 8:00 AM de Chile en verano) y luego hace commit de cualquier cambio
-bajo `data/` y `docs/` de vuelta al repo. GitHub Pages sirve `/docs`. El runner
+`.github/workflows/monitoreo.yml` corre `python scraper/main.py` **dos veces al
+día** —11:00 y 15:00 UTC (≈ 8:00 AM y mediodía de Chile)— y luego hace commit de
+cualquier cambio bajo `data/` y `docs/` de vuelta al repo.
+
+La segunda corrida es una red de seguridad, no un duplicado: la CMF queda
+inalcanzable de a ratos (05-08-2026 y 13-08-2026, las dos con `ConnectTimeout`)
+y los reintentos de `fetch.py` cubren ~6 minutos, no media hora. Estirarlos más
+choca con el peor caso del otro modo de falla —el 200 sin tabla, que sí lee
+hasta 300 s por intento— y con el timeout del job. Como el pipeline es
+diferencial e idempotente, si la primera corrida resultó la segunda sale por
+«sin novedades». **Consecuencia: hay hasta dos commits `chore: monitoreo` por
+día**, porque `ultima_consulta` cambia en cada consulta. GitHub Pages sirve `/docs`. El runner
 tiene permiso `contents: write` y un timeout de 45 minutos, atado al peor caso
 de `fetch.MAX_REINTENTOS` (ver su comentario: si bajas uno, baja el otro).
 

@@ -2,7 +2,20 @@ name: Monitoreo Normativo CMF
 
 on:
   schedule:
+    # Dos corridas al día, no una. La CMF queda inalcanzable de a ratos —el
+    # 05-08-2026 y el 13-08-2026, las dos veces con ConnectTimeout a media
+    # mañana— y los reintentos de `fetch.py` cubren ~6 minutos, que es lo que
+    # alcanza a durar un tropiezo pero no una caída de media hora. Estirarlos
+    # más choca con el peor caso del otro modo de falla (el 200 sin tabla, que
+    # sí lee hasta 300 s por intento) y con el timeout del job.
+    #
+    # Una segunda corrida es más barata y cubre horas en vez de minutos: el
+    # pipeline es diferencial e idempotente, así que si la primera resultó, la
+    # segunda no encuentra nada nuevo y sale por «sin novedades». El 13-08-2026
+    # la corrida de la mañana murió y se habría perdido la NCG N°573 hasta el
+    # día siguiente.
     - cron: "0 11 * * *"   # 8:00 AM hora Chile (UTC-3 verano)
+    - cron: "0 15 * * *"   # mediodía en Chile: la red de seguridad
   workflow_dispatch:         # permite ejecución manual
 
 permissions:
