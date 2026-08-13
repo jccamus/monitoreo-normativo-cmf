@@ -18,7 +18,10 @@ def _load_raw() -> dict:
 
 
 def _save_raw(data: dict) -> None:
-    with open(STATE_PATH, "w", encoding="utf-8") as f:
+    # newline: ver el comentario de `OUTPUT.write_text` en dashboard.py. Acá el
+    # archivo lo escriben tanto el runner Linux como una máquina Windows, y sin
+    # fijarlo cada uno lo reescribe entero para el otro.
+    with open(STATE_PATH, "w", encoding="utf-8", newline="\n") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 

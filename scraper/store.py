@@ -232,7 +232,8 @@ def guardar_diferencial(nuevas: list[dict], fecha: str | None = None) -> Path:
         "new_entries": fusionadas,
     }
 
-    with open(path, "w", encoding="utf-8") as f:
+    # newline: ver el comentario de `OUTPUT.write_text` en dashboard.py.
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
     logger.info(

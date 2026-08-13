@@ -694,7 +694,13 @@ def generar_html() -> None:
     html_doc = _render(
         entradas, grupos, grupos_cuerpo, hoy, ultima_consulta, novedades,
     )
-    OUTPUT.write_text(html_doc, encoding="utf-8")
+    # El salto se fija en vez de dejar el default, que en Windows traduce cada
+    # "\n" a "\r\n". El HTML lleva CRLF dentro del propio contenido —hay
+    # descripciones de la CMF que los traen, y viajan al índice de búsqueda—,
+    # así que esa traducción los convertía en "\r\r\n": el archivo generado en
+    # Windows no era el mismo que el del runner Linux, y cada regeneración local
+    # reescribía sus 2.760 líneas. No es cosmético: el contenido se alteraba.
+    OUTPUT.write_text(html_doc, encoding="utf-8", newline="\n")
 
     hitos = _hitos_agenda(entradas, hoy)
     calendario = _calendario_agenda(hitos, hoy)

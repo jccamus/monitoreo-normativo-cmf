@@ -170,7 +170,8 @@ def reparsear(
             modificado = True
 
         if modificado and not dry_run:
-            with open(path, "w", encoding="utf-8") as f:
+            # newline: ver el comentario de `OUTPUT.write_text` en dashboard.py.
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
                 json.dump(payload, f, ensure_ascii=False, indent=2)
             logger.info("%s reescrito", path.name)
 

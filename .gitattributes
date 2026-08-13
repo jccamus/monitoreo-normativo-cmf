@@ -1,0 +1,34 @@
+# Fines de línea. El pipeline escribe desde dos sistemas operativos —el runner
+# Linux del workflow y la máquina Windows donde se desarrolla— y sin esto cada
+# regeneración local reescribía archivos enteros para el otro, enterrando el
+# diff real bajo miles de líneas de ruido.
+#
+# Todo se normaliza a LF, que es como lo escribe el runner.
+*.py    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+*.json  text eol=lf
+
+# docs/index.html es la excepción, y no por gusto: `text` normaliza **todo**
+# CRLF a LF al guardar, y este archivo lleva CRLF *dentro del contenido* —hay
+# descripciones de la CMF que los traen y viajan al índice de búsqueda—.
+# Normalizarlo alteraría el dato, no el formato: son 2 secuencias hoy, y git
+# las convertiría sin que nada lo delate.
+#
+# Que el archivo salga con saltos LF lo garantiza el código, no git: las
+# escrituras usan newline="\n" (ver el comentario de `OUTPUT.write_text` en
+# dashboard.py, que documenta el bug que originó esta regla). Si alguien quita
+# ese argumento vuelve el problema, y este archivo no lo va a tapar.
+docs/index.html -text
+
+# data/revisiones.csv se deja fuera a propósito: se edita en Excel, `csv.writer`
+# le escribe CRLF (revisar.py lo abre con newline="" para no interferir) y
+# declararlo reescribiría sus 48 líneas sin ninguna ganancia.
+
+# Binarios, por si alguno llega a versionarse.
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
