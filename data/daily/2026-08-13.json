@@ -1,0 +1,31 @@
+{
+  "date": "2026-08-13",
+  "generated_at": "2026-08-13T12:18:00.074568+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0573",
+      "fecha": "2026-08-11",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 573
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA NORMA QUE IMPARTE INSTRUCCIONES SOBRE LA EXTERNALIZACIÓN DE SERVICIOS DE LAS COMPAÑÍAS DE SEGUROS Y REASEGUROS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_573_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Imparte instrucciones en materia de externalización de servicios en el contexto de la gestión de riesgo operacional",
+      "resumen_acciones": []
+    }
+  ]
+}
