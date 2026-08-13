@@ -119,8 +119,8 @@ lo vuelvas a crear.
    actualización»). Lo escribe `diff.registrar_consulta()`, que `main.py` llama
    **apenas el fetch resulta y antes del corte por «sin novedades»**: un día sin
    resoluciones nuevas igual es un día en que se revisó. Consecuencia operativa:
-   **`state.json` cambia todos los días**, así que el commit diario lo incluye
-   aunque no haya novedades.
+   **`state.json` cambia en cada corrida**, o sea dos veces al día, así que los
+   commits del workflow lo incluyen aunque no haya novedades.
 
    Al tocar `diff._save_state`, lee y reescribe el archivo completo. Emitir
    `{"seen": ...}` a secas borra `ultima_consulta`, y sólo los días con
@@ -566,11 +566,12 @@ diagnosticar sobre datos viejos: **haz `git fetch` antes de sacar conclusiones
 sobre el estado del pipeline** — el `data/state.json` local puede estar decenas de
 commits atrás y hacer parecer que faltan resoluciones que ya se capturaron.
 
-Ojo con leer los commits diarios como señal de salud: `docs/index.html` cambia
-todos los días aunque no haya novedades, porque la Agenda estampa la fecha de hoy.
-Un commit `chore: monitoreo ...` diario **no** significa que se hayan detectado
-resoluciones nuevas; para eso hay que mirar si apareció un archivo nuevo en
-`data/daily/`.
+Ojo con leer los commits como señal de salud: `docs/index.html` cambia **en cada
+corrida** aunque no haya novedades, porque estampa `ultima_consulta` con su hora
+—y la Agenda, la fecha de hoy—. Un commit `chore: monitoreo ...` **no** significa
+que se hayan detectado resoluciones nuevas; para eso hay que mirar si apareció un
+archivo nuevo en `data/daily/`. Y como hay dos corridas al día, **esperar un solo
+commit diario también es equivocarse**: lo normal son dos.
 
 El workflow además llama a `python scraper/dashboard.py` como paso aparte justo
 después de `main.py`, aunque `main.py` ya invoca `generar_html()` al final. Es

@@ -54,5 +54,8 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/ docs/
-          git diff --cached --quiet || git commit -m "chore: monitoreo $(date -u +'%Y-%m-%d')"
+          # La hora va en el mensaje porque hay dos corridas al día: sin ella,
+          # los dos commits del día son indistinguibles en `git log --oneline`
+          # y no se puede saber cuál trajo qué.
+          git diff --cached --quiet || git commit -m "chore: monitoreo $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
