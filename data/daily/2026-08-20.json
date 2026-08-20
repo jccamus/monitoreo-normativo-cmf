@@ -1,0 +1,46 @@
+{
+  "date": "2026-08-20",
+  "generated_at": "2026-08-20T15:32:33.146384+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_2374",
+      "fecha": "2026-08-17",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2374
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA EL CAPÍTULO 2-13 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LA CIRCULAR N°1 DE EMPRESAS EMISORAS DE TARJETAS DE PAGO, EXCLUYENDO EL TRÁMITE DE CONSULTA PÚBLICA",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2374_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [
+        "2-13"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "ismo, deberán remitir a esta\nComisión el archivo E30 “Acreencias Bancarias Sujetas a Caducidad” del Manual\nde Sistema de Información para bancos a más tardar el décimo día hábil bancario\ndel mes de febrero de cada año.\n1\n3. Se reemp"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "E30",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "ESTABLECE AJUSTES EN EL CAPÍTULO 2–13 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS Y LA CIRCULAR N°1 DE EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS",
+      "resumen_acciones": [
+        "Se introducen ajustes al Capítulo 2-13 de la Recopilación Actualizada de Normas en los siguientes términos",
+        "Se introducen ajustes a la Circular N°1 de Empresas Emisoras de Tarjetas de Pago no Bancarias en los siguientes términos"
+      ]
+    }
+  ]
+}
