@@ -1,0 +1,39 @@
+{
+  "date": "2026-08-25",
+  "generated_at": "2026-08-25T15:40:50.052620+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0574",
+      "fecha": "2026-08-24",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 574,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 574
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE INCORPORA A LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA COOPERATIVAS DE AHORRO Y CRÉDITO EL CAPÍTULO CAC-21, QUE ESTABLECE LOS REQUISITOS Y CONDICIONES EXCEPCIONALES PARA SOLICITAR LA DEVOLUCIÓN DE CUOTAS DE PARTICIPACIÓN, Y MODIFICA EL COMPENDIO DE NORMAS CONTABLES PARA COOPERATIVAS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_574_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2027-01-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [
+        "21",
+        "CAC-10",
+        "CAC-21"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "n financiera mensual que las cooperativas\ndeben enviar a este Organismo a través del archivo BC del Manual de Sistema de\nInformación para CACs, de acuerdo con los lineamientos establecidos en el Capítulo H-\n3 del Compendio de Normas"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Introduce nuevo Capítulo CAC-21 a la Recopilación Actualizada de Normas para Cooperativas de Ahorro y Crédito fiscalizadas, sobre los requisitos y condiciones excepcionales para solicitar devolución de cuotas de participación, y establece modificaciones en el Compendio Normas Contables para Cooperativas",
+      "resumen_acciones": []
+    }
+  ]
+}
