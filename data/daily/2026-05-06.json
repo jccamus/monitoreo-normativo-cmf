@@ -18,9 +18,9 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
+            "Elimínese",
             "Reemplácese",
-            "Elimínese"
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -225,8 +225,8 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
-            "Reemplácese"
+            "Reemplácese",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "no especificado"
@@ -271,9 +271,9 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese",
             "Elimínese",
-            "Agréguese"
+            "Agréguese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1027,13 +1027,27 @@
             "Agréguese"
           ],
           "vigencia": {
-            "inicio": "no especificado"
+            "inicio": "2026-03-10",
+            "precision": "dia",
+            "calculo": {
+              "base": "publicacion",
+              "fecha_base": "2025-11-10",
+              "expresion": "120 días desde la publicación",
+              "texto": "entrará en vigencia 120 días después de su emisión"
+            }
           }
         }
       ],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna"
+        "inicio": "2026-03-10",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2025-11-10",
+          "expresion": "120 días desde la publicación",
+          "texto": "entrará en vigencia 120 días después de su emisión"
+        },
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1418,8 +1432,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna"
+        "inicio": "inmediata",
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1500,8 +1514,8 @@
           "seccion_romana": "I",
           "acciones": [
             "Elimínese",
-            "Agréguese",
-            "Modifíquese"
+            "Modifíquese",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1679,8 +1693,8 @@
           "seccion_romana": null,
           "acciones": [
             "Elimínese",
-            "Agréguese",
-            "Reemplácese"
+            "Reemplácese",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "2024-03-01"

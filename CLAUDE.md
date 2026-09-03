@@ -322,6 +322,21 @@ No lo es: es un corte por época. Ver la sección propia más abajo.
   dentro de la misma oración. Antes de agregarle otro verbo, verifica contra el
   texto que la fecha que vas a capturar es la de entrada en vigor y no una del
   ciclo de reporte.
+
+  **El presente ("entra en vigor") está deliberadamente fuera de ese patrón, y no
+  es un olvido.** Se probó y se midió: recuperaba 1 cláusula legítima y creaba 2
+  falsas, porque un documento que *cita* la sección Vigencia de otra norma la
+  transcribe en presente. La NCG 568/2026 sustituye el apartado Vigencia de otra
+  norma y cita «La presente norma entra en vigor a partir del 1 de agosto de
+  2025» — que habría fechado la 568 quince meses antes de su propia publicación.
+  El detalle está en el comentario del patrón.
+- **El encabezado de la sección tiene más formas de las que parece.**
+  `_VIGENCIA_HEADING` acepta el enumerador y el sufijo "y aplicación" ("VI.
+  Vigencia y aplicación"); `_TRANSITORIAS_HEADING` acepta singular y plural y la
+  comilla de apertura, porque cuando una circular *inserta* la disposición en
+  otro cuerpo normativo el encabezado queda dentro del texto citado. Los dos
+  exigen que la línea sea sólo el título: sin eso, "durante la vigencia de la
+  póliza" cortaría el cuerpo del documento ahí.
 - **`_TRANSITORIAS_HEADING` es respaldo**, no alternativa: hay documentos con
   ambas secciones y manda la de vigencia.
 - **Una norma puede fijarle la vigencia a otra.** `_vigencias_impuestas` mapea
@@ -396,6 +411,16 @@ dashboard rinde la sección "Cambios de archivo sin fecha de vigencia"
 genera una obligación de reporte— pero de los que no se pudo determinar desde
 cuándo rige.
 
+**Ojo con los dos contadores: no cuentan lo mismo, y se leen como si sí.** El tab
+«Revisión manual» muestra `_requiere_revision` (sólo los que tocan un archivo del
+MSI: la cola de trabajo). La celda «obligaciones sin fecha» de la Agenda muestra
+`_sin_fecha_agenda`, que es ese conjunto **más** todo lo que el eje temporal no
+puede ubicar por cualquier otra razón. El primero es un subconjunto del segundo,
+así que verlos con números distintos es correcto y aun así parece una
+contradicción — por eso la celda lleva el desglose en su tooltip y la fila del
+panel nombra el tab. Si agregas un motivo nuevo a `_sin_fecha_agenda`, actualiza
+ese rótulo o vuelves a abrir la misma confusión.
+
 Esa lista es **en su mayoría** juicio y no deuda técnica: los casos que quedan
 expresan la fecha entrelazada con el ciclo de reporte —"deberá aplicarse respecto
 de la información referida al cierre del mes de agosto y, por lo tanto, enviarse
@@ -457,6 +482,13 @@ directamente no funciona: `reparse.py` hace `entrada.update(nueva)` y pisa todo
 campo que el parser produce —incluida `vigencia`—, y `guardar_diferencial` fusiona
 por `clave` reemplazando la entrada entera. Como capa aparte sobreviven a las dos
 cosas.
+
+El panel de «Revisión manual» lleva el procedimiento al lado de la lista
+(`_render_como_anotar`). No es adorno: sin los comandos a la vista, la lista se
+lee como un informe de solo lectura y el contador parece condenado a no bajar
+nunca. Lo que hay que dejar dicho ahí es que **`dashboard.py` hace las dos cosas
+en la misma pasada** —saca el documento de la lista y lo mete al Calendario—,
+porque es lo que no se deduce mirando la página.
 
 La capa se aplica **al renderizar** (`revisiones.aplicar` en `generar_html`), no al
 guardar: los datos parseados quedan intactos y una anotación nueva sólo necesita

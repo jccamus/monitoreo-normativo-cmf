@@ -18,8 +18,15 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna"
+        "inicio": "2027-08-11",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2026-08-11",
+          "expresion": "1 año desde la publicación",
+          "texto": "entra en vigencia a contar de un año desde la fecha de emisión"
+        },
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],

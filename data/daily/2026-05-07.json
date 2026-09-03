@@ -728,8 +728,15 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna"
+        "inicio": "2026-07-28",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2025-07-28",
+          "expresion": "1 año desde la publicación",
+          "texto": "entrarán en vigor en el plazo de un año a partir de su emisión"
+        },
+        "fuente": "seccion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -2777,8 +2784,8 @@
           "numero_norma": 318,
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese",
-            "Elimínese"
+            "Elimínese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "2023-07-01"
@@ -3136,8 +3143,8 @@
           "numero_norma": 30,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3148,8 +3155,8 @@
           "numero_norma": 303,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3160,8 +3167,8 @@
           "numero_norma": 475,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3172,8 +3179,8 @@
           "numero_norma": 473,
           "seccion_romana": "II",
           "acciones": [
-            "Agréguese",
-            "Agrégase"
+            "Agrégase",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -4373,8 +4380,8 @@
           "numero_norma": 30,
           "seccion_romana": "I",
           "acciones": [
-            "Agrégase",
-            "Derógase"
+            "Derógase",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -4887,8 +4894,8 @@
           "numero_norma": 318,
           "seccion_romana": "I",
           "acciones": [
-            "Reemplácese",
-            "Agréguese"
+            "Agréguese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "2021-01-01"
@@ -4932,8 +4939,8 @@
           "numero_norma": 209,
           "seccion_romana": "I",
           "acciones": [
-            "Reemplácese",
-            "Agréguese"
+            "Agréguese",
+            "Reemplácese"
           ],
           "vigencia": {
             "inicio": "2021-01-01",

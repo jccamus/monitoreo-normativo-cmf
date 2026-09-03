@@ -191,6 +191,16 @@ _MES_ANIO = re.compile(rf"({_MESES_ALT})\s+del?\s+(\d{{4}})", re.IGNORECASE)
 # de cierre. El oficio 1403/2026 dice "Los ajustes señalados se exigirán a
 # contar de los reportes que deben remitirse a partir del 1 de marzo de 2026".
 #
+# **El presente ("entra en vigor") queda deliberadamente fuera**, aunque parezca
+# la omisión obvia. Se probó: capturaba 1 cláusula legítima y 2 falsas. La NCG
+# 568/2026 sustituye el apartado Vigencia de *otra* norma y cita el texto nuevo
+# —«La presente norma entra en vigor a partir del 1 de agosto de 2025»—, que
+# habría fechado la 568 quince meses antes de su propia publicación; y la
+# circular 2314/2022 dice que el ILAAP "entra en vigencia en su versión
+# simplificada en abril de 2023", donde el sujeto es un proceso y no la
+# circular. El futuro no tiene ese problema porque un documento que cita la
+# vigencia de otro la transcribe tal cual, y ahí el presente es lo habitual.
+#
 # Es un respaldo deliberadamente estrecho, y sólo se usa cuando no hay sección.
 # La fecha tiene que colgar de un verbo de aplicación y estar en la misma
 # oración (`[^.]`): así no se repite el bug de tomar la primera fecha del
@@ -235,8 +245,15 @@ _REF_BLOCK = re.compile(r"REF\s*:\s*(.+?)(?:\n\s*_{3,}|\n\s*\n)", re.DOTALL | re
 # en mayúsculas, así que perdía las formas que la CMF usa de verdad: "II.
 # VIGENCIA", "IV. Vigencia", "m. Vigencia". Sobre 46 documentos de 2025-2026
 # reconocía 11 secciones y se le escapaban 17.
+# El sufijo "y aplicación" es la otra forma en que la CMF titula la sección: la
+# NCG 573/2026 abre "VI. Vigencia y aplicación" y la circular 2360/2024 usa
+# "Vigencia y aplicación" a secas. Se enumera la variante en vez de admitir
+# cualquier cola (`.*`) por lo mismo que el patrón exige la línea completa: una
+# cola libre haría calzar "durante la vigencia de la póliza" y cortaría ahí el
+# cuerpo del documento.
 _VIGENCIA_HEADING = re.compile(
-    r"^[ \t]*(?:[IVXLC]+|[A-Za-z]|\d{1,2})?[.\-)]?[ \t]*VIGENCIA[ \t]*:?[ \t]*$",
+    r"^[ \t]*(?:[IVXLC]+|[A-Za-z]|\d{1,2})?[.\-)]?[ \t]*"
+    r"VIGENCIA(?:[ \t]+Y[ \t]+APLICACI[ÓO]N)?[ \t]*:?[ \t]*$",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -244,9 +261,14 @@ _VIGENCIA_HEADING = re.compile(
 # transitorias" (la circular 2373/2026). Se usa **sólo como respaldo**, porque
 # hay documentos con las dos secciones —la NCG 562/2026 tiene "IV. DISPOSICIONES
 # TRANSITORIAS" y "V. VIGENCIA"— y ahí manda la de vigencia.
+# Singular además de plural: las circulares que agregan un solo artículo
+# titulan "Disposición transitoria" (2366/2025, 2371/2026) y el plural sólo
+# aparece en las normas largas. Y se admite la comilla de apertura, porque
+# cuando la circular *inserta* la disposición en otro cuerpo normativo el
+# encabezado queda dentro del texto citado.
 _TRANSITORIAS_HEADING = re.compile(
-    r"^[ \t]*(?:[IVXLC]+|[A-Za-z]|\d{1,2})?[.\-)]?[ \t]*"
-    r"DISPOSICIONES[ \t]+TRANSITORIAS[ \t]*:?[ \t]*$",
+    r"^[ \t]*[\"“«]?[ \t]*(?:[IVXLC]+|[A-Za-z]|\d{1,2})?[.\-)]?[ \t]*"
+    r"DISPOSICI(?:[ÓO]N|ONES)[ \t]+TRANSITORIAS?[ \t]*:?[ \t]*$",
     re.IGNORECASE | re.MULTILINE,
 )
 
@@ -357,7 +379,7 @@ _PLAZO_RELATIVO = re.compile(
     r"(d[íi]as?|meses|mes|años?)"
     r"(?:\s*,?\s*(h[áa]biles?|corridos?|calendario))?"
     r"[^.]{0,40}?"
-    r"(?:contad[oa]s?\s+)?(?:desde|despu[ée]s\s+de|a\s+contar\s+de)\s+"
+    r"(?:contad[oa]s?\s+)?(?:desde|despu[ée]s\s+de|a\s+contar\s+de|a\s+partir\s+de)\s+"
     + _BASE_PLAZO,
     re.IGNORECASE,
 )

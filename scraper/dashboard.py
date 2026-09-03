@@ -934,9 +934,42 @@ def _render_revision_manual(entradas: list[dict]) -> str:
         f'rige el cambio en una forma que se pueda extraer del PDF. '
         f'En {con_pistas} de ellos se listan las fechas que aparecen en el cuerpo '
         f'del documento como pista; cuál de ellas rige es una decisión que hay que '
-        f'tomar leyendo el PDF. Para anotar el resultado: '
-        f'<code>data/revisiones.csv</code>.</p>'
+        f'tomar leyendo el PDF.</p>'
+        f'{_render_como_anotar()}'
         f'<ul class="rv-lista">{filas}</ul>{_render_revisados(entradas)}</section>'
+    )
+
+
+def _render_como_anotar() -> str:
+    """El procedimiento para resolver un pendiente, junto a la lista.
+
+    La lista de pendientes sin el procedimiento al lado se lee como un informe
+    de solo lectura: quien la mira concluye que el contador no puede bajar. Y el
+    dato clave —que anotar una fecha la saca de acá **y** la mete al Calendario
+    en la misma pasada— no estaba dicho en ninguna parte de la página.
+    """
+    return (
+        '<details class="rv-como">'
+        '<summary>¿Encontraste la fecha? Así se anota</summary>'
+        '<ol>'
+        '<li><code>python scraper/revisar.py</code> — deja en '
+        '<code>data/revisiones.csv</code> una fila por pendiente, con el PDF, '
+        'los archivos detectados y las fechas candidatas para decidir sin abrir '
+        'el documento.</li>'
+        '<li>Abrir esa planilla en Excel y llenar la columna <b>vigencia</b>: '
+        '<code>2025-11-01</code>, <code>01-11-2025</code> o <code>2025-11</code> '
+        'si el documento sólo fija el mes. <code>inmediata</code> si rige desde '
+        'su publicación, y <b>sin_fecha</b> = <code>si</code> si el documento '
+        'de verdad no lo declara — es una respuesta válida, no un pendiente. '
+        'Una fecha por archivo se escribe '
+        '<code>RDC40=2026-01-01;RDC02=2025-11-01</code>.</li>'
+        '<li><code>python scraper/dashboard.py</code> — aplica lo anotado.</li>'
+        '</ol>'
+        '<p>Ese último paso hace las dos cosas de una vez: el documento sale de '
+        'esta lista <b>y</b> aparece en el Calendario de modificaciones en la '
+        'fecha anotada, marcado «confirmada» para no confundirlo con lo que se '
+        'extrajo del PDF. Refrescar la planilla nunca pisa lo ya escrito.</p>'
+        '</details>'
     )
 
 
@@ -1057,19 +1090,35 @@ def _render_ag_stats(
 ) -> str:
     con_datos = sum(1 for m in calendario if m["items"])
     gen_fecha, gen_hora = _fecha_hora_partes(ultima_consulta)
+    # El desglose viaja hasta el rótulo: este total y el contador del tab
+    # «Revisión manual» cuentan conjuntos distintos —el tab sólo los que tocan
+    # un archivo del MSI, esta celda además los que quedaron sin fecha legible—
+    # y verlos uno al lado del otro sin explicación se lee como que el
+    # dashboard se contradice.
+    por_archivo = sum(1 for e in sin_fecha if e.get("_motivo") == "archivo")
+    otras = len(sin_fecha) - por_archivo
+    ayuda_sf = (
+        f"{por_archivo} {'modifica' if por_archivo == 1 else 'modifican'} un archivo "
+        f"del MSI y {'está' if por_archivo == 1 else 'están'} en el tab "
+        f"«Revisión manual»; {otras} {'no tiene' if otras == 1 else 'no tienen'} "
+        f"fecha legible por otra razón"
+    ) if otras else "Todas modifican un archivo del MSI: están en el tab «Revisión manual»"
+
     celdas = [
-        (str(len(en_ventana)), "hitos de vigencia en la ventana", True),
+        (str(len(en_ventana)), "hitos de vigencia en la ventana", True, ""),
         (f'{con_datos} <span class="ag-de">/ {len(calendario)}</span>',
-         "meses con actividad", False),
-        (str(len(lejanos)), f"más allá de {MESES_AGENDA} meses", False),
-        (str(len(sin_fecha)), "obligaciones sin fecha", False),
+         "meses con actividad", False, ""),
+        (str(len(lejanos)), f"más allá de {MESES_AGENDA} meses", False, ""),
+        (str(len(sin_fecha)), "obligaciones sin fecha", False, ayuda_sf),
         (f'{html.escape(gen_fecha)} <span class="ag-de">{html.escape(gen_hora)}</span>',
-         "última actualización", False),
+         "última actualización", False, ""),
     ]
     return '<div class="ag-stats">' + "".join(
-        f'<div class="ag-stat{" es-clave" if clave else ""}">'
+        f'<div class="ag-stat{" es-clave" if clave else ""}'
+        f'{" es-conayuda" if ayuda else ""}"'
+        f'{f" title={chr(34)}{html.escape(ayuda)}{chr(34)}" if ayuda else ""}>'
         f'<b class="ag-num">{v}</b><span>{html.escape(t)}</span></div>'
-        for v, t, clave in celdas
+        for v, t, clave, ayuda in celdas
     ) + '</div>'
 
 
@@ -1182,9 +1231,12 @@ def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
         f'style="width:{n / total * 100:.1f}%"></div></div></div>'
         for nombre, n, cls, ayuda in (
             ("Modifican un archivo del MSI", por_archivo, "",
-             "Generan obligación de reporte y no se pudo determinar desde cuándo"),
-            ("Plazo relativo, sin fecha", relativas, " es-alt",
-             "«120 días después de su emisión», «a contar de diciembre», sin día"),
+             "Generan obligación de reporte y no se pudo determinar desde cuándo. "
+             "Son los que aparecen en el tab «Revisión manual»"),
+            ("Sin fecha legible", relativas, " es-alt",
+             "El documento no declara cuándo rige, o lo declara de una forma que "
+             "no se puede resolver. No tocan archivos del MSI, así que no están "
+             "en «Revisión manual»"),
         )
     )
     lista = "".join(
@@ -1200,9 +1252,9 @@ def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
         f'<b>no aparecen en el calendario</b>. Es el punto ciego de esta vista.</p>'
         f'<div class="ag-sf-total"><b class="ag-num">{total}</b>'
         f'<span>documentos fuera del calendario</span></div>{filas}'
-        f'<p class="ag-sf-pie">No es deuda de regex: la fecha viene entrelazada con '
-        f'el ciclo de reporte («al cierre de agosto y, por lo tanto, enviarse en '
-        f'septiembre»), y cuál de las dos rige es un juicio. Se resuelven anotando '
+        f'<p class="ag-sf-pie">En su mayoría no es deuda de regex: la fecha viene '
+        f'entrelazada con el ciclo de reporte («al cierre de agosto y, por lo tanto, '
+        f'enviarse en septiembre»), y cuál de las dos rige es un juicio. Se resuelven anotando '
         f'en <code>revisiones.csv</code>.</p>'
         f'<details class="ag-datos"><summary>Ver las más recientes</summary>'
         f'<div class="ag-sf-lista">{lista}</div></details></section>'
@@ -2563,6 +2615,13 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-stat { background: var(--surface-card); padding: var(--space-3) var(--space-4); }
     .ag-stat b { display: block; font-size: var(--fs-h2); font-weight: var(--fw-regular);
                  color: var(--text-strong); line-height: var(--lh-tight); }
+    /* Una celda con ayuda tiene que verse como que la tiene: este total y el
+       contador del tab «Revisión manual» cuentan conjuntos distintos, y sin
+       una señal de que hay explicación el tooltip no lo aclara nunca porque
+       nadie lo busca. */
+    .ag-stat.es-conayuda { cursor: help; }
+    .ag-stat.es-conayuda span { text-decoration: underline dotted;
+                                text-underline-offset: 2px; }
     .ag-stat span { display: block; font-size: var(--fs-xs); color: var(--text-muted);
                     margin-top: 4px; }
     .ag-stat.es-clave b { color: var(--color-brand); }
@@ -2933,6 +2992,16 @@ _TEMPLATE = """<!DOCTYPE html>
                     border: var(--border-w) solid var(--border-subtle);
                     border-radius: var(--radius-xs); padding: 1px 5px;
                     font-size: var(--fs-xs); }
+    .rv-como { margin: var(--space-3) 0; padding: var(--space-3) var(--space-4);
+               background: var(--surface-sunken, var(--surface-card));
+               border-left: 3px solid var(--color-brand); }
+    .rv-como summary { cursor: pointer; font-weight: var(--fw-semibold);
+                       font-size: var(--fs-sm); }
+    .rv-como ol { margin: var(--space-3) 0 0; padding-left: var(--space-4);
+                  font-size: var(--fs-sm); color: var(--text-muted); }
+    .rv-como li { margin-bottom: var(--space-2); line-height: 1.55; }
+    .rv-como p { font-size: var(--fs-sm); color: var(--text-muted); margin-top: var(--space-2); }
+    .rv-como code { font-size: 0.92em; }
     .rv-revisados { font-size: var(--fs-xs); color: var(--ink-on-success-bg);
                     background: var(--cmf-success-bg);
                     border-left: var(--accent-bar-w) solid var(--cmf-success);
