@@ -1,6 +1,8 @@
 import re
 import io
 import logging
+from calendar import monthrange
+from datetime import date, timedelta
 from typing import Any
 
 logger = logging.getLogger(__name__)
@@ -22,6 +24,20 @@ def _frase(texto: str) -> str:
     espacio duro que deja el extractor al justificar el texto.
     """
     return r"\s+".join(map(re.escape, texto.split()))
+
+
+def _frase_flex(texto: str) -> str:
+    """Como `_frase()`, pero además tolera que falte la tilde.
+
+    El extractor devuelve "aplicación" en un PDF y "aplicacion" en otro según
+    cómo esté incrustada la fuente. La lista de frases que esta función
+    reemplaza cargaba las dos formas escritas a mano y aun así se le escapaban
+    combinaciones; generarlas es más corto y no se olvida ninguna.
+    """
+    patron = _frase(texto)
+    for con, sin in (("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")):
+        patron = patron.replace(con, f"[{con}{sin}]")
+    return patron
 
 
 _NCG_NUM     = re.compile(
@@ -54,9 +70,14 @@ _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+",
 # escribe como ordinal: "aplicables desde el 1° de julio de 2026". Sin esto la
 # fecha más importante del documento —la única que le dice a alguien cuándo
 # tiene que actuar— era justamente la que no se reconocía.
+# La preposición antes del año es opcional: la CMF escribe tanto "1° de julio
+# de 2023" como "1° de julio 2023", y exigir el "de" mandaba la segunda forma a
+# "ver texto" pese a ser una fecha completa y explícita. Eran 3 entradas del
+# histórico (NCG 496/2023, NCG 506/2024, circular 2357/2024), todas con su
+# vigencia declarada sin ambigüedad en la sección correspondiente.
 _FECHA_SPAN  = re.compile(
     r"(\d{1,2})[°º]?\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
-    r"septiembre|octubre|noviembre|diciembre)\s+del?\s+(\d{4})",
+    r"septiembre|octubre|noviembre|diciembre)\s+(?:del?\s+)?(\d{4})",
     re.IGNORECASE,
 )
 # Línea de guiones bajos que cierra el bloque REF del encabezado. Ver
@@ -153,8 +174,12 @@ _MESES_ALT = (
 # diciembre de 2024"— y la numérica aparece en las circulares más antiguas
 # ("a partir del día 13-07-2021"). Reconocer sólo la forma larga mandaba las dos
 # a revisión manual pese a que el documento sí declara cuándo rige.
+# El `del?` opcional sólo en la rama de día completo ("1° de julio 2023"): ahí
+# el día vuelve inequívoca a la fecha. En la rama de mes suelto se mantiene
+# obligatorio, porque sin día ni preposición cualquier "diciembre 2024" del
+# cuerpo pasaría por plazo.
 _FECHA_ALT = (
-    r"(\d{1,2}[°º]?\s+de\s+(?:" + _MESES_ALT + r")\s+del?\s+\d{4}"
+    r"(\d{1,2}[°º]?\s+de\s+(?:" + _MESES_ALT + r")\s+(?:del?\s+)?\d{4}"
     r"|\d{1,2}[-/]\d{1,2}[-/]\d{4}"
     r"|(?:mes\s+de\s+)?(?:" + _MESES_ALT + r")\s+del?\s+\d{4})"
 )
@@ -237,17 +262,266 @@ _EXCEPCION = re.compile(
 # separador de miles ("N°2.373").
 _FIN_ORACION = re.compile(r"\.(?=\s|$)")
 
-# Frases con las que la CMF expresa "rige de inmediato". Se comparan en
-# minúsculas contra la sección de vigencia.
-_FRASES_INMEDIATA = (
-    "a partir de esta fecha",
-    "a contar de esta fecha",
-    "a contar de la fecha",
-    "aplicación inmediata",
-    "aplicacion inmediata",
-    "será inmediata",
-    "sera inmediata",
-    "vigencia inmediata",
+# Valores de `inicio` que significan "no se pudo determinar". Se nombran una
+# sola vez porque hay varios puntos que deben distinguir un dato resuelto de uno
+# que no lo está, y tratarlos como equivalentes a una fecha es justamente el
+# error que produce vigencias falsas.
+_INICIO_DEGRADADO = ("ver texto", "no especificado", None)
+
+# Tope de tramos que se aceptan al desdoblar una sección de vigencia escrita en
+# prosa. Ver `_parse_tramos_prosa`.
+_MAX_TRAMOS_PROSA = 4
+
+# "a contar del 12 de julio del presente año": día y mes declarados, año dicho
+# por referencia al propio documento. Es la forma de la NCG 472/2022. El año
+# sale de la fecha de publicación, que es lo que "el presente año" significa.
+_FECHA_PRESENTE_ANIO = re.compile(
+    r"(\d{1,2})[°º]?\s+de\s+(" + _MESES_ALT + r")\s+"
+    r"del?\s+(?:presente|actual)\s+a[ñn]o",
+    re.IGNORECASE,
+)
+
+# ── Plazos relativos: el documento declara una regla, no una fecha ─────────
+#
+# La circular 2376/2026 dice "entrará en vigor en el plazo de un mes contado
+# desde su publicación". Es una vigencia perfectamente declarada, pero como no
+# hay ninguna fecha escrita en el texto, el parser la mandaba a "ver texto" y
+# el documento desaparecía del Calendario de modificaciones, que es justamente
+# donde un plazo futuro tiene que estar.
+#
+# Calcular esa fecha NO contradice la regla de no inventar vigencias. La regla
+# prohíbe suponer una fecha que el documento no da; acá el documento da la
+# regla completa —cuánto y desde cuándo— y la base del cálculo es su propia
+# fecha de publicación, que el parser ya extrajo del encabezado. Es derivación,
+# no suposición. Aun así el resultado se marca con `calculo` (ver
+# `_parse_vigencia_global`) para que nunca se confunda con una fecha escrita.
+#
+# Dos condiciones que no se pueden relajar:
+#
+#  1. **Anclaje a un verbo de entrada en vigor.** El plazo tiene que colgar de
+#     "entrará en vigor", "rige", "comenzarán a regir"… dentro de la misma
+#     oración (`[^.]`). Sin esto, un "las entidades tendrán seis meses para
+#     adecuarse" —que es un plazo de adecuación, no la vigencia— pasaría por
+#     fecha de entrada en vigor.
+#  2. **Los días hábiles quedan fuera.** Contarlos exige el calendario de
+#     feriados de Chile, que este proyecto no tiene y no va a adivinar. Ante un
+#     plazo en días hábiles el resultado correcto sigue siendo "ver texto".
+# `entrar?[áa]?n?` cubre de una vez el presente y el futuro —"entra en vigor",
+# "entran en vigor", "entrará en vigencia", "entrarán a regir"—, que es como la
+# CMF alterna sin criterio dentro del mismo documento. Escribirlas como formas
+# separadas ya dejó fuera dos veces la conjugación en presente.
+_VERBO_VIGENCIA = (
+    r"(?:entrar?[áa]?n?\s+(?:en\s+(?:plena\s+)?(?:vigor|vigencia)|a\s+regir)|"
+    r"rige[nr]?|regir[áa]?n?|"
+    r"comenzar[áa]?n?\s+a\s+regir|empezar[áa]?n?\s+a\s+regir|"
+    r"ser[áa]n?\s+exigibles?|se\s+aplicar[áa]n?|aplicaci[óo]n\s+de\s+las?)"
+)
+
+# Cantidades escritas con palabras. La CMF alterna "treinta días" con "120
+# días" en documentos del mismo año, así que hay que leer las dos formas.
+_CARDINALES = {
+    "un": 1, "una": 1, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5,
+    "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10, "once": 11,
+    "doce": 12, "quince": 15, "veinte": 20, "treinta": 30, "sesenta": 60,
+    "noventa": 90, "ciento veinte": 120, "ciento ochenta": 180,
+}
+_ORDINALES = {
+    "primer": 1, "primero": 1, "segundo": 2, "tercer": 3, "tercero": 3,
+    "cuarto": 4, "quinto": 5, "sexto": 6, "séptimo": 7, "septimo": 7,
+    "octavo": 8, "noveno": 9, "décimo": 10, "decimo": 10,
+    "undécimo": 11, "undecimo": 11, "duodécimo": 12, "duodecimo": 12,
+}
+
+# Las alternativas se ordenan de más larga a más corta: sin eso "ciento veinte"
+# nunca calzaría, porque la rama "veinte" consume primero.
+_CANTIDAD_ALT = r"\d{1,3}|" + "|".join(
+    _frase_flex(p) for p in sorted(_CARDINALES, key=len, reverse=True)
+)
+_ORDINAL_ALT = "|".join(
+    _frase_flex(p) for p in sorted(_ORDINALES, key=len, reverse=True)
+)
+# La base del conteo. "su publicación", "su emisión" y "su dictación" son la
+# misma fecha para estos efectos: la del propio documento.
+_BASE_PLAZO = (
+    r"(?:su|la|el|de)\s+(?:fecha\s+de\s+)?"
+    r"(?:publicaci[óo]n|emisi[óo]n|dictaci[óo]n)"
+)
+
+# Forma 1: "en el plazo de un mes contado desde su publicación",
+#          "en treinta días, contados desde la emisión de la presente norma",
+#          "120 días después de su emisión".
+_PLAZO_RELATIVO = re.compile(
+    _VERBO_VIGENCIA + r"[^.]{0,60}?"
+    r"(?:en\s+(?:el\s+|un\s+)?(?:plazo\s+de\s+)?|a\s+los\s+|dentro\s+de\s+(?:los\s+)?)?"
+    r"(" + _CANTIDAD_ALT + r")\s+"
+    r"(d[íi]as?|meses|mes|años?)"
+    r"(?:\s*,?\s*(h[áa]biles?|corridos?|calendario))?"
+    r"[^.]{0,40}?"
+    r"(?:contad[oa]s?\s+)?(?:desde|despu[ée]s\s+de|a\s+contar\s+de)\s+"
+    + _BASE_PLAZO,
+    re.IGNORECASE,
+)
+
+# Forma 2: "a contar del primer día del sexto mes siguiente a su emisión",
+#          "a contar del primer lunes del tercer mes siguiente al de su emisión".
+# Se resuelve al mes calendario N posiciones después del de publicación, y
+# dentro de ese mes al primer día o al primer lunes según lo que pida el texto.
+_PLAZO_MES_SIGUIENTE = re.compile(
+    _VERBO_VIGENCIA + r"[^.]{0,60}?"
+    r"(?:primer|primero)\s+(d[íi]a|lunes|martes|mi[ée]rcoles|jueves|viernes)\s+"
+    r"del?\s+(" + _ORDINAL_ALT + r")\s+mes\s+siguiente"
+    r"[^.]{0,40}?" + _BASE_PLAZO,
+    re.IGNORECASE,
+)
+
+_DIAS_SEMANA = {
+    "lunes": 0, "martes": 1, "miércoles": 2, "miercoles": 2,
+    "jueves": 3, "viernes": 4,
+}
+
+
+def _suma_meses(base: date, meses: int) -> date:
+    """Suma meses calendario recortando al último día válido del mes destino.
+
+    Un 31 de enero más un mes es el 28 (o 29) de febrero, no un 31 inexistente.
+    """
+    indice = base.year * 12 + (base.month - 1) + meses
+    anio, mes = divmod(indice, 12)
+    ultimo = monthrange(anio, mes + 1)[1]
+    return date(anio, mes + 1, min(base.day, ultimo))
+
+
+def _cantidad(texto: str) -> int | None:
+    """Número desde su forma en dígitos o en palabras."""
+    texto = " ".join(texto.lower().split())
+    if texto.isdigit():
+        return int(texto)
+    return _CARDINALES.get(texto)
+
+
+def _resolver_plazo_relativo(texto: str, fecha_base: str | None) -> dict | None:
+    """Fecha de entrada en vigor declarada como plazo contado desde el documento.
+
+    Devuelve `None` —y el llamador cae en "ver texto"— cuando el plazo existe
+    pero no se puede resolver con honestidad: en días hábiles, o sin fecha base.
+
+    La fecha base tiene que venir del PDF, nunca del listado de la CMF: el
+    listado trae la fecha de publicación *original* de la norma y el pipeline la
+    rellena como placeholder `YYYY-01-01`. Contar un mes desde un placeholder
+    daría una fecha con toda la apariencia de un dato y ningún respaldo, que es
+    exactamente el modo de falla que este proyecto ya conoce.
+    """
+    if not texto:
+        return None
+
+    def base_valida() -> date | None:
+        if not fecha_base:
+            return None
+        try:
+            return date.fromisoformat(fecha_base)
+        except ValueError:
+            return None
+
+    m = _PLAZO_RELATIVO.search(texto)
+    if m:
+        calificador = (m.group(3) or "").lower()
+        if calificador.startswith(("hábil", "habil")):
+            return None
+        cantidad = _cantidad(m.group(1))
+        base = base_valida()
+        if not cantidad or not base:
+            return None
+        unidad = m.group(2).lower()
+        if unidad.startswith("d"):
+            destino = base + timedelta(days=cantidad)
+            expresion = f"{cantidad} días"
+        elif unidad.startswith("me"):
+            destino = _suma_meses(base, cantidad)
+            expresion = f"{cantidad} mes" + ("es" if cantidad > 1 else "")
+        else:
+            destino = _suma_meses(base, cantidad * 12)
+            expresion = f"{cantidad} año" + ("s" if cantidad > 1 else "")
+        return _vigencia_calculada(destino, fecha_base, f"{expresion} desde la publicación", m.group(0))
+
+    m = _PLAZO_MES_SIGUIENTE.search(texto)
+    if m:
+        base = base_valida()
+        meses = _ORDINALES.get(" ".join(m.group(2).lower().split()))
+        if not base or not meses:
+            return None
+        dia_pedido = m.group(1).lower()
+        destino = _suma_meses(base.replace(day=1), meses)
+        ordinal = m.group(2).lower()
+        if dia_pedido.startswith("d"):
+            expresion = f"primer día del {ordinal} mes siguiente"
+        else:
+            objetivo = _DIAS_SEMANA.get(dia_pedido)
+            if objetivo is None:
+                return None
+            destino += timedelta(days=(objetivo - destino.weekday()) % 7)
+            expresion = f"primer {dia_pedido} del {ordinal} mes siguiente"
+        return _vigencia_calculada(destino, fecha_base, expresion, m.group(0))
+
+    return None
+
+
+def _vigencia_calculada(destino: date, fecha_base: str, expresion: str, texto: str) -> dict:
+    """Vigencia derivada de una regla, con el rastro de cómo se obtuvo.
+
+    `calculo` no es decorativo: es lo que permite que el dashboard la muestre
+    como fecha calculada y no como fecha declarada, y lo que deja auditar el
+    resultado sin volver al PDF.
+    """
+    return {
+        "inicio": destino.isoformat(),
+        "precision": "dia",
+        "calculo": {
+            "base": "publicacion",
+            "fecha_base": fecha_base,
+            "expresion": expresion,
+            "texto": _normaliza_frase(texto, maxlen=200),
+        },
+    }
+
+
+# Vigencia inmediata: el documento rige desde su propia publicación.
+#
+# Esto era una tupla de frases comparadas con `in` sobre el texto en minúsculas,
+# y por eso **no reconocía casi ningún caso real**: los PDF de la CMF cortan la
+# frase donde termina el renglón, y la sección de vigencia es justo donde más
+# pasa. El histórico trae "regirán a contar" / "de esta fecha" y "rigen a" /
+# "partir de esta fecha" partidas en dos renglones, y un espacio literal no
+# cruza ese corte. La lección ya estaba aprendida y documentada en `_frase()`,
+# pero nunca había llegado hasta acá: de las 22 entradas que el histórico tenía
+# en "ver texto", 11 eran vigencias inmediatas perfectamente declaradas que se
+# perdían por un salto de línea.
+#
+# Se agregan además las variantes que la CMF usa de verdad y que la lista no
+# contemplaba: "de la presente fecha" y las que nombran la publicación en vez
+# de "esta fecha".
+#
+# Ojo con el alcance de las formas con "publicación": van ancladas a "a contar
+# de" / "a partir de", nunca como un "desde su publicación" suelto. Ese giro
+# también aparece dentro de los plazos relativos ("en el plazo de un mes
+# contado desde su publicación"), y capturarlo acá convertiría un plazo futuro
+# en vigencia inmediata: el mismo error de fechar un documento con su propia
+# fecha que este proyecto ya pagó caro.
+_INMEDIATA = re.compile(
+    "|".join(_frase_flex(f) for f in (
+        "a partir de esta fecha",
+        "a contar de esta fecha",
+        "a contar de la fecha",
+        "a contar de la presente fecha",
+        "a partir de la presente fecha",
+        "a contar de su publicación",
+        "a partir de su publicación",
+        "a contar de su fecha de publicación",
+        "a partir de su fecha de publicación",
+        "aplicación inmediata",
+        "vigencia inmediata",
+        "será inmediata",
+    )),
+    re.IGNORECASE,
 )
 
 # Viñetas dentro de la sección de vigencia. Cuando hay más de una, cada una
@@ -374,8 +648,21 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     if not result.get("resolucion"):
         result["fecha_documento"] = _fecha_encabezado(text)
 
+    # La fecha de publicación del documento, que es la base desde la cual se
+    # cuentan los plazos relativos ("en el plazo de un mes contado desde su
+    # publicación"). Se calcula acá, una sola vez y antes de la vigencia, con el
+    # mismo criterio que usa `store.ensamblar_entrada` para elegir la fecha de
+    # la entrada: primero la de la resolución, si el PDF declara una.
+    #
+    # Este dato ya existía en el parser desde siempre, pero no llegaba a las
+    # funciones de vigencia, que eran las que lo necesitaban para resolver un
+    # plazo relativo. Ese hueco entre dos partes del mismo módulo es la razón de
+    # que la circular 2376/2026 no tuviera fecha en el Calendario pese a
+    # declararla sin ambigüedad.
+    fecha_base = (result.get("resolucion") or {}).get("fecha") or result.get("fecha_documento")
+
     # ── Modificaciones ───────────────────────────────────────────────────────
-    result["modifica"] = _parse_modificaciones(text)
+    result["modifica"] = _parse_modificaciones(text, fecha_base)
 
     # ── RAN / MSI ───────────────────────────────────────────────────────────
     result["ran_referencias"] = _parse_ran(text)
@@ -394,21 +681,42 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     # incompleto, que es preferible a un dato inventado (mismo criterio que
     # `_fecha_encabezado`).
     seccion_vig = _seccion_vigencia(text)
-    result["vigencia"] = _parse_vigencia_global(seccion_vig)
+    result["vigencia"] = _parse_vigencia_global(seccion_vig, fecha_base)
     result["vigencia"]["fuente"] = "seccion" if seccion_vig else "ninguna"
 
-    # Primero las viñetas; si no hay, la excepción en prosa.
-    plazos = _parse_plazos(seccion_vig) if seccion_vig else []
-    if not plazos and seccion_vig:
-        plazos = _parse_excepciones(seccion_vig)
-        # El `inicio` global lo da la regla general, no el barrido de toda la
-        # sección: `_parse_vigencia_global` evalúa las frases de inmediatez
-        # antes que las fechas, así que una excepción "…tienen vigencia
-        # inmediata" se imponía sobre el 1 de enero de 2028 de la regla.
-        if plazos:
-            result["vigencia"]["inicio"] = plazos[0]["inicio"]
+    # Las tres formas de escalonar una vigencia, de la más explícita a la más
+    # difusa: viñetas, una excepción introducida por "salvo", y varias oraciones
+    # seguidas que reparten la entrada en vigor entre grupos de secciones. Se
+    # prueban en ese orden y gana la primera que reconozca tramos.
+    plazos = []
+    if seccion_vig:
+        for extraer in (_parse_plazos, _parse_excepciones, _parse_tramos_prosa):
+            plazos = extraer(seccion_vig, fecha_base)
+            if plazos:
+                break
+
     if plazos:
         result["vigencia"]["plazos"] = plazos
+        # El `inicio` global lo da el primer tramo —la regla general—, no el
+        # barrido de toda la sección: `_parse_vigencia_global` evalúa las frases
+        # de inmediatez antes que las fechas, así que sin esto una excepción
+        # "…tienen vigencia inmediata" se imponía sobre el 1 de enero de 2028 de
+        # la regla, y un documento cuya primera oración dice "rige a contar de
+        # esta fecha" quedaba descrito sólo como inmediato aunque su segunda
+        # oración fijara una fecha futura.
+        #
+        # Y sólo si ese tramo aporta algo: uno sin fecha no puede degradar una
+        # vigencia global que sí se había resuelto.
+        if plazos[0]["inicio"] not in _INICIO_DEGRADADO:
+            result["vigencia"]["inicio"] = plazos[0]["inicio"]
+            # El rastro del cálculo describe una fecha concreta. Si el `inicio`
+            # pasa a ser el del primer tramo, hay que reemplazarlo por el de ese
+            # tramo —o borrarlo—: un `calculo` que explica una fecha distinta de
+            # la que acompaña es peor que no tener ninguno, porque el dashboard
+            # lo muestra como la justificación del dato.
+            result["vigencia"].pop("calculo", None)
+            if plazos[0].get("calculo"):
+                result["vigencia"]["calculo"] = plazos[0]["calculo"]
 
     # Sin sección, buscar una cláusula de aplicación explícita en el cuerpo.
     # `fuente` queda registrada para que se pueda auditar de dónde salió cada
@@ -563,7 +871,7 @@ def _extraer_resumen_acciones(text: str) -> list[str]:
     return out[:6]
 
 
-def _parse_modificaciones(text: str) -> list[dict]:
+def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict]:
     """Detecta secciones de modificación a normas anteriores."""
     modificaciones = []
 
@@ -571,7 +879,7 @@ def _parse_modificaciones(text: str) -> list[dict]:
     # de la sección, porque son la fecha de la norma modificada y no la del
     # documento que la modifica: la NCG 564/2026 rige de inmediato, pero lo que
     # hace es que la NCG 550 empiece a regir el 1 de marzo de 2027.
-    impuestas = _vigencias_impuestas(text)
+    impuestas = _vigencias_impuestas(text, fecha_base)
 
     # Dividir por secciones romanas
     secciones_pos = [(m.start(), m.group(1)) for m in _SECCION_ROM.finditer(text)]
@@ -593,7 +901,8 @@ def _parse_modificaciones(text: str) -> list[dict]:
                 continue
 
             acciones = list({a.capitalize() for a in _ACCION.findall(segmento)})
-            vigencia_sec = _parse_vigencia_seccion(segmento, num_rom, text[cuerpo_fin:])
+            vigencia_sec = _parse_vigencia_seccion(segmento, num_rom, text[cuerpo_fin:],
+                                                   fecha_base)
 
             for norma_num in normas:
                 modificaciones.append({
@@ -607,7 +916,7 @@ def _parse_modificaciones(text: str) -> list[dict]:
         # Documento sin secciones romanas: modificación directa
         normas = _NORMA_MOD.findall(text[:cuerpo_fin])
         acciones = list({a.capitalize() for a in _ACCION.findall(text[:cuerpo_fin])})
-        vigencia_global = _parse_vigencia_global(text[cuerpo_fin:])
+        vigencia_global = _parse_vigencia_global(text[cuerpo_fin:], fecha_base)
         for norma_num in normas:
             modificaciones.append({
                 "norma": f"NCG N°{norma_num}",
@@ -620,7 +929,8 @@ def _parse_modificaciones(text: str) -> list[dict]:
     return modificaciones
 
 
-def _parse_vigencia_seccion(segmento: str, num_rom: str, seccion_vigencia: str) -> dict:
+def _parse_vigencia_seccion(segmento: str, num_rom: str, seccion_vigencia: str,
+                            fecha_base: str | None = None) -> dict:
     """Extrae vigencia para una sección romana específica."""
     # Busca referencias a la sección en el texto de vigencia
     patron_sec = re.compile(
@@ -628,8 +938,8 @@ def _parse_vigencia_seccion(segmento: str, num_rom: str, seccion_vigencia: str) 
     )
     m = patron_sec.search(seccion_vigencia)
     if m:
-        return _parse_vigencia_global(m.group(1))
-    return _parse_vigencia_global(seccion_vigencia)
+        return _parse_vigencia_global(m.group(1), fecha_base)
+    return _parse_vigencia_global(seccion_vigencia, fecha_base)
 
 
 def _seccion_vigencia(text: str) -> str | None:
@@ -652,7 +962,7 @@ def _seccion_vigencia(text: str) -> str | None:
     return seccion
 
 
-def _parse_plazos(seccion_vigencia: str) -> list[dict]:
+def _parse_plazos(seccion_vigencia: str, fecha_base: str | None = None) -> list[dict]:
     """Plazos individuales cuando la vigencia se reparte en varias viñetas.
 
     La circular 2370/2026 es el caso típico: "La entrada en vigor de la norma
@@ -680,11 +990,11 @@ def _parse_plazos(seccion_vigencia: str) -> list[dict]:
         texto = _normaliza_frase(segmento, maxlen=400)
         if len(texto) < 20:
             continue
-        plazos.append(_plazo(texto))
+        plazos.append(_plazo(texto, fecha_base))
     return plazos
 
 
-def _plazo(texto: str) -> dict:
+def _plazo(texto: str, fecha_base: str | None = None) -> dict:
     """Un tramo de vigencia con su texto, su fecha y la precisión de esa fecha.
 
     `precision` viaja con el plazo por lo mismo que con la vigencia global: un
@@ -692,14 +1002,19 @@ def _plazo(texto: str) -> dict:
     día 1 y mostrarlo como "2025-12-01" afirmaría una exactitud que el documento
     no da.
     """
-    v = _parse_vigencia_global(texto)
+    v = _parse_vigencia_global(texto, fecha_base)
     plazo = {"texto": texto, "inicio": v["inicio"]}
     if v.get("precision"):
         plazo["precision"] = v["precision"]
+    # Una viñeta también puede fijar su plazo en forma relativa, y el rastro del
+    # cálculo tiene que viajar con ella: es lo que distingue en el dashboard una
+    # fecha derivada de una escrita en el documento.
+    if v.get("calculo"):
+        plazo["calculo"] = v["calculo"]
     return plazo
 
 
-def _parse_excepciones(seccion_vigencia: str) -> list[dict]:
+def _parse_excepciones(seccion_vigencia: str, fecha_base: str | None = None) -> list[dict]:
     """Regla general y su excepción, cuando la vigencia se redacta en prosa.
 
     La circular 2373/2026 fija el 1 de enero de 2028 "con excepción de los
@@ -730,20 +1045,134 @@ def _parse_excepciones(seccion_vigencia: str) -> list[dict]:
         texto = texto.strip()
         if len(texto) < 15:
             continue
-        plazos.append(_plazo(_normaliza_frase(texto, maxlen=400)))
+        plazos.append(_plazo(_normaliza_frase(texto, maxlen=400), fecha_base))
     # Con un solo tramo no hay nada que desdoblar: la vigencia global ya lo dice.
-    return plazos if len(plazos) == 2 else []
+    if len(plazos) != 2:
+        return []
+    # Y si ningún tramo aportó una fecha, el desdoblamiento tampoco aporta nada.
+    #
+    # No es una optimización: "salvo" y "excepto" también encabezan salvedades
+    # que no hablan de vigencia. La NCG 477/2022 declara vigencia inmediata y
+    # después dice que las instrucciones se aplican a las solicitudes en curso
+    # "salvo que el solicitante manifieste lo contrario". Ese "salvo" partía la
+    # sección en dos tramos sin fecha, y el primero —que el llamador usa como
+    # regla general— pisaba con "ver texto" una vigencia inmediata correcta.
+    if all(pz.get("inicio") in _INICIO_DEGRADADO for pz in plazos):
+        return []
+    return plazos
 
 
-def _parse_vigencia_global(texto_vigencia: str | None) -> dict:
-    """Clasifica el texto de vigencia en un dict estructurado."""
+def _fecha_presente_anio(texto: str, fecha_base: str | None) -> dict | None:
+    """Fecha cuyo año el documento expresa como "el presente año".
+
+    La NCG 472/2022 dice "entra en vigencia a contar del 12 de julio del
+    presente año". Día y mes están declarados; el año es el del propio
+    documento, así que sin la fecha de publicación no hay nada que resolver y
+    se devuelve `None` para que el llamador caiga en "ver texto".
+    """
+    if not fecha_base:
+        return None
+    m = _FECHA_PRESENTE_ANIO.search(texto)
+    if not m:
+        return None
+    mes = MESES.get(m.group(2).lower())
+    if not mes:
+        return None
+    try:
+        anio = date.fromisoformat(fecha_base).year
+        destino = date(anio, mes, int(m.group(1)))
+    except ValueError:
+        return None
+    return _vigencia_calculada(
+        destino, fecha_base, "año tomado de la fecha del documento", m.group(0)
+    )
+
+
+def _parse_tramos_prosa(seccion_vigencia: str, fecha_base: str | None = None) -> list[dict]:
+    """Tramos de vigencia redactados como oraciones seguidas, sin viñetas.
+
+    Es la tercera forma en que la CMF escalona una vigencia, y la más común en
+    las circulares: ni viñetas (`_parse_plazos`) ni un "salvo" que introduzca la
+    excepción (`_parse_excepciones`), sino dos o tres oraciones que reparten la
+    entrada en vigor entre grupos de secciones. La circular 2356/2024 dice que
+    el número 1 "rige a contar de esta fecha" y los números 2 al 11 "comenzarán
+    a regir el 1 de diciembre del 2024"; la NCG 519/2024 hace lo mismo entre sus
+    secciones I-II y su sección III.
+
+    Sin esto, el documento queda descrito por una sola de sus dos fechas y la
+    otra no existe en los datos. Y con la vigencia inmediata reconocida como
+    corresponde, la que se pierde es siempre la futura —la que obliga a hacer
+    algo— porque `_parse_vigencia_global` evalúa la inmediatez antes que las
+    fechas.
+
+    Se exige que al menos dos oraciones resuelvan a valores **distintos**: una
+    sección de un solo tramo ya queda descrita por la vigencia global, y
+    desdoblarla sólo duplicaría el dato.
+    """
+    tramos: list[dict] = []
+    for oracion in _oraciones(seccion_vigencia):
+        if len(oracion) < 25:
+            continue
+        # La oración tiene que decir que algo *entra a regir*. Sin esta
+        # exigencia la partición captura los plazos de trámite que conviven en
+        # la misma sección —la NCG 524/2024 da a los prestadores "hasta el 3 de
+        # febrero de 2025" para presentar su solicitud— y esas fechas entrarían
+        # al Calendario como si fueran obligaciones de vigencia. Eran 7 de 9
+        # tramos en ese documento.
+        if not re.search(_VERBO_VIGENCIA, oracion, re.IGNORECASE):
+            continue
+        plazo = _plazo(oracion, fecha_base)
+        # Una oración que no fija cuándo rige nada no es un tramo: en esta
+        # sección abundan las que explican a qué reporte aplica el cambio o qué
+        # pueden hacer las entidades voluntariamente.
+        if plazo["inicio"] in _INICIO_DEGRADADO:
+            continue
+        tramos.append(plazo)
+
+    if len({t["inicio"] for t in tramos}) < 2:
+        return []
+    # Muchos tramos significa que la partición está leyendo prosa que no reparte
+    # vigencias. Ante la duda no se desdobla: la vigencia global sigue ahí, y un
+    # Calendario con fechas de más es peor que uno con una fecha de menos.
+    return tramos if len(tramos) <= _MAX_TRAMOS_PROSA else []
+
+
+def _oraciones(texto: str) -> list[str]:
+    """La sección partida en oraciones, normalizadas y sin las vacías."""
+    partes, previo = [], 0
+    for corte in _FIN_ORACION.finditer(texto):
+        partes.append(texto[previo:corte.end()])
+        previo = corte.end()
+    partes.append(texto[previo:])
+    return [t for t in (_normaliza_frase(p, maxlen=400) for p in partes) if t]
+
+
+def _parse_vigencia_global(texto_vigencia: str | None, fecha_base: str | None = None) -> dict:
+    """Clasifica el texto de vigencia en un dict estructurado.
+
+    `fecha_base` es la fecha de publicación del documento, y sólo se usa para
+    resolver los plazos declarados en forma relativa ("en el plazo de un mes
+    contado desde su publicación"). No se usa para nada más: en particular, no
+    rellena la vigencia cuando el texto no la declara. Esa distinción es la
+    línea entre derivar y suponer, y es lo que separa este parámetro del bug
+    histórico en que las 126 entradas con vigencia fechada repetían la fecha de
+    su propio documento.
+    """
     if not texto_vigencia:
         return {"inicio": "no especificado"}
 
     texto = texto_vigencia.lower()
     resultado: dict[str, Any] = {}
 
-    if any(f in texto for f in _FRASES_INMEDIATA):
+    # El plazo relativo se evalúa primero porque su redacción contiene giros que
+    # las otras ramas leerían mal: "contado desde su publicación" se parece a
+    # una vigencia inmediata, y el documento no trae ninguna fecha escrita que
+    # las ramas siguientes pudieran encontrar. Sólo gana cuando se pudo
+    # resolver de verdad; si no, sigue el orden de siempre.
+    relativa = _resolver_plazo_relativo(texto_vigencia, fecha_base)
+    if relativa:
+        resultado.update(relativa)
+    elif _INMEDIATA.search(texto_vigencia):
         resultado["inicio"] = "inmediata"
     else:
         fechas = _FECHA_SPAN.findall(texto_vigencia)
@@ -761,7 +1190,8 @@ def _parse_vigencia_global(texto_vigencia: str | None) -> dict:
                 if precision != "dia":
                     resultado["precision"] = precision
             else:
-                resultado["inicio"] = "ver texto"
+                relativa = _fecha_presente_anio(texto_vigencia, fecha_base)
+                resultado.update(relativa or {"inicio": "ver texto"})
 
     # Detectar cláusula de transición
     m_trans = re.search(r"a más tardar el\s+(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})", texto_vigencia, re.IGNORECASE)
@@ -851,7 +1281,7 @@ def _parse_archivos(text: str, vigencia: dict | None = None) -> list[dict]:
     return list(por_codigo.values())
 
 
-def _vigencias_impuestas(text: str) -> dict[int, dict]:
+def _vigencias_impuestas(text: str, fecha_base: str | None = None) -> dict[int, dict]:
     """Vigencias que este documento le fija a *otra* norma.
 
     Mapea número de NCG -> vigencia. Ver `_MOD_VIGENCIA`: sin esto la fecha se
@@ -867,7 +1297,7 @@ def _vigencias_impuestas(text: str) -> dict[int, dict]:
         # sección de vigencia del propio documento y la NCG 564/2026 devolvía
         # "inmediata" —su vigencia, no la que le impone a la 550— pisando el
         # 1 de marzo de 2027 que sí estaba en la cita.
-        impuestas[numero] = _parse_vigencia_global(_acotar_cita(m.group(2)))
+        impuestas[numero] = _parse_vigencia_global(_acotar_cita(m.group(2)), fecha_base)
     return impuestas
 
 

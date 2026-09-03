@@ -18,7 +18,14 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "2026-10-02",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2026-09-02",
+          "expresion": "1 mes desde la publicación",
+          "texto": "entrará en vigor en el plazo de un mes contado desde su publicación"
+        },
         "fuente": "seccion"
       },
       "ran_referencias": [],
@@ -31,37 +38,37 @@
         {
           "accion": "modificar",
           "nombre": "C16",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         },
         {
           "accion": "modificar",
           "nombre": "C51",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         },
         {
           "accion": "modificar",
           "nombre": "D02",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         },
         {
           "accion": "modificar",
           "nombre": "D41",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         },
         {
           "accion": "modificar",
           "nombre": "P15",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         },
         {
           "accion": "modificar",
           "nombre": "P21",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         },
         {
           "accion": "modificar",
           "nombre": "P22",
-          "vigencia": "ver texto"
+          "vigencia": "2026-10-02"
         }
       ],
       "tema": "Revisión y racionalización de archivos normativos",

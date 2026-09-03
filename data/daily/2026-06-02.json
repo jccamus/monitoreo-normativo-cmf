@@ -16,18 +16,7 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO PARA LA COMISION PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA QUE MODIFICA N.C.G. N°538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_568_2026.pdf",
       "parsed": true,
-      "modifica": [
-        {
-          "norma": "NCG N°538",
-          "numero_norma": 538,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        }
-      ],
+      "modifica": [],
       "vigencia": {
         "inicio": "no especificado",
         "fuente": "ninguna"

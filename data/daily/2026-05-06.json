@@ -105,16 +105,6 @@
           ],
           "vigencia": {},
           "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
         }
       ],
       "vigencia": {
@@ -281,9 +271,9 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
+            "Reemplácese",
             "Elimínese",
-            "Reemplácese"
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -323,16 +313,6 @@
       "parsed": true,
       "modifica": [
         {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
           "norma": "NCG N°218",
           "numero_norma": 218,
           "seccion_romana": null,
@@ -344,7 +324,14 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "2021-09-06",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2021-06-02",
+          "expresion": "primer lunes del tercer mes siguiente",
+          "texto": "entrará en vigencia a contar del primer lunes del tercer mes siguiente al de su emisión"
+        },
         "fuente": "seccion"
       },
       "ran_referencias": [],
@@ -425,12 +412,12 @@
             "Intercálase"
           ],
           "vigencia": {
-            "inicio": "ver texto"
+            "inicio": "inmediata"
           }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "inmediata",
         "fuente": "seccion"
       },
       "ran_referencias": [],
@@ -459,26 +446,6 @@
         {
           "norma": "NCG N°234",
           "numero_norma": 234,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -522,12 +489,12 @@
             "Modifíquese"
           ],
           "vigencia": {
-            "inicio": "ver texto"
+            "inicio": "inmediata"
           }
         }
       ],
       "vigencia": {
-        "inicio": "2021-06-30",
+        "inicio": "inmediata",
         "fuente": "seccion"
       },
       "ran_referencias": [],
@@ -569,7 +536,17 @@
       ],
       "vigencia": {
         "inicio": "2020-07-01",
-        "fuente": "seccion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La modificación que introduce la presente norma se aplicará para los contratos de seguro de invalidez y sobrevivencia con inicio de vigencia a partir del 1 de julio de 2020",
+            "inicio": "2020-07-01"
+          },
+          {
+            "texto": "Esta modificación rige a contar del 10 de octubre de 2020, pero las compañías podrán aplicarla voluntariamente a contar del 1 de julio de 2020, debiendo informar a esta Comisión, a más tardar el día 30 de junio de 2020, tal situación",
+            "inicio": "2020-10-10"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -600,12 +577,12 @@
             "Agrégase"
           ],
           "vigencia": {
-            "inicio": "ver texto"
+            "inicio": "inmediata"
           }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "inmediata",
         "fuente": "seccion"
       },
       "ran_referencias": [],
@@ -647,7 +624,17 @@
       ],
       "vigencia": {
         "inicio": "2020-07-01",
-        "fuente": "seccion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La modificación que introduce la presente norma se aplicará para los contratos de seguro de invalidez y sobrevivencia con inicio de vigencia a partir del 1 de julio de 2020",
+            "inicio": "2020-07-01"
+          },
+          {
+            "texto": "Esta modificación rige a contar del 1 de octubre de 2020, pero las compañías podrán aplicarla voluntariamente a contar del 1 de julio de 2020, debiendo informar a esta Comisión, a más tardar el día 15 de junio de 2020, tal situación",
+            "inicio": "2020-10-01"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -833,26 +820,6 @@
           ],
           "vigencia": {},
           "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°632",
-          "numero_norma": 632,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°695",
-          "numero_norma": 695,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
         }
       ],
       "vigencia": {
@@ -889,7 +856,7 @@
       },
       "sesion": null,
       "ncg": 502,
-      "tipo_acuerdo": "Circular",
+      "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EMITE CIRCULAR QUE AJUSTA LOS CAPÍTULOS 8-4, 8-40, 12-3, 21-1, 21-6, 21-7 Y 21-30 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS; LOS CAPÍTULOS   B-6 Y B-7 DEL COMPENDIO DE NORMAS CONTABLES DE BANCOS; LOS ARCHIVOS R06, R07 Y EL SISTEMA TABLAS DEL MANUAL DE SISTEMAS DE INFORMACIÓN DE BANCOS Y MODIFICA LAS NORMAS DE CARÁCTER GENERAL N°303 Y N°451 SOBRE INSCRIPCIÓN DE VALORES Y EL REGISTRO AUTOMÁTICO DE LOS MISMOS, RESPECTIVAMENTE.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2370_2026.pdf",
       "parsed": true,
@@ -897,16 +864,6 @@
         {
           "norma": "NCG N°303",
           "numero_norma": 303,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°451",
-          "numero_norma": 451,
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -992,7 +949,7 @@
         "fecha": "2026-04-09"
       },
       "ncg": 561,
-      "tipo_acuerdo": "Circular",
+      "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EMITE CIRCULAR QUE AJUSTA LOS CAPÍTULOS 8-4, 8-40, 12-3, 21-1, 21-6, 21-7 Y 21-30 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS; LOS CAPÍTULOS   B-6 Y B-7 DEL COMPENDIO DE NORMAS CONTABLES DE BANCOS; LOS ARCHIVOS R06, R07 Y EL SISTEMA TABLAS DEL MANUAL DE SISTEMAS DE INFORMACIÓN DE BANCOS Y MODIFICA LAS NORMAS DE CARÁCTER GENERAL N°303 Y N°451 SOBRE INSCRIPCIÓN DE VALORES Y EL REGISTRO AUTOMÁTICO DE LOS MISMOS, RESPECTIVAMENTE.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_561_2026.pdf",
       "parsed": true,
@@ -1021,8 +978,18 @@
         }
       ],
       "vigencia": {
-        "inicio": "cierre_mes_siguiente",
-        "fuente": "seccion"
+        "inicio": "inmediata",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Las instrucciones impartidas por la Sección I de la presente norma de carácter general rigen a partir de esta fecha",
+            "inicio": "inmediata"
+          },
+          {
+            "texto": "Las instrucciones contenidas en la Sección II, comenzarán a regir a contar del cierre del mes siguiente al de la fecha de publicación de esta Norma",
+            "inicio": "cierre_mes_siguiente"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1054,10 +1021,10 @@
           "numero_norma": 243,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
-            "Reemplácese",
             "Elimínese",
-            "Modifíquese"
+            "Modifíquese",
+            "Reemplácese",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "no especificado"
@@ -1263,16 +1230,6 @@
           ],
           "vigencia": {},
           "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
         }
       ],
       "vigencia": {
@@ -1315,7 +1272,7 @@
         }
       ],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "inmediata",
         "fuente": "seccion"
       },
       "ran_referencias": [],
@@ -1401,7 +1358,21 @@
       "vigencia": {
         "inicio": "2024-02-03",
         "plazo_transicion": "2024-02-03",
-        "fuente": "seccion"
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La presente normativa entra en vigor a contar del 3 de febrero de 2024",
+            "inicio": "2024-02-03"
+          },
+          {
+            "texto": "de la sección IV, el título E de la sección V y el numeral 5 de la Sección IX, que entrarán a regir el 1 de julio de 2027",
+            "inicio": "2027-07-01"
+          },
+          {
+            "texto": "VIGENCIA Las disposiciones contenidas en la presente normativa comenzarán a regir a contar de la presente fecha",
+            "inicio": "inmediata"
+          }
+        ]
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -1438,16 +1409,6 @@
         {
           "norma": "NCG N°200",
           "numero_norma": 200,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°1512",
-          "numero_norma": 1512,
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -1538,8 +1499,8 @@
           "numero_norma": 426,
           "seccion_romana": "I",
           "acciones": [
-            "Agréguese",
             "Elimínese",
+            "Agréguese",
             "Modifíquese"
           ],
           "vigencia": {
@@ -1581,20 +1542,10 @@
           ],
           "vigencia": {},
           "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°3",
-          "numero_norma": 3,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
         }
       ],
       "vigencia": {
-        "inicio": "2024-09-30",
+        "inicio": "2024-10-01",
         "fuente": "seccion",
         "plazos": [
           {
@@ -1637,16 +1588,6 @@
       "parsed": true,
       "modifica": [
         {
-          "norma": "NCG N°1",
-          "numero_norma": 1,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
           "norma": "NCG N°256",
           "numero_norma": 256,
           "seccion_romana": null,
@@ -1661,7 +1602,7 @@
           "numero_norma": 480,
           "seccion_romana": null,
           "acciones": [
-            "Derógase"
+            "Modifícase"
           ],
           "vigencia": {},
           "fuente": "descripcion_cmf"
@@ -1737,17 +1678,17 @@
           "numero_norma": 325,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
             "Elimínese",
+            "Agréguese",
             "Reemplácese"
           ],
           "vigencia": {
-            "inicio": "ver texto"
+            "inicio": "2024-03-01"
           }
         }
       ],
       "vigencia": {
-        "inicio": "ver texto",
+        "inicio": "2024-03-01",
         "fuente": "seccion"
       },
       "ran_referencias": [],

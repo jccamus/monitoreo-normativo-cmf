@@ -76,6 +76,7 @@ python scraper/dashboard.py                  # regenera solo docs/index.html (si
 python scraper/reparse.py --dry-run          # qué entradas ya guardadas corregiría un fix del parser
 python scraper/reparse.py                    # re-parsea las entradas con fecha placeholder (2024+)
 python scraper/reparse.py --degradadas       # suma las de parsed: False
+python scraper/reparse.py --sin-vigencia --desde 2020-01-01  # suma las que quedaron sin vigencia
 python scraper/reparse.py --recalcular --desde 2021-01-01   # re-parsea TODAS las del rango, no sólo las rotas
 python scraper/reparse.py --recalcular --todas              # sin corte de año: las 607
 python scraper/revisar.py                    # refresca data/revisiones.csv (revisión manual)
@@ -137,7 +138,18 @@ lo vuelvas a crear.
    `parser.py`, cada uno con su comentario. Si agregas un patrón con una frase de
    varias palabras, pásala por **`_frase()`** — los PDF cortan en el salto de
    línea y un espacio literal no cruza. (La excepción es `_DOC_IDENTIDAD`, donde
-   el salto hay que bloquearlo; su comentario explica por qué.)
+   el salto hay que bloquearlo; su comentario explica por qué.) Usa
+   **`_frase_flex()`** cuando además convenga tolerar la falta de tildes, que el
+   extractor pierde según cómo esté incrustada la fuente.
+
+   **Esto vale para cualquier comparación de texto, no sólo para los regex.** La
+   lista de frases de vigencia inmediata se comparaba con `in` sobre el texto en
+   minúsculas, sin pasar por `_frase()`, y por eso no reconocía casi ningún caso
+   real: la sección de vigencia es corta y la frase casi siempre cae partida en
+   dos renglones. Once entradas del histórico figuraban sin vigencia por un salto
+   de línea. Si vas a buscar una frase en el texto de un PDF, hazlo con un patrón
+   construido con `_frase()`; un `in` con un espacio literal es un falso negativo
+   esperando ocurrir.
 5. **`store.ensamblar_entrada(raw, parsed)`** — combina la fila del listado con
    los campos parseados. Prefiere la fecha exacta del PDF sobre el placeholder
    `YYYY-01-01`; guarda `resolucion` **sólo** si el PDF declara una de verdad; y
@@ -173,9 +185,16 @@ lo vuelvas a crear.
      Arriba van tres paneles: cuerpo normativo (con conmutador entre tareas y
      cambios recibidos, y que **filtra el riel** al hacer clic), proyectos por
      mes, y **`_sin_fecha_agenda`: las obligaciones que el eje no puede
-     mostrar** porque no tienen cuándo — cambios de archivo del MSI sin fecha
-     y plazos relativos. Se declaran en vez de omitirse: un calendario que las
-     esconde miente por omisión.
+     mostrar** porque no tienen cuándo — cambios de archivo del MSI sin fecha,
+     y lo que queda en `"ver texto"` después de que el parser intenta calcular
+     los plazos relativos. Se declaran en vez de omitirse: un calendario que
+     las esconde miente por omisión.
+
+     Las fechas que el parser **calculó** desde un plazo declarado sí entran al
+     riel, pero rotuladas «· calculada» (`_ROTULO_FUENTE`, `_calculo_de`), con
+     la regla y la fecha base en el tooltip. Es el mismo criterio con que se
+     distinguen «sección», «cláusula» y «confirmada»: la fecha vale, y de dónde
+     salió también.
 
      Entre los paneles y el riel va **«Último cambio publicado»**
      (`_render_ag_ultimo`): la resolución más reciente, con enlace a su fila en
@@ -267,11 +286,33 @@ No lo es: es un corte por época. Ver la sección propia más abajo.
 
 ## La vigencia: lo que hay que saber antes de tocarla
 
-- **Un documento puede tener varios plazos.** En viñetas (`_parse_plazos` →
-  `vigencia.plazos[]`) o en prosa como excepción a la regla general
-  (`_parse_excepciones`). Cada plazo lleva su `texto` y su `inicio` propio; el
-  `inicio` global se toma del **primero** (la regla general), no de un barrido de
-  la sección entera.
+- **Un documento puede tener varios plazos**, y la CMF los escalona de tres
+  formas distintas. `_parse_text` las prueba en orden y gana la primera que
+  reconozca tramos:
+
+  | forma | función | ejemplo |
+  |---|---|---|
+  | viñetas | `_parse_plazos` | circular 2370/2026 |
+  | excepción con "salvo" | `_parse_excepciones` | circular 2373/2026 |
+  | oraciones seguidas | `_parse_tramos_prosa` | circular 2356/2024, NCG 519/2024 |
+
+  Cada plazo lleva su `texto` y su `inicio` propio; el `inicio` global se toma
+  del **primero** (la regla general), no de un barrido de la sección entera.
+
+  La tercera forma es la más común en circulares —"el número 1 rige a contar de
+  esta fecha… los números 2 al 11 comenzarán a regir el 1 de diciembre"— y es la
+  que **hay que tener presente al tocar la vigencia inmediata**: como
+  `_parse_vigencia_global` evalúa la inmediatez antes que las fechas, un
+  documento así queda descrito sólo como "inmediata" y **la fecha futura, que es
+  la que obliga a hacer algo, desaparece de los datos**. Sin desdoblarlo, mejorar
+  el reconocimiento de la inmediatez empeora el Calendario.
+
+  `_parse_tramos_prosa` exige que cada oración lleve un **verbo de entrada en
+  vigor** (`_VERBO_VIGENCIA`) y topea el resultado en `_MAX_TRAMOS_PROSA`. Las
+  dos cosas son contención, no estilo: sin el verbo, la NCG 524/2024 aportaba 9
+  tramos, 7 de ellos plazos de trámite ("tendrán hasta el 3 de febrero de 2025
+  para presentar la solicitud") que habrían entrado al Calendario como
+  obligaciones de vigencia.
 - **El dashboard lee los plazos** (`_fechas_futuras`), así que un documento
   escalonado entra a la Agenda por su fecha futura aunque su `inicio` global diga
   `"inmediata"`.
@@ -287,27 +328,59 @@ No lo es: es un corte por época. Ver la sección propia más abajo.
   número de NCG → vigencia y `_parse_modificaciones` la usa **en vez de** la
   vigencia de la sección, para que la fecha quede atribuida a la norma que la
   recibe y no a la que la impone (caso canónico: NCG 564/2026 sobre la 550).
+- **Un plazo puede venir como regla en vez de fecha**, y se calcula. La circular
+  2376/2026 dice "entrará en vigor en el plazo de un mes contado desde su
+  publicación": no hay ninguna fecha escrita, pero el documento da la regla
+  completa y la base es su propia fecha de publicación.
+  `_resolver_plazo_relativo` la resuelve y deja el rastro en `vigencia.calculo`
+  (`base`, `fecha_base`, `expresion`, `texto`), que es lo que el dashboard usa
+  para rotular «· calculada» en vez de presentarla como fecha declarada.
 
-Límites conocidos: un plazo relativo ("120 días después de su emisión", "a contar
-de diciembre de 2025" sin día) queda en `"ver texto"`; y las excepciones en prosa
-fuera de viñeta no se capturan (la NCG 562/2026 pierde su "1 de julio de 2027").
+  **Esto no contradice la regla de no inventar vigencias**, y la distinción hay
+  que tenerla clara antes de tocar nada acá: la regla prohíbe *suponer* una
+  fecha que el documento no da; calcular la que el documento *define* es otra
+  cosa. La frontera está en `fecha_base`, que **sólo puede venir del PDF**
+  (encabezado o resolución) y nunca del listado de la CMF, cuyo placeholder
+  `YYYY-01-01` produciría una fecha con toda la apariencia de un dato y ningún
+  respaldo.
+
+  Dos condiciones que no se pueden relajar, ambas en el comentario del patrón:
+  el plazo tiene que colgar de un **verbo de entrada en vigor** en la misma
+  oración (si no, un "tendrán seis meses para adecuarse" —plazo de adecuación,
+  no vigencia— pasaría por fecha), y los **días hábiles quedan fuera** porque
+  contarlos exige el calendario de feriados, que este proyecto no tiene.
+
+Límites conocidos: las excepciones en prosa fuera de viñeta no se capturan (la
+NCG 562/2026 pierde su "1 de julio de 2027"), y un PDF con OCR de mala calidad
+incrustado no se puede leer aunque declare su vigencia con toda claridad (la NCG
+444/2020 entrega "regirán acontar\nde estafecha", con las palabras pegadas).
 
 ### Formatos de fecha que la CMF usa
 
-`_FECHA_ALT` cubre las tres formas y `_resolver_fecha` devuelve la fecha ISO junto
-con su **precisión**:
+`_FECHA_ALT` cubre las formas escritas y `_resolver_fecha` devuelve la fecha ISO
+junto con su **precisión**; las dos últimas filas no traen fecha en el texto y
+las resuelve `_resolver_plazo_relativo` / `_fecha_presente_anio` desde la fecha
+de publicación:
 
 | forma | ejemplo | precisión |
 |---|---|---|
 | día completo | `1° de julio de 2026` | `dia` |
+| día completo sin preposición | `1° de julio 2023` | `dia` |
 | numérica | `13-07-2021` | `dia` |
 | mes y año | `a partir del mes de diciembre de 2024` | `mes` |
+| plazo contado | `en el plazo de un mes contado desde su publicación` | `dia` + `calculo` |
+| mes ordinal siguiente | `el primer día del sexto mes siguiente a su emisión` | `dia` + `calculo` |
+| año por referencia | `a contar del 12 de julio del presente año` | `dia` + `calculo` |
+
+La preposición antes del año es opcional porque la CMF escribe las dos formas, y
+exigirla mandaba a `"ver texto"` fechas completas y explícitas.
 
 La forma de mes es la habitual para las obligaciones de reporte. Se normaliza al
 día 1 para poder ordenarla, y por eso `precision` viaja con el dato: el dashboard
 rotula "diciembre de 2024" y no "2024-12-01", que afirmaría una exactitud que el
 documento no da. **Si consumes `vigencia.inicio` en código nuevo, mira también
-`precision` antes de presentarlo como fecha exacta.**
+`precision` antes de presentarlo como fecha exacta, y `calculo` antes de
+presentarlo como algo que el documento dice literalmente.**
 
 ## Archivos afectados y el aviso de revisión manual
 
@@ -323,10 +396,18 @@ dashboard rinde la sección "Cambios de archivo sin fecha de vigencia"
 genera una obligación de reporte— pero de los que no se pudo determinar desde
 cuándo rige.
 
-Esa lista **no es deuda técnica pendiente de regex.** Los casos que quedan
-expresan la fecha entrelazada con el ciclo de reporte: "deberá aplicarse respecto
+Esa lista es **en su mayoría** juicio y no deuda técnica: los casos que quedan
+expresan la fecha entrelazada con el ciclo de reporte —"deberá aplicarse respecto
 de la información referida al cierre del mes de agosto y, por lo tanto, enviarse
-en septiembre de 2025". Cuál de las dos es la vigencia es un juicio, no un patrón.
+en septiembre de 2025"—, y cuál de las dos es la vigencia no lo decide un patrón.
+
+Dicho eso, **no la tomes como cerrada sin mirarla.** Hasta septiembre de 2026 la
+lista arrastraba documentos que sí eran mecánicos: vigencias inmediatas partidas
+por un salto de línea, fechas escritas sin la preposición del año y plazos
+declarados como regla en vez de fecha. Eran 21 de 22 entradas resolubles. Antes
+de concluir que un caso pendiente requiere criterio humano, lee su sección de
+vigencia entera: la pregunta es si el documento **declara** la fecha de alguna
+forma, no si el parser la encontró.
 
 Para agilizar la revisión, `_fechas_candidatas` adjunta en `vigencia.candidatas`
 las fechas del cuerpo con su contexto. Se muestran rotuladas como candidatas y
@@ -463,6 +544,13 @@ las entradas ya tenían poblado.** Los otros filtros seleccionan entradas que *s
 ven* rotas, y hay bugs que no se ven: una vigencia con la fecha equivocada tiene
 el mismo aspecto que una correcta. Sin este flag, el reparse las salta y el
 arreglo no llega nunca al histórico.
+
+**`--sin-vigencia` es el atajo para el caso más frecuente**: el arreglo mejora la
+extracción de la fecha de entrada en vigor. Selecciona las entradas que quedaron
+en `"ver texto"` o `"no especificado"`, que ni el filtro de placeholder ni
+`--degradadas` alcanzan. Es la diferencia entre bajar dos decenas de PDF y bajar
+varios cientos con `--recalcular`. Si el arreglo además puede *cambiar* una
+vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
 
 **Es lento a propósito**: respeta la pausa de 2–3 s entre descargas, así que unas
 70 entradas toman ~15 minutos. No lo metas en el workflow diario.

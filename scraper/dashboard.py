@@ -286,6 +286,8 @@ def _vigencia_fmt(v: dict | None) -> str:
     # fechas candidatas.
     if v.get("fuente") == "revision_manual":
         label += " · confirmada"
+    elif v.get("calculo"):
+        label += " · calculada"
     plazos = v.get("plazos") or []
     if plazos:
         # El `inicio` global de un documento escalonado describe sólo el primer
@@ -463,8 +465,23 @@ def _fuente_vigencia(entrada: dict) -> str:
     documento. Presentarlas iguales sería repetir el error que originó los bugs
     de vigencia de este proyecto.
     """
-    fuente = (entrada.get("vigencia") or {}).get("fuente")
-    return fuente if fuente in ("revision_manual", "clausula_aplicacion") else "seccion"
+    vig = entrada.get("vigencia") or {}
+    fuente = vig.get("fuente")
+    if fuente in ("revision_manual", "clausula_aplicacion"):
+        return fuente
+    # Una anotación manual manda sobre el cálculo; fuera de eso, `calculo`
+    # marca las fechas que el PDF declara como regla y no como fecha escrita.
+    if any(v.get("calculo") for v in _fuentes_vigencia(entrada)):
+        return "calculada"
+    return "seccion"
+
+
+def _calculo_de(entrada: dict) -> dict | None:
+    """El rastro del cálculo, si la fecha de esta entrada se derivó de un plazo."""
+    for v in _fuentes_vigencia(entrada):
+        if v.get("calculo"):
+            return v["calculo"]
+    return None
 
 
 def _hitos_agenda(entradas: list[dict], hoy: datetime) -> list[dict]:
@@ -1217,6 +1234,12 @@ _ROTULO_FUENTE = {
                             "Deducida de una cláusula de aplicación — respaldo más frágil"),
     "revision_manual": ("es-manual", "confirmada",
                         "Confirmada a mano tras leer el PDF"),
+    # El documento no escribe una fecha sino la regla para obtenerla ("en el
+    # plazo de un mes contado desde su publicación"). La fecha es firme, pero
+    # se calculó: mostrarla igual que una escrita en el PDF borraría esa
+    # diferencia, y el tooltip lleva la regla y la base para poder auditarla.
+    "calculada": ("es-calculada", "calculada",
+                  "Calculada desde el plazo que declara el PDF"),
 }
 
 
@@ -1412,6 +1435,13 @@ def _render_ag_tarjeta(h: dict) -> str:
     cls_fuente, rotulo, ayuda = _ROTULO_FUENTE.get(
         h.get("_fuente_vigencia") or "seccion", _ROTULO_FUENTE["seccion"]
     )
+    # Para una fecha calculada, el tooltip lleva la regla y la fecha base: es
+    # lo que permite verificar el dato sin volver al PDF, y la contrapartida
+    # de mostrar una fecha que el documento no trae escrita.
+    calculo = _calculo_de(h)
+    if calculo:
+        ayuda = (f"{ayuda}: {calculo.get('expresion', '')}"
+                 f" (base: {calculo.get('fecha_base', '')})")
     cuerpos = [t for c, t, _ in GRUPOS_CUERPO_NORMATIVO if c in _grupos_de_entrada(h)]
     archivos = [a for a in (h.get("archivos_afectados") or []) if a.get("nombre")][:4]
     chips = "".join(filter(None, [
@@ -2788,15 +2818,20 @@ _TEMPLATE = """<!DOCTYPE html>
                       font: inherit; font-weight: var(--fw-semibold); cursor: pointer; }
     .ag-tarea-links a:hover, .ag-tarea-links button:hover { text-decoration: underline; }
     /* La procedencia de la fecha no es decorativa: `sección` la declara el
-       PDF, `cláusula` es un respaldo más frágil y `confirmada` la puso una
-       persona. Mostrarlas iguales sería repetir el bug de las fechas
-       inventadas. */
+       PDF, `calculada` la derivó el parser de un plazo que el PDF declara
+       ("un mes desde su publicación"), `cláusula` es un respaldo más frágil y
+       `confirmada` la puso una persona. Mostrarlas iguales sería repetir el
+       bug de las fechas inventadas. */
     .ag-fuente { display: inline-flex; align-items: center; gap: 4px;
                  font-size: 9px; color: var(--text-faint); margin-left: auto; }
     .ag-fuente::before { content: ""; width: 5px; height: 5px; border-radius: 50%;
                          background: var(--ag-dato-2); }
     .ag-fuente.es-clausula::before { background: var(--ag-dato-3); }
     .ag-fuente.es-manual::before { background: var(--color-brand); }
+    /* Teal y no el ámbar de `cláusula`: una fecha calculada es firme —el PDF
+       declara la regla completa—, mientras que la cláusula de aplicación es un
+       respaldo frágil. Compartir color las igualaría. */
+    .ag-fuente.es-calculada::before { background: var(--ag-dato-2); }
 
     /* El mazo: meses sin actividad, uno sobre otro. */
     .ag-mazo { flex: 0 0 108px; scroll-snap-align: center; position: relative;

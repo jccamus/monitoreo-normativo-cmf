@@ -26,6 +26,7 @@ no se ven rotas —tienen una fecha de aspecto normal— hay que forzarlas con
     python scraper/reparse.py --desde 2020-01-01 # ampliar el rango
     python scraper/reparse.py --todas            # todas las placeholder, sin filtro de año
     python scraper/reparse.py --degradadas       # además, las que quedaron con parsed=False
+    python scraper/reparse.py --sin-vigencia     # además, las que quedaron sin fecha de vigencia
     python scraper/reparse.py --recalcular       # todas las del rango, estén rotas o no
     python scraper/reparse.py --dry-run          # sólo informar, sin escribir
 
@@ -61,24 +62,42 @@ def _es_placeholder(entrada: dict) -> bool:
     return (entrada.get("fecha") or "").endswith("-01-01")
 
 
+def _sin_vigencia(entrada: dict) -> bool:
+    """La entrada no tiene una fecha de entrada en vigor utilizable.
+
+    Es el filtro que corresponde cuando el arreglo mejora la extracción de
+    vigencia: esas entradas no se ven rotas por fecha ni por `parsed`, así que
+    los otros filtros no las alcanzan, pero `--recalcular` sobre todo el rango
+    baja cientos de PDF para tocar unas pocas decenas.
+    """
+    inicio = (entrada.get("vigencia") or {}).get("inicio")
+    return inicio in ("ver texto", "no especificado", None)
+
+
 def _candidatas(
-    entradas: list[dict], desde: str | None, degradadas: bool, todo: bool = False
+    entradas: list[dict], desde: str | None, degradadas: bool, todo: bool = False,
+    sin_vigencia: bool = False, hasta: str | None = None,
 ) -> list[dict]:
     def elegible(e: dict) -> bool:
         if todo:
             return True
         if _es_placeholder(e):
             return True
+        if sin_vigencia and _sin_vigencia(e):
+            return True
         return degradadas and not e.get("parsed")
 
     sel = [e for e in entradas if elegible(e)]
     if desde:
         sel = [e for e in sel if (e.get("fecha") or "") >= desde]
+    if hasta:
+        sel = [e for e in sel if (e.get("fecha") or "") <= hasta]
     return sel
 
 
 def reparsear(
-    desde: str | None, dry_run: bool, degradadas: bool, todo: bool = False
+    desde: str | None, dry_run: bool, degradadas: bool, todo: bool = False,
+    sin_vigencia: bool = False, hasta: str | None = None,
 ) -> None:
     archivos = sorted(DAILY_DIR.glob("*.json"))
     if not archivos:
@@ -96,7 +115,7 @@ def reparsear(
             continue
 
         entradas = payload.get("new_entries", []) or []
-        objetivo = _candidatas(entradas, desde, degradadas, todo)
+        objetivo = _candidatas(entradas, desde, degradadas, todo, sin_vigencia, hasta)
         if not objetivo:
             continue
 
@@ -191,6 +210,13 @@ def main() -> None:
         help="Sólo entradas con fecha >= este valor (por defecto 2024-01-01)",
     )
     ap.add_argument(
+        "--hasta", metavar="YYYY-MM-DD", default=None,
+        help="Sólo entradas con fecha <= este valor. Sirve para partir una "
+             "corrida larga en tramos: la pausa cortés entre descargas hace que "
+             "184 entradas tomen ~10 minutos, más de lo que algunos entornos "
+             "dejan correr un proceso de una vez.",
+    )
+    ap.add_argument(
         "--todas", action="store_true",
         help="Sin filtro de año: revisa todas las entradas con placeholder",
     )
@@ -201,6 +227,12 @@ def main() -> None:
     ap.add_argument(
         "--degradadas", action="store_true",
         help="Incluir también las entradas con parsed=False, no sólo las de fecha placeholder",
+    )
+    ap.add_argument(
+        "--sin-vigencia", action="store_true",
+        help="Incluir también las entradas cuya vigencia quedó en 'ver texto' o "
+             "'no especificado'. Es el filtro barato para propagar al histórico "
+             "una mejora en la extracción de vigencia, en vez de --recalcular.",
     )
     ap.add_argument(
         "--recalcular", action="store_true",
@@ -214,6 +246,8 @@ def main() -> None:
         args.dry_run,
         args.degradadas,
         args.recalcular,
+        args.sin_vigencia,
+        args.hasta,
     )
 
 
