@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-03",
+  "generated_at": "2026-09-03T14:49:48.742065+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_2376",
+      "fecha": "2026-09-02",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2376
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ESTABLECE LA DEROGACIÓN DE OBLIGACIONES RELACIONADAS CON LOS ARCHIVOS C16, C51, D02, D41, P15, P21 Y P22 DEL MANUAL DEL SISTEMA DE INFORMACIÓN DE BANCOS Y DEL MANUAL DEL SISTEMA DE INFORMACIÓN DE COOPERATIVAS DE AHORRO Y CRÉDITO, Y EXIME DEL TRÁMITE DE CONSULTA PÚBLICA POR RESULTAR INNECESARIO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2376_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "ver texto",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "ia N°511, de 27 de agosto de 2026, ha estimado necesario impartir las siguientes\nactualizaciones al Manual de Sistema de Información de Bancos como sigue:\n1. Deróguense las obligaciones relacionadas con la preparación y envío de los"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C16",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C51",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D02",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D41",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P15",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P21",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P22",
+          "vigencia": "ver texto"
+        }
+      ],
+      "tema": "Revisión y racionalización de archivos normativos",
+      "resumen_acciones": [
+        "Elimínese del Manual del Sistema de Información de Cooperativas de Ahorro y Crédito las referencias al archivo C51 contenidas en el “Catálogo de archivos del sistema de…"
+      ]
+    }
+  ]
+}
