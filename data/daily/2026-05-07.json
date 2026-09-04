@@ -1196,7 +1196,7 @@
       "resolucion": null,
       "sesion": null,
       "ncg": 507,
-      "tipo_acuerdo": "Otro",
+      "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "MODIFICA NORMA DE CARÁCTER GENERAL N°507 QUE IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN INTEGRAL DE RIESGOS EN ADMINISTRADORAS GENERALES DE FONDOS Y NORMA DE CARÁCTER GENERAL N°468 QUE REGULA EL PROCESO DE AUTORIZACIÓN DE INICIO DE FUNCIONES DE ADMINISTRADORAS GENERALES DE FONDOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_527_2024.pdf",
       "parsed": true,
@@ -1206,8 +1206,8 @@
           "numero_norma": 507,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
-            "Reemplácese"
+            "Reemplácese",
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3143,8 +3143,8 @@
           "numero_norma": 30,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3155,8 +3155,8 @@
           "numero_norma": 303,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3167,8 +3167,8 @@
           "numero_norma": 475,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3179,8 +3179,8 @@
           "numero_norma": 473,
           "seccion_romana": "II",
           "acciones": [
-            "Agrégase",
-            "Agréguese"
+            "Agréguese",
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -3957,8 +3957,9 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna"
+        "inicio": "2023-07-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [
         "20-10"
@@ -4268,25 +4269,9 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna",
-        "candidatas": [
-          {
-            "fecha": "2022-01-01",
-            "precision": "dia",
-            "contexto": "…las que consideran: - Su vigencia. Esta nueva versión del Compendio rige a partir del 1 de enero de 2022. - Un ajuste a las…"
-          },
-          {
-            "fecha": "2022-07-01",
-            "precision": "dia",
-            "contexto": "…en el literal i) del N°3 del Capítulo B-1, el que deberá ser considerado a partir del 1 de julio de 2022. 2. Manual del Sistema de…"
-          },
-          {
-            "fecha": "2022-02-01",
-            "precision": "mes",
-            "contexto": "…referida al mes de enero de 2022, que se enviarán durante los primeros 7 días hábiles del mes de febrero de 2022. Como consecuencia de…"
-          }
-        ]
+        "inicio": "2022-01-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4294,17 +4279,17 @@
         {
           "accion": "modificar",
           "nombre": "C17",
-          "vigencia": "no especificado"
+          "vigencia": "2022-01-01"
         },
         {
           "accion": "modificar",
           "nombre": "R11",
-          "vigencia": "no especificado"
+          "vigencia": "2022-01-01"
         },
         {
           "accion": "modificar",
           "nombre": "P40",
-          "vigencia": "no especificado"
+          "vigencia": "2022-01-01"
         }
       ],
       "tema": "",
@@ -4380,8 +4365,8 @@
           "numero_norma": 30,
           "seccion_romana": "I",
           "acciones": [
-            "Derógase",
-            "Agrégase"
+            "Agrégase",
+            "Derógase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -4679,28 +4664,7 @@
         "tipo": "Circular",
         "numero": 2271
       },
-      "modifica": [
-        {
-          "norma": "NCG N°1679",
-          "numero_norma": 1679,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°863",
-          "numero_norma": 863,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        }
-      ],
+      "modifica": [],
       "vigencia": {
         "inicio": "no especificado",
         "fuente": "ninguna"
@@ -4754,7 +4718,7 @@
       "resolucion": null,
       "sesion": null,
       "ncg": 445,
-      "tipo_acuerdo": "Otro",
+      "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIONES A LA NORMA DE CARÁCTER GENERAL N° 445 QUE MODIFICÓ LA NORMA DE CARÁCTER GENERAL N°209 QUE IMPARTE INSTRUCCIONES RELATIVAS AL ANÁLISIS DE SUFICIENCIA DE ACTIVOS EN ENTIDADES ASEGURADORAS Y REASEGURADORAS DEL SEGUNDO GRUPO, QUE MANTENGAN OBLIGACIONES VIGENTES DE SEGUROS DE RENTA VITALICIA DEL D.L. N° 3500 DE 1980, Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_448_2020.pdf",
       "parsed": true,
@@ -4772,9 +4736,8 @@
         }
       ],
       "vigencia": {
-        "inicio": "2021-03-31",
-        "precision": "dia",
-        "fuente": "clausula_aplicacion"
+        "inicio": "no especificado",
+        "fuente": "ninguna"
       },
       "ran_referencias": [],
       "msi_referencias": [],
@@ -4894,8 +4857,8 @@
           "numero_norma": 318,
           "seccion_romana": "I",
           "acciones": [
-            "Agréguese",
-            "Reemplácese"
+            "Reemplácese",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "2021-01-01"
@@ -4939,8 +4902,8 @@
           "numero_norma": 209,
           "seccion_romana": "I",
           "acciones": [
-            "Agréguese",
-            "Reemplácese"
+            "Reemplácese",
+            "Agréguese"
           ],
           "vigencia": {
             "inicio": "2021-01-01",

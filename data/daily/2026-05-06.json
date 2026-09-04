@@ -271,9 +271,9 @@
           "numero_norma": 152,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
+            "Reemplácese",
             "Agréguese",
-            "Reemplácese"
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -485,8 +485,8 @@
           "numero_norma": 30,
           "seccion_romana": "II",
           "acciones": [
-            "Elimínese",
-            "Modifíquese"
+            "Modifíquese",
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1021,9 +1021,9 @@
           "numero_norma": 243,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
             "Modifíquese",
             "Reemplácese",
+            "Elimínese",
             "Agréguese"
           ],
           "vigencia": {
@@ -1460,18 +1460,28 @@
           "numero_norma": 200,
           "seccion_romana": null,
           "acciones": [
-            "Agréguese",
+            "Reemplácese",
             "Elimínese",
-            "Reemplácese"
+            "Agréguese"
           ],
           "vigencia": {
-            "inicio": "no especificado"
+            "inicio": "inmediata"
           }
         }
       ],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna"
+        "inicio": "2025-06-01",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La presente norma rige a contar de 01 de junio de 2025",
+            "inicio": "2025-06-01"
+          },
+          {
+            "texto": "las modificaciones establecidos en los N°s 1 y 7 rigen a contar de la fecha de emisión de esta norma",
+            "inicio": "inmediata"
+          }
+        ]
       },
       "ran_referencias": [
         "1-12",
@@ -1513,9 +1523,9 @@
           "numero_norma": 426,
           "seccion_romana": "I",
           "acciones": [
-            "Elimínese",
             "Modifíquese",
-            "Agréguese"
+            "Agréguese",
+            "Elimínese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -1692,8 +1702,8 @@
           "numero_norma": 325,
           "seccion_romana": null,
           "acciones": [
-            "Elimínese",
             "Reemplácese",
+            "Elimínese",
             "Agréguese"
           ],
           "vigencia": {

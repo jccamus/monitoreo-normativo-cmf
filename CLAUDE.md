@@ -343,6 +343,15 @@ No lo es: es un corte por época. Ver la sección propia más abajo.
   número de NCG → vigencia y `_parse_modificaciones` la usa **en vez de** la
   vigencia de la sección, para que la fecha quede atribuida a la norma que la
   recibe y no a la que la impone (caso canónico: NCG 564/2026 sobre la 550).
+
+  El reverso de esa regla vive en `_clausula_aplicacion`: una fecha **dentro de
+  comillas y con sujeto autorreferente** ("La presente norma rige a contar
+  del…") es la vigencia de la norma que recibe el texto insertado, no la de
+  quien lo inserta, así que se descarta. Ojo con el matiz: **no basta con estar
+  citada.** Un documento también usa comillas para insertar una disposición
+  transitoria *propia*, y ahí la fecha sí lo obliga a él — la circular
+  2317/2022 no tiene otra. Lo que separa los dos casos es el sujeto del verbo,
+  no las comillas.
 - **Un plazo puede venir como regla en vez de fecha**, y se calcula. La circular
   2376/2026 dice "entrará en vigor en el plazo de un mes contado desde su
   publicación": no hay ninguna fecha escrita, pero el documento da la regla
@@ -369,6 +378,13 @@ Límites conocidos: las excepciones en prosa fuera de viñeta no se capturan (la
 NCG 562/2026 pierde su "1 de julio de 2027"), y un PDF con OCR de mala calidad
 incrustado no se puede leer aunque declare su vigencia con toda claridad (la NCG
 444/2020 entrega "regirán acontar\nde estafecha", con las palabras pegadas).
+
+Y el descarte de la cita autorreferente deja un hueco a propósito: cuando el
+documento **sólo** reemplaza el numeral Vigencia de otra norma sin nombrarla en
+la misma frase —"Reemplácese el numeral II. Vigencia por el siguiente", con la
+NCG afectada nombrada párrafos antes—, `_MOD_VIGENCIA` tampoco la reconoce y la
+fecha se pierde para los dos lados (NCG 448/2020 sobre la 445). Se prefiere el
+hueco a la fecha mal atribuida, que es la que había antes.
 
 ### Formatos de fecha que la CMF usa
 

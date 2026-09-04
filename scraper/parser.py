@@ -206,7 +206,7 @@ _MES_ANIO = re.compile(rf"({_MESES_ALT})\s+del?\s+(\d{{4}})", re.IGNORECASE)
 # oración (`[^.]`): así no se repite el bug de tomar la primera fecha del
 # documento, que es la del encabezado. Ante la duda, no hay fecha.
 _CLAUSULA_APLICACION = re.compile(
-    r"(?:se\s+exigir[áa]n?|regir[áa]?n?|ser[áa]n?\s+aplicables?|ser[áa]n?\s+requerid\w*|"
+    r"(?:se\s+exigir[áa]n?|regir[áa]?n?|rige[n]?|ser[áa]n?\s+aplicables?|ser[áa]n?\s+requerid\w*|"
     r"aplicar[áa]n?\s+a\s+contar|entrar[áa]n?\s+en\s+(?:vigencia|vigor)|se\s+aplicar[áa]n?|"
     # `regir` sin tilde: "empieza a regir desde enero de 2025". El patrón
     # anterior exigía `regir[áa]`, así que sólo veía "regirá"/"regirán".
@@ -277,8 +277,17 @@ _TRANSITORIAS_HEADING = re.compile(
 # estipulados en el Capítulo 1-13 de la RAN, los cuales tienen vigencia
 # inmediata". Sin desdoblarla, el documento queda fechado sólo por la regla
 # general y el grupo que rige de inmediato desaparece.
+# "no obstante" introduce la misma estructura que "salvo": regla general y
+# después el grupo que se aparta de ella. La NCG 520/2024 la usa sin punto de
+# por medio —"rige a contar de 01 de junio de 2025, no obstante, las
+# modificaciones establecidas en los N°s 1 y 7 rigen a contar de la fecha de
+# emisión"—, así que `_parse_tramos_prosa` no la puede partir y sin este
+# conector el documento quedaba descrito sólo por su excepción: la sección
+# entera daba "inmediata" y el 1 de junio de 2025, que es la regla general,
+# desaparecía.
 _EXCEPCION = re.compile(
-    r"[,;]?\s*(?:con\s+excepci[óo]n\s+de|excepto|salvo)\s+", re.IGNORECASE
+    r"[,;]?\s*(?:con\s+excepci[óo]n\s+de|excepto|salvo|no\s+obstante)[,;]?\s+",
+    re.IGNORECASE,
 )
 # Punto que cierra oración. El lookahead de espacio evita partir los números con
 # separador de miles ("N°2.373").
@@ -419,6 +428,70 @@ def _cantidad(texto: str) -> int | None:
     if texto.isdigit():
         return int(texto)
     return _CARDINALES.get(texto)
+
+
+# Comillas tipográficas, que son las que la CMF usa para citar el texto que
+# inserta en otro cuerpo normativo. La comilla recta queda fuera a propósito:
+# sirve de apertura y de cierre, así que no permite saber de qué lado se está.
+_CITA_ABRE = "«“"
+_CITA_CIERRA = "»”"
+
+
+def _dentro_de_cita(texto: str, pos: int) -> bool:
+    """Si `pos` cae dentro de un fragmento citado del documento."""
+    abiertas = 0
+    for c in texto[:pos]:
+        if c in _CITA_ABRE:
+            abiertas += 1
+        elif c in _CITA_CIERRA:
+            abiertas = max(0, abiertas - 1)
+    return abiertas > 0
+
+
+# Sujeto autorreferente de una cláusula de vigencia: "la presente norma rige a
+# contar del...". Dentro de una cita **ese "presente" no es este documento**,
+# sino la norma que recibe el texto insertado.
+_AUTORREFERENCIA = re.compile(
+    r"(?:" + _frase_flex("la presente norma") + r"|" + _frase_flex("esta norma")
+    + r"|" + _frase_flex("la presente circular") + r"|" + _frase_flex("esta circular")
+    + r"|" + _frase_flex("las presentes instrucciones")
+    + r"|" + _frase_flex("el presente oficio") + r")",
+    re.IGNORECASE,
+)
+
+
+def _clausula_aplicacion(text: str) -> re.Match | None:
+    """La primera cláusula de aplicación que hable de la vigencia *propia*.
+
+    Descarta las que están dentro de una cita **y** tienen sujeto
+    autorreferente, que es la combinación en que la fecha pertenece a otra
+    norma. La NCG 448/2020 reemplaza el numeral "II. Vigencia" de la NCG 445 y
+    transcribe el texto nuevo —"II. Vigencia. La presente norma rige a contar
+    del 1° de enero de 2021"—: ese "la presente norma" es la 445, y sin el
+    filtro la 448 se quedaba con una fecha que no es la suya, que es
+    exactamente lo que `_vigencias_impuestas` existe para evitar.
+
+    **La cita por sí sola no basta para descartar, y ahí está el matiz.** Un
+    documento también usa comillas para *insertar* una disposición transitoria
+    propia, y entonces la fecha citada sí es la obligación que él crea: la
+    circular 2317/2022 no declara vigencia en ninguna otra parte y su único
+    plazo vive dentro de la cita —"Las instrucciones contenidas en el numeral 6
+    ... regirán desde el primero de julio de 2023"—. Rechazar toda cita la
+    dejaba sin fecha y la mandaba a revisión manual. Lo que distingue los dos
+    casos es el sujeto: el que dice "la presente norma" habla de la norma que
+    recibe el texto; el que nombra qué es lo que rige, habla de este documento.
+    """
+    for m in _CLAUSULA_APLICACION.finditer(text):
+        if not _dentro_de_cita(text, m.start()):
+            return m
+        # Ventana hacia atrás acotada a la oración: un "la presente norma" de
+        # dos párrafos antes no dice nada sobre el sujeto de *esta* cláusula.
+        ini = max(0, m.start() - 160)
+        antes = text[ini:m.start()]
+        corte = antes.rfind(".")
+        if not _AUTORREFERENCIA.search(antes[corte + 1:] if corte != -1 else antes):
+            return m
+    return None
 
 
 def _resolver_plazo_relativo(texto: str, fecha_base: str | None) -> dict | None:
@@ -744,7 +817,7 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
     # `fuente` queda registrada para que se pueda auditar de dónde salió cada
     # fecha y para distinguir lo extraído de lo que de verdad falta.
     if not seccion_vig:
-        clausula = _CLAUSULA_APLICACION.search(text)
+        clausula = _clausula_aplicacion(text)
         if clausula:
             inicio, precision = _resolver_fecha(clausula.group(1))
             if inicio:
@@ -922,7 +995,7 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
             if not normas:
                 continue
 
-            acciones = list({a.capitalize() for a in _ACCION.findall(segmento)})
+            acciones = _acciones_unicas(_ACCION.findall(segmento))
             vigencia_sec = _parse_vigencia_seccion(segmento, num_rom, text[cuerpo_fin:],
                                                    fecha_base)
 
@@ -937,7 +1010,7 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
     else:
         # Documento sin secciones romanas: modificación directa
         normas = _NORMA_MOD.findall(text[:cuerpo_fin])
-        acciones = list({a.capitalize() for a in _ACCION.findall(text[:cuerpo_fin])})
+        acciones = _acciones_unicas(_ACCION.findall(text[:cuerpo_fin]))
         vigencia_global = _parse_vigencia_global(text[cuerpo_fin:], fecha_base)
         for norma_num in normas:
             modificaciones.append({
@@ -1301,6 +1374,21 @@ def _parse_archivos(text: str, vigencia: dict | None = None) -> list[dict]:
             }
 
     return list(por_codigo.values())
+
+
+def _acciones_unicas(crudas: list[str]) -> list[str]:
+    """Acciones sin repetir, en el orden en que aparecen en el documento.
+
+    Se hacía con `list({...})`, y el orden de un set de strings cambia entre
+    procesos: la misma entrada reparseada dos veces producía JSON distinto y
+    cada corrida de `reparse.py` ensuciaba el diff con permutaciones de
+    `acciones` que no eran ningún cambio de dato. El orden del texto además es
+    el útil: dice en qué orden el documento hace las cosas.
+    """
+    vistas: dict[str, None] = {}
+    for a in crudas:
+        vistas.setdefault(a.capitalize(), None)
+    return list(vistas)
 
 
 def _vigencias_impuestas(text: str, fecha_base: str | None = None) -> dict[int, dict]:
