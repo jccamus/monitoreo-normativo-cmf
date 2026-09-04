@@ -75,11 +75,28 @@ _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+",
 # "ver texto" pese a ser una fecha completa y explícita. Eran 3 entradas del
 # histórico (NCG 496/2023, NCG 506/2024, circular 2357/2024), todas con su
 # vigencia declarada sin ambigüedad en la sección correspondiente.
+#
+# `primero` es el único día que la CMF llega a escribir con palabras, y sólo
+# porque el día 1 es donde caen casi todos los plazos: la circular 2317/2022
+# fija su vigencia en "el primero de julio de 2023". Sin él la fecha caía a la
+# rama de mes suelto y se guardaba con `precision: "mes"`, o sea rotulada
+# "julio de 2023" cuando el documento dice el día. Los demás ordinales no se
+# agregan: sobre los 191 documentos del corpus no aparece ni uno, y cada
+# alternativa que no responde a un caso real es una forma más de calzar de
+# casualidad.
 _FECHA_SPAN  = re.compile(
-    r"(\d{1,2})[°º]?\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
+    r"(\d{1,2}[°º]?|primero)\s+de\s+(enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
     r"septiembre|octubre|noviembre|diciembre)\s+(?:del?\s+)?(\d{4})",
     re.IGNORECASE,
 )
+
+
+def _dia_a_int(texto: str) -> int:
+    """Número de día desde lo que captura `_FECHA_SPAN`: "1", "1°" o "primero"."""
+    texto = texto.strip().rstrip("°º")
+    return 1 if texto.lower() == "primero" else int(texto)
+
+
 # Línea de guiones bajos que cierra el bloque REF del encabezado. Ver
 # _fecha_encabezado: es el ancla para ubicar la fecha del documento.
 # `(?:^|\n)` y no `\n`: según cómo el extractor trate los márgenes, la línea de
@@ -179,7 +196,7 @@ _MESES_ALT = (
 # obligatorio, porque sin día ni preposición cualquier "diciembre 2024" del
 # cuerpo pasaría por plazo.
 _FECHA_ALT = (
-    r"(\d{1,2}[°º]?\s+de\s+(?:" + _MESES_ALT + r")\s+(?:del?\s+)?\d{4}"
+    r"((?:\d{1,2}[°º]?|primero)\s+de\s+(?:" + _MESES_ALT + r")\s+(?:del?\s+)?\d{4}"
     r"|\d{1,2}[-/]\d{1,2}[-/]\d{4}"
     r"|(?:mes\s+de\s+)?(?:" + _MESES_ALT + r")\s+del?\s+\d{4})"
 )
@@ -926,7 +943,7 @@ def _fecha_encabezado(text: str) -> str | None:
     if num_mes is None:
         logger.warning("Mes no reconocido en el encabezado: %r", mes)
         return None
-    return f"{y}-{num_mes:02d}-{int(d):02d}"
+    return f"{y}-{num_mes:02d}-{_dia_a_int(d):02d}"
 
 
 def _normaliza_frase(s: str, maxlen: int = 180) -> str:
@@ -1273,7 +1290,7 @@ def _parse_vigencia_global(texto_vigencia: str | None, fecha_base: str | None = 
         fechas = _FECHA_SPAN.findall(texto_vigencia)
         if fechas:
             d, mes, y = fechas[0]
-            resultado["inicio"] = f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
+            resultado["inicio"] = f"{y}-{MESES.get(mes.lower(), 1):02d}-{_dia_a_int(d):02d}"
         else:
             # Sin fecha con día, aceptar las formas menos precisas: la CMF
             # también fija plazos por mes ("a contar de diciembre de 2025") o en
@@ -1441,7 +1458,7 @@ def _fecha_str_to_iso(texto: str) -> str | None:
     if not m:
         return None
     d, mes, y = m.group(1), m.group(2), m.group(3)
-    return f"{y}-{MESES.get(mes.lower(), 1):02d}-{int(d):02d}"
+    return f"{y}-{MESES.get(mes.lower(), 1):02d}-{_dia_a_int(d):02d}"
 
 
 _REFERENCIA_NORMA = re.compile(

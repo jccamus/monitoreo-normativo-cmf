@@ -3371,7 +3371,7 @@
       "modifica": [],
       "vigencia": {
         "inicio": "2023-07-01",
-        "precision": "mes",
+        "precision": "dia",
         "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [

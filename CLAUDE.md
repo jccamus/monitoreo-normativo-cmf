@@ -397,6 +397,7 @@ de publicación:
 |---|---|---|
 | día completo | `1° de julio de 2026` | `dia` |
 | día completo sin preposición | `1° de julio 2023` | `dia` |
+| día escrito en palabra | `el primero de julio de 2023` | `dia` |
 | numérica | `13-07-2021` | `dia` |
 | mes y año | `a partir del mes de diciembre de 2024` | `mes` |
 | plazo contado | `en el plazo de un mes contado desde su publicación` | `dia` + `calculo` |
@@ -405,6 +406,13 @@ de publicación:
 
 La preposición antes del año es opcional porque la CMF escribe las dos formas, y
 exigirla mandaba a `"ver texto"` fechas completas y explícitas.
+
+`primero` es el **único** día que la CMF llega a escribir con palabras —no hay
+un solo "segundo de julio" en el corpus— y aparece porque el día 1 es donde cae
+casi todo plazo. Sin él la fecha caía a la rama de mes suelto y se guardaba con
+`precision: "mes"`, o sea el dashboard rotulaba "julio de 2023" un documento que
+dice el día. No agregues los demás ordinales por simetría: cada alternativa que
+no responde a un caso real es una forma más de calzar de casualidad.
 
 La forma de mes es la habitual para las obligaciones de reporte. Se normaliza al
 día 1 para poder ordenarla, y por eso `precision` viaja con el dato: el dashboard
