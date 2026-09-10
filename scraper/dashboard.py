@@ -35,12 +35,10 @@ DAILY_DIR = Path(__file__).parent.parent / "data" / "daily"
 DOCS_DIR = Path(__file__).parent.parent / "docs"
 OUTPUT = DOCS_DIR / "index.html"
 
-# CARACTER sin tilde y el N° opcional: las descripciones del listado vienen en
-# mayúsculas sin acentuar y alternan "NCG N°306" con "NCG 306".
-_NCG_NUM_DESC = re.compile(
-    r"NORMAS?\s+DE\s+CAR[ÁA]CTER\s+GENERAL\s*(?:N[°o]\s*)?(\d+)", re.IGNORECASE
-)
-_NCG_NUM_SHORT = re.compile(r"\bNCG\s*(?:N[°o]\s*)?(\d+)", re.IGNORECASE)
+# Los dos regex que deducían la NCG desde la descripción se fueron a
+# `store.normas_en_descripcion`, que además reconoce circulares y oficios
+# circulares. Eran una copia del patrón de `store` y la copia era el problema:
+# al agregar un cuerpo normativo había que acordarse de los dos.
 _DEROGA_RE = re.compile(r"\b(DEROGA|DERÓGASE|DEROGACIÓN)\b", re.IGNORECASE)
 
 # ── Clasificación por cuerpo normativo (tab "Cambios relevantes") ────────
@@ -208,16 +206,22 @@ def _es_derogacion(descripcion: str) -> bool:
     return bool(_DEROGA_RE.search(descripcion or ""))
 
 
-def _normas_afectadas(entrada: dict) -> list[str]:
-    """NCGs afectadas combinando modifica[], campo ncg y regex de descripción."""
-    nums: set[int] = set()
+def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
+    """Normas afectadas como (tipo, número), combinando modifica[], ncg y descripción.
+
+    **El número solo no identifica una norma**: existen la NCG N°519 y la
+    Circular N°519. Hasta septiembre de 2026 esto devolvía enteros y rotulaba
+    todo como NCG, lo que obligaba a descartar las circulares por completo —la
+    2377/2026 modifica la Circular N°2.110 y salía sin ninguna norma afectada—.
+    """
+    ids: dict[tuple[str, int], None] = {}
     for m in entrada.get("modifica", []) or []:
         # Las entradas con fuente "descripcion_cmf" que hay guardadas en
         # data/daily/ se generaron con un regex que capturaba cualquier "N° x"
         # de la descripción y lo rotulaba NCG, así que traen números de
-        # circulares, leyes y decretos disfrazados de norma. Se ignoran y el
-        # número se vuelve a sacar de la descripción más abajo, con los dos
-        # patrones que sí exigen la designación de NCG. Se corrige acá y no
+        # circulares, leyes y decretos disfrazados de norma. Se ignoran y la
+        # norma se vuelve a deducir de la descripción más abajo, con el patrón
+        # de `store` que sí exige la designación del cuerpo. Se corrige acá y no
         # sólo en `store` porque el arreglo del store únicamente alcanza a lo
         # que entre de aquí en adelante: la descripción viaja dentro de la
         # entrada, así que el histórico se repara al renderizar, sin reparse.
@@ -225,25 +229,37 @@ def _normas_afectadas(entrada: dict) -> list[str]:
             continue
         n = m.get("numero_norma")
         if isinstance(n, int):
-            nums.add(n)
+            # Sin `tipo_norma` es una entrada anterior a que el parser
+            # distinguiera cuerpos, y entonces sólo podía ser una NCG.
+            ids[(m.get("tipo_norma") or "NCG", n)] = None
     if isinstance(entrada.get("ncg"), int):
-        nums.add(entrada["ncg"])
-    desc = entrada.get("descripcion_cmf", "") or ""
-    for m in _NCG_NUM_DESC.findall(desc):
-        nums.add(int(m))
-    for m in _NCG_NUM_SHORT.findall(desc):
-        nums.add(int(m))
+        ids[("NCG", entrada["ncg"])] = None
+    for tn in store.normas_en_descripcion(entrada.get("descripcion_cmf") or ""):
+        ids[tn] = None
 
-    # Una NCG no se modifica a sí misma. `ncg` y la descripción traen el número
-    # propio del documento cuando el documento *es* una NCG, y aparecía listado
-    # entre las normas afectadas: "NCG N°568 → afecta a NCG N°538, NCG N°568".
-    # Sólo se descarta cuando el documento es una NCG: en un oficio circular que
-    # modifica la NCG N°530, ese 530 sí es una norma afectada.
+    # Una norma no se modifica a sí misma. `ncg` y la descripción traen el
+    # número propio del documento, y aparecía listado entre las normas
+    # afectadas: "NCG N°568 → afecta a NCG N°538, NCG N°568". Con el tipo en la
+    # llave el descarte es exacto y ya no hace falta limitarlo a las NCG: un
+    # oficio circular que modifica la NCG N°530 conserva ese 530, porque
+    # ("Oficio Circular", 530) y ("NCG", 530) son llaves distintas.
     doc = entrada.get("documento") or {}
-    if doc.get("tipo") == "NCG" and isinstance(doc.get("numero"), int):
-        nums.discard(doc["numero"])
+    if isinstance(doc.get("numero"), int):
+        ids.pop((doc.get("tipo"), doc["numero"]), None)
 
-    return [f"NCG N°{n}" for n in sorted(nums)]
+    return sorted(ids)
+
+
+def _normas_afectadas(entrada: dict) -> list[str]:
+    """Rótulos de las normas afectadas: «NCG N°550», «Circular N°2110»."""
+    return [store.etiqueta_norma(tipo, n) for tipo, n in _normas_afectadas_ids(entrada)]
+
+
+def _id_de_etiqueta(norma: str) -> tuple[str, int]:
+    """El inverso de `store.etiqueta_norma`, para los consumidores que agrupan
+    por rótulo y después necesitan preguntar por la norma."""
+    tipo, _, numero = norma.rpartition(" N°")
+    return tipo, int(numero)
 
 
 _LABEL_INICIO = {
@@ -348,12 +364,13 @@ def _tipos_de_entrada(entrada: dict) -> list[str]:
     vuelve coherentes por construcción.
     """
     tipos = store.inferir_tipos_acuerdo(entrada.get("descripcion_cmf") or "")
-    for norma in _normas_afectadas(entrada):
-        m = re.search(r"\d+", norma)
-        if not m:
-            continue
-        accion = _accion_sobre_norma(entrada, int(m.group()))
-        if accion == "Modificada por":
+    for tipo_norma, numero in _normas_afectadas_ids(entrada):
+        accion = _accion_sobre_norma(entrada, numero, tipo_norma)
+        # «Modificación NCG» sólo cuando lo modificado *es* una NCG: rotular así
+        # una circular que modifica otra circular pone la entrada bajo un filtro
+        # que afirma algo que no pasó. La derogación no distingue cuerpo: dejar
+        # sin efecto una circular es igual de derogación.
+        if accion == "Modificada por" and tipo_norma == "NCG":
             tipos.append("Modificación NCG")
         elif accion == "Derogada por":
             tipos.append("Derogación")
@@ -2039,7 +2056,30 @@ _VERBO_MODIFICA = re.compile(
 _VERBO_DEROGA = re.compile(r"DEROG\w*")
 
 
-def _accion_sobre_norma(entrada: dict, numero: int) -> str:
+# Cómo se nombra cada cuerpo normativo en la descripción ya normalizada por
+# `store.normalizar` (mayúsculas, sin tildes, espacios colapsados).
+#
+# El lookbehind de "Circular" es lo que la separa de "Oficio Circular", que la
+# contiene como sufijo: sin él, "DEROGA OFICIO CIRCULAR N°502" también contaría
+# como una acción sobre la Circular N°502, que es otro documento. Es de ancho
+# fijo porque `normalizar` colapsa los espacios a uno solo.
+_DESIGNACION_NORMA = {
+    "NCG": r"(?:NORMAS?\s+DE\s+CARACTER\s+GENERAL|NCG)",
+    "Circular": r"(?<!OFICIO )CIRCULAR(?:ES)?",
+    "Oficio Circular": r"OFICIOS?\s+CIRCULAR(?:ES)?",
+}
+
+
+def _numero_mencionado(numero: int) -> str:
+    """Patrón del número tolerando el separador de miles ("2.110" y "2110").
+
+    La descripción escribe las circulares con punto y las NCG sin él, y el
+    mismo número aparece de las dos formas según el redactor.
+    """
+    return r"0*" + r"\.?".join(str(numero))
+
+
+def _accion_sobre_norma(entrada: dict, numero: int, tipo: str = "NCG") -> str:
     """Cómo actúa este documento sobre *esa* norma.
 
     Tres respuestas posibles y las tres importan:
@@ -2067,6 +2107,8 @@ def _accion_sobre_norma(entrada: dict, numero: int) -> str:
     for m in entrada.get("modifica") or []:
         if m.get("fuente") == "descripcion_cmf" or m.get("numero_norma") != numero:
             continue
+        if (m.get("tipo_norma") or "NCG") != tipo:
+            continue
         if any(_DEROGA_RE.search(a or "") for a in m.get("acciones") or []):
             return "Derogada por"
         return "Modificada por"
@@ -2078,7 +2120,8 @@ def _accion_sobre_norma(entrada: dict, numero: int) -> str:
     #    caracteres tampoco, porque el verbo puede quedar lejos y seguir
     #    rigiendo: "APRUEBA MODIFICACIONES A LA NCG N°209 … Y A LA NCG N°318".
     desc = store.normalizar(entrada.get("descripcion_cmf") or "")
-    mencion = rf"(?:NORMAS?\s+DE\s+CARACTER\s+GENERAL|NCG)\s*(?:N[°O]\s*)?0*{numero}\b"
+    designacion = _DESIGNACION_NORMA.get(tipo, _DESIGNACION_NORMA["NCG"])
+    mencion = rf"{designacion}\s*(?:N[°O]\s*)?{_numero_mencionado(numero)}\b"
     menciones = list(re.finditer(mencion, desc))
     for m in menciones:
         oracion = desc[_inicio_de_oracion(desc, m.start()):m.start()]
@@ -2143,9 +2186,8 @@ def _render_timeline(grupos: dict[str, list[dict]]) -> str:
         # titulado «NCG N°152» y bajo el filtro «Modificación NCG» repetía dos
         # veces lo que ya se sabía y no decía lo único que falta: cuál norma la
         # modificó. Ahora dice «2021-07-30 · Modificada por NCG N°458».
-        m_num = re.search(r"\d+", norma)
-        numero = int(m_num.group()) if m_num else -1
-        acciones = [_accion_sobre_norma(i, numero) for i in items]
+        tipo_norma, numero = _id_de_etiqueta(norma)
+        acciones = [_accion_sobre_norma(i, numero, tipo_norma) for i in items]
         items_html = "".join(
             f'<a class="tl-item tl-{_ACCION_CLASE[accion]}" '
             f'data-clave="{html.escape(i.get("clave") or "")}" '

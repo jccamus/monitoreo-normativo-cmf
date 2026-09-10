@@ -16,7 +16,21 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE PERMITE EL CIERRE MASIVO DE SINIESTROS ASOCIADOS A CIRCULAR N°2.110.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2377_2026.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2110",
+          "numero_norma": 2110,
+          "tipo_norma": "Circular",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "2027-02-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2027-02-01",
         "fuente": "seccion"
@@ -51,6 +65,7 @@
         {
           "norma": "NCG N°539",
           "numero_norma": 539,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [],
           "vigencia": {
@@ -82,7 +97,19 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA CIRCULAR N°2062, QUE INSTRUYE RESPECTO AL TRATAMIENTO DE RECÁLCULO DE PENSIÓN, EN PÓLIZAS DE SEGUROS DE RENTA VITALICIA DEL D.L. N°3.500, DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2375_2026.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2062",
+          "numero_norma": 2062,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
       "vigencia": {
         "inicio": "2026-09-01",
         "fuente": "seccion"
@@ -118,6 +145,7 @@
         {
           "norma": "NCG N°519",
           "numero_norma": 519,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -155,7 +183,20 @@
       "descripcion_cmf": "22/07/1988 \n  \n29/07/2011 \n  \n13/09/2005 \n  \n19/01/2010 \n  \n14/10/2010 \n  \n14/07/2014 \n  \n09/03/2015 \n  \n25/07/2022 \n  \n25/07/2022 \n  \n05/12/2023 \n  \n28/11/2024 \n  \n27/12/2024 \n  \n10/04/2025 \n  \n20/04/2026 \n  \n30/04/1999 \n  \n13/06/1985 \n  \n20/09/1989 \n  \n28/05/2009 \n  \n14/06/2013 \n  \n11/12/2002 \n  \n19/02/1991 \n  \n22/10/1984 \n  \n10/08/2000 \n  \n17/12/1991 \n  \n30/09/1986 \n  \n27/02/1998 \n  \n24/11/2010 \n  \n29/12/2010 \n  \n02/02/2012 \n  \n27/03/2012 \n  \n13/08/2010 \n  \n23/06/1995 \n  \n20/09/1991 \n  \n31/12/1984 \n  \n28/08/1985 \n  \n23/01/1987 \n  \n07/08/1991 \n  \n31/07/2009 \n  \n19/01/2010 \n  \n19/01/2010 \n  \n03/02/2010 \n  \n12/03/1999 \n  \n15/06/2001 \n  \n31/05/2012 \n  \n29/04/2002 \n  \n08/06/1993 \n  \n28/09/1989 \n  \n02/10/2002 \n  \n04/10/2000 \n  \n26/08/2010 \n  \n24/07/2002 \n  \n30/05/2002 \n  \n17/07/2000 \n  \n28/11/1990 \n  \n26/11/1996",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_571_2026.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°18",
+          "numero_norma": 18,
+          "tipo_norma": "NCG",
+          "seccion_romana": "XV",
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {
+            "inicio": "2027-03-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2027-03-01",
         "fuente": "seccion",
@@ -194,7 +235,20 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISION PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE MODIFICA DIVERSOS CUERPOS NORMATIVOS CON EL FIN DE OPTIMIZAR SU APLICACIÓN PRÁCTICA, FORTALECER LA CERTEZA JURÍDICA Y MEJORAR LA EFICIENCIA DE LOS PROCESOS ASOCIADOS AL CUMPLIMIENTO REGULATORIO.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_570_2026.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1677",
+          "numero_norma": 1677,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -307,7 +361,42 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE LA NORMA QUE CREA LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS POR LA COMISIÓN Y LOS CAPÍTULOS CAC-1, CAC-2, CAC-3, CAC-4, CAC-10, CAC-11 y CAC-12 QUE LA CONTIENEN; CREA EL MANUAL DE SISTEMA DE INFORMACIÓN PARA COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS POR LA COMISIÓN Y DEROGA LAS CIRCULARES N°98, 100, 112, 116, 123, 126, 134, 142 Y DETERMINADAS DISPOSICIONES DE LA CIRCULAR N°108, APLICABLES A LAS MISMAS ENTIDADES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_567_2026.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°98",
+          "numero_norma": 98,
+          "tipo_norma": "Circular",
+          "seccion_romana": "III",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2027-01-27",
+            "precision": "dia",
+            "calculo": {
+              "base": "publicacion",
+              "fecha_base": "2026-05-27",
+              "expresion": "8 meses desde la publicación",
+              "texto": "comenzarán a regir dieciocho meses después de la publicación"
+            }
+          }
+        },
+        {
+          "norma": "Circular N°108",
+          "numero_norma": 108,
+          "tipo_norma": "Circular",
+          "seccion_romana": "III",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2027-01-27",
+            "precision": "dia",
+            "calculo": {
+              "base": "publicacion",
+              "fecha_base": "2026-05-27",
+              "expresion": "8 meses desde la publicación",
+              "texto": "comenzarán a regir dieciocho meses después de la publicación"
+            }
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "precision": "dia",
@@ -490,12 +579,14 @@
         {
           "norma": "NCG N°275",
           "numero_norma": 275,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
@@ -700,7 +791,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE DEROGA EL CAPÍTULO 1-6 Y MODIFICA EL CAPÍTULO 1-8 AMBOS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_543_2025.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2166",
+          "numero_norma": 2166,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -1102,7 +1204,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA DE CARÁCTER GENERAL QUE MODIFICA EL CAPÍTULO 8-41 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LA CIRCULAR N°1 PARA EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS, RESPECTO DE LA DETERMINACIÓN DE UNA FÓRMULA PARA EL CÁLCULO DEL MONTO MÍNIMO A PAGAR EN TARJETAS DE CRÉDITO, Y A LAS SITUACIONES EXCEPCIONALES EN QUE SE LIBERARÁ A LOS DEUDORES DE DICHA OBLIGACIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_537_2025.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1",
+          "numero_norma": 1,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -1353,6 +1466,7 @@
         {
           "norma": "NCG N°510",
           "numero_norma": 510,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -1404,7 +1518,22 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE LA CARTERA DE CLIENTES DE LAS EMPRESAS DE AUDITORÍA EXTERNA",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_518_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°275",
+          "numero_norma": 275,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Reemplácese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "2024-12-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-12-01",
         "fuente": "seccion"
@@ -1468,7 +1597,19 @@
       "descripcion_cmf": "21/11/2022 \n  \n20/05/2022 \n  \n14/04/2022 \n  \n14/04/2022 \n  \n14/04/2022 \n  \n13/04/2022 \n  \n08/04/2022 \n  \n08/04/2022 \n  \n31/03/2022 \n  \n01/12/2021 \n  \n18/05/2021 \n  \n25/01/2021 \n  \n19/10/2020 \n  \n26/04/2018 \n  \n06/03/2018 \n  \n06/04/2016 \n  \n22/12/2015 \n  \n07/05/2014 \n  \n30/04/2014 \n  \n06/03/2014 \n  \n13/01/2014 \n  \n21/10/2013 \n  \n26/07/2013 \n  \n26/07/2013 \n  \n05/07/2013 \n  \n12/09/2012 \n  \n12/09/2012 \n  \n14/04/2011 \n  \n14/02/2011 \n  \n04/02/2011 \n  \n25/01/2011 \n  \n31/12/2010 \n  \n30/12/2010 \n  \n06/07/2010 \n  \n19/01/2010 \n  \n31/12/2009 \n  \n28/10/2009 \n  \n14/08/2009 \n  \n16/06/2009 \n  \n29/09/2008 \n  \n24/12/2007 \n  \n17/10/2006 \n  \n21/06/2005 \n  \n11/02/2003 \n  \n04/04/2002 \n  \n27/03/2001 \n  \n20/01/1995 \n  \n20/03/1992 \n  \n10/11/1989 \n  \n11/06/1985",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_515_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°314",
+          "numero_norma": 314,
+          "tipo_norma": "NCG",
+          "seccion_romana": "VIII",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2025-05-01",
+            "plazo_transicion": "2025-05-30"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2025-05-01",
         "plazo_transicion": "2025-05-30",
@@ -1536,7 +1677,20 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE MODIFICACIÓN AL OFICIO CIRCULAR N°972, DE 2017, QUE PRECISA ALCANCE DEL INCISO FINAL DEL ARTÍCULO 583 DEL CÓDIGO DE COMERCIO.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1312_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Oficio Circular N°972",
+          "numero_norma": 972,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "no especificado"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-05-01",
         "precision": "dia",

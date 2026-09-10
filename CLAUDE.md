@@ -242,9 +242,12 @@ lo vuelvas a crear.
 
      Ojo con las dos columnas de norma: **«Norma» es el documento**
      (`_etiqueta_documento`) y **«Norma(s) afectada(s)» son las que modifica**
-     (`_normas_afectadas`, que descarta el número propio cuando el documento *es*
-     una NCG). Y la línea de tiempo **sigue a la tabla por `data-clave`** en vez
-     de reimplementar el filtrado.
+     (`_normas_afectadas`, que descarta el documento propio — el par
+     tipo+número, así que un oficio circular que modifica la NCG N°530 conserva
+     ese 530). Las normas afectadas pueden ser NCG, circulares u oficios
+     circulares; ver «Una norma se identifica por tipo y número». Y la línea de
+     tiempo **sigue a la tabla por `data-clave`** en vez de reimplementar el
+     filtrado.
 
 ### Dos reglas del front-end que se rompen solas si no las conoces
 
@@ -609,6 +612,38 @@ pasan a ser inocuos, no incorrectos.
 `_accion_sobre_norma` decide entre «Derogada por», «Modificada por» y «Referida
 por» buscando el último verbo antes de la mención **dentro de su misma oración**.
 
+### Una norma se identifica por tipo y número, nunca sólo por el número
+
+Existen la NCG N°519 y la Circular N°519, y son documentos distintos. Por eso
+las entradas de `modifica[]` llevan **`tipo_norma`** (`NCG`, `Circular` u
+`Oficio Circular`) además de `numero_norma`, el rótulo lo arma
+`store.etiqueta_norma` («NCG N°550», «Circular N°2110»), y el dashboard indexa
+por el par: `_normas_afectadas_ids` devuelve `(tipo, número)` y
+`_normas_afectadas` sólo lo rotula. Una entrada sin `tipo_norma` es anterior a
+septiembre de 2026 y se lee como NCG, que es lo único que existía entonces.
+
+Hasta esa fecha todo esto era un entero y se rotulaba NCG por defecto, así que
+**una circular que modifica otra circular salía sin ninguna norma afectada**: la
+2377/2026 modifica la Circular N°2.110 y cambia la información que hay que
+enviar, y la columna «Norma(s) afectada(s)» quedaba vacía. Tres detalles que se
+ven chicos y no lo son:
+
+- **El separador de miles.** La CMF escribe «CIRCULAR N°2.110». Con `\d+` el
+  número capturado es 2, o sea una norma que no existe. Los patrones aceptan el
+  punto y `_numero_mencionado` lo tolera al buscar la mención de vuelta.
+- **«Oficio Circular» contiene «Circular».** En la alternancia va primero, y en
+  `_DESIGNACION_NORMA` la designación de «Circular» lleva un lookbehind que la
+  separa. Sin eso, «DEROGA OFICIO CIRCULAR N°502» cuenta también como una
+  acción sobre la Circular N°502, que es otro documento.
+- **«Modificación NCG» sólo aplica si lo modificado es una NCG**
+  (`_tipos_de_entrada`). Rotular así una circular que modifica otra circular
+  pone la entrada bajo un filtro que afirma algo que no pasó. La derogación sí
+  es indiferente al cuerpo.
+
+La deducción desde la descripción vive en **`store.normas_en_descripcion`**, y
+el dashboard la llama en vez de tener su propia copia: eran dos regex parecidos
+en módulos distintos y agregar un cuerpo normativo exigía acordarse de los dos.
+
 ## Arreglar el parser no arregla los datos ya guardados
 
 `data/state.json` impide reprocesar una resolución ya vista, así que una mejora
@@ -643,6 +678,12 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
   `f"{year}_{numero.zfill(4)}"` → `"2026_0564"`. El dashboard, el motor de diff y
   el JSON guardado asumen todos esta forma. **Si la cambias, invalidas todo el
   historial.**
+- **Identidad de una norma afectada:** el par `(tipo_norma, numero_norma)`, y su
+  rótulo lo arma **sólo** `store.etiqueta_norma` → `"Circular N°2110"`. La línea
+  de tiempo agrupa por ese rótulo y `dashboard._id_de_etiqueta` lo revierte, así
+  que **el formato es un contrato, no una decisión de presentación**: si le
+  cambias el « N°» se rompe el agrupamiento. `tipo_norma` ausente = `NCG`
+  (entradas anteriores a septiembre de 2026).
 - **Convención del nombre de archivo del PDF:** el año de la *nueva* resolución se
   recupera del patrón `ncg_<num>_<year>.pdf` / `cir_<num>_<year>.pdf` en
   `_fecha_y_numero_desde_url`, porque la CMF lista cada norma con su fecha de
@@ -677,6 +718,14 @@ genera sólo del lado del dashboard, en `_tipos_de_entrada`, a partir de
 `_accion_sobre_norma` («Derogada por») y de `_es_derogacion` sobre la descripción.
 Tiene botón en `TIPOS_FILTRO` y es la segunda categoría más poblada. Si buscas por
 qué una entrada aparece bajo «Derogación» y no encuentras el patrón, es por esto.
+
+**No hay categoría equivalente para las circulares modificadas**, y es una
+decisión pendiente, no un olvido: desde que `_normas_afectadas` reconoce
+circulares y oficios circulares, un documento que sólo modifica una circular
+—la 2377/2026 sobre la 2.110— queda en `"Otro"`, porque «Modificación NCG» está
+deliberadamente restringida a las NCG (ver «Una norma se identifica por tipo y
+número»). Si aparece una «Modificación Circular», engánchala en
+`_tipos_de_entrada` junto a la de NCG y dale su botón en `TIPOS_FILTRO`.
 
 Esa misma mecánica —`_tipos_de_entrada` suma lo que dice `_accion_sobre_norma`,
 que es la función con la que la línea de tiempo rotula cada evento— existe para

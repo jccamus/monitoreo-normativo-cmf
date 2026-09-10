@@ -52,11 +52,56 @@ _SESION      = re.compile(
     r"Sesión\s+(Ordinaria|Extraordinaria)\s+N[°o]\s*(\d+)\s+de\s+(\d{1,2}\s+de\s+\w+\s+de\s+\d{4})",
     re.IGNORECASE,
 )
+# El cuerpo normativo va capturado, no dado por sentado: hasta septiembre de
+# 2026 este patrón sólo reconocía NCG, y una circular que modifica otra circular
+# —la 2377/2026 sobre la 2.110, que cambia la información que hay que enviar—
+# salía con `modifica: []` y sin norma afectada en el dashboard.
+#
+# OFICIO CIRCULAR va antes que CIRCULAR: la alternancia devuelve la primera que
+# calce, y al revés un oficio circular quedaría rotulado «Circular».
+_CUERPO_MOD  = (
+    r"(NORMAS?\s+DE\s+CAR[ÁA]CTER\s+GENERAL|NCG"
+    r"|OFICIOS?\s+CIRCULAR(?:ES)?|CIRCULAR(?:ES)?)"
+)
+# Los verbos van en imperativo dentro del cuerpo del documento ("Modifíquese la
+# Circular N°2.110") y en tercera persona en el REF del encabezado ("MODIFICA
+# CIRCULAR N°2062"). `MODIF[IÍ]\w*` cubre las dos más «Modifícase», y evita
+# enumerar formas que la CMF alterna sin criterio visible.
+_VERBO_MOD   = (
+    r"(?:MODIFICACIONES?\s+(?:A\s+)?|MODIF[IÍ]\w*\s+|DER[OÓ]G\w*\s+)"
+    # "el" además de "la": el género lo pone el cuerpo normativo —"la Circular",
+    # "el Oficio Circular"— y sin la variante masculina se perdía "Derógase el
+    # Oficio Circular N°502".
+    r"(?:(?:EL|LOS|L[AO]S?)\s+)?"
+)
+# `\d[\d.]*\d` y no `\d+` porque la CMF escribe el separador de miles en las
+# circulares: "Circular N°2.110". Con `\d+` el número capturado era 2, o sea
+# una norma que no existe. El cierre en dígito deja fuera el punto final de la
+# oración ("N°2.110." → 2.110).
 _NORMA_MOD   = re.compile(
-    r"(?:MODIFICACIONES?\s+(?:A\s+LA\s+)?|MODIFICA\s+(?:LA\s+)?)"
-    + _frase("NORMA DE CARÁCTER GENERAL") + r"\s+N[°o]\s*(\d+)",
+    _VERBO_MOD + _CUERPO_MOD + r"\s*(?:N[°oº]\s*)?(\d[\d.]*\d|\d)",
     re.IGNORECASE,
 )
+
+
+def _tipo_cuerpo(texto: str) -> str:
+    """Cuerpo normativo capturado → el tipo con que se rotula la norma."""
+    t = " ".join(texto.upper().split())
+    if t.startswith("OFICIO"):
+        return "Oficio Circular"
+    if t.startswith("CIRCULAR"):
+        return "Circular"
+    return "NCG"
+
+
+def _numero_norma(texto: str) -> int:
+    """"2.110" → 2110. Ver el comentario de `_NORMA_MOD`."""
+    return int(texto.replace(".", ""))
+
+
+def _etiqueta_norma(tipo: str, numero: int) -> str:
+    """Rótulo de la norma afectada. Misma forma que `store.etiqueta_norma`."""
+    return f"{tipo} N°{numero}"
 _ACCION      = re.compile(
     r"\b(Agréguese|Intercálase|Elimínese|Sustitúyase|Derógase|Modifíquese|Reemplácese|Agrégase)\b",
     re.IGNORECASE,
@@ -1008,7 +1053,7 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
             fin = secciones_pos[i + 1][0] if i + 1 < len(secciones_pos) else cuerpo_fin
             segmento = text[pos:fin]
 
-            normas = _NORMA_MOD.findall(segmento)
+            normas = _normas_mencionadas(segmento)
             if not normas:
                 continue
 
@@ -1016,29 +1061,56 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
             vigencia_sec = _parse_vigencia_seccion(segmento, num_rom, text[cuerpo_fin:],
                                                    fecha_base)
 
-            for norma_num in normas:
+            for tipo, numero in normas:
                 modificaciones.append({
-                    "norma": f"NCG N°{norma_num}",
-                    "numero_norma": int(norma_num),
+                    "norma": _etiqueta_norma(tipo, numero),
+                    "numero_norma": numero,
+                    "tipo_norma": tipo,
                     "seccion_romana": num_rom,
                     "acciones": acciones,
-                    "vigencia": impuestas.get(int(norma_num), vigencia_sec),
+                    "vigencia": _vigencia_impuesta(impuestas, tipo, numero, vigencia_sec),
                 })
     else:
         # Documento sin secciones romanas: modificación directa
-        normas = _NORMA_MOD.findall(text[:cuerpo_fin])
+        normas = _normas_mencionadas(text[:cuerpo_fin])
         acciones = _acciones_unicas(_ACCION.findall(text[:cuerpo_fin]))
         vigencia_global = _parse_vigencia_global(text[cuerpo_fin:], fecha_base)
-        for norma_num in normas:
+        for tipo, numero in normas:
             modificaciones.append({
-                "norma": f"NCG N°{norma_num}",
-                "numero_norma": int(norma_num),
+                "norma": _etiqueta_norma(tipo, numero),
+                "numero_norma": numero,
+                "tipo_norma": tipo,
                 "seccion_romana": None,
                 "acciones": acciones,
-                "vigencia": impuestas.get(int(norma_num), vigencia_global),
+                "vigencia": _vigencia_impuesta(impuestas, tipo, numero, vigencia_global),
             })
 
     return modificaciones
+
+
+def _normas_mencionadas(segmento: str) -> list[tuple[str, int]]:
+    """Normas modificadas o derogadas en el segmento, sin repetir y en orden.
+
+    El mismo documento nombra la norma que modifica varias veces —una en el
+    REF del encabezado y otra al abrir el articulado—, y antes cada mención
+    generaba su propia entrada en `modifica[]`.
+    """
+    vistas: dict[tuple[str, int], None] = {}
+    for m in _NORMA_MOD.finditer(segmento):
+        vistas[(_tipo_cuerpo(m.group(1)), _numero_norma(m.group(2)))] = None
+    return list(vistas)
+
+
+def _vigencia_impuesta(impuestas: dict, tipo: str, numero: int, por_defecto: dict) -> dict:
+    """La vigencia que este documento le fija a *esa* norma, si le fija alguna.
+
+    `_vigencias_impuestas` sólo mapea números de NCG, así que se consulta nada
+    más para ellas: sin este corte, una circular N°550 heredaría la vigencia
+    que el documento le impuso a la NCG N°550, que es otra norma.
+    """
+    if tipo != "NCG":
+        return por_defecto
+    return impuestas.get(numero, por_defecto)
 
 
 def _parse_vigencia_seccion(segmento: str, num_rom: str, seccion_vigencia: str,

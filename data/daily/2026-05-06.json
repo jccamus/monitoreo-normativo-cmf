@@ -722,7 +722,7 @@
       "resolucion": null,
       "sesion": null,
       "ncg": 550,
-      "tipo_acuerdo": "Modificación NCG",
+      "tipo_acuerdo": "Postergación de vigencia",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°550, POSTERGANDO SU VIGENCIA Y EXIME DE LOS TRÁMITES DEL INCISO 1 DEL N°3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_564_2026.pdf",
       "parsed": true,
@@ -730,6 +730,7 @@
         {
           "norma": "NCG N°550",
           "numero_norma": 550,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -762,7 +763,7 @@
       "resolucion": null,
       "sesion": null,
       "ncg": 549,
-      "tipo_acuerdo": "Modificación NCG",
+      "tipo_acuerdo": "Postergación de vigencia",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°549, POSTERGANDO SU VIGENCIA Y EXIME DE LOS TRÁMITES DEL INCISO 1 DEL N°3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_563_2026.pdf",
       "parsed": true,
@@ -770,6 +771,7 @@
         {
           "norma": "NCG N°549",
           "numero_norma": 549,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -814,6 +816,29 @@
         {
           "norma": "NCG N°18",
           "numero_norma": 18,
+          "tipo_norma": "NCG",
+          "seccion_romana": null,
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "Circular N°632",
+          "numero_norma": 632,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "Circular N°695",
+          "numero_norma": 695,
+          "tipo_norma": "Circular",
           "seccion_romana": null,
           "acciones": [
             "Derógase"
@@ -864,6 +889,7 @@
         {
           "norma": "NCG N°303",
           "numero_norma": 303,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -957,6 +983,7 @@
         {
           "norma": "NCG N°303",
           "numero_norma": 303,
+          "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
             "Agréguese"
@@ -968,6 +995,7 @@
         {
           "norma": "NCG N°451",
           "numero_norma": 451,
+          "tipo_norma": "NCG",
           "seccion_romana": "II",
           "acciones": [
             "Agréguese"
@@ -1019,6 +1047,7 @@
         {
           "norma": "NCG N°243",
           "numero_norma": 243,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifíquese",
@@ -1080,6 +1109,7 @@
         {
           "norma": "NCG N°182",
           "numero_norma": 182,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -1119,6 +1149,7 @@
         {
           "norma": "NCG N°16",
           "numero_norma": 16,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -1160,6 +1191,7 @@
         {
           "norma": "NCG N°258",
           "numero_norma": 258,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [],
           "vigencia": {
@@ -1195,6 +1227,7 @@
         {
           "norma": "NCG N°526",
           "numero_norma": 526,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -1238,12 +1271,17 @@
         {
           "norma": "NCG N°218",
           "numero_norma": 218,
-          "seccion_romana": null,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
           "acciones": [
-            "Modifícase"
+            "Modifíquese",
+            "Elimínese",
+            "Agrégase",
+            "Derógase"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2025-09-01"
+          }
         }
       ],
       "vigencia": {
@@ -1276,6 +1314,7 @@
         {
           "norma": "NCG N°529",
           "numero_norma": 529,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -1315,6 +1354,7 @@
         {
           "norma": "NCG N°152",
           "numero_norma": 152,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -1361,12 +1401,29 @@
         {
           "norma": "NCG N°502",
           "numero_norma": 502,
-          "seccion_romana": null,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
           "acciones": [
-            "Modifícase"
+            "Modifíquese",
+            "Intercálase",
+            "Agrégase",
+            "Elimínese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2027-07-01"
+          }
+        },
+        {
+          "norma": "NCG N°493",
+          "numero_norma": 493,
+          "tipo_norma": "NCG",
+          "seccion_romana": "X",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata",
+            "plazo_transicion": "2024-02-03"
+          }
         }
       ],
       "vigencia": {
@@ -1421,14 +1478,30 @@
       "parsed": true,
       "modifica": [
         {
-          "norma": "NCG N°200",
-          "numero_norma": 200,
+          "norma": "Circular N°1512",
+          "numero_norma": 1512,
+          "tipo_norma": "Circular",
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°1143",
+          "numero_norma": 1143,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese",
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
@@ -1521,12 +1594,23 @@
         {
           "norma": "NCG N°426",
           "numero_norma": 426,
+          "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
             "Modifíquese",
             "Agréguese",
             "Elimínese"
           ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°818",
+          "numero_norma": 818,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -1560,12 +1644,14 @@
         {
           "norma": "NCG N°306",
           "numero_norma": 306,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
@@ -1612,24 +1698,14 @@
       "parsed": true,
       "modifica": [
         {
-          "norma": "NCG N°256",
-          "numero_norma": 256,
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        },
-        {
-          "norma": "NCG N°480",
-          "numero_norma": 480,
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "norma": "Circular N°1939",
+          "numero_norma": 1939,
+          "tipo_norma": "Circular",
+          "seccion_romana": "IV",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2025-02-01"
+          }
         }
       ],
       "vigencia": {
@@ -1664,6 +1740,7 @@
         {
           "norma": "NCG N°480",
           "numero_norma": 480,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -1700,6 +1777,7 @@
         {
           "norma": "NCG N°325",
           "numero_norma": 325,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese",

@@ -5,20 +5,66 @@ import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 
-# El número tiene que venir precedido de la designación de NCG para contar como
-# tal. Antes esto era `N[°o]\s*(\d+)`, que capturaba cualquier "N° x" de la
-# descripción del listado y lo etiquetaba como NCG — y la descripción nombra
+# El número tiene que venir precedido de la designación del cuerpo normativo
+# para contar como norma. Antes esto era `N[°o]\s*(\d+)`, que capturaba
+# cualquier "N° x" de la descripción del listado — y la descripción nombra
 # circulares, oficios, leyes y decretos con exactamente esa misma forma. Así,
-# "MODIFICA CIRCULAR N°2022" producía una «NCG N°2022», "LEY N° 18490" una
-# «NCG N°20285». Sobre el histórico eran 244 normas en la línea de tiempo
-# donde hay 60, con números que no existen: la NCG más alta es la 570.
+# "LEY N° 18490" producía una «NCG N°20285». Sobre el histórico eran 244 normas
+# en la línea de tiempo donde hay 60, con números que no existen: la NCG más
+# alta es la 570.
+#
+# La designación ahora además **elige el tipo** en vez de sólo habilitar la
+# captura. Hasta septiembre de 2026 sólo se reconocían NCG, así que una
+# circular que modifica otra circular —la 2377/2026 sobre la 2.110— quedaba sin
+# ninguna norma afectada. OFICIO CIRCULAR va antes que CIRCULAR porque la
+# alternancia devuelve la primera que calce.
+#
 # El N° es opcional porque el listado escribe tanto "NCG N°306" como "NCG 306",
-# y CARACTER va sin tilde porque las descripciones vienen en mayúsculas sin
-# acentuar.
-_NCG_EN_DESC = re.compile(
-    r"(?:NORMAS?\s+DE\s+CAR[ÁA]CTER\s+GENERAL|NCG)\s*(?:N[°o]\s*)?(\d+)",
+# CARACTER va sin tilde porque las descripciones vienen en mayúsculas sin
+# acentuar, y el número admite el separador de miles porque las circulares se
+# nombran "CIRCULAR N°2.110" (con `\d+` el número capturado era 2).
+_NORMA_EN_DESC = re.compile(
+    r"(NORMAS?\s+DE\s+CAR[ÁA]CTER\s+GENERAL|NCG"
+    r"|OFICIOS?\s+CIRCULAR(?:ES)?|CIRCULAR(?:ES)?)"
+    r"\s*(?:N[°oº]\s*)?(\d[\d.]*\d|\d)",
     re.IGNORECASE,
 )
+
+
+def etiqueta_norma(tipo: str, numero: int) -> str:
+    """Rótulo de una norma afectada: «NCG N°550», «Circular N°2110».
+
+    El tipo va en el rótulo porque el número solo no identifica nada: existen
+    la NCG N°519 y la Circular N°519, y son documentos distintos. El dashboard
+    agrupa la línea de tiempo por este rótulo.
+    """
+    return f"{tipo} N°{numero}"
+
+
+def _tipo_cuerpo(texto: str) -> str:
+    """Cuerpo normativo capturado → el tipo con que se rotula la norma."""
+    t = " ".join(texto.upper().split())
+    if t.startswith("OFICIO"):
+        return "Oficio Circular"
+    if t.startswith("CIRCULAR"):
+        return "Circular"
+    return "NCG"
+
+
+def normas_en_descripcion(descripcion: str) -> list[tuple[str, int]]:
+    """Normas nombradas en la descripción del listado, con su tipo y sin repetir.
+
+    Pública porque el dashboard la usa para reparar el histórico al renderizar:
+    las entradas guardadas con `fuente: "descripcion_cmf"` traen defectos que
+    ya están corregidos acá, y la descripción viaja dentro de la entrada. Que
+    las dos capas deduzcan con el mismo patrón es justamente el punto — antes
+    eran dos regex parecidos en módulos distintos, listos para divergir.
+    """
+    vistas: dict[tuple[str, int], None] = {}
+    for m in _NORMA_EN_DESC.finditer(descripcion or ""):
+        vistas[(_tipo_cuerpo(m.group(1)), int(m.group(2).replace(".", "")))] = None
+    return list(vistas)
+
 
 # Verbos que gobiernan cada mención, para atribuirle su propia acción.
 _DEROGA_VERBO = re.compile(r"DEROGA\w*", re.IGNORECASE)
@@ -163,7 +209,7 @@ def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
     if "MODIFICA" not in desc_upper and "DEROGA" not in desc_upper:
         return []
     resultado = []
-    for m in _NCG_EN_DESC.finditer(descripcion):
+    for m in _NORMA_EN_DESC.finditer(descripcion):
         # La acción se decide por norma y no para toda la descripción. Antes
         # era `"Derógase" if "DEROGA" in desc_upper else "Modifícase"`, o sea
         # en bloque: "MODIFICA NORMA DE CARÁCTER GENERAL N°152 … DEROGA OFICIO
@@ -176,9 +222,12 @@ def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
             accion = "Derógase"
         else:
             accion = "Modifícase"
+        tipo = _tipo_cuerpo(m.group(1))
+        numero = int(m.group(2).replace(".", ""))
         resultado.append({
-            "norma": f"NCG N°{m.group(1)}",
-            "numero_norma": int(m.group(1)),
+            "norma": etiqueta_norma(tipo, numero),
+            "numero_norma": numero,
+            "tipo_norma": tipo,
             "seccion_romana": None,
             "acciones": [accion],
             "vigencia": {},

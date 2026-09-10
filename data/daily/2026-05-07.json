@@ -47,7 +47,28 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE CIRCULAR QUE MODIFICA CIRCULAR N°1459, QUE IMPARTE NORMAS SOBRE CERTIFICADO SEGURO OBLIGATORIO LEY Nº18.490 y CIRCULAR N°2121, QUE IMPARTE NORMAS SOBRE EL SEGURO OBLIGATORIO DE ACCIDENTES PERSONALES CAUSADOS POR VEHÍCULOS MOTORIZADOS CON MATRÍCULA EXTRANJERA DEL ARTÍCULO 60 DE LA LEY Nº18.290, Y ESTABLECE FORMATO Y CONTENIDO DEL CERTIFICADO DEL SEGURO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2369_2026.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1459",
+          "numero_norma": 1459,
+          "tipo_norma": "Circular",
+          "seccion_romana": "I",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°1459",
+          "numero_norma": 1459,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -201,6 +222,7 @@
         {
           "norma": "NCG N°469",
           "numero_norma": 469,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Agrégase",
@@ -253,6 +275,7 @@
         {
           "norma": "NCG N°469",
           "numero_norma": 469,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -332,12 +355,14 @@
         {
           "norma": "NCG N°532",
           "numero_norma": 532,
-          "seccion_romana": null,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
           "acciones": [
-            "Modifícase"
+            "Modifíquese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "inmediata"
+          }
         }
       ],
       "vigencia": {
@@ -543,6 +568,7 @@
         {
           "norma": "NCG N°306",
           "numero_norma": 306,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -590,6 +616,7 @@
         {
           "norma": "NCG N°306",
           "numero_norma": 306,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -619,7 +646,7 @@
       "sesion": null,
       "ncg": 538,
       "documento": null,
-      "tipo_acuerdo": "Otro",
+      "tipo_acuerdo": "Postergación de vigencia",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA NORMA DE CARÁCTER GENERAL N°538 Y POSTERGA LA VIGENCIA DE ÉSTA COMO INDICA, EXCLUYE LA PUBLICACIÓN DEL INFORME NORMATIVO Y EXIME DEL TRÁMITE DE CONSULTA PÚBLICA POR URGENCIA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_544_2025.pdf",
       "parsed": true,
@@ -627,6 +654,7 @@
         {
           "norma": "NCG N°538",
           "numero_norma": 538,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [],
           "vigencia": {
@@ -726,7 +754,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE MODIFICA LA VIGENCIA DE LA CIRCULAR N°2.364 DE 19 DE JUNIO DE 2025, E INCLUYE UNA DISPOSICIÓN TRANSITORIA EN LA MISMA, EXCLUYENDO LA EMISIÓN DEL INFORME NORMATIVO Y EL TRÁMITE DE CONSULTA PÚBLICA POR RESULTAR INNECESARIO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2366_2025.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2364",
+          "numero_norma": 2364,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [],
+          "vigencia": {
+            "inicio": "no especificado"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2026-07-28",
         "precision": "dia",
@@ -957,7 +996,20 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EXIME DE TRÁMITES DEL N°3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 Y APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA LA CIRCULAR N°12 DE 2010 Y EL CAPÍTULO 19-2 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_534_2025.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°12",
+          "numero_norma": 12,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -995,7 +1047,22 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EXIME DE TRAMITES DEL NÚMERO 3 DEL ARTÍCULO 20 DEL DECRETO LEY N°3.538 Y APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA LA CIRCULAR N°1.696 DE 2003",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2362_2025.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1696",
+          "numero_norma": 1696,
+          "tipo_norma": "Circular",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Elimínese",
+            "Intercálase"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -1059,12 +1126,38 @@
         {
           "norma": "NCG N°365",
           "numero_norma": 365,
-          "seccion_romana": null,
+          "tipo_norma": "NCG",
+          "seccion_romana": "III",
           "acciones": [
-            "Modifícase"
+            "Modifíquese",
+            "Agréguese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2025-12-01"
+          }
+        },
+        {
+          "norma": "Circular N°1998",
+          "numero_norma": 1998,
+          "tipo_norma": "Circular",
+          "seccion_romana": "III",
+          "acciones": [
+            "Modifíquese",
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "2025-12-01"
+          }
+        },
+        {
+          "norma": "Circular N°1333",
+          "numero_norma": 1333,
+          "tipo_norma": "Circular",
+          "seccion_romana": "IV",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "ver texto"
+          }
         }
       ],
       "vigencia": {
@@ -1165,7 +1258,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE DEJA SIN EFECTO ACUERDO QUE INDICA Y APRUEBA PROPUESTA NORMATIVA QUE IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN DE RIESGOS PARA INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS, Y DEROGA LA CIRCULAR N°2.054 DE 2011.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_528_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2054",
+          "numero_norma": 2054,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VI",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2027-07-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2025-07-01",
         "fuente": "seccion",
@@ -1204,6 +1308,7 @@
         {
           "norma": "NCG N°507",
           "numero_norma": 507,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese",
@@ -1247,6 +1352,7 @@
         {
           "norma": "NCG N°157",
           "numero_norma": 157,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Derógase"
@@ -1389,7 +1495,7 @@
         "fecha": "2024-11-14"
       },
       "ncg": 503,
-      "tipo_acuerdo": "Otro",
+      "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA NCG N°503 DE 2024",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_521_2024.pdf",
       "parsed": true,
@@ -1397,6 +1503,7 @@
         {
           "norma": "NCG N°503",
           "numero_norma": 503,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [],
           "vigencia": {
@@ -1434,14 +1541,16 @@
       "parsed": true,
       "modifica": [
         {
-          "norma": "NCG N°30",
-          "numero_norma": 30,
-          "seccion_romana": null,
+          "norma": "NCG N°461",
+          "numero_norma": 461,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
           "acciones": [
-            "Modifícase"
+            "Reemplácese"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2026-12-31"
+          }
         }
       ],
       "vigencia": {
@@ -1550,7 +1659,23 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA CIRCULAR QUE MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE EL ESTADO DE COLOCACIONES Y BONOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2358_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°995",
+          "numero_norma": 995,
+          "tipo_norma": "Circular",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Reemplácese",
+            "Agréguese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "2024-12-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-12-01",
         "fuente": "seccion"
@@ -1660,7 +1785,21 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA CIRCULAR N°2275 QUE ESTABLECE REQUERIMIENTO MENSUAL DE INFORMACIÓN FINANCIERA Y DE SOLVENCIA. DEROGA OFICIO CIRCULAR N°479.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2357_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2275",
+          "numero_norma": 2275,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese",
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "2024-12-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-12-01",
         "fuente": "seccion"
@@ -1700,7 +1839,22 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA EMISIÓN DE NORMATIVA QUE MODIFICA CIRCULAR N°1.713 DE 2004.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2356_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1713",
+          "numero_norma": 1713,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Modifíquese",
+            "Reemplácese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion",
@@ -1738,7 +1892,7 @@
         "fecha": "2024-08-22"
       },
       "ncg": 136,
-      "tipo_acuerdo": "Otro",
+      "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA NORMA DE CARÁCTER GENERAL N° 136, QUE ESTABLECE NORMAS RELATIVAS AL OTORGAMIENTO Y ADQUISICION DE MUTUOS HIPOTECARIOS ENDOSABLES POR LAS ENTIDADES ASEGURADORAS Y REASEGURADORAS Y AL REGISTRO Y OPERACIONES DE LOS AGENTES ADMINISTRADORES DE MUTUOS HIPOTECARIOS ENDOSABLES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_517_2024.pdf",
       "parsed": true,
@@ -1746,6 +1900,7 @@
         {
           "norma": "NCG N°136",
           "numero_norma": 136,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Agrégase"
@@ -1787,7 +1942,22 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA LA CIRCULAR N°1835 QUE IMPARTE INSTRUCCIONES RELATIVAS A LA FORMA Y CONTENIDO DE INFORMACIÓN SOBRE INVERSIONES POR PARTE DE LA COMISIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2354_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1835",
+          "numero_norma": 1835,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Elimínese",
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "2024-12-01",
+            "plazo_transicion": "2025-01-15"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-12-01",
         "plazo_transicion": "2025-01-15",
@@ -1824,7 +1994,21 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA CIRCULAR N°2022 QUE IMPARTE NORMAS SOBRE FORMA, CONTENIDO Y PRESENTACIÓN DE LOS ESTADOS FINANCIEROS DE LAS ENTIDADES ASEGURADORAS Y REASEGURADORAS.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2353_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°2022",
+          "numero_norma": 2022,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese",
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "2025-01-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2025-01-01",
         "fuente": "seccion"
@@ -1988,7 +2172,19 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA CIRCULAR N° 1815, QUE ESTABLECE NORMAS PARA EL ENVÍO DE INFORMACIÓN SOBRE PÓLIZAS DE RENTA VITALICIA PREVISIONAL DEL D.L. Nº 3.500 DE 1980.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2352_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1815",
+          "numero_norma": 1815,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
       "vigencia": {
         "inicio": "2024-10-01",
         "fuente": "seccion"
@@ -2070,7 +2266,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES SOBRE GOBIERNO CORPORATIVO Y GESTIÓN DE RIESGOS PARA ADMINISTRADORAS GENERALES DE FONDOS, Y DEROGA LA CIRCULAR N°1.869 DE 2008.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_507_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1869",
+          "numero_norma": 1869,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VI",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2025-02-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2025-02-01",
         "fuente": "seccion"
@@ -2248,7 +2455,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL QUE REGULA INFORMACIÓN SOBRE GRUPOS EMPRESARIALES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_505_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1246",
+          "numero_norma": 1246,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2024-05-01"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-05-01",
         "fuente": "seccion"
@@ -2375,7 +2593,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA QUE REGULA EL REGISTRO, AUTORIZACIÓN Y OBLIGACIONES DE LOS PRESTADORES DE SERVICIOS FINANCIEROS DE LA LEY FINTEC Y MATERIAS QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_503_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°412",
+          "numero_norma": 412,
+          "tipo_norma": "NCG",
+          "seccion_romana": "III",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2025-01-13"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2025-01-13",
         "fuente": "seccion"
@@ -2404,7 +2633,19 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA QUE REGULA EL REGISTRO, AUTORIZACIÓN Y OBLIGACIONES DE LOS PRESTADORES DE SERVICIOS FINANCIEROS DE LA LEY FINTEC Y MATERIAS QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_502_2024.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°493",
+          "numero_norma": 493,
+          "tipo_norma": "NCG",
+          "seccion_romana": "VIII",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2024-02-03",
+            "plazo_transicion": "2024-02-03"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2024-02-03",
         "plazo_transicion": "2024-02-03",
