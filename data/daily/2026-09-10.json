@@ -1748,7 +1748,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVAS QUE REGULAN LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS Y LA AUTORIZACIÓN DEL SERVICIO DE ASESORÍA DE INVERSIÓN",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_494_2023.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°472",
+          "numero_norma": 472,
+          "tipo_norma": "NCG",
+          "seccion_romana": "V",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -1810,6 +1821,7 @@
         {
           "norma": "NCG N°30",
           "numero_norma": 30,
+          "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
             "Elimínese",
@@ -1878,6 +1890,7 @@
         {
           "norma": "NCG N°471",
           "numero_norma": 471,
+          "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
             "Elimínese",
@@ -1920,6 +1933,7 @@
         {
           "norma": "NCG N°426",
           "numero_norma": 426,
+          "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
             "Reemplácese",
@@ -1932,6 +1946,7 @@
         {
           "norma": "NCG N°139",
           "numero_norma": 139,
+          "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
             "Reemplácese",
@@ -1970,7 +1985,25 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES PARA EL ENVÍO DE INFORMACIÓN DE LOS ARTÍCULOS 26 BIS, 38 BIS Y 80 BIS DE LA LEY ÚNICA DE FONDOS.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_488_2022.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1790",
+          "numero_norma": 1790,
+          "tipo_norma": "Circular",
+          "seccion_romana": "III",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "2023-11-21",
+            "precision": "dia",
+            "calculo": {
+              "base": "publicacion",
+              "fecha_base": "2022-11-21",
+              "expresion": "1 año desde la publicación",
+              "texto": "comenzaran a regir una vez transcurrido un año contado desde la publicación"
+            }
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2023-11-21",
         "precision": "dia",
@@ -2067,7 +2100,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMAS DE CARÁCTER GENERAL QUE SIMPLIFICAN REGISTROS E INFORMACIÓN CONTINUA DE ENTIDADES QUE INDICA.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_474_2022.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "NCG N°139",
+          "numero_norma": 139,
+          "tipo_norma": "NCG",
+          "seccion_romana": "V",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -2568,7 +2612,18 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE ESTABLECE REQUERIMIENTO MENSUAL DE INFORMACIÓN FINANCIERA Y DE SOLVENCIA Y DEROGA OFICIO CIRCULAR N° 479.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2275_2020.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Oficio Circular N°479",
+          "numero_norma": 479,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": "III",
+          "acciones": [],
+          "vigencia": {
+            "inicio": "no especificado"
+          }
+        }
+      ],
       "vigencia": {
         "inicio": "2021-01-01",
         "precision": "mes",
@@ -2623,7 +2678,19 @@
       "descripcion_cmf": "BANCOS COOPERATIVAS\r\nINFORMACIÓN SOBRE PRÉSTAMOS ESTUDIANTILES PARA LA EDUCACIÓN SUPERIOR, CONSOLIDACIÓN DE DEUDAS Y RECTIFICACIONES. MODIFICA CAPÍTULO 20-6 PARA BANCOS Y CIRCULAR N°102 DE COOPERATIVAS SOBRE PUBLICACIONES EN EL BOLETÍN DE INFORMACIONES COMERCIALES. INTRODUCE NUEVOS CAMPOS A LOS ARCHIVOS R04 Y R05. MODIFICA ARCHIVO D10. \r\n(RESOLUCIÓN N°3759 DE 25-08-2020 EJECUTA ACUERDO DEL CONSEJO).",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2266_2020.pdf",
       "parsed": true,
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°102",
+          "numero_norma": 102,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
       "vigencia": {
         "inicio": "no especificado",
         "fuente": "ninguna"

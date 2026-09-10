@@ -16,6 +16,7 @@
         {
           "norma": "NCG N°152",
           "numero_norma": 152,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Elimínese",
@@ -59,6 +60,7 @@
         {
           "norma": "NCG N°323",
           "numero_norma": 323,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -99,12 +101,14 @@
         {
           "norma": "NCG N°218",
           "numero_norma": 218,
-          "seccion_romana": null,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
           "acciones": [
-            "Modifícase"
+            "Agrégase"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2022-09-05"
+          }
         }
       ],
       "vigencia": {
@@ -151,6 +155,7 @@
         {
           "norma": "NCG N°398",
           "numero_norma": 398,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -184,6 +189,7 @@
         {
           "norma": "NCG N°460",
           "numero_norma": 460,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Agrégase"
@@ -223,6 +229,7 @@
         {
           "norma": "NCG N°152",
           "numero_norma": 152,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese",
@@ -269,6 +276,7 @@
         {
           "norma": "NCG N°152",
           "numero_norma": 152,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese",
@@ -315,12 +323,22 @@
         {
           "norma": "NCG N°218",
           "numero_norma": 218,
-          "seccion_romana": null,
+          "tipo_norma": "NCG",
+          "seccion_romana": "II",
           "acciones": [
-            "Modifícase"
+            "Intercálase",
+            "Agrégase"
           ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
+          "vigencia": {
+            "inicio": "2021-09-06",
+            "precision": "dia",
+            "calculo": {
+              "base": "publicacion",
+              "fecha_base": "2021-06-02",
+              "expresion": "primer lunes del tercer mes siguiente",
+              "texto": "entrará en vigencia a contar del primer lunes del tercer mes siguiente al de su emisión"
+            }
+          }
         }
       ],
       "vigencia": {
@@ -362,6 +380,7 @@
         {
           "norma": "NCG N°323",
           "numero_norma": 323,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -407,10 +426,21 @@
         {
           "norma": "NCG N°336",
           "numero_norma": 336,
+          "tipo_norma": "NCG",
           "seccion_romana": "II",
           "acciones": [
             "Intercálase"
           ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°345",
+          "numero_norma": 345,
+          "tipo_norma": "NCG",
+          "seccion_romana": "V",
+          "acciones": [],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -446,6 +476,7 @@
         {
           "norma": "NCG N°234",
           "numero_norma": 234,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Modifícase"
@@ -483,6 +514,7 @@
         {
           "norma": "NCG N°30",
           "numero_norma": 30,
+          "tipo_norma": "NCG",
           "seccion_romana": "II",
           "acciones": [
             "Modifíquese",
@@ -525,6 +557,7 @@
         {
           "norma": "NCG N°243",
           "numero_norma": 243,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -572,6 +605,7 @@
         {
           "norma": "NCG N°234",
           "numero_norma": 234,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Agrégase"
@@ -613,6 +647,7 @@
         {
           "norma": "NCG N°243",
           "numero_norma": 243,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
@@ -669,6 +704,7 @@
         {
           "norma": "NCG N°200",
           "numero_norma": 200,
+          "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
             "Reemplácese"
