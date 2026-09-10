@@ -981,6 +981,15 @@ def _render_como_anotar() -> str:
         'Una fecha por archivo se escribe '
         '<code>RDC40=2026-01-01;RDC02=2025-11-01</code>.</li>'
         '<li><code>python scraper/dashboard.py</code> — aplica lo anotado.</li>'
+        # El paso que faltaba: `dashboard.py` deja el HTML actualizado en el
+        # disco de quien anota, y ahí se queda. La página que la gente abre sale
+        # de `main`, así que sin el push la anotación existe y no se ve — y el
+        # síntoma es que el Calendario "no se actualizó" pese a que el comando
+        # corrió sin errores.
+        '<li><code>git add data/revisiones.csv docs/index.html</code>, '
+        '<code>git commit</code> y <code>git push</code> — publica. '
+        'GitHub Pages sirve <code>docs/</code> desde <code>main</code>: hasta '
+        'este paso el cambio existe sólo en tu equipo.</li>'
         '</ol>'
         # El paso 2 ya nombraba `inmediata`, y aun así una revisión de 30
         # documentos anotó 17 con la fecha del propio encabezado: saber que la
@@ -995,7 +1004,7 @@ def _render_como_anotar() -> str:
         'entradas del histórico repetían la fecha del documento como si fuera '
         'su vigencia. Si el texto sí dice «rige a contar de esta fecha», '
         'entonces la declara y la fecha corresponde.</p>'
-        '<p>Ese último paso hace las dos cosas de una vez: el documento sale de '
+        '<p>El paso 3 hace las dos cosas de una vez: el documento sale de '
         'esta lista <b>y</b> aparece en el Calendario de modificaciones en la '
         'fecha anotada, marcado «confirmada» para no confundirlo con lo que se '
         'extrajo del PDF. Refrescar la planilla nunca pisa lo ya escrito.</p>'

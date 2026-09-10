@@ -543,6 +543,12 @@ nunca. Lo que hay que dejar dicho ahí es que **`dashboard.py` hace las dos cosa
 en la misma pasada** —saca el documento de la lista y lo mete al Calendario—,
 porque es lo que no se deduce mirando la página.
 
+Y que **falta un cuarto paso: commitear y pushear.** `dashboard.py` deja el HTML
+actualizado en el disco de quien anota, y ahí se queda; la página que la gente
+abre sale de `main`. Sin el push la anotación existe y no se ve, y el síntoma
+—«corrí el comando sin errores y el Calendario no se actualizó»— no apunta a la
+causa por ninguna parte.
+
 Y que **si rige desde su publicación va `inmediata`, no la fecha del
 documento**. El paso 2 ya nombraba la opción y aun así una revisión de 30
 documentos anotó 17 con la fecha del propio encabezado: nombrar la alternativa
