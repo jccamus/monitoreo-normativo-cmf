@@ -38,7 +38,12 @@ FRASES_CLAVE = [
     "APRUEBA LA CIRCULAR QUE",
     # Ajustes técnicos a archivos/capítulos del MSI, RAN, CNC
     "INTRODUCE AJUSTES TÉCNICOS",
-    "INTRODUCE AJUSTES AL CAPÍTULO",
+    # "A" y no "AL CAPÍTULO": el ajuste que importa suele ser a una tabla o a un
+    # archivo del MSI, que es lo que genera obligación de reporte. Con el
+    # capítulo exigido se perdían el ofc_1382_2025 ("AJUSTES A LA TABLA 61 Y A
+    # LOS ARCHIVOS P02 Y P36") y el ofc_1340_2024. Subsume la forma anterior.
+    "INTRODUCE AJUSTES A",
+    "INTRODUCE MODIFICACIONES AL CAPÍTULO",
     # Modificación de circulares u oficios circulares
     "MODIFICA OFICIO CIRCULAR",
     "MODIFICA LA CIRCULAR",
@@ -64,6 +69,32 @@ FRASES_CLAVE = [
     "DEROGA NORMA DE CARACTER",
     "DEROGA CIRCULAR N°",
     "DEROGA CIRCULAR Nº",
+    # Fórmulas del acuerdo del Consejo. La celda del acuerdo ("EJECUTA ACUERDO
+    # DEL CONSEJO … QUE APRUEBA …") es una convención reciente —no aparece antes
+    # de 2020—, así que estas frases están naturalmente acotadas al período que
+    # el dashboard muestra y no arrastran el archivo histórico.
+    #
+    # Están acá porque las de más arriba fallan por un artículo o una palabra de
+    # diferencia: la circular 2377/2026 dice "APRUEBA NORMATIVA QUE PERMITE" y
+    # ni "APRUEBA NUEVA NORMATIVA" ni "APRUEBA NORMA QUE" la alcanzan. Ese solo
+    # hueco costó 9 documentos sustantivos de 2026 y 14 de 2025, entre ellos la
+    # NCG 567 (crea la RAN y el MSI de cooperativas) y la 569 (finanzas
+    # abiertas). Al agregar una frase acá, escríbela como la CMF la escribe hoy:
+    # el calce es `in` literal, sin tolerancia al artículo ni a la tilde.
+    "APRUEBA NORMATIVA",
+    "APRUEBA DICTACIÓN DE NORMATIVA",
+    "APRUEBA LA EMISIÓN DE",
+    # Sin tilde a propósito: la CMF alterna las dos grafías en la misma fórmula
+    # y la NCG 567/2026 dice "APRUEBA LA EMISION DE LA NORMA". No conviertas
+    # esto en un calce sin tildes global: entre 2000 y 2017 el listado entero
+    # está escrito sin tildes ("MODIFICA NORMA DE CARACTER GENERAL") y hacerlo
+    # insensible arrastra ~131 filas de esa época, todas fuera de la ventana de
+    # 5 años del dashboard.
+    "APRUEBA LA EMISION DE",
+    "APRUEBA MODIFICACIÓN",
+    "APRUEBA AJUSTES",
+    "APRUEBA LA PUBLICACIÓN DE LA CIRCULAR",
+    "APRUEBA INFORME NORMATIVO",
 ]
 
 HEADERS = {
@@ -231,12 +262,11 @@ def _extraer_celda(celdas: list) -> dict | None:
     La fecha real de la nueva resolución se extrae del nombre del PDF (ej. ncg_564_2026.pdf).
     """
     try:
-        texto_fila = " ".join(c.get_text(strip=True) for c in celdas)
+        textos = [c.get_text(strip=True) for c in celdas]
+        texto_fila = " ".join(textos)
 
         # Descripción: celda más larga de texto
-        descripcion = max(
-            (c.get_text(strip=True) for c in celdas), key=len, default=""
-        )
+        descripcion = max(textos, key=len, default="")
 
         # URL del documento: primer link en la fila
         link = None
@@ -259,6 +289,10 @@ def _extraer_celda(celdas: list) -> dict | None:
             "numero": numero or _extraer_numero_de_texto(texto_fila),
             "descripcion": descripcion,
             "url_documento": link,
+            # Sólo para `_filtrar`, que lo saca antes de devolver la fila. Ver
+            # su docstring: la celda más larga no es la única que describe el
+            # documento, pero sí la que conviene guardar como descripción.
+            "_celdas": [t for t in textos if t],
         }
     except Exception as e:
         logger.debug("Error parseando celda: %s", e)
@@ -289,11 +323,29 @@ def _fecha_y_numero_desde_url(url: str) -> tuple[str | None, str | None]:
 
 
 def _filtrar(resoluciones: list[dict]) -> list[dict]:
-    """Filtra resoluciones que contienen al menos una frase clave."""
+    """Filtra resoluciones en las que alguna celda contiene una frase clave.
+
+    **Alguna celda, no la descripción.** La fila de la CMF trae dos textos que
+    describen el documento y no dicen lo mismo: el título propio ("MODIFICA
+    CIRCULAR N°2.110 EN LOS TÉRMINOS QUE INDICA") y el texto del acuerdo del
+    Consejo ("EJECUTA ACUERDO … QUE APRUEBA NORMATIVA QUE PERMITE EL CIERRE
+    MASIVO DE SINIESTROS…"). `descripcion` es la celda más larga, que casi
+    siempre es la del acuerdo: filtrando sólo por ella, **el título del propio
+    documento nunca se probaba contra `FRASES_CLAVE`**.
+
+    Esa sola omisión perdía 23 filas del listado, entre ellas las NCG 572 y
+    575 de 2026, que calzan con una frase que ya estaba en la lista —pero en la
+    celda equivocada—. Que el título se lea vale para todas: la CMF lo escribe
+    con la acción al frente ("MODIFICA", "DEROGA", "INTRODUCE AJUSTES A"), que
+    es justo la forma que este filtro busca.
+
+    `_celdas` se saca acá: es insumo del filtro y no tiene por qué viajar a la
+    entrada guardada.
+    """
     resultado = []
     for r in resoluciones:
-        desc = r.get("descripcion", "").upper()
-        if any(frase in desc for frase in FRASES_CLAVE):
+        celdas = r.pop("_celdas", None) or [r.get("descripcion", "")]
+        if any(frase in c.upper() for c in celdas for frase in FRASES_CLAVE):
             resultado.append(r)
     return resultado
 

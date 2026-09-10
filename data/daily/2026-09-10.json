@@ -1,0 +1,2647 @@
+{
+  "date": "2026-09-10",
+  "generated_at": "2026-09-10T12:42:15.832320+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_2377",
+      "fecha": "2026-09-08",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2377
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE PERMITE EL CIERRE MASIVO DE SINIESTROS ASOCIADOS A CIRCULAR N°2.110.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2377_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2027-02-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA CIRCULAR N°2.110 EN LOS TÉRMINOS QUE INDICA",
+      "resumen_acciones": [
+        "Elimínese los Anexos 1 y 2"
+      ]
+    },
+    {
+      "clave": "2026_0575",
+      "fecha": "2026-09-08",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 512,
+        "fecha": "2026-09-03"
+      },
+      "ncg": 539,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 575
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN A LA NORMA DE CARÁCTER GENERAL N°539 DE 2025 EN LOS TÉRMINOS QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_575_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°539",
+          "numero_norma": 539,
+          "seccion_romana": null,
+          "acciones": [],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°539 DE 2025 EN LOS TÉRMINOS QUE INDICA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_2375",
+      "fecha": "2026-08-20",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2375
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA CIRCULAR N°2062, QUE INSTRUYE RESPECTO AL TRATAMIENTO DE RECÁLCULO DE PENSIÓN, EN PÓLIZAS DE SEGUROS DE RENTA VITALICIA DEL D.L. N°3.500, DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2375_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-09-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica Circular N°2062, que instruye respecto al tratamiento de recálculo de pensión, en pólizas de seguros de renta vitalicia del D.L. N°3.500, de 1980",
+      "resumen_acciones": [
+        "Agrégase al título 2. Pérdida o cambio de la calidad de beneficiario, el siguiente párrafo final: “Si la compañía toma conocimiento de que un beneficiario legal de pensión se…",
+        "Agrégase el siguiente número 4: “4. Anticipo de la cláusula adicional de aumento diferido y vitalicio de pensión. Mientras no se inicie el pago de la renta vitalicia mensual…"
+      ]
+    },
+    {
+      "clave": "2026_0572",
+      "fecha": "2026-07-27",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 506,
+        "fecha": "2026-07-23"
+      },
+      "ncg": 519,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 572
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA EL PLAZO DE ADOPCIÓN DE LAS NORMAS NIIF S1 Y S2.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_572_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°519",
+          "numero_norma": 519,
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "2026-12-31"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°519 DE 2024 REFERIDA A LA MEMORIA ANUAL INTEGRADA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_0571",
+      "fecha": "2026-07-27",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 506,
+        "fecha": "2026-07-23"
+      },
+      "ncg": 571,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 571
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "22/07/1988 \n  \n29/07/2011 \n  \n13/09/2005 \n  \n19/01/2010 \n  \n14/10/2010 \n  \n14/07/2014 \n  \n09/03/2015 \n  \n25/07/2022 \n  \n25/07/2022 \n  \n05/12/2023 \n  \n28/11/2024 \n  \n27/12/2024 \n  \n10/04/2025 \n  \n20/04/2026 \n  \n30/04/1999 \n  \n13/06/1985 \n  \n20/09/1989 \n  \n28/05/2009 \n  \n14/06/2013 \n  \n11/12/2002 \n  \n19/02/1991 \n  \n22/10/1984 \n  \n10/08/2000 \n  \n17/12/1991 \n  \n30/09/1986 \n  \n27/02/1998 \n  \n24/11/2010 \n  \n29/12/2010 \n  \n02/02/2012 \n  \n27/03/2012 \n  \n13/08/2010 \n  \n23/06/1995 \n  \n20/09/1991 \n  \n31/12/1984 \n  \n28/08/1985 \n  \n23/01/1987 \n  \n07/08/1991 \n  \n31/07/2009 \n  \n19/01/2010 \n  \n19/01/2010 \n  \n03/02/2010 \n  \n12/03/1999 \n  \n15/06/2001 \n  \n31/05/2012 \n  \n29/04/2002 \n  \n08/06/1993 \n  \n28/09/1989 \n  \n02/10/2002 \n  \n04/10/2000 \n  \n26/08/2010 \n  \n24/07/2002 \n  \n30/05/2002 \n  \n17/07/2000 \n  \n28/11/1990 \n  \n26/11/1996",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_571_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2027-03-01",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Las instrucciones de las secciones I.A a la I.F y I.H a la I.I del Capítulo 3, que entrarán en vigor a partir del 1 de marzo de 2027",
+            "inicio": "2027-03-01"
+          },
+          {
+            "texto": "Las instrucciones de la sección I.G del Capítulo 3, que entrarán en vigor a partir del 1 de julio de 2027",
+            "inicio": "2027-07-01"
+          },
+          {
+            "texto": "Las instrucciones establecidas en los párrafos 2 y 3 de la sección III.D.3 y el párrafo 1 de la sección III.E, ambas del Capítulo 3, las que entrarán en vigor a partir del 1 de julio de 2027",
+            "inicio": "2027-07-01"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "COMPENDIO NORMATIVO DE BOLSAS E INTERMEDIARIOS",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_0570",
+      "fecha": "2026-06-23",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 570,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 570
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISION PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE MODIFICA DIVERSOS CUERPOS NORMATIVOS CON EL FIN DE OPTIMIZAR SU APLICACIÓN PRÁCTICA, FORTALECER LA CERTEZA JURÍDICA Y MEJORAR LA EFICIENCIA DE LOS PROCESOS ASOCIADOS AL CUMPLIMIENTO REGULATORIO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_570_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Modifica diversos cuerpos normativos con el fin de optimizar su aplicación práctica, fortalecer la certeza jurídica y mejorar la eficiencia de los procesos asociados al cumplimiento regulatorio",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_2372",
+      "fecha": "2026-06-22",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 501,
+        "fecha": "2026-06-18"
+      },
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2372
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA CIRCULAR QUE INTRODUCE MODIFICACIONES AL CAPÍTULO 18-5 DE INFORMACIÓN SOBRE DEUDORES DE LAS INSTITUCIONES FINANCIERAS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2372_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [
+        "18-5"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce modificaciones al Capítulo 18-5 de la Recopilación Actualizada de Normas para bancos, respecto a la información sobre deudores de las instituciones financieras",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_0569",
+      "fecha": "2026-06-01",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 498,
+        "fecha": "2026-05-28"
+      },
+      "ncg": 569,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 569
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN DE NORMA QUE REGULA EL SISTEMA DE FINANZAS ABIERTAS E INCORPORA ANEXO 3.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_569_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "1961-10-05",
+            "precision": "dia",
+            "contexto": "…en el caso de otorgarse en países miembros del Convenio de la Apostilla de la Haya de 5 de octubre de 1961. En el caso de…"
+          },
+          {
+            "fecha": "2025-02-19",
+            "precision": "dia",
+            "contexto": "…FAPI 2.013 que se complementa con el Modelo de atacante14 (especificación final [19/02/2025]), ambos establecido por la Open…"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "rección de la dependencia afectada,\nincluyendo la calle, la comuna de acuerdo con la Tabla Nº65 del manual de sistema\nde información y la región considerando la Tabla Nº2 del manual de sistema de\ninformación. Si existe más de una de"
+        },
+        {
+          "contexto": "do con la Tabla Nº65 del manual de sistema\nde información y la región considerando la Tabla Nº2 del manual de sistema de\ninformación. Si existe más de una dependencia afectada, se debe indicar la\ndirección de cada una de ellas, sepa"
+        },
+        {
+          "contexto": "peracionales (RIO), deberán remitir\nmensualmente el archivo I12 “Incidentes de Ciberseguridad”, del Manual de\nSistema de Información.\n93\nB. REPORTE DE MANTENCIONES\nLas entidades participantes del SFA deberán enviar el reporte mensua"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "I12",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_0567",
+      "fecha": "2026-05-27",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 567,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 567
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE LA NORMA QUE CREA LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS POR LA COMISIÓN Y LOS CAPÍTULOS CAC-1, CAC-2, CAC-3, CAC-4, CAC-10, CAC-11 y CAC-12 QUE LA CONTIENEN; CREA EL MANUAL DE SISTEMA DE INFORMACIÓN PARA COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS POR LA COMISIÓN Y DEROGA LAS CIRCULARES N°98, 100, 112, 116, 123, 126, 134, 142 Y DETERMINADAS DISPOSICIONES DE LA CIRCULAR N°108, APLICABLES A LAS MISMAS ENTIDADES.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_567_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "precision": "dia",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "Los Capítulos CAC-2, CAC-3, CAC-4 y CAC-12, al tratarse principalmente de un ajuste en el ordenamiento de las instrucciones previamente emitidas, sin incorporar nuevas disposiciones normativas, entrarán en vigor a partir de su publicación, conforme a lo establecido por la RAN CACs introducida por esta Norma de Carácter General",
+            "inicio": "inmediata"
+          },
+          {
+            "texto": "Por su parte, los Capítulos CAC-1, CAC-10 y CAC-11, debido a que abordan materias vinculadas a la nueva atribución de esta Comisión derivada de la modificación del artículo 87 de la LGC, comenzarán a regir dieciocho meses después de la publicación de esta Norma, en concordancia con lo dispuesto en el Artículo Segundo Transitorio de la Ley N° 21.641, que fortalece la resiliencia del sistema…",
+            "inicio": "2027-01-27",
+            "precision": "dia",
+            "calculo": {
+              "base": "publicacion",
+              "fecha_base": "2026-05-27",
+              "expresion": "8 meses desde la publicación",
+              "texto": "comenzarán a regir dieciocho meses después de la publicación"
+            }
+          }
+        ]
+      },
+      "ran_referencias": [
+        "1-13",
+        "1-14",
+        "1-19",
+        "1-7",
+        "11-6",
+        "12-1",
+        "12-3",
+        "18-5",
+        "18-8",
+        "2-1",
+        "2-11",
+        "2-6",
+        "20-10",
+        "20-7",
+        "20-8",
+        "20-9",
+        "8-41",
+        "CAC-1",
+        "CAC-21",
+        "CAC-4"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "EF: Crea la Recopilación Actualizada de\nNormas para Cooperativas de\nAhorro y Crédito (RAN CACs), el\nManual de Sistema de Información\npara Cooperativas de Ahorro y\nCrédito (MSI CACs), y deroga\nCirculares en concordancia.\n____________"
+        },
+        {
+          "contexto": "ncluye un anexo sobre el envío de archivos de información, que\nhace referencia tanto a archivos del Manual de Sistema de Información de Bancos (MSI\nde bancos) como a otros archivos, tablas y formularios específicamente diseñados par"
+        },
+        {
+          "contexto": "las nuevas disposiciones.\nDe igual manera que para los bancos, la RAN CACs se complementará con un\nManual de Sistema de Información para Cooperativas (MSI CACs), que agrupará los\narchivos de información requeridos a las Cooperativa"
+        },
+        {
+          "contexto": "o Anexo y a las instrucciones para el envío a esta Comisión de los archivos C55,\nC56, C57 y C58 del Manual de Sistemas de Información de Cooperativas.\n3. Sobre la valorización de las garantías para la ampliación de\nlos límites de cré"
+        },
+        {
+          "contexto": "ivas deberán remitir a esta\nComisión la información que se indica en la sección de Antecedentes del Manual de\nSistemas de Información de Cooperativas.\n6. Protección de datos\n28\nLos datos personales de los socios, incluyendo las opera"
+        },
+        {
+          "contexto": "chivos o mediante formularios, las entidades deberán\natenerse a las instrucciones contenidas en el “Manual de Sistemas de Información\nde Cooperativas”, en el cual se establecen las especificaciones relativas a la\ninformación y a los"
+        },
+        {
+          "contexto": "Comisión.\nLas disposiciones contenidas en el Compendio de Normas Contables de\nCooperativas y en el Manual de Sistemas de Información de Cooperativas\nconstituyen, para todos los efectos, normas legalmente impartidas por esta\nComisión"
+        },
+        {
+          "contexto": "espondiente a encaje mediante el archivo C53 “Control de Encaje”, de acuerdo\ncon lo dispuesto en el Manual de Sistema de Información para Cooperativas.\n9. Sanciones\nConforme a lo dispuesto en el artículo 64 de la Ley General de Banc"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C55",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C56",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C57",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C58",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C53",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I83",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E30",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C54",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C59",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C60",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C61",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C62",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C63",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I80",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I82",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I84",
+          "vigencia": "inmediata"
+        }
+      ],
+      "tema": "Crea la Recopilación Actualizada de Normas para Cooperativas de Ahorro y Crédito (RAN CACs), el Manual de Sistema de Información para Cooperativas de Ahorro y Crédito (MSI CACs), y deroga Circulares en concordancia",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_0560",
+      "fecha": "2026-03-13",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 487,
+        "fecha": "2026-03-12"
+      },
+      "ncg": 560,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 560
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "MODIFICA NCG N°275 DE 2010 REFERIDA A LAS NORMAS DE INSCRIPCIÓN Y FUNCIONAMIENTO DEL REGISTRO DE EMPRESAS DE AUDITORÍA EXTERNA",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_560_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°275",
+          "numero_norma": 275,
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NCG N°275 DE 2010 REFERIDA A LAS NORMAS DE INSCRIPCIÓN Y FUNCIONAMIENTO DEL REGISTRO DE EMPRESAS DE AUDITORÍA EXTERNA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2026_0558",
+      "fecha": "2026-01-07",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 477,
+        "fecha": "2025-12-30"
+      },
+      "ncg": 558,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 558
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO\nQUE APRUEBA INFORME NORMATIVO CON FORMULARIO DE OPERACIONES EFECTUADAS MEDIANTE CÁMARAS DE COMPENSACIÓN DE PAGOS DE BAJO VALOR Y ENTIDADES CON PROYECTOS EXPERIMENTALES APROBADOS POR EL BCCH.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_558_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0555",
+      "fecha": "2025-12-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 555,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 555
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE ESTABLECE MECANISMO DE ENVÍO DE IDENTIFICACIÓN Y SEXO DE LOS DIRECTORES DE LAS SOCIEDADES ANÓNIMAS ABIERTAS Y ESPECIALES.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_555_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-01-31",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "DISPOSICIÓN TRANSITORIA Las Sociedades deberán remitir a esta Comisión a través de CMF Supervisa, a más tardar el 31 de enero de 2026, la información a que se refiere la Sección I de esta Norma, respecto a la composición del directorio al 31 de diciembre de 2025",
+            "inicio": "2026-01-31"
+          },
+          {
+            "texto": "la información del numeral 3) de la sección I de esta normativa",
+            "inicio": "ver texto"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "ESTABLECE MECANISMO DE ENVÍO DE IDENTIFICACIÓN Y SEXO DE LOS DIRECTORES DE LAS SOCIEDADES ANÓNIMAS ABIERTAS Y ESPECIALES",
+      "resumen_acciones": [
+        "Reemplácese el texto del numeral 3.2.i por el siguiente: “i. La identificación y sexo de cada uno de sus integrantes señalando la fecha de su nombramiento o última reelección,…"
+      ]
+    },
+    {
+      "clave": "2025_0552",
+      "fecha": "2025-11-05",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 552,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 552
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA  ARCHIVOS SOBRE VOLUMEN DE NEGOCIOS Y NÚMERO DE CLIENTES, PATRIMONIO MÍNIMO Y ACTIVOS PONDERADOS POR RIESGOS, REQUERIMIENTO DE PATRIMONIO Y ACTIVOS PONDERADOS POR RIESGO DE CRIPTOACTIVOS, INFORMACIÓN DE ADMINISTRACIÓN DE CARTERAS Y GARANTÍAS CONSTITUIDAS,   PARA OTRAS ENTIDADES INSCRITAS EN EL REGISTRO DE ADMINISTRADORES DE CARTERA DISTINTAS DE ADMINISTRADORAS GENERALES DE FONDOS E INTERMEDIARIOS DE VALORES.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_552_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-07-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "IMPARTE INSTRUCCIONES RELATIVAS AL ENVÍO DE INFORMACIÓN PARA ENTIDADES INSCRITAS EN EL REGISTRO DE ADMINISTRADORES DE CARTERAS DISTINTAS DE ADMINISTRADORAS GENERALES DE FONDOS E INTERMEDIARIOS DE VALORES, SOBRE VOLUMEN DE NEGOCIOS Y NÚMERO DE CLIENTES, PATRIMONIO MÍNIMO Y ACTIVOS PONDERADOS POR RIESGOS, REQUERIMIENTO DE PATRIMONIO Y ACTIVOS PONDERADOS POR RIESGO DE CRIPTOACTIVOS, INFORMACIÓN DE…",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_2367",
+      "fecha": "2025-10-21",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2367
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA CIRCULAR QUE AJUSTA EL ALCANCE DE LA INFORMACIÓN REFERIDA A CRÉDITOS OTORGADOS BAJO PROGRAMAS DE GARANTÍAS ESTATALES; ACTUALIZA LAS INSTRUCCIONES GENERALES DEL MANUAL DEL SISTEMA DE INFORMACIÓN Y EL CAPÍTULO C-3 DEL COMPENDIO DE NORMAS CONTABLES, AMBOS PARA BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2367_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-01-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [
+        "9-1"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C70",
+          "vigencia": "2026-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D62",
+          "vigencia": "2026-01-01"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E26",
+          "vigencia": "2026-01-01"
+        }
+      ],
+      "tema": "Información referida a créditos otorgados bajo programas de garantías estatales: Actualiza las Instrucciones Generales del Manual del Sistema de Información y el Capítulo C-3 del Compendio de Normas Contables, ambos para Bancos",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_1382",
+      "fecha": "2025-09-04",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1382
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INTRODUCE AJUSTES A LA TABLA 61 Y A LOS ARCHIVOS P02 Y P36 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1382_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-10-15",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [
+        "18-3"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "P02",
+          "vigencia": "2025-10-15"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P36",
+          "vigencia": "2025-10-15"
+        }
+      ],
+      "tema": "Introduce ajustes a la Tabla 61 y a los archivos P02 y P36 del Manual del Sistema de Información para bancos",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0543",
+      "fecha": "2025-08-01",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 455,
+        "fecha": "2025-07-31"
+      },
+      "ncg": 543,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 543
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE DEROGA EL CAPÍTULO 1-6 Y MODIFICA EL CAPÍTULO 1-8 AMBOS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_543_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [
+        "1-8"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "viernes, salvo feriados o festivos.\nPor su parte, las obligaciones de información contenidas en el Manual de Sistemas\nde Información referidas a los archivos MB1 Balance consolidado global, MB2 Balance\nindividual, MR1 Estado de resu"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "DEROGA EL CAPÍTULO 1-6 Y MODIFICA EL CAPÍTULO 1-8, AMBOS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS EN LOS TÉRMINOS QUE INDICA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0541",
+      "fecha": "2025-07-23",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 541,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 541
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA AJUSTES A INSTRUCCIONES SOBRE EMISORES Y OPERADORES DE TARJETAS DE PAGO EN RELACIÓN CON SUB-ADQUIRENCIA, ADQUIRENCIA TRANSFRONTERIZA Y OTROS AJUSTES EFECTUADOS POR EL BANCO CENTRAL DE CHILE AL COMPENDIO DE NORMAS FINANCIERAS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_541_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "AJUSTES INTRODUCIDOS A LA CIRCULAR N°1 DE EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS. 1. En el Título II, se reemplaza el numeral 2.2.2. sobre Reserva de liquidez para emisores de tarjetas con provisión de fondos, quedando como sigue: “2.2.2 Reserva de Liquidez para Emisores de Tarjetas de Pago con Provisión de Fondos Reserva de Liquidez = Máx [0,1 x C ; AL - P - Fr ] m p p p Donde: C =…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Identificación de los servicios contratados y de los requisitos y estándares de operación requeridos para la prestación de cada uno de ellos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad del operador respecto de la continuidad de los servicios contratados, así como los procedimientos de contingencia y eventuales compensaciones, ante una interrupción de los mismos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Los servicios que pueden ser externalizados por parte del operador y aquellos que requieran contar con consentimiento particular del emisor",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Estructura de precios aplicable a cada uno de los servicios contratados, así como su periodicidad y formas de pago",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad de la empresa operadora para cautelar la seguridad y el oportuno procesamiento y validación de las transacciones, así como las obligaciones económicas que se originen ante errores y transacciones indebidas cuando preste servicios de autorización y registro de las mismas, ya sea directamente o a través de uno o más proveedores de servicios de procesamiento de pagos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad del operador de mantener un adecuado orden de los archivos con el registro de las operaciones procesadas, de los documentos que respaldan esas transacciones, así como de la obligación de poner a disposición del Emisor la información que requiera para responder a las exigencias de la Comisión",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Las obligaciones que le caben a cada una de las partes, en relación a la oportuna liquidación de los pagos a los establecimientos comerciales afiliados. En este sentido, se debe identificar la eventual existencia de mandatos que se otorguen al Operador para actuar a nombre o por cuenta del Emisor",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Condiciones de acceso e interconexión exigidos, en los términos indicados en el numeral vi. del N°3 del Título III del Capítulo III.J.2 del CNFBCCH, incluyendo los protocolos operacionales, exigencias técnicas, plazos y condiciones comerciales necesarias para su implementación. Igualmente, en los contratos deberá especificarse en forma expresa que las bases de datos que se generen, con motivo de…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "AJUSTES INTRODUCIDOS AL CAPÍTULO 8-41 DE LA RAN 1. Se reemplaza la Sección 2.2.1. sobre Contratos con entidades afiliadas, por lo siguiente: “2.2.1 Contratos con las entidades afiliadas Los contratos que celebren los Emisores, ya sea directamente o indirectamente con los establecimientos afiliados que se comprometan a vender bienes, prestar servicios o extinguir otras obligaciones de pago,…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Los términos en que el emisor asumirá la responsabilidad de pago correspondiente con las entidades afiliadas, sin perjuicio que el operador sub- adquirente respectivo efectúe las liquidaciones y/o pagos que procedan, en los plazos convenidos con arreglo a lo dispuesto en el Título III del Capítulo III.J.1 del Compendio de Normas Financieras del Banco Central de Chile, especificando el momento a…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Los procedimientos y mecanismos de conciliación y validación de las transacciones y de los montos que deben ser pagados a las entidades afiliadas, así como aquellos para realizar reclamos y solicitar rectificaciones",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Las medidas de seguridad que las partes deben considerar para precaver el uso indebido de la tarjeta y para cautelar la integridad y certeza de las transacciones efectuadas por medio de dicho instrumento",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Responsabilidad económica que le cabe a cada parte, ante el uso indebido de las tarjetas o por los eventuales errores que pudiesen existir en la validación de las transacciones, detallando cuando corresponda, las consecuencias que resulten de los distintos métodos de autenticación dispuestos por el Emisor, Operador o el Titular de la Marca de las tarjetas",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La identificación de las redes y sistemas disponibles, para la transmisión electrónica de la autorización y captura de las transacciones efectuadas. 7",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Las causales para la suspensión de servicios, que tengan su origen en incumplimientos por parte de la entidad afiliada, junto a las condiciones y plazos para la reposición de los mismos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad del Emisor u Operador respecto de la continuidad del servicio, así como los procedimientos de contingencia y eventuales compensaciones a la entidad afiliada, ante una interrupción de los mismos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Identificación de las marcas de tarjetas a las que es aplicable el contrato, así como una mención al derecho del establecimiento afiliado de elegir cuáles acepta",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Estructura de precios aplicable a cada uno de los servicios contratados, así como su periodicidad y formas de pago.” 2. Se reemplaza 2.2.2. y, a continuación, se incorpora el punto 2.2.3: “2.2.2 Contratos entre Emisores y los Operadores Los bancos que encarguen la administración de sus tarjetas a un operador, dejarán claramente establecidos en los contratos los actos que constituyen dicha…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Identificación de los servicios contratados y de los requisitos y estándares de operación requeridos para la prestación de cada uno de ellos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad del operador respecto de la continuidad de los servicios contratados, así como los procedimientos de contingencia y eventuales compensaciones, ante una interrupción de los mismos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Los servicios que pueden ser externalizados por parte del operador y aquellos que requieran contar con consentimiento particular del emisor",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Estructura de precios aplicable a cada uno de los servicios contratados, así como su periodicidad y formas de pago",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad de la empresa operadora para cautelar la seguridad y el oportuno procesamiento y validación de las transacciones, así como las obligaciones económicas que se originen ante errores y transacciones indebidas cuando preste servicios de autorización y registro de las mismas, ya sea directamente o a través de uno o más proveedores de servicios de procesamiento de pagos",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "La responsabilidad del operador de mantener un adecuado orden de los archivos con el registro de las operaciones procesadas, de los documentos que respaldan esas transacciones, así como de la obligación de poner a disposición del Emisor la información que requiera para responder a las exigencias de la Comisión",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Las obligaciones que le caben a cada una de las partes, en relación a la oportuna liquidación de los pagos a los establecimientos comerciales afiliados. En este 8 sentido, se debe identificar la eventual existencia de mandatos que se otorguen al Operador para actuar a nombre o por cuenta del Emisor",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Condiciones de acceso e interconexión exigidos, en los términos indicados en el numeral vi. del N° 3 del Título III del Capítulo III.J.2 del CNFBCCH, incluyendo los protocolos operacionales, exigencias técnicas, plazos y condiciones comerciales necesarias para su implementación. Igualmente, en los contratos deberá especificarse en forma expresa que las bases de datos que se generen, con motivo de…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "AJUSTES INTRODUCIDOS A CIRCULAR N°1 DE OPERADORES DE TARJETAS DE PAGO 1. Se modifica Título I., de la siguiente forma: “I. Aspectos generales Con motivo de la promulgación de la Ley N°20.950, publicada en el Diario Oficial del 29 de octubre de 2016, el Banco Central de Chile (en adelante “BCCH”) revisó y modificó las disposiciones relativas a la emisión y operación de tarjetas de pago. Por…",
+            "inicio": "2016-10-29"
+          },
+          {
+            "texto": "Que la liquidación y/o pagos efectuados por dicho PSP, durante los 12 meses anteriores, por cuenta de uno o más de los Emisores u Operadores con los que mantenga un contrato o convenio vigente para este efecto, sea inferior al 50% del Umbral de Operación Sub-Adquirente conforme el mismo se determina en el numeral 3 del Título IV del Capítulo III.J.2 del CNFBCCH; y ii) Que el PSP celebre un…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Nombre y RUT del proveedor",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Dirección y teléfono de contacto",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Descripción de cada uno de los servicios prestados. Tratándose de un Operador Sub-adquirente autorizado para prestar el servicio de adquirencia transfronteriza, dar cuenta de los países o jurisdicciones respecto de los cuales se hayan proporcionado dichos servicios",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Detalle de todos los pagos efectuados por el PSP o el Operador Sub-adquirente a entidades afiliadas en el trimestre inmediatamente anterior, en caso de que este preste servicios de liquidación y/o pago. Los montos deberán expresarse en pesos. En caso de haber pagos en moneda extranjera, se deberá emplear el tipo de cambio observado según el BCCH a la fecha de cada operación",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "En el caso de estar autorizado para tales efectos, los montos de los pagos que el Operador Sub-adquirente realizó en el período a entidades afiliadas transfronterizas. En caso de haber pagos en moneda extranjera, se deberá emplear el tipo de cambio observado según el BCCH a la fecha de cada operación",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Identificación de los PSP que liquidan pagos u Operador Sub-adquirente que pertenezcan a un mismo grupo empresarial, conforme a lo dispuesto por el artículo 96 de la Ley N°18.045. Se pide informar nombre y RUT de los PSP u Operadores Sub-adquirentes que tienen alguna de las relaciones descritas en el artículo mencionado y señalar la vinculación específica entre éstos. Adicionalmente, indicar…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Indicar cualquier actividad de fusión, división o adquisición entre PSP o un Operador sub-adquirente, indicando claramente el RUT de la entidad que adquiere y la adquirida o las entidades que se fusionan o dividen dependiendo el caso. Se deberá indicar la fecha de esta operación",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Indicar cualquier cambio de nombre o razón social de un PSP u Operador sub- adquirente, así como actos o contratos que impliquen la cesión de sus obligaciones. Deberá señalar en el primer caso los nuevos RUT y los nuevos nombres pudiendo identificarse la entidad antes y después del cambio. Se deberá detallar adicionalmente la fecha en que materializó este cambio. De igual manera se deberá…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Qué actividades complementarias fueron provistas durante el trimestre anterior a los clientes",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Distinguiendo por tipo de AC deberá proporcionar el listado de clientes que tuvo, segmentado conforme con las siguientes categorías: Emisores, Operadores, Operadores Sub-adquirentes, PSP, entidades afiliadas relacionadas y no relacionadas. Esta información deberá venir adjunta a la información trimestral de PSP señalada en el punto 9.7 anterior.” 5. Se incorpora numeral 10. al Título III, con…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Operador sub-adquirente: UF 1.000",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Operador sub-adquirente que realiza adquirencia transfronteriza: UF 2.000. 10.3. Objeto social exclusivo El Operador sub-adquirente deberá contemplar como objeto social exclusivo la operación de tarjetas de pago bajo la modalidad de sub-adquirencia conforme con lo dispuesto en el Capítulo III.J.2 del CNFBCCH, así como las actividades complementarias a dicho giro específico que autorice la…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Obligaciones pendientes de pago con las entidades afiliadas y plazo en que éstas deben ser liquidadas. 23",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Información relativa al cierre de productos que será remitida a los clientes del respectivo Operador, como también a los establecimientos comerciales respecto de los cuales el Operador asuma responsabilidad de pago bajo una modalidad de sub-adquirencia o bien con ocasión de la liquidación y pago de un PSP.” 8. Se reemplaza la Sección VI, con texto del siguiente tenor: “VI. Otras disposiciones…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Duplicados de recibos o de comprobantes de depósitos en las CPF",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Copias de contratos, convenios y correspondencia de distinta naturaleza. La información digitalizada debe conservarse por el período de seis años, contado desde la fecha de origen de los respectivos documentos originales. 24 Vencido dicho plazo, su eliminación podrá hacerse dentro del tiempo que cada institución estime prudente. 4. Disposiciones transitorias Los nuevos modelos de presentación de…",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Nombre de la sociedad y domicilio social. 26",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Individualización (nombre y RUT) del representante legal, de los accionistas y de los directores",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Identificación (nombre y RUT) de los directores y del gerente general (o quien haga sus veces), y de los ejecutivos que componen el organigrama de la administración, señalándose su correo electrónico y teléfono de contacto",
+            "inicio": "ver texto"
+          },
+          {
+            "texto": "Dirección(es) de la(s) oficina(s) y del sitio web institucional. 1.2 Escritura pública que contenga los estatutos de la sociedad, considerando al menos las menciones generales indicadas en el artículo 126 inciso 2° de la Ley sobre Sociedades Anónimas y que contemplen la Operación de tarjetas de crédito, débito y/o tarjetas de pago con provisión de fondos como objeto social exclusivo",
+            "inicio": "ver texto"
+          }
+        ]
+      },
+      "ran_referencias": [
+        "11-6",
+        "8-41"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "car el código de la jurisdicción conforme con el listado de países y\nterritorios de la Tabla 45 del Manual de Sistema de Información para bancos,\nen el caso de haber marcado 02 en el campo “Transfronterizo”. En caso de\nhaber marcado"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "C75",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I99",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C80",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C81",
+          "vigencia": "inmediata"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P74",
+          "vigencia": "inmediata"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0540",
+      "fecha": "2025-07-14",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 540,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 540
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LAS NORMAS DE FUNCIONAMIENTO OPERATIVO DEL REGISTRO DE DEUDA CONSOLIDADA, CONFORME A LO DISPUESTO EN LA LEY N°21.680 QUE CREA UN REGISTRO DE DEUDA CONSOLIDADA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_540_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2026-04-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "s del Sistema de Reportantes, de acuerdo con los requerimientos de información que se\nseñalan en el Manual de Sistema de Información REDEC (MSI REDEC). La información enviada\na la Comisión no requiere consentimiento del deudor.\nTras"
+        },
+        {
+          "contexto": "zos establecidos para el reporte de información y su actualización, los que son\nespecificados en el Manual de Sistema de Información del REDEC (MSI REDEC).\n• Eliminación de información una vez cumplido su uso: debe eliminarse de for"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Establece las Normas de Funcionamiento Operativo del Registro de Deuda Consolidada, conforme con lo dispuesto en la Ley N° 21.680 que Crea el Registro de Deuda Consolidada",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0539",
+      "fecha": "2025-06-30",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 450,
+        "fecha": "2025-06-26"
+      },
+      "ncg": 539,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 539
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA DICTACIÓN DE NORMATIVA QUE ACTUALIZA OBLIGACIONES DE INFORMACIÓN DE LA LEY N°20.009.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_539_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-06-30",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": ")\nDebe completar con el código de la comuna que corresponda al JPL, de acuerdo a la\nTabla N°65 del “Manual de Sistema de Información de Bancos” publicado en\nwww.cmfchile.cl\nSi en el Campo N°17 informó con el Código 02, es decir, que"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "E24",
+          "vigencia": "2025-06-30"
+        }
+      ],
+      "tema": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA DICTACIÓN DE NORMATIVA QUE ACTUALIZA OBLIGACIONES DE INFORMACIÓN DE LA LEY N°20.009",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0538",
+      "fecha": "2025-06-17",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 448,
+        "fecha": "2025-06-12"
+      },
+      "ncg": 538,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 538
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA SOBRE ESTÁNDARES DE SEGURIDAD Y AUTENTICACIÓN A EMISORES BANCARIOS Y NO BANCARIOS, Y EXIME DE TRAMITE QUE INDICA .",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_538_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-08-01",
+        "fuente": "seccion",
+        "plazos": [
+          {
+            "texto": "La presente norma entre en vigor a partir del 1 de agosto de 2025",
+            "inicio": "2025-08-01"
+          },
+          {
+            "texto": "respecto de los casos de ARC obligatoria, cuya vigencia comenzará el 1 de julio de 2026",
+            "inicio": "2026-07-01"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0537",
+      "fecha": "2025-06-04",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 446,
+        "fecha": "2025-05-30"
+      },
+      "ncg": 537,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 537
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA DE CARÁCTER GENERAL QUE MODIFICA EL CAPÍTULO 8-41 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LA CIRCULAR N°1 PARA EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS, RESPECTO DE LA DETERMINACIÓN DE UNA FÓRMULA PARA EL CÁLCULO DEL MONTO MÍNIMO A PAGAR EN TARJETAS DE CRÉDITO, Y A LAS SITUACIONES EXCEPCIONALES EN QUE SE LIBERARÁ A LOS DEUDORES DE DICHA OBLIGACIÓN.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_537_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [
+        "8-41"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce modificaciones al Capítulo 8- 41 de la Recopilación Actualizada de Normas y a la Circular N°1 de Emisores de Tarjetas No Bancarios, respecto de la determinación de una fórmula para el cálculo del monto mínimo a pagar en tarjetas de crédito, y las situaciones excepcionales que se liberará a los deudores de dicha obligación",
+      "resumen_acciones": [
+        "CAPÍTULO 8-41 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS"
+      ]
+    },
+    {
+      "clave": "2025_0536",
+      "fecha": "2025-04-10",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 438,
+        "fecha": "2025-04-03"
+      },
+      "ncg": 536,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 536
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE ESTABLECE LOS REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR DE LOS PRESTADORES DEL SERVICIO DE INTERMEDIACIÓN Y CUSTODIA DE INSTRUMENTOS FINANCIEROS DEL TÍTULO II DE LA LEY N°21.521.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_536_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "ESTABLECE LOS REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR DE LOS PRESTADORES DEL SERVICIO DE INTERMEDIACIÓN Y CUSTODIA DE INSTRUMENTOS FINANCIEROS DEL TÍTULO II DE LA LEY 21.521",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_0535",
+      "fecha": "2025-04-10",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 438,
+        "fecha": "2025-04-03"
+      },
+      "ncg": 535,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 535
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE ESTABLECE REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR O ADMINISTRADOR PROVISIONAL DE INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_535_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "ESTABLECE REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR O ADMINISTRADOR PROVISIONAL PARA INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2025_2361",
+      "fecha": "2025-01-08",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 425,
+        "fecha": "2025-01-02"
+      },
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2361
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INCORPORA NUEVOS ARCHIVOS DE INGRESOS Y COSTOS DE EMISIÓN Y OPERACIÓN DE TARJETAS. ACTUALIZA EL MANUAL DE SISTEMA DE INFORMACIÓN PARA BANCOS, LA CIRCULAR N°1 DE EMPRESAS OPERADORAS DE TARJETAS DE PAGO Y ACTUALIZA REFERENCIAS EN LA CIRCULAR N°1 DE EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS, EN LA CIRCULAR N°108 DE COOPERATIVAS DE AHORRO Y CRÉDITO, Y EN LA CIRCULAR N°23 DE SOCIEDADES DE APOYO AL GIRO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2361_2025.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-06-30",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "F.: Incorpora nuevos archivos de\ningresos y costos de emisión y\noperación de tarjetas. Actualiza el\nManual de Sistema de Información\npara Bancos, la Circular N°1 de\nempresas operadoras de tarjetas de\npago y actualiza referencias en"
+        },
+        {
+          "contexto": "que se genere el mes diciembre de 2018.\n** Las instrucciones de este archivo están contenidas en el Manual de Sistema de Información para\nbancos.\n3. Agréguese la siguiente información al ANEXO N°1 de la Circular N°108\nde 4 de junio"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "P73",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I93",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I94",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C75",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C77",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P71",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I12",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E06",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P38",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P39",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D03",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C11",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C12",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D33",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D35",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D52",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D53",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "E04",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C76",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C80",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "C81",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "I99",
+          "vigencia": "2025-06-30"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "P74",
+          "vigencia": "2025-06-30"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": [
+        "Agréguese el Archivo P73 al Manual del Sistema de Información para bancos, señalado a continuación: CÓDIGO ARCHIVO: P73 NOMBRE: INGRESOS Y COSTOS EMISIÓN DE TARJETAS PERIODICIDAD:…",
+        "Agréguese la siguiente información al ANEXO N°1 de la Circular N°108 de 4 de junio de 2003, como a continuación se indica: ANEXO N° 1 ENVIO DE INFORMACIÓN EN ARCHIVOS Archivos que…"
+      ]
+    },
+    {
+      "clave": "2024_0529",
+      "fecha": "2024-12-27",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 510,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 529
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE DEJA SIN EFECTO ACUERDO QUE INDICA Y APRUEBA PROPUESTA NORMATIVA QUE MODIFICA LA NORMA  DE CARÁCTER GENERAL N°510 QUE IMPARTE INSTRUCCIONES DE GESTIÓN DE RIESGO OPERACIONAL.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_529_2024.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°510",
+          "numero_norma": 510,
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "dirección de la dependencia afectada, incluyendo la calle, la\ncomuna de acuerdo a la Tabla N°65 del manual de sistema de información y la región de\nacuerdo a la Tabla N°2 del manual de sistema de información. Si existe más de una de"
+        },
+        {
+          "contexto": "erdo a la Tabla N°65 del manual de sistema de información y la región de\nacuerdo a la Tabla N°2 del manual de sistema de información. Si existe más de una dependencia\nafectada, se debe indicar la dirección de cada una de ellas, sepa"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°510 QUE IMPARTE INSTRUCCIONES SOBRE GESTIÓN DE RIESGO OPERACIONAL",
+      "resumen_acciones": [
+        "Reemplácese el encabezado de la norma por el siguiente párrafo “Esta Comisión en uso de las atribuciones conferidas en el Decreto Ley N°3.538, la Ley N°18.045, la Ley N°18.876, la…",
+        "Reemplácese el título de la sección A.2.1. por “Intermediarios de Valores, Corredores de Bolsas de Productos y Administradoras Generales de Fondos”",
+        "Reemplácese el numeral 1.1. de la sección B.1. por “Procedimientos de respuesta ante la ocurrencia de eventos internos o externos que pudieran crear una interrupción en la…",
+        "Reemplácese el encabezado del numeral 2 de la sección B.2. por “Realizar o actualizar, al menos anualmente o ante eventos que amenacen la continuidad de las operaciones del…",
+        "Reemplácese el numeral 4 de la sección B.2. por “Realizar o actualizar, al menos anualmente, una evaluación de los riesgos de continuidad de negocio que, de materializarse,…",
+        "Reemplácese el numeral 5 de la sección B.2. por “Definir una estrategia de continuidad de negocio que tenga por objetivo mantener la continuidad de los procesos de mayor…"
+      ]
+    },
+    {
+      "clave": "2024_0518",
+      "fecha": "2024-10-10",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 409,
+        "fecha": "2024-09-13"
+      },
+      "ncg": 518,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 518
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE LA CARTERA DE CLIENTES DE LAS EMPRESAS DE AUDITORÍA EXTERNA",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_518_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-12-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE LA CARTERA DE CLIENTES DE LAS EMPRESAS DE AUDITORÍA EXTERNA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2024_1340",
+      "fecha": "2024-10-02",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1340
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INTRODUCE AJUSTES A LA TABLA 39 Y AL ARCHIVO P72 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1340_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "arios, y otras a las que aplique, esta Comisión, ha resuelto:\n1. Realizar ajustes a la Tabla 39 del Manual de Sistema de Información (MSI),\nmodificando lo siguiente:\n- Inclusión de códigos de marcas para emisores no bancarios.\n- Inc"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "P72",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "Informa ajustes a la Tabla 39 y al archivo P72 del Manual del Sistema de Información para bancos",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2024_0515",
+      "fecha": "2024-07-25",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 398,
+        "fecha": "2024-06-27"
+      },
+      "ncg": 515,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 515
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "21/11/2022 \n  \n20/05/2022 \n  \n14/04/2022 \n  \n14/04/2022 \n  \n14/04/2022 \n  \n13/04/2022 \n  \n08/04/2022 \n  \n08/04/2022 \n  \n31/03/2022 \n  \n01/12/2021 \n  \n18/05/2021 \n  \n25/01/2021 \n  \n19/10/2020 \n  \n26/04/2018 \n  \n06/03/2018 \n  \n06/04/2016 \n  \n22/12/2015 \n  \n07/05/2014 \n  \n30/04/2014 \n  \n06/03/2014 \n  \n13/01/2014 \n  \n21/10/2013 \n  \n26/07/2013 \n  \n26/07/2013 \n  \n05/07/2013 \n  \n12/09/2012 \n  \n12/09/2012 \n  \n14/04/2011 \n  \n14/02/2011 \n  \n04/02/2011 \n  \n25/01/2011 \n  \n31/12/2010 \n  \n30/12/2010 \n  \n06/07/2010 \n  \n19/01/2010 \n  \n31/12/2009 \n  \n28/10/2009 \n  \n14/08/2009 \n  \n16/06/2009 \n  \n29/09/2008 \n  \n24/12/2007 \n  \n17/10/2006 \n  \n21/06/2005 \n  \n11/02/2003 \n  \n04/04/2002 \n  \n27/03/2001 \n  \n20/01/1995 \n  \n20/03/1992 \n  \n10/11/1989 \n  \n11/06/1985",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_515_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2025-05-01",
+        "plazo_transicion": "2025-05-30",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [
+        "20-8"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "ESTABLECE UN NUEVO CANAL DE COMUNICACIÓN ENTRE LOS FISCALIZADOS Y LA COMISIÓN",
+      "resumen_acciones": [
+        "Agréguese en la letra B.4 de la Sección II de la NCG N°16 el siguiente nuevo número 12: “12. En el caso del representante legal, se deberá señalar el correo electrónico y adjuntar…",
+        "Agréguese en la Sección IV de la NCG N°16, el siguiente último párrafo: “Todas las personas o entidades que por ley o normativa deban remitir información a la Comisión deberán…",
+        "Agréguese a continuación del párrafo segundo del N°3 de la Sección I de la NCG N°30, el siguiente nuevo párrafo tercero: “Aquellos emisores con inscripciones vigentes en el…",
+        "Agréguese en la letra A del N°3.1 de la Sección I de la NCG N°30 el siguiente nuevo párrafo final: “Además, se deberá señalar el correo electrónico del representante legal y…",
+        "Agréguese en el número 2 de la Sección I de la NCG N°30 el siguiente nuevo número 2.5: “2.5 Actualización información Mientras la entidad cuente con inscripciones vigentes en el…",
+        "Agréguese en el N°1.3 de la Sección II de la NCG N°136 el siguiente nuevo párrafo penúltimo: “En el caso del representante legal, se deberá señalar su correo electrónico y…"
+      ]
+    },
+    {
+      "clave": "2024_0512",
+      "fecha": "2024-06-10",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 395,
+        "fecha": "2024-06-06"
+      },
+      "ncg": 512,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 512
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA REFERIDA AL ARTÍCULO 10 DE LA LEY N°21.591",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_512_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-06-30",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "ESTABLECE INSTRUCCIONES PARA EL ENVÍO DE ESTADOS FINANCIEROS POR PARTE DE EXPLOTADORES MINEROS",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2024_1312",
+      "fecha": "2024-01-26",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 376,
+        "fecha": "2024-01-25"
+      },
+      "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1312
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE MODIFICACIÓN AL OFICIO CIRCULAR N°972, DE 2017, QUE PRECISA ALCANCE DEL INCISO FINAL DEL ARTÍCULO 583 DEL CÓDIGO DE COMERCIO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1312_2024.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2024-05-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Agréguese, a continuación del único párrafo del número 4., lo siguiente: modelos de condiciones generales no podrán contener en su denominación oponen al artículo 61 del Decreto…"
+      ]
+    },
+    {
+      "clave": "2023_0495",
+      "fecha": "2023-02-24",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 328,
+        "fecha": "2023-02-23"
+      },
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE FIJA TABLAS DE MORTALIDAD CB-H-2020 (HOMBRES), MI-H-2020 (HOMBRES), RV-M-2020 (MUJERES), B-M-2020 (MUJERES), Y MI-M-2020 (MUJERES).",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_495_2023.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2023_0494",
+      "fecha": "2023-02-03",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 325,
+        "fecha": "2023-02-02"
+      },
+      "ncg": 472,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 494
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVAS QUE REGULAN LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS Y LA AUTORIZACIÓN DEL SERVICIO DE ASESORÍA DE INVERSIÓN",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_494_2023.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "ESTABLECE PROCEDIMIENTO PARA SOLICITAR AUTORIZACIÓN PARA REALIZAR EL SERVICIO DE ASESORÍA DE INVERSIÓN. DEROGA NORMA DE CARÁCTER GENERAL N°472 DE 2022",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2023_0493",
+      "fecha": "2023-02-03",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 325,
+        "fecha": "2023-02-02"
+      },
+      "ncg": 493,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 493
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVAS QUE REGULAN LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS Y LA AUTORIZACIÓN DEL SERVICIO DE ASESORÍA DE INVERSIÓN",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_493_2023.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "REGULA LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2023_0492",
+      "fecha": "2023-01-30",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 324,
+        "fecha": "2023-01-26"
+      },
+      "ncg": 30,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 492
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN A NORMA DE CARÁCTER GENERAL N°30 EN LOS TÉRMINOS QUE SEÑALA Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_492_2023.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°30",
+          "numero_norma": 30,
+          "seccion_romana": "I",
+          "acciones": [
+            "Elimínese",
+            "Agrégase"
+          ],
+          "vigencia": {
+            "inicio": "2023-02-03"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "2023-02-03",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°30, EN LOS TÉRMINOS QUE SEÑALA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2023_2330",
+      "fecha": "2023-01-13",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2330
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INCORPORA NUEVO CAPÍTULO 21-14 A LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS, QUE CONTIENE LAS DISPOSICIONES RELATIVAS AL DESARROLLO DEL PROCESO DE EVALUACIÓN DE LA ADECUACIÓN DE LIQUIDEZ INTERNA (ILAAP) Y LOS REQUISITOS Y CONDICIONES GENERALES QUE CONSIDERA LA COMISIÓN PARA LA EVALUACIÓN DE LA SUFICIENCIA DE LA POSICIÓN DE LIQUIDEZ DE LOS BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2330_2023.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2023-04-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Incorpora nuevo Capítulo 21-14 a la Recopilación Actualizada de Normas para Bancos, que contiene las disposiciones relativas al desarrollo del Proceso de Evaluación de la Adecuación de Liquidez Interna (ILAAP) y los requisitos y condiciones generales que considera la Comisión para la evaluación de la suficiencia de la posición de liquidez de los bancos",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2023_0491",
+      "fecha": "2023-01-13",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 322,
+        "fecha": "2023-01-12"
+      },
+      "ncg": 471,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 491
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA MODIFICACIÓN DE LA NORMA DE CARÁCTER GENERAL N°471 EN LOS TÉRMINOS QUE SEÑALA Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_491_2023.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°471",
+          "numero_norma": 471,
+          "seccion_romana": "I",
+          "acciones": [
+            "Elimínese",
+            "Agréguese"
+          ],
+          "vigencia": {
+            "inicio": "2023-02-03"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "2023-02-03",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°471, EN LOS TÉRMINOS QUE SEÑALA",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2022_0490",
+      "fecha": "2022-11-22",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 314,
+        "fecha": "2022-11-17"
+      },
+      "ncg": 426,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 490
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN DE NORMA DE CARÁCTER GENERAL N°426 Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_490_2022.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°426",
+          "numero_norma": 426,
+          "seccion_romana": "I",
+          "acciones": [
+            "Reemplácese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°139",
+          "numero_norma": 139,
+          "seccion_romana": "I",
+          "acciones": [
+            "Reemplácese",
+            "Elimínese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°426 DE 2018 QUE DETERMINA LAS INFRACCIONES DE MENOR ENTIDAD QUE SERÁN SOMETIDAS AL PROCEDIMIENTO SIMPLIFICADO",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2022_0488",
+      "fecha": "2022-11-21",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 314,
+        "fecha": "2022-11-17"
+      },
+      "ncg": 488,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 488
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES PARA EL ENVÍO DE INFORMACIÓN DE LOS ARTÍCULOS 26 BIS, 38 BIS Y 80 BIS DE LA LEY ÚNICA DE FONDOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_488_2022.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2023-11-21",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2022-11-21",
+          "expresion": "1 año desde la publicación",
+          "texto": "comenzaran a regir una vez transcurrido un año contado desde la publicación"
+        },
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "IMPARTE INSTRUCCIONES PARA EL ENVÍO DE INFORMACIÓN DE LOS ARTÍCULOS 26 BIS, 38 BIS Y 80 BIS DE LA LEY ÚNICA DE FONDOS",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2022_2315",
+      "fecha": "2022-06-30",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2315
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE EXTIENDE EL PERIODO DE MARCHA PARA EL ENVÍO DEL ARCHIVO D10 APLICABLE A EMISORES NO BANCARIOS DE TARJETAS DE CRÉDITO Y LA EXIME DE TRÁMITES QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2315_2022.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-06-30",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "2022-06-30"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2022_0476",
+      "fecha": "2022-04-14",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 280,
+        "fecha": "2022-03-24"
+      },
+      "ncg": 352,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 476
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMAS DE CARÁCTER GENERAL QUE SIMPLIFICAN REGISTROS E INFORMACIÓN CONTINUA DE ENTIDADES QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_476_2022.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "REGULA INSCRIPCIÓN EN EL REGISTRO DE VALORES EXTRANJEROS Y MODIFICA NORMA DE CARÁCTER GENERAL N°352",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2022_0474",
+      "fecha": "2022-04-14",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 280,
+        "fecha": "2022-03-24"
+      },
+      "ncg": 139,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 474
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMAS DE CARÁCTER GENERAL QUE SIMPLIFICAN REGISTROS E INFORMACIÓN CONTINUA DE ENTIDADES QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_474_2022.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "REGULA INSCRIPCIÓN EN EL REGISTRO DE CORREDORES DE REASEGURO EXTRANJERO Y MODIFICA NORMA DE CARÁCTER GENERAL N°139",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_2303",
+      "fecha": "2021-12-23",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2303
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "CAPÍTULOS 21-12 Y 21-16 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS. PRECISA DEFINICIÓN DE LAS PARTIDAS DISTRIBUIBLES Y AJUSTA INSTRUCCIONES SOBRE EXPOSICIÓN A LA ADQUISIÓN DE TERRENOS, PROMOCIÓN Y CONSTRUCCIÓN.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2303_2021.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2023-01-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_2294",
+      "fecha": "2021-09-02",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2294
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INFORMACIÓN SOBRE DEUDORES QUE REFUNDE ESTA COMISIÓN DE ACUERDO AL ARTÍCULO 14 DE LA LEY GENERAL DE BANCOS.\nREQUISITOS QUE DEBEN CUMPLIR LAS EMPRESAS EMISORAS DE TARJETAS DE CRÉDITO NO BANCARIAS PARA ENVIAR INFORMACIÓN DE SUS DEUDORES Y RECIBIRLA REFUNDIDA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2294_2021.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-06-30",
+            "precision": "dia",
+            "contexto": "…cierre del viernes 3 de diciembre). Este periodo de marcha blanca se extenderá hasta el 30 de junio de 2022. A partir de la…"
+          },
+          {
+            "fecha": "2022-07-01",
+            "precision": "dia",
+            "contexto": "…se extenderá hasta el 30 de junio de 2022. A partir de la información referida al viernes 1 de julio de 2022 el archivo D10 deberá ser…"
+          }
+        ]
+      },
+      "ran_referencias": [
+        "18-5",
+        "20-10",
+        "20-7"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R05",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_2293",
+      "fecha": "2021-09-02",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2293
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA LA FRECUENCIA DE ENVÍO DE LOS ARCHIVOS D10, D27, R04 Y R05; Y LA DICTACIÓN DE UN OFICIO CIRCULAR QUE RECALCA Y REFUERZA ALGUNOS ASPECTOS DE LAS NORMAS RELATIVAS AL TRATAMIENTO GENERAL DE LA INFORMACIÓN QUE CONTIENE LA NÓMINA REFUNDIDA DE DEUDORES A QUE SE REFIERE EL ARTÍCULO 14 DE LA LEY GENERAL DE BANCOS CONTENIDAS EN EL CAPÍTULO 18-5.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2293_2021.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-03-31",
+            "precision": "dia",
+            "contexto": "…previos a la presente modificación. Este periodo de marcha blanca se extenderá hasta el 31 de marzo de 2022. Como consecuencia de las…"
+          }
+        ]
+      },
+      "ran_referencias": [
+        "18-5"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D27",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R05",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_1222",
+      "fecha": "2021-09-02",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA LA FRECUENCIA DE ENVÍO DE LOS ARCHIVOS D10, D27, R04 Y R05; Y LA DICTACIÓN DE UN OFICIO CIRCULAR QUE RECALCA Y REFUERZA ALGUNOS ASPECTOS DE LAS NORMAS RELATIVAS AL TRATAMIENTO GENERAL DE LA INFORMACIÓN QUE CONTIENE LA NÓMINA REFUNDIDA DE DEUDORES A QUE SE REFIERE EL ARTÍCULO 14 DE LA LEY GENERAL DE BANCOS CONTENIDAS EN EL CAPÍTULO 18-5.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1222_2021.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2022-04-01",
+            "precision": "mes",
+            "contexto": "…para bancos, en atención al carácter sensible de la misma, considerando que a partir del mes de abril de 2022 esta deberá ser…"
+          }
+        ]
+      },
+      "ran_referencias": [
+        "18-5",
+        "20-7"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D27",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R05",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_0460",
+      "fecha": "2021-08-13",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 460,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 460
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE DETERMINA LOS SEGUROS QUE SE PUEDEN CONTRATAR DE ACUERDO A LO SEÑALADO EN EL ARTÍCULO 538 BIS DEL CÓDIGO DE COMERCIO Y LA EXIME DE TRAMITE QUE INDICA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_460_2021.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-10-12",
+        "precision": "dia",
+        "calculo": {
+          "base": "publicacion",
+          "fecha_base": "2021-08-13",
+          "expresion": "60 días desde la publicación",
+          "texto": "comenzarán a regir en sesenta días, contados desde la fecha de emisión"
+        },
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_0459",
+      "fecha": "2021-07-30",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 246,
+        "fecha": "2021-07-29"
+      },
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "ESTABLECE REGULACIÓN RELATIVA A LAS ENTIDADES DE ASESORÍA FINANCIERA PREVISIONAL Y ASESORES FINANCIEROS PREVISIONALES, SEGÚN LO DISPUESTO EN EL TÍTULO XVII DE LA ASESORÍA PREVISIONAL, DEL D.L. N° 3.500, DE 1980.  AGRÉGUESE LA SIGUIENTE LETRA NUEVA B. DE LAS ASESORÍAS FINANCIERAS PREVISIONALES, EN EL TÍTULO VIII DEL LIBRO V DEL COMPENDIO DE NORMAS DEL SISTEMA DE PENSIONES.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_459_2021.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_2288",
+      "fecha": "2021-04-27",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2288
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LOS ARCHIVOS NORMATIVOS DEL SISTEMA DE RIESGOS DEL MANUAL DE SISTEMA DE INFORMACIÓN DE BANCOS PARA LA SUPERVISIÓN DEL MARCO DE CAPITAL DE LA LEY GENERAL DE BANCOS Y DISPOSICIONES TRANSITORIAS DE LA LEY N° 21.130.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2288_2021.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2021-06-01",
+            "precision": "mes",
+            "contexto": "…días hábiles de julio de 2021 el banco deberá enviar la información correspondiente al mes de junio de 2021, para los archivos…"
+          },
+          {
+            "fecha": "2021-10-01",
+            "precision": "dia",
+            "contexto": "…histórica mensual que debe remitirse en el archivo R08, se extenderá el plazo hasta el 1 de octubre de 2021. El primer reporte del…"
+          },
+          {
+            "fecha": "2021-09-01",
+            "precision": "mes",
+            "contexto": "…1 de octubre de 2021. El primer reporte del archivo R01, por su parte, debe realizarse en septiembre de 2021, mientras que el…"
+          },
+          {
+            "fecha": "2021-12-01",
+            "precision": "mes",
+            "contexto": "…en septiembre de 2021, mientras que el primer reporte del archivo R02 se estableció para diciembre de 2021. En vista de que los…"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R01",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R02",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R06",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R07",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R08",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R11",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R13",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R14",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2021_2285",
+      "fecha": "2021-01-26",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2285
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE COMPLEMENTA INSTRUCCIONES DEL ARCHIVO NORMATIVO R11, EXTIENDE SU PLAZO DE ENVÍO Y LA EXCLUYE DE LOS TRAMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2285_2021.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2021-04-01",
+            "precision": "dia",
+            "contexto": "…en los meses sucesivos, hasta que se cuente con una nueva actualización. Por su parte, el primero de abril de 2021 se deberán remitir…"
+          },
+          {
+            "fecha": "2021-02-01",
+            "precision": "mes",
+            "contexto": "…de abril de 2021 se deberán remitir los archivos correspondientes a los meses de enero y febrero del 2021, y en los siguientes 9 días…"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R11",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_2284",
+      "fecha": "2020-12-31",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2284
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO \nFINANCIERO QUE APRUEBA LA EMISIÓN DEL ARCHIVO NORMATIVO R11 PARA EL\nCÁLCULO DEL ÍNDICE DE IMPORTANCIA SISTÉMICA Y CALIFICAR LA CALIDAD DE\nSISTÉMICO DE UN BANCO QUE SE INCORPORA AL MANUAL DE SISTEMA DE\nINFORMACIÓN. EXCLUYE A LA DISPOSICIÓN DEL TRAMITE PREVISTO EN EL INCISO\nPRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538, RELATIVO A LA\nELABORACIÓN DEL INFORME DE EVALUACIÓN DE IMPACTO REGULATORIO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2284_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2021-02-01",
+            "precision": "dia",
+            "contexto": "…pero su texto definitivo corresponde al que acompaña a la presente circular. El día 1 de febrero de 2021 el banco deberá enviar…"
+          },
+          {
+            "fecha": "2021-01-01",
+            "precision": "mes",
+            "contexto": "…remitir la información mensualmente a la CMF, partiendo por la información referida a enero de 2021. Mientras no se habilite el…"
+          }
+        ]
+      },
+      "ran_referencias": [
+        "21-11"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R11",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_1192",
+      "fecha": "2020-12-30",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE OFICIO CIRCULAR QUE PRORROGA LA ACREDITACION DE CONOCIMIENTOS A AQUELLOS ASESORES PREVISIONALES, REPRESENTANTES Y APODERADOS DE LAS ENTIDADES DE ASESORÍA PREVISIONAL VIGENTES EN EL REGISTRO DE ASESORES PREVISIONALES, QUE LES CORRESPONDÍA REVALIDAR SUS CONOCIMIENTOS DURANTE EL AÑO 2020, INCLUIDOS AQUELLOS A LOS QUE LES FUE PRORROGADA SU ACREDITACIÓN MEDIANTE OFICIO ORDINARIO N°28.243 DE LA SUPERINTENDENCIA DE PENSIONES Y OFICIO CIRCULAR N°1.125 DE LA COMISIÓN PARA EL MERCADO FINANCIERO, DE DICIEMBRE DE 2019, HASTA EL PRÓXIMO PROCESO DE ACREDITACIÓN QUE SE EFECTÚE, Y EXCEPTÚA DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL N° 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1192_2020.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_2283",
+      "fecha": "2020-12-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2283
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "PROMOCIÓN DE LA DISCIPLINA Y TRANSPARENCIA DE MERCADO A TRAVÉS DE LA DIVULGACIÓN DE REQUERIMIENTOS DE INFORMACIÓN DESDE LAS ENTIDADES BANCARIAS (PILAR 3). INCORPORA CAPÍTULO 21-20 A LA RECOPILACIÓN ACTUALIZADA DE NORMAS. (RESOLUCIÓN N°5866 DE 01-12-2020 EJECUTA ACUERDO DEL CONSEJO).",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2283_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2022-12-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_2275",
+      "fecha": "2020-10-19",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 205,
+        "fecha": "2020-10-15"
+      },
+      "ncg": 323,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2275
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE ESTABLECE REQUERIMIENTO MENSUAL DE INFORMACIÓN FINANCIERA Y DE SOLVENCIA Y DEROGA OFICIO CIRCULAR N° 479.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2275_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2021-01-01",
+        "precision": "mes",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_1176",
+      "fecha": "2020-09-17",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 201,
+        "fecha": "2020-09-15"
+      },
+      "ncg": 136,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1176
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE OFICIO CIRCULAR RELATIVO A LA PORTABILIDAD DE MUTUOS HIPOTECARIOS ENDOSABLES REGULADOS EN EL ARTÍCULO 88 DEL DFL 251.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1176_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Portabilidad de Mutuos Hipotecarios Endosables regulados en el art. 88 DFL 251",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_2266",
+      "fecha": "2020-08-25",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2266
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "BANCOS COOPERATIVAS\r\nINFORMACIÓN SOBRE PRÉSTAMOS ESTUDIANTILES PARA LA EDUCACIÓN SUPERIOR, CONSOLIDACIÓN DE DEUDAS Y RECTIFICACIONES. MODIFICA CAPÍTULO 20-6 PARA BANCOS Y CIRCULAR N°102 DE COOPERATIVAS SOBRE PUBLICACIONES EN EL BOLETÍN DE INFORMACIONES COMERCIALES. INTRODUCE NUEVOS CAMPOS A LOS ARCHIVOS R04 Y R05. MODIFICA ARCHIVO D10. \r\n(RESOLUCIÓN N°3759 DE 25-08-2020 EJECUTA ACUERDO DEL CONSEJO).",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2266_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [
+        "18-5",
+        "20-6"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R04",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "R05",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "D27",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_2258",
+      "fecha": "2020-05-25",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 314,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2258
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "BANCOS\nSOCIEDADES DE APOYO AL GIRO\nCOOPERATIVAS\nEMPRESAS EMISORAS DE TARJETAS DE PAGO\nEMPRESAS OPERADORAS DE TARJETAS DE PAGO\nUSO DEL SISTEMA DE COMUNICACIÓN ELECTRÓNICA DE LA COMISIÓN PARA EL MERCADO FINANCIERO COMO MEDIO PARA RESPUESTA DE REQUERIMIENTO SOBRE RECLAMOS.\n(RESOLUCIÓN N°2935 DE 25-05-2020 EJECUTA ACUERDO DEL CONSEJO).",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2258_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_1150",
+      "fecha": "2020-04-22",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Extraordinaria",
+        "numero": 76,
+        "fecha": "2020-04-20"
+      },
+      "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1150
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE OFICIO CIRCULAR QUE ESTABLECE MEDIDAS TRANSITORIAS RELATIVAS A LA CONTABILIZACIÓN Y PROVISIONES DE PRIMAS POR COBRAR Y RECUPEROS, ESTABLECIDAS EN LA CIRCULAR N°1499; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1150_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Medidas transitorias relativas a la contabilización y provisiones de primas por cobrar y recuperos, establecidas en la Circular N°1499, de 2000",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_1146",
+      "fecha": "2020-04-09",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1146
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DEL INFORME DE EVALUACIÓN DE IMPACTO REGULATORIO DEL OFICIO CIRCULAR N° 1146 QUE ESTABLECE PARA ESTE AÑO 2020 FECHAS LIMITES DE PRESENTACIÓN DE INFORMACION QUE INDICA PARA LAS ENTIDADES FISCALIZADAS DEL MERCADO DE SEGUROS Y SUSPENDE EL EXAMEN QUE SEÑALA POR BROTE DE COVID-19.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1146_2020.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2020_0436",
+      "fecha": "2020-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE IMPARTE INSTRUCCIONES TRANSITORIAS SOBRE EL SISTEMA DE CONSULTAS Y OFERTAS DE MONTOS DE PENSIÓN, ESTABLECIDO POR EL ARTÍCULO 61 BIS DEL D.L. N° 3.500, DE 1980 Y EXCEPTÚA DE TRÁMITE ESTABLECIDO EN EL ARTÍCULO 20 N°3 del D.L. N°3.538.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_436_2020.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "ver texto",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2019_0429",
+      "fecha": "2019-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "MODERNIZA LOS REQUISITOS DE INSCRIPCIÓN DE FACTURAS Y TÍTULOS REPRESENTATIVOS DE LAS MISMAS EN EL REGISTRO DE PRODUCTOS ESTABLECIDO EN LA LEY N° 19.220 DE 1993",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_429_2019.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    },
+    {
+      "clave": "2015_0376",
+      "fecha": "2015-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "16/05/1997 \n  \n15/04/2004 \n  \n09/03/2001 \n  \n06/10/2005 \n  \n29/12/2005 \n  \n28/12/2006 \n  \n24/05/2011 \n  \n29/06/2011 \n  \n15/05/1986 \n  \n06/12/1989 \n  \n02/02/1990 \n  \n02/02/1990 \n  \n18/03/1991 \n  \n28/03/1991 \n  \n20/09/1991 \n  \n28/02/1992 \n  \n23/07/1992 \n  \n08/09/1994 \n  \n29/05/1995 \n  \n08/01/1996 \n  \n25/01/1996 \n  \n10/08/1998 \n  \n16/01/2001 \n  \n17/01/2002 \n  \n19/07/2005 \n  \n07/03/2006 \n  \n31/12/2010 \n  \n26/08/2011 \n  \n28/10/2011 \n  \n20/01/2009 \n  \n27/03/2002 \n  \n29/08/2008 \n  \n19/01/2009 \n  \n22/01/2001 \n  \n26/08/1992 \n  \n20/07/1990 \n  \n01/12/1994 \n  \n06/02/1995 \n  \n26/11/2001 \n  \n22/01/2001 \n  \n28/04/2006 \n  \n03/02/2010 \n  \n20/04/2011 \n  \n10/05/1988 \n  \n30/01/1990 \n  \n20/03/1995 \n  \n08/04/2004 \n  \n12/03/2004 \n  \n25/08/2009 \n  \n22/01/2001 \n  \n20/07/1990 \n  \n30/01/1998 \n  \n17/07/2013 \n  \n24/01/2005 \n  \n24/06/2011 \n  \n09/12/1994 \n  \n12/07/2000",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_376_2015.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": []
+    }
+  ]
+}

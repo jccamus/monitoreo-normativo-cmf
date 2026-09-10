@@ -101,10 +101,36 @@ lo vuelvas a crear.
 
 1. **`fetch.fetch_listado(from_date)`** — GET a la página de listado de la CMF,
    parseo de la tabla con BeautifulSoup y filtro de filas por `FRASES_CLAVE`
-   (**37** frases; partió con las 5 del brief y creció para ampliar la red de
+   (**46** frases; partió con las 5 del brief y creció para ampliar la red de
    captura — la categoría que ve la persona la decide el clasificador de después,
    no este filtro). Reintentos con backoff lineal (`30·intento`) y pausa cortés
    de 2–3 s entre requests.
+
+   **El filtro prueba todas las celdas de la fila, no la descripción.** La CMF
+   describe cada documento en dos celdas que no dicen lo mismo: su título propio
+   («MODIFICA CIRCULAR N°2.110…») y el acuerdo del Consejo («EJECUTA ACUERDO …
+   QUE APRUEBA NORMATIVA QUE…»). `descripcion` guarda la más larga —casi siempre
+   la del acuerdo—, así que filtrar por ella dejaba el título sin probar nunca:
+   23 filas perdidas, entre ellas dos NCG de 2026 que calzaban con una frase que
+   ya estaba en la lista. Ver el docstring de `_filtrar`.
+
+   El calce es `in` literal sobre el texto en mayúsculas: **sin tolerancia al
+   artículo, al plural ni a la tilde**, al revés de `TIPO_ACUERDO_MAP`. Por eso
+   la lista lleva variantes explícitas (`APRUEBA LA EMISIÓN DE` y
+   `APRUEBA LA EMISION DE`), y por eso una frase que difiere en un artículo
+   —`APRUEBA NORMATIVA QUE` contra `APRUEBA NORMA QUE`— no captura nada: ese
+   hueco costó 9 documentos sustantivos de 2026 y 14 de 2025. **No lo
+   "arregles" haciendo el calce insensible a tildes**: entre 2000 y 2017 el
+   listado completo está escrito sin tildes y eso arrastra ~131 filas de esa
+   época, todas fuera de la ventana de 5 años del dashboard.
+
+   Corolario operativo: **agregar una frase no afecta sólo al futuro.** El diff
+   es contra `state.json`, así que la corrida siguiente ve como nuevas *todas*
+   las filas históricas que la frase alcance y les baja el PDF a 2–3 s cada una,
+   en una sola pasada y sin tope (`main.py` recién escribe `state.json` en el
+   paso 5, así que un job que muere por timeout no guarda nada y reintenta igual
+   al día siguiente). Mide el arrastre antes de agregarla: `MODIFICA CIRCULAR`,
+   por ejemplo, suma 405 filas, 403 de ellas anteriores a 2020.
 
    Dos comportamientos deliberados: **falla ruidosa** —agotados los reintentos
    sin una sola fila llama a `sys.exit(1)` para poner el build en rojo, en vez de
@@ -681,7 +707,7 @@ entrada puede llevar varias categorías):
 | Nueva Normativa | 1 |
 | Consulta Pública | 0 |
 
-La asimetría entre las 37 frases de captura de `fetch.FRASES_CLAVE` y las 5+1
+La asimetría entre las 46 frases de captura de `fetch.FRASES_CLAVE` y las 5+1
 categorías es la razón de que `"Otro"` sea el caso más común. **Es esperado, no un
 bug** — pero es lo primero que hay que revisar cuando una resolución aparece bajo
 "Otro". El insumo para decidir categorías nuevas es `otro-a-clasificar.csv`
