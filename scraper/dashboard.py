@@ -169,6 +169,16 @@ def _agrupar_por_cuerpo(entradas: list[dict]) -> dict[str, list[dict]]:
 # `_accion_sobre_norma` («Derogada por») y de `_es_derogacion` sobre la
 # descripción. Buscar su patrón en `store.py` no lleva a ninguna parte, y es la
 # segunda categoría más poblada del histórico.
+# Cuerpo modificado → categoría. La categoría sigue al cuerpo, no al documento
+# que modifica: una NCG que modifica una circular es «Modificación Circular».
+# Es lo que hace que el filtro signifique algo — quien lo aprieta busca qué
+# cambió de las circulares, no qué hicieron las circulares.
+_CATEGORIA_MODIFICA = {
+    "NCG": "Modificación NCG",
+    "Circular": "Modificación Circular",
+    "Oficio Circular": "Modificación Oficio Circular",
+}
+
 TIPOS_FILTRO = [
     ("todos", "Todos"),
     ("Consulta Pública", "Consulta Pública"),
@@ -180,6 +190,7 @@ TIPOS_FILTRO = [
     # que «Derogación». Misma relación que hay entre «Nueva Normativa» y
     # «Modificación NCG».
     ("Modificación Circular", "Modificación Circular"),
+    ("Modificación Oficio Circular", "Modificación Oficio Circular"),
     ("Nueva Normativa", "Nueva Normativa"),
     ("Circular", "Circular"),
     ("Derogación", "Derogación"),
@@ -376,19 +387,15 @@ def _tipos_de_entrada(entrada: dict) -> list[str]:
         # rotular «Modificación NCG» una circular que modifica otra circular
         # pone la entrada bajo un filtro que afirma algo que no pasó.
         #
-        # Los oficios circulares entran en «Modificación Circular» en vez de
-        # tener botón propio: son 34 entradas contra 121, la barra ya lleva
-        # siete filtros, y el cuerpo exacto se lee igual en la columna
-        # «Norma(s) afectada(s)», que dice «Oficio Circular N°502». Si algún día
-        # conviene separarlos, el dato está —`tipo_norma` los distingue— y es
-        # sólo abrir esta rama en dos.
+        # Una categoría por cuerpo, incluidos los oficios circulares: son un
+        # instrumento distinto de la circular —el que la CMF usa para instruir
+        # sin modificar el cuerpo normativo— y agruparlos obligaba a abrir cada
+        # fila para saber cuál de los dos había cambiado.
         #
         # La derogación sí es indiferente al cuerpo: dejar sin efecto una
         # circular es igual de derogación que dejar sin efecto una NCG.
         if accion == "Modificada por":
-            tipos.append(
-                "Modificación NCG" if tipo_norma == "NCG" else "Modificación Circular"
-            )
+            tipos.append(_CATEGORIA_MODIFICA.get(tipo_norma, "Modificación NCG"))
         elif accion == "Derogada por":
             tipos.append("Derogación")
     if _es_derogacion(entrada.get("descripcion_cmf", "")):
@@ -1871,6 +1878,7 @@ def _tipo_class(tipo: str) -> str:
         "Nueva Normativa": "tag-nueva",
         "Modificación NCG": "tag-mod",
         "Modificación Circular": "tag-mod-circular",
+        "Modificación Oficio Circular": "tag-mod-oficio",
         "Circular": "tag-circular",
         "Postergación de vigencia": "tag-postergacion",
         "Derogación": "tag-deroga",
@@ -3297,6 +3305,14 @@ _TEMPLATE = """<!DOCTYPE html>
        el fondo obliga a revisar el contraste de nuevo en claro y en oscuro. */
     .tag-mod-circular { background: var(--color-brand-tint); color: var(--cmf-purple-800);
                         box-shadow: inset 2px 0 0 var(--cmf-purple-800); }
+    /* El oficio circular comparte familia con la circular —es el mismo cuerpo
+       visto de otra forma— y se separa con la barra a los dos cantos. La
+       alternativa era un octavo color de fondo, que obliga a validar contraste
+       en claro y en oscuro para distinguir dos categorías que el rótulo ya
+       distingue. */
+    .tag-mod-oficio   { background: var(--color-brand-tint); color: var(--cmf-purple-800);
+                        box-shadow: inset 2px 0 0 var(--cmf-purple-800),
+                                    inset -2px 0 0 var(--cmf-purple-800); }
     .tag-postergacion { background: var(--cmf-teal-50); color: var(--cmf-teal-deep); }
     .tag-deroga   { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
     .tag-otro     { background: var(--surface-sunken); color: var(--text-body); }
