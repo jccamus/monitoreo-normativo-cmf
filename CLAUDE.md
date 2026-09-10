@@ -543,6 +543,18 @@ nunca. Lo que hay que dejar dicho ahí es que **`dashboard.py` hace las dos cosa
 en la misma pasada** —saca el documento de la lista y lo mete al Calendario—,
 porque es lo que no se deduce mirando la página.
 
+Y que **si rige desde su publicación va `inmediata`, no la fecha del
+documento**. El paso 2 ya nombraba la opción y aun así una revisión de 30
+documentos anotó 17 con la fecha del propio encabezado: nombrar la alternativa
+no basta cuando las dos producen el mismo día en el Calendario y nada indica
+qué afirma cada una. Por eso el `<p class="rv-ojo">` explica la diferencia en
+vez de sólo enumerar los valores válidos.
+
+**Ojo con verificar ese panel:** `_render_revision_manual` sólo llama a
+`_render_como_anotar` cuando hay pendientes. Con la lista en cero el tab rinde
+el estado vacío y el instructivo no aparece en el HTML — que no salga en
+`docs/index.html` no significa que se haya roto.
+
 La capa se aplica **al renderizar** (`revisiones.aplicar` en `generar_html`), no al
 guardar: los datos parseados quedan intactos y una anotación nueva sólo necesita
 regenerar el HTML. Una vigencia anotada se marca con `fuente: "revision_manual"`

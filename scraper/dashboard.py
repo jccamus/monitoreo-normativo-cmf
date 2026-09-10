@@ -982,6 +982,19 @@ def _render_como_anotar() -> str:
         '<code>RDC40=2026-01-01;RDC02=2025-11-01</code>.</li>'
         '<li><code>python scraper/dashboard.py</code> — aplica lo anotado.</li>'
         '</ol>'
+        # El paso 2 ya nombraba `inmediata`, y aun así una revisión de 30
+        # documentos anotó 17 con la fecha del propio encabezado: saber que la
+        # opción existe no basta si no se dice qué afirma cada una. Las dos dan
+        # el mismo día en el Calendario, así que la diferencia sólo se ve
+        # explicándola.
+        '<p class="rv-ojo"><b>Si el documento rige desde que se publica, va '
+        '<code>inmediata</code> — no su fecha de publicación.</b> Las dos '
+        'muestran el mismo día en el Calendario, pero la fecha afirma que el '
+        'documento la <i>declara</i>, y se rotula «confirmada». Anotar la fecha '
+        'del propio encabezado es el error que originó este monitoreo: 126 '
+        'entradas del histórico repetían la fecha del documento como si fuera '
+        'su vigencia. Si el texto sí dice «rige a contar de esta fecha», '
+        'entonces la declara y la fecha corresponde.</p>'
         '<p>Ese último paso hace las dos cosas de una vez: el documento sale de '
         'esta lista <b>y</b> aparece en el Calendario de modificaciones en la '
         'fecha anotada, marcado «confirmada» para no confundirlo con lo que se '
@@ -3043,6 +3056,9 @@ _TEMPLATE = """<!DOCTYPE html>
                   font-size: var(--fs-sm); color: var(--text-muted); }
     .rv-como li { margin-bottom: var(--space-2); line-height: 1.55; }
     .rv-como p { font-size: var(--fs-sm); color: var(--text-muted); margin-top: var(--space-2); }
+    .rv-como .rv-ojo { color: var(--ink-on-warning-bg); background: var(--cmf-warning-bg);
+                       padding: var(--space-2) var(--space-3);
+                       border-left: 3px solid var(--cmf-warning); }
     .rv-como code { font-size: 0.92em; }
     .rv-revisados { font-size: var(--fs-xs); color: var(--ink-on-success-bg);
                     background: var(--cmf-success-bg);
