@@ -14,6 +14,17 @@ venv/
 .DS_Store
 Thumbs.db
 
+# Basura de la planilla de revisión. `data/revisiones.csv` se edita en Excel o
+# LibreOffice, y las dos dejan rastro al lado del archivo versionado: el lock
+# mientras está abierta y el respaldo que uno hace antes de tocarla. Los dos
+# aparecieron en `git status` durante una revisión real, justo cuando había que
+# commitear la planilla, que es cuando un `git add` distraído se los lleva.
+.~lock.*#
+~$*
+* - copia.*
+* - copy.*
+* - Copy.*
+
 # Configuración local de la máquina (permisos, rutas): no viaja al repo
 .claude/settings.local.json
 
