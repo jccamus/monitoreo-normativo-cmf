@@ -174,6 +174,12 @@ TIPOS_FILTRO = [
     ("Consulta Pública", "Consulta Pública"),
     ("Postergación de vigencia", "Postergación de vigencia"),
     ("Modificación NCG", "Modificación NCG"),
+    # Cuidado con la vecina: «Circular» es *emitir* una circular y sale de
+    # `TIPO_ACUERDO_MAP`; «Modificación Circular» es *modificar* una que ya
+    # existe y la genera `_tipos_de_entrada` desde `_accion_sobre_norma`, igual
+    # que «Derogación». Misma relación que hay entre «Nueva Normativa» y
+    # «Modificación NCG».
+    ("Modificación Circular", "Modificación Circular"),
     ("Nueva Normativa", "Nueva Normativa"),
     ("Circular", "Circular"),
     ("Derogación", "Derogación"),
@@ -366,12 +372,23 @@ def _tipos_de_entrada(entrada: dict) -> list[str]:
     tipos = store.inferir_tipos_acuerdo(entrada.get("descripcion_cmf") or "")
     for tipo_norma, numero in _normas_afectadas_ids(entrada):
         accion = _accion_sobre_norma(entrada, numero, tipo_norma)
-        # «Modificación NCG» sólo cuando lo modificado *es* una NCG: rotular así
-        # una circular que modifica otra circular pone la entrada bajo un filtro
-        # que afirma algo que no pasó. La derogación no distingue cuerpo: dejar
-        # sin efecto una circular es igual de derogación.
-        if accion == "Modificada por" and tipo_norma == "NCG":
-            tipos.append("Modificación NCG")
+        # La categoría sigue al cuerpo modificado, no al documento que modifica:
+        # rotular «Modificación NCG» una circular que modifica otra circular
+        # pone la entrada bajo un filtro que afirma algo que no pasó.
+        #
+        # Los oficios circulares entran en «Modificación Circular» en vez de
+        # tener botón propio: son 34 entradas contra 121, la barra ya lleva
+        # siete filtros, y el cuerpo exacto se lee igual en la columna
+        # «Norma(s) afectada(s)», que dice «Oficio Circular N°502». Si algún día
+        # conviene separarlos, el dato está —`tipo_norma` los distingue— y es
+        # sólo abrir esta rama en dos.
+        #
+        # La derogación sí es indiferente al cuerpo: dejar sin efecto una
+        # circular es igual de derogación que dejar sin efecto una NCG.
+        if accion == "Modificada por":
+            tipos.append(
+                "Modificación NCG" if tipo_norma == "NCG" else "Modificación Circular"
+            )
         elif accion == "Derogada por":
             tipos.append("Derogación")
     if _es_derogacion(entrada.get("descripcion_cmf", "")):
@@ -1853,6 +1870,7 @@ def _tipo_class(tipo: str) -> str:
         "Consulta Pública": "tag-consulta",
         "Nueva Normativa": "tag-nueva",
         "Modificación NCG": "tag-mod",
+        "Modificación Circular": "tag-mod-circular",
         "Circular": "tag-circular",
         "Postergación de vigencia": "tag-postergacion",
         "Derogación": "tag-deroga",
@@ -3274,6 +3292,11 @@ _TEMPLATE = """<!DOCTYPE html>
     .tag-nueva    { background: var(--cmf-success-bg); color: var(--ink-on-success-bg); }
     .tag-mod      { background: var(--cmf-info-bg);    color: var(--cmf-navy); }
     .tag-circular { background: var(--color-brand-tint); color: var(--cmf-purple-800); }
+    /* Reusa el par de .tag-circular —que ya está probado en los dos temas— y se
+       distingue con una barra al canto en vez de otro color de fondo: cambiar
+       el fondo obliga a revisar el contraste de nuevo en claro y en oscuro. */
+    .tag-mod-circular { background: var(--color-brand-tint); color: var(--cmf-purple-800);
+                        box-shadow: inset 2px 0 0 var(--cmf-purple-800); }
     .tag-postergacion { background: var(--cmf-teal-50); color: var(--cmf-teal-deep); }
     .tag-deroga   { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
     .tag-otro     { background: var(--surface-sunken); color: var(--text-body); }

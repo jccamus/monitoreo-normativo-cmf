@@ -731,19 +731,24 @@ Dos consumidores no equivalentes:
   `dashboard._tipos_de_entrada`. Las categorías no son excluyentes: la circular
   2370/2026 emite una circular *y* modifica dos NCG.
 
-**Hay una sexta categoría que no existe en `TIPO_ACUERDO_MAP`: «Derogación».** Se
-genera sólo del lado del dashboard, en `_tipos_de_entrada`, a partir de
-`_accion_sobre_norma` («Derogada por») y de `_es_derogacion` sobre la descripción.
-Tiene botón en `TIPOS_FILTRO` y es la segunda categoría más poblada. Si buscas por
-qué una entrada aparece bajo «Derogación» y no encuentras el patrón, es por esto.
+**Hay dos categorías que no existen en `TIPO_ACUERDO_MAP`: «Derogación» y
+«Modificación Circular».** Las dos se generan del lado del dashboard, en
+`_tipos_de_entrada`, a partir de `_accion_sobre_norma` —y «Derogación» además de
+`_es_derogacion` sobre la descripción—. Tienen botón en `TIPOS_FILTRO` y son la
+segunda y la tercera más pobladas. Si buscas por qué una entrada aparece bajo
+alguna de ellas y no encuentras el patrón, es por esto.
 
-**No hay categoría equivalente para las circulares modificadas**, y es una
-decisión pendiente, no un olvido: desde que `_normas_afectadas` reconoce
-circulares y oficios circulares, un documento que sólo modifica una circular
-—la 2377/2026 sobre la 2.110— queda en `"Otro"`, porque «Modificación NCG» está
-deliberadamente restringida a las NCG (ver «Una norma se identifica por tipo y
-número»). Si aparece una «Modificación Circular», engánchala en
-`_tipos_de_entrada` junto a la de NCG y dale su botón en `TIPOS_FILTRO`.
+La categoría sigue **al cuerpo modificado, no al documento que modifica**: una
+circular que modifica otra circular es «Modificación Circular», nunca
+«Modificación NCG». Los oficios circulares van en «Modificación Circular» en vez
+de tener botón propio —34 entradas contra 121, y la barra ya lleva siete
+filtros—; el cuerpo exacto se lee igual en «Norma(s) afectada(s)», que dice
+«Oficio Circular N°502». Separarlos es abrir esa rama en dos: `tipo_norma` ya los
+distingue.
+
+**Ojo con la vecina:** «Circular» es *emitir* una circular y sale de
+`TIPO_ACUERDO_MAP`; «Modificación Circular» es *modificar* una que ya existe.
+Misma relación que entre «Nueva Normativa» y «Modificación NCG».
 
 Esa misma mecánica —`_tipos_de_entrada` suma lo que dice `_accion_sobre_norma`,
 que es la función con la que la línea de tiempo rotula cada evento— existe para
@@ -761,20 +766,24 @@ propósito, así que la categoría reaparece sola cuando llega el primer caso. H
 dicen «EXIME DEL TRÁMITE DE CONSULTA PÚBLICA», o sea documentos que se la
 **saltaron**.
 
-Reparto vigente sobre las 607 entradas (04-08-2026; suma más de 607 porque una
+Reparto vigente sobre las 672 entradas (10-09-2026; suma más de 672 porque una
 entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 364 |
-| Derogación | 147 |
-| Modificación NCG | 103 |
+| Otro | 299 |
+| Derogación | 154 |
+| Modificación Circular | 153 |
+| Modificación NCG | 127 |
 | Postergación de vigencia | 4 |
 | Circular | 2 |
 | Nueva Normativa | 1 |
 | Consulta Pública | 0 |
 
-La asimetría entre las 46 frases de captura de `fetch.FRASES_CLAVE` y las 5+1
+«Otro» bajó de 364 a 299 con «Modificación Circular»: 106 de esas 153 entradas
+no tenían ninguna otra categoría.
+
+La asimetría entre las 46 frases de captura de `fetch.FRASES_CLAVE` y las 5+2
 categorías es la razón de que `"Otro"` sea el caso más común. **Es esperado, no un
 bug** — pero es lo primero que hay que revisar cuando una resolución aparece bajo
 "Otro". El insumo para decidir categorías nuevas es `otro-a-clasificar.csv`
