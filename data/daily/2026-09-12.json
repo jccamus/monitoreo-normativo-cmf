@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-12",
+  "generated_at": "2026-09-12T13:49:32.985504+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_2378",
+      "fecha": "2026-09-11",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2378
+      },
+      "tipo_acuerdo": "Circular",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EMITE CIRCULAR QUE MODIFICA EL CAPÍTULO 21-7 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y EL ARCHIVO R07 DEL SISTEMA DE RIESGOS DEL MANUAL DE SISTEMAS DE INFORMACIÓN DE BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_2378_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2026-10-01",
+            "precision": "dia",
+            "contexto": "…con código 10 en el campo 1 III. Entrada en vigor La presente Circular entra en vigor el 1 de octubre de 2026. CATHERINE TORNEL…"
+          }
+        ]
+      },
+      "ran_referencias": [
+        "1-13",
+        "21-13",
+        "21-6",
+        "21-7",
+        "7-12"
+      ],
+      "msi_referencias": [
+        {
+          "contexto": "ancos sobre la\nmedición de los activos ponderados\npor riesgo de mercado y el Sistema\nde Riesgos del Manual de Sistemas\nde Información de Bancos.\n_________________________________\n11 de septiembre de 2026\nCIRCULAR N°2.378\nBancos\nLa Co"
+        },
+        {
+          "contexto": "l Capítulo 21-7 de la RAN. También, se consideran ajustes al archivo R07\ndel Sistema de Riesgos del Manual de Sistemas de Información de bancos (MSI), para\npermitir informar el cómputo de los activos ponderados por riesgo de mercado"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "R07",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "Ajustes al Capítulo 21-7 de la Recopilación Actualizada de Normas de Bancos sobre la medición de los activos ponderados por riesgo de mercado y el Sistema de Riesgos del Manual de Sistemas de Información de Bancos",
+      "resumen_acciones": [
+        "Capítulo 21-7 de la RAN"
+      ]
+    }
+  ]
+}
