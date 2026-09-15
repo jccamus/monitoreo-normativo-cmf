@@ -1,0 +1,93 @@
+{
+  "date": "2026-09-15",
+  "generated_at": "2026-09-15T15:21:33.662171+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0576",
+      "fecha": "2026-09-14",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 576,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 576
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA NORMA DE CARÁCTER GENERAL QUE INTRODUCE AJUSTES A LA NCG N°540 QUE CONTIENE LAS NORMAS DE FUNCIONAMIENTO OPERATIVO DEL REGISTRO DE DEUDA CONSOLIDADA Y EL MANUAL DEL SISTEMA DE INFORMACIÓN RESPECTIVO, Y CREA EL DOCUMENTO ANEXO TÉCNICO REDEC, TODOS CONFORME A LO DISPUESTO EN LA LEY N°21.680 QUE CREA UN REGISTRO DE DEUDA CONSOLIDADA.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_576_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "ver texto",
+        "fuente": "seccion",
+        "candidatas": [
+          {
+            "fecha": "2025-11-01",
+            "precision": "mes",
+            "contexto": "…las disposiciones legales, la Comisión creó y habilitó el REDEC antes del primer día del mes de noviembre de 2025. El registro quedó…"
+          },
+          {
+            "fecha": "2026-01-01",
+            "precision": "mes",
+            "contexto": "…la nómina de reportantes del numeral 3.1 de esta norma, deben reportar a contar de enero de 2026 o marzo de 2026 según consigna…"
+          },
+          {
+            "fecha": "2026-03-01",
+            "precision": "mes",
+            "contexto": "…de reportantes del numeral 3.1 de esta norma, deben reportar a contar de enero de 2026 o marzo de 2026 según consigna el Artículo…"
+          },
+          {
+            "fecha": "2026-04-01",
+            "precision": "dia",
+            "contexto": "…lo no contemplado en los dos párrafos anteriores, la Ley comenzó a regir a contar del 1° de abril de 2026. Mismo plazo se consideró…"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "e modifica el título del numeral 2 que pasa a llamarse “Sobre el Registro de\nDeuda Consolidada y su Manual de Sistema de Información”.\nviii) Se introducen en los numerales 3.1 y 3.2 los siguientes subnumerales para\nmejorar la estruc"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "RDC10",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC30",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC01",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC31",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC02",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC11",
+          "vigencia": "ver texto"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC12",
+          "vigencia": "ver texto"
+        }
+      ],
+      "tema": "Introduce modificaciones a la NCG N°540 que contiene las Normas de Funcionamiento Operativo del Registro de Deuda Consolidada y a su Manual del Sistema de Información, y crea el documento Anexo Técnico REDEC",
+      "resumen_acciones": []
+    }
+  ]
+}
