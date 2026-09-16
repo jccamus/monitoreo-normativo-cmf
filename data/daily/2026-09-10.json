@@ -721,6 +721,42 @@
       "parsed": true,
       "modifica": [
         {
+          "norma": "NCG N°139",
+          "numero_norma": 139,
+          "tipo_norma": "NCG",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°209",
+          "numero_norma": 209,
+          "tipo_norma": "NCG",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°318",
+          "numero_norma": 318,
+          "tipo_norma": "NCG",
+          "seccion_romana": null,
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
           "norma": "Circular N°1677",
           "numero_norma": 1677,
           "tipo_norma": "Circular",
@@ -1803,11 +1839,12 @@
           "norma": "Circular N°1",
           "numero_norma": 1,
           "tipo_norma": "Circular",
-          "seccion_romana": "II",
-          "acciones": [],
-          "vigencia": {
-            "inicio": "inmediata"
-          }
+          "seccion_romana": null,
+          "acciones": [
+            "Modifícase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
         }
       ],
       "vigencia": {
