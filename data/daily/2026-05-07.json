@@ -4794,18 +4794,6 @@
           "vigencia": {
             "inicio": "inmediata"
           }
-        },
-        {
-          "norma": "NCG N°342",
-          "numero_norma": 342,
-          "tipo_norma": "NCG",
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {
-            "inicio": "inmediata"
-          }
         }
       ],
       "vigencia": {

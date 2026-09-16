@@ -1841,32 +1841,6 @@
           "vigencia": {
             "inicio": "2027-07-01"
           }
-        },
-        {
-          "norma": "NCG N°493",
-          "numero_norma": 493,
-          "tipo_norma": "NCG",
-          "seccion_romana": "X",
-          "acciones": [
-            "Deróguese"
-          ],
-          "vigencia": {
-            "inicio": "inmediata",
-            "plazo_transicion": "2024-02-03"
-          }
-        },
-        {
-          "norma": "NCG N°494",
-          "numero_norma": 494,
-          "tipo_norma": "NCG",
-          "seccion_romana": "X",
-          "acciones": [
-            "Deróguese"
-          ],
-          "vigencia": {
-            "inicio": "inmediata",
-            "plazo_transicion": "2024-02-03"
-          }
         }
       ],
       "vigencia": {
@@ -1944,20 +1918,6 @@
           "vigencia": {
             "inicio": "inmediata"
           }
-        },
-        {
-          "norma": "Circular N°1143",
-          "numero_norma": 1143,
-          "tipo_norma": "Circular",
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase",
-            "Reemplácese",
-            "Agréguese"
-          ],
-          "vigencia": {
-            "inicio": "inmediata"
-          }
         }
       ],
       "vigencia": {
@@ -2002,21 +1962,6 @@
           "tipo_norma": "NCG",
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese",
-            "Elimínese",
-            "Agréguese"
-          ],
-          "vigencia": {
-            "inicio": "inmediata"
-          }
-        },
-        {
-          "norma": "NCG N°64",
-          "numero_norma": 64,
-          "tipo_norma": "NCG",
-          "seccion_romana": null,
-          "acciones": [
-            "Derógase",
             "Reemplácese",
             "Elimínese",
             "Agréguese"
