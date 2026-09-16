@@ -262,7 +262,15 @@ def _extraer_celda(celdas: list) -> dict | None:
     La fecha real de la nueva resolución se extrae del nombre del PDF (ej. ncg_564_2026.pdf).
     """
     try:
-        textos = [c.get_text(strip=True) for c in celdas]
+        # Con separador: sin él, `get_text` pega el texto de un nodo con el del
+        # siguiente, y un `<br>` o un enlace dentro de la celda produce
+        # «INFORME NORMATIVOPRESENTACIÓN». `FRASES_CLAVE` se compara con `in`
+        # literal, así que una frase partida así deja de calzar sin avisar. En
+        # septiembre de 2026 pasaba en 3.497 celdas, pero ninguna era el título
+        # ni el texto del acuerdo, y el cambio no movió ni una fila relevante
+        # (679 antes y después, mismas claves y descripciones): es contención
+        # para el día en que la CMF parta un título con `<br>`.
+        textos = [c.get_text(" ", strip=True) for c in celdas]
         texto_fila = " ".join(textos)
 
         # Descripción: celda más larga *con texto*. Sin el filtro, en una norma
