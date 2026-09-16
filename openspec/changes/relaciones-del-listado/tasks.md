@@ -26,5 +26,5 @@
 ## 5. Cierre
 
 - [x] 5.1 Actualizar CLAUDE.md: pipeline (fetch y store), contratos de datos (`relaciones_cmf`), reparto de categorías y por qué no se guardan las relaciones entrantes
-- [ ] 5.2 Regenerar `docs/index.html`, commitear código y datos por separado, y pushear
+- [x] 5.2 Regenerar `docs/index.html`, commitear código y datos por separado, y pushear
 - [x] 5.3 Anotar en `pendientes-malla.md` el hueco de la NCG 562/2026 (sección de derogación después de la de vigencia, «Derogase» sin tilde)
