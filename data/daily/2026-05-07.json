@@ -1154,7 +1154,9 @@
           "numero_norma": 1333,
           "tipo_norma": "Circular",
           "seccion_romana": "IV",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "ver texto"
           }
@@ -1264,7 +1266,9 @@
           "numero_norma": 2054,
           "tipo_norma": "Circular",
           "seccion_romana": "VI",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2027-07-01"
           }
@@ -1543,6 +1547,30 @@
         {
           "norma": "NCG N°461",
           "numero_norma": 461,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "2026-12-31"
+          }
+        },
+        {
+          "norma": "NCG N°431",
+          "numero_norma": 431,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
+          "acciones": [
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "2026-12-31"
+          }
+        },
+        {
+          "norma": "NCG N°475",
+          "numero_norma": 475,
           "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
@@ -2272,7 +2300,9 @@
           "numero_norma": 1869,
           "tipo_norma": "Circular",
           "seccion_romana": "VI",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2025-02-01"
           }
@@ -2461,7 +2491,21 @@
           "numero_norma": 1246,
           "tipo_norma": "Circular",
           "seccion_romana": "II",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "2024-05-01"
+          }
+        },
+        {
+          "norma": "Circular N°1664",
+          "numero_norma": 1664,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2024-05-01"
           }
@@ -2599,7 +2643,9 @@
           "numero_norma": 412,
           "tipo_norma": "NCG",
           "seccion_romana": "III",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2025-01-13"
           }
@@ -2639,7 +2685,22 @@
           "numero_norma": 493,
           "tipo_norma": "NCG",
           "seccion_romana": "VIII",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "2024-02-03",
+            "plazo_transicion": "2024-02-03"
+          }
+        },
+        {
+          "norma": "NCG N°494",
+          "numero_norma": 494,
+          "tipo_norma": "NCG",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2024-02-03",
             "plazo_transicion": "2024-02-03"
@@ -3145,18 +3206,7 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL PARA CÁMARAS DE COMPENSACIÓN DE PAGOS DE BAJO VALOR REGULADAS POR EL BANCO CENTRAL DE CHILE; LA CIRCULAR QUE MODIFICA LA NORMATIVA QUE INDICA Y LA EXCLUYE DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2327_2022.pdf",
       "parsed": true,
-      "modifica": [
-        {
-          "norma": "Circular N°1",
-          "numero_norma": 1,
-          "tipo_norma": "Circular",
-          "seccion_romana": null,
-          "acciones": [],
-          "vigencia": {
-            "inicio": "no especificado"
-          }
-        }
-      ],
+      "modifica": [],
       "vigencia": {
         "inicio": "no especificado",
         "fuente": "ninguna"
@@ -3262,18 +3312,7 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA LA NORMATIVA SOBRE PREVENCIÓN DEL LAVADO DE ACTIVOS, FINANCIAMIENTO AL TERRORISMO Y LA NO PROLIFERACIÓN DE ARMAS DE DESTRUCCIÓN MASIVA APLICABLE A BANCOS, COOPERATIVAS Y EMISORES DE TARJETAS DE PAGO.",
       "url_documento": "https://www.cmfchile.cl/normativa/cir_2325_2022.pdf",
       "parsed": true,
-      "modifica": [
-        {
-          "norma": "Circular N°123",
-          "numero_norma": 123,
-          "tipo_norma": "Circular",
-          "seccion_romana": null,
-          "acciones": [],
-          "vigencia": {
-            "inicio": "no especificado"
-          }
-        }
-      ],
+      "modifica": [],
       "vigencia": {
         "inicio": "no especificado",
         "fuente": "ninguna"
@@ -3743,7 +3782,21 @@
           "numero_norma": 1429,
           "tipo_norma": "Circular",
           "seccion_romana": "III",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "ver texto"
+          }
+        },
+        {
+          "norma": "Oficio Circular N°253",
+          "numero_norma": 253,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": "III",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "ver texto"
           }
@@ -4047,7 +4100,21 @@
           "numero_norma": 49,
           "tipo_norma": "NCG",
           "seccion_romana": "V",
-          "acciones": [],
+          "acciones": [
+            "Deróganse"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°91",
+          "numero_norma": 91,
+          "tipo_norma": "NCG",
+          "seccion_romana": "V",
+          "acciones": [
+            "Deróganse"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -4510,7 +4577,9 @@
           "numero_norma": 385,
           "tipo_norma": "NCG",
           "seccion_romana": "I",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }

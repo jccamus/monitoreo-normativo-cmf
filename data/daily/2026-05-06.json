@@ -440,7 +440,9 @@
           "numero_norma": 345,
           "tipo_norma": "NCG",
           "seccion_romana": "V",
-          "acciones": [],
+          "acciones": [
+            "Deróganse"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -1455,7 +1457,22 @@
           "numero_norma": 493,
           "tipo_norma": "NCG",
           "seccion_romana": "X",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata",
+            "plazo_transicion": "2024-02-03"
+          }
+        },
+        {
+          "norma": "NCG N°494",
+          "numero_norma": 494,
+          "tipo_norma": "NCG",
+          "seccion_romana": "X",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "inmediata",
             "plazo_transicion": "2024-02-03"
@@ -1646,7 +1663,33 @@
           "numero_norma": 818,
           "tipo_norma": "Circular",
           "seccion_romana": "II",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°819",
+          "numero_norma": 819,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°1222",
+          "numero_norma": 1222,
+          "tipo_norma": "Circular",
+          "seccion_romana": "II",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -1738,7 +1781,9 @@
           "numero_norma": 1939,
           "tipo_norma": "Circular",
           "seccion_romana": "IV",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2025-02-01"
           }

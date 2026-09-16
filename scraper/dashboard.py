@@ -39,7 +39,8 @@ OUTPUT = DOCS_DIR / "index.html"
 # `store.normas_en_descripcion`, que además reconoce circulares y oficios
 # circulares. Eran una copia del patrón de `store` y la copia era el problema:
 # al agregar un cuerpo normativo había que acordarse de los dos.
-_DEROGA_RE = re.compile(r"\b(DEROGA|DERÓGASE|DEROGACIÓN)\b", re.IGNORECASE)
+# «DERÓGUESE» y «DERÓGANSE»: NCG 565/2026 y 471/2022; ver `parser._ACCION`.
+_DEROGA_RE = re.compile(r"\b(DEROGA|DERÓGASE|DERÓGUESE|DERÓGANSE|DEROGACIÓN)\b", re.IGNORECASE)
 
 # ── Clasificación por cuerpo normativo (tab "Cambios relevantes") ────────
 # Cada grupo: (clave_corta, título_largo, regex) en orden de presentación.

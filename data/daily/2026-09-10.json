@@ -195,6 +195,30 @@
           "vigencia": {
             "inicio": "2027-03-01"
           }
+        },
+        {
+          "norma": "Circular N°632",
+          "numero_norma": 632,
+          "tipo_norma": "Circular",
+          "seccion_romana": "XV",
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {
+            "inicio": "2027-03-01"
+          }
+        },
+        {
+          "norma": "Circular N°695",
+          "numero_norma": 695,
+          "tipo_norma": "Circular",
+          "seccion_romana": "XV",
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {
+            "inicio": "2027-03-01"
+          }
         }
       ],
       "vigencia": {
@@ -242,7 +266,8 @@
           "tipo_norma": "Circular",
           "seccion_romana": null,
           "acciones": [
-            "Reemplácese"
+            "Reemplácese",
+            "Deróguese"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -365,23 +390,6 @@
         {
           "norma": "Circular N°98",
           "numero_norma": 98,
-          "tipo_norma": "Circular",
-          "seccion_romana": "III",
-          "acciones": [],
-          "vigencia": {
-            "inicio": "2027-01-27",
-            "precision": "dia",
-            "calculo": {
-              "base": "publicacion",
-              "fecha_base": "2026-05-27",
-              "expresion": "8 meses desde la publicación",
-              "texto": "comenzarán a regir dieciocho meses después de la publicación"
-            }
-          }
-        },
-        {
-          "norma": "Circular N°108",
-          "numero_norma": 108,
           "tipo_norma": "Circular",
           "seccion_romana": "III",
           "acciones": [],
@@ -797,7 +805,9 @@
           "numero_norma": 2166,
           "tipo_norma": "Circular",
           "seccion_romana": "II",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -1603,7 +1613,35 @@
           "numero_norma": 314,
           "tipo_norma": "NCG",
           "seccion_romana": "VIII",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "2025-05-01",
+            "plazo_transicion": "2025-05-30"
+          }
+        },
+        {
+          "norma": "Circular N°1777",
+          "numero_norma": 1777,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "2025-05-01",
+            "plazo_transicion": "2025-05-30"
+          }
+        },
+        {
+          "norma": "Circular N°1913",
+          "numero_norma": 1913,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "2025-05-01",
             "plazo_transicion": "2025-05-30"
@@ -1754,7 +1792,9 @@
           "numero_norma": 472,
           "tipo_norma": "NCG",
           "seccion_romana": "V",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }

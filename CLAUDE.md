@@ -657,6 +657,11 @@ ven chicos y no lo son:
   (`_tipos_de_entrada`). Rotular así una circular que modifica otra circular
   pone la entrada bajo un filtro que afirma algo que no pasó. La derogación sí
   es indiferente al cuerpo.
+- **Las series de la ex-SBIF no son circulares CMF.** «Circular N°3.530
+  Bancos», «Circular N°108 de Cooperativas» o «Circular N°1 para Emisores de
+  Tarjetas de Pago» tienen numeración propia. El parser las descarta
+  (`parser._ENUM_PASO`), pero **`store.normas_en_descripcion` todavía no**: la
+  descripción de la NCG 469/2022 aporta una «Circular N°3530» que no existe.
 
 La deducción desde la descripción vive en **`store.normas_en_descripcion`**, y
 el dashboard la llama en vez de tener su propia copia: eran dos regex parecidos
@@ -769,20 +774,25 @@ propósito, así que la categoría reaparece sola cuando llega el primer caso. H
 dicen «EXIME DEL TRÁMITE DE CONSULTA PÚBLICA», o sea documentos que se la
 **saltaron**.
 
-Reparto vigente sobre las 672 entradas (10-09-2026; suma más de 672 porque una
+Reparto vigente sobre las 674 entradas (16-09-2026; suma más de 674 porque una
 entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 299 |
-| Derogación | 154 |
-| Modificación NCG | 127 |
-| Modificación Circular | 121 |
+| Otro | 300 |
+| Derogación | 167 |
+| Modificación NCG | 122 |
+| Modificación Circular | 111 |
 | Modificación Oficio Circular | 34 |
 | Postergación de vigencia | 4 |
-| Circular | 2 |
+| Circular | 3 |
 | Nueva Normativa | 1 |
 | Consulta Pública | 0 |
+
+El 16-09-2026 «Derogación» subió de 154 a 167 y las dos «Modificación» bajaron
+16 en conjunto: el parser no reconocía «Deróguese» ni «Deróganse», así que esas
+derogaciones quedaban con `acciones: []` y el dashboard las leía como
+modificaciones. Ver `parser._ACCION`.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.

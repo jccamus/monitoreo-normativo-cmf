@@ -83,6 +83,53 @@ _NORMA_MOD   = re.compile(
     re.IGNORECASE,
 )
 
+# Lo que sigue a `_NORMA_MOD` cuando el verbo rige sobre una lista. La NCG
+# 565/2026 deroga trece normas en una sola oración —«Deróguese las Normas de
+# Carácter General N°275 de 2010, N°302 de 2011, N°355 de 2013, N°534 de 2025,
+# las Circulares N°075 de 1981, […], los Oficios Circulares N°718 y N°764 de
+# 2012 y N°872 de 2015; y la Circular N°12 de 2010 de Auditores Externos»— y
+# `_NORMA_MOD`, que sólo ve el número pegado al verbo, se quedaba con la 275.
+#
+# `_enumeracion` recorre la lista paso a paso y se detiene en lo primero que no
+# sea uno de estos pasos. Cuatro reglas, las cuatro por un caso:
+#
+# - **El cuerpo cambia a mitad de lista** («…N°534 de 2025, las Circulares
+#   N°075…»): cada número se rotula con el último cuerpo nombrado, no con el
+#   del verbo.
+# - **Un número suelto tras un separador necesita un año antes de que termine
+#   su grupo.** «N°718 y N°764 de 2012» se acepta; «Modifícase la Circular
+#   N°2.110, N°1 letra a)» no, porque ese N°1 es un numeral del documento y no
+#   otra norma. El número pegado al nombre del cuerpo no lo necesita: ahí no
+#   hay ambigüedad.
+# - **Una serie de otro emisor descarta el grupo.** «Circular N°12 de 2010 de
+#   Auditores Externos», «Circular N°3.530 Bancos» (NCG 469/2022) y «Circular
+#   N°1 para Emisores de Tarjetas de Pago» (circular 2325/2022) son series
+#   de la ex-SBIF con numeración propia: rotularlas «Circular N°12» le
+#   atribuiría la derogación a otra norma. Sólo se descarta lo que la serie
+#   califica, no la lista entera. Ver «Una norma se identifica por tipo y
+#   número» en CLAUDE.md.
+#   **«para bancos» no es una serie**: la circular 2371/2026 «Modifica la
+#   Circular N°2.364 para bancos», que es una circular CMF. «para» sólo marca
+#   serie delante de «Emisores»; no lo generalices a los demás destinatarios.
+# - **Entre un elemento y el siguiente tiene que haber un separador.** En el
+#   bloque REF, la línea que sigue a la norma modificada es la identidad del
+#   propio documento —«MODIFICA NORMA DE CARÁCTER GENERAL N° 526», y en la
+#   línea de abajo «NORMA DE CARÁCTER GENERAL N°545»—, y sin esta exigencia la
+#   NCG 545/2025 y la
+#   circular 2356/2024 figuraban modificándose a sí mismas.
+_ENUM_PASO = re.compile(
+    r"\s*(?:"
+    r"(?P<sep>[,;]|\by\b)"
+    r"|(?P<anio>del?\s+\d{4}\b)"
+    r"|(?:(?:EL|LOS|L[AO]S?)\s+)?(?P<cuerpo>" + _CUERPO_MOD + r")"
+    r"(?:\s*N[°oº]\s*|\s+)(?P<num_cuerpo>\d[\d.]*\d|\d)"
+    r"|N[°oº]\s*(?P<num>\d[\d.]*\d|\d)"
+    r"|(?P<serie>(?:(?:de\s+)?(?:Bancos|Cooperativas|Filiales|Auditores\s+Externos)"
+    r"|para\s+Emisores)\b)"
+    r")",
+    re.IGNORECASE,
+)
+
 
 def _tipo_cuerpo(texto: str) -> str:
     """Cuerpo normativo capturado → el tipo con que se rotula la norma."""
@@ -102,8 +149,13 @@ def _numero_norma(texto: str) -> int:
 def _etiqueta_norma(tipo: str, numero: int) -> str:
     """Rótulo de la norma afectada. Misma forma que `store.etiqueta_norma`."""
     return f"{tipo} N°{numero}"
+# «Deróguese» y «Deróganse» además de «Derógase»: la NCG 565/2026 usa la primera
+# y la 471/2022 la segunda. Sin ellas
+# su `modifica[]` salía con `acciones: []` y el dashboard la rotulaba «Modificada
+# por» sobre trece normas que deroga. Si agregas una forma de derogar, agrégala
+# también a `dashboard._DEROGA_RE`, que es quien la lee.
 _ACCION      = re.compile(
-    r"\b(Agréguese|Intercálase|Elimínese|Sustitúyase|Derógase|Modifíquese|Reemplácese|Agrégase)\b",
+    r"\b(Agréguese|Intercálase|Elimínese|Sustitúyase|Derógase|Deróguese|Deróganse|Modifíquese|Reemplácese|Agrégase)\b",
     re.IGNORECASE,
 )
 _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+", re.MULTILINE)
@@ -1097,8 +1149,50 @@ def _normas_mencionadas(segmento: str) -> list[tuple[str, int]]:
     """
     vistas: dict[tuple[str, int], None] = {}
     for m in _NORMA_MOD.finditer(segmento):
-        vistas[(_tipo_cuerpo(m.group(1)), _numero_norma(m.group(2)))] = None
+        for norma in _enumeracion(segmento, m):
+            vistas[norma] = None
     return list(vistas)
+
+
+def _enumeracion(segmento: str, m: re.Match) -> list[tuple[str, int]]:
+    """La norma que calzó `_NORMA_MOD` más las que siguen en su misma lista.
+
+    Ver `_ENUM_PASO` para las reglas y el caso que las motivó.
+    """
+    tipo = _tipo_cuerpo(m.group(1))
+    tramo = [(tipo, _numero_norma(m.group(2)))]   # lo último aceptado
+    aceptadas = list(tramo)
+    pendientes: list[tuple[str, int]] = []         # sueltos que esperan su año
+    tramo_cerrado = False                          # un año ya separó el tramo de lo que sigue
+    separado = False                               # hubo «,», «;» o «y» desde el último número
+    pos = m.end()
+    while (p := _ENUM_PASO.match(segmento, pos)) and p.end() > pos:
+        if (p.group("cuerpo") or p.group("num")) and not separado:
+            break
+        pos = p.end()
+        separado = bool(p.group("sep")) or (separado and bool(p.group("anio")))
+        if p.group("cuerpo"):
+            tipo = _tipo_cuerpo(p.group("cuerpo"))
+            tramo, pendientes = [(tipo, _numero_norma(p.group("num_cuerpo")))], []
+            aceptadas += tramo
+            tramo_cerrado = False
+        elif p.group("num"):
+            pendientes.append((tipo, _numero_norma(p.group("num"))))
+        elif p.group("anio"):
+            if pendientes:
+                tramo, pendientes = pendientes, []
+                aceptadas += tramo
+            tramo_cerrado = True
+        elif p.group("serie"):
+            # La serie califica a todo lo que la precede sin un año de por
+            # medio: «las Circulares N°147 y N°149 de Cooperativas» son las
+            # dos de la serie, pero en «N°075 de 1981, N°478 de Bancos» la 075
+            # queda fuera.
+            if not (pendientes and tramo_cerrado):
+                aceptadas = [n for n in aceptadas if n not in tramo]
+                tramo = []
+            pendientes = []
+    return aceptadas
 
 
 def _vigencia_impuesta(impuestas: dict, tipo: str, numero: int, por_defecto: dict) -> dict:

@@ -66,7 +66,141 @@
           "numero_norma": 275,
           "tipo_norma": "NCG",
           "seccion_romana": "VIII",
-          "acciones": [],
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°302",
+          "numero_norma": 302,
+          "tipo_norma": "NCG",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°355",
+          "numero_norma": 355,
+          "tipo_norma": "NCG",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "NCG N°534",
+          "numero_norma": 534,
+          "tipo_norma": "NCG",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°75",
+          "numero_norma": 75,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°478",
+          "numero_norma": 478,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°1167",
+          "numero_norma": 1167,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°1202",
+          "numero_norma": 1202,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Circular N°1964",
+          "numero_norma": 1964,
+          "tipo_norma": "Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Oficio Circular N°718",
+          "numero_norma": 718,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Oficio Circular N°764",
+          "numero_norma": 764,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        },
+        {
+          "norma": "Oficio Circular N°872",
+          "numero_norma": 872,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": "VIII",
+          "acciones": [
+            "Deróguese"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
