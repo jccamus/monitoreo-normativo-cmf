@@ -1,0 +1,164 @@
+{
+  "date": "2026-09-16",
+  "generated_at": "2026-09-16T15:17:40.336476+00:00",
+  "new_entries": [
+    {
+      "clave": "2023_2342",
+      "fecha": "2023-12-28",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Circular",
+        "numero": 2342
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE CONTIENE UN NUEVO ARCHIVO NORMATIVO SOBRE “OPERACIONES QUE ENTRAN A CARTERA EN INCUMPLIMIENTO Y RENEGOCIACIONES, RECUPERACIONES Y GASTOS DE CREDITOS INCUMPLIDOS”, QUE SE INCORPORA AL MANUAL DEL SISTEMAS DE INFORMACIÓN DE BANCOS.",
+      "url_documento": "https://www.cmfchile.cl/sitio/aplic/serdoc/ver_sgd.php?s567=ec28dbc7b5592028066906fef3cb722dVFdwQmVVMTZSWGxOUkZVMFRVUnJNMDlCUFQwPQ==&secuencia=-1&t=1789571569",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "ento y\nrenegociaciones, recuperaciones y gastos de créditos incumplidos” en\nel Sistema Contable del Manual de Sistemas de Información, mediante el cual\nse informarán las recuperaciones, gastos, renegociaciones y el detalle de las\nope"
+        }
+      ],
+      "archivos_afectados": [],
+      "tema": "Incorpora al Manual del Sistemas de Información de bancos un nuevo archivo normativo sobre “Operaciones que entran a cartera en incumplimiento y renegociaciones, recuperaciones y gastos de créditos incumplidos”",
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
+    },
+    {
+      "clave": "2001_0142",
+      "fecha": "2001-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "IMPARTE INSTRUCCIONES RELATIVAS A LA IMPLEMENTACION DE LOS COMITES DE DIRECTORES A QUE SE REFIERE EL ARTICULO 50 BIS DE LA LEY Nº 18.046.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_142_2001_01.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
+    },
+    {
+      "clave": "1999_1459",
+      "fecha": "1999-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "IMPARTE NORMAS SOBRE CERTIFICADO SEGURO OBLIGATORIO LEY NRO 18.490 (ES Y CS)",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_1459_1999.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "Circular",
+            "numero": 918,
+            "anio": 1990,
+            "fecha": "1990-01-04",
+            "url": "https://www.cmfchile.cl/normativa/cir_918_1990.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "clave": "1995_1194",
+      "fecha": "1995-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "ESTABLECE NORMAS PARA ENVIO EN MEDIOS MAGNETICOS DE INFORMACION DE SEGUROS PREVISIONALES E INDICES DE COBERTURA DEL SISTEMA DE CALCE (ESG2)",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_1194_1995.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "Circular",
+            "numero": 727,
+            "anio": 1987,
+            "fecha": "1987-08-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_727_1987.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 999,
+            "anio": 1991,
+            "fecha": "1991-03-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_999_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 799,
+            "anio": 1988,
+            "fecha": "1988-05-23",
+            "url": "https://www.cmfchile.cl/normativa/cir_799_1988.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "clave": "1993_1122",
+      "fecha": "1993-01-01",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": null,
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "IMPARTE NORMAS SOBRE FORMA, CONTENIDO Y PRESENTACION  DE LOS ESTADOS FINANCIEROS DE LAS ENTIDADES ASEGURADORAS Y REASEGURADORAS (ESG1)",
+      "url_documento": "https://www.cmfchile.cl/normativa/cir_1122_1993.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {},
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
+    }
+  ]
+}
