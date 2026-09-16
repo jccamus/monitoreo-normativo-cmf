@@ -61,9 +61,38 @@ def normas_en_descripcion(descripcion: str) -> list[tuple[str, int]]:
     eran dos regex parecidos en módulos distintos, listos para divergir.
     """
     vistas: dict[tuple[str, int], None] = {}
-    for m in _NORMA_EN_DESC.finditer(descripcion or ""):
+    for m in _menciones_en_descripcion(descripcion or ""):
         vistas[(_tipo_cuerpo(m.group(1)), int(m.group(2).replace(".", "")))] = None
     return list(vistas)
+
+
+# Lo que sigue o precede a una mención y la saca de la numeración CMF. La
+# NCG 469/2022 describe «DEROGA NORMA DE CARÁCTER GENERAL N° 330, CIRCULAR
+# N°3.530 BANCOS (CIRCULAR N° 147 DE COOPERATIVAS Y LA CIRCULAR N° 62 DE
+# FILIALES), CARTA CIRCULAR N°2 DEL 2012 BANCOS […]»: sólo la 330 es una norma
+# de la CMF (lo mismo «CIRCULAR N°1 DE EMPRESAS OPERADORAS DE TARJETAS DE PAGO»,
+# «… DE EMPRESAS EMISORAS» y «CIRCULAR N°23 DE SOCIEDADES DE APOYO AL GIRO», las
+# tres en la descripción de la circular 2361/2025). Las demás son series de la ex-SBIF, con numeración propia, y
+# rotularlas «Circular N°3530» o «Circular N°2» le atribuye la derogación a
+# otro documento —o a uno que no existe—. Es la misma regla que aplica el
+# parser en `_ENUM_PASO`; «para Emisores» es serie y «para bancos» no, porque
+# la CMF titula así sus propias circulares («Circular N°2.364 para bancos»).
+_SERIE_TRAS_MENCION = re.compile(
+    r"\s*(?:,?\s*DEL?\s+\d{4}\s*)?"
+    r"(?:(?:DE\s+)?(?:BANCOS|COOPERATIVAS|FILIALES|AUDITORES\s+EXTERNOS|EMPRESAS\s+(?:OPERADORAS|EMISORAS)|SOCIEDADES\s+DE\s+APOYO)|PARA\s+EMISORES)\b",
+    re.IGNORECASE,
+)
+_CARTA_ANTES = re.compile(r"CARTA\s+$", re.IGNORECASE)
+
+
+def _menciones_en_descripcion(descripcion: str):
+    """Menciones de `_NORMA_EN_DESC` que son normas de la CMF."""
+    for m in _NORMA_EN_DESC.finditer(descripcion):
+        if _SERIE_TRAS_MENCION.match(descripcion, m.end()):
+            continue
+        if _CARTA_ANTES.search(descripcion[max(0, m.start() - 12):m.start()]):
+            continue
+        yield m
 
 
 # Verbos que gobiernan cada mención, para atribuirle su propia acción.
@@ -238,7 +267,7 @@ def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
     if "MODIFICA" not in desc_upper and "DEROGA" not in desc_upper:
         return []
     resultado = []
-    for m in _NORMA_EN_DESC.finditer(descripcion):
+    for m in _menciones_en_descripcion(descripcion):
         # La acción se decide por norma y no para toda la descripción. Antes
         # era `"Derógase" if "DEROGA" in desc_upper else "Modifícase"`, o sea
         # en bloque: "MODIFICA NORMA DE CARÁCTER GENERAL N°152 … DEROGA OFICIO

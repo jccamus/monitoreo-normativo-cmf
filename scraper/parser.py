@@ -124,7 +124,7 @@ _ENUM_PASO = re.compile(
     r"|(?:(?:EL|LOS|L[AO]S?)\s+)?(?P<cuerpo>" + _CUERPO_MOD + r")"
     r"(?:\s*N[°oº]\s*|\s+)(?P<num_cuerpo>\d[\d.]*\d|\d)"
     r"|N[°oº]\s*(?P<num>\d[\d.]*\d|\d)"
-    r"|(?P<serie>(?:(?:de\s+)?(?:Bancos|Cooperativas|Filiales|Auditores\s+Externos)"
+    r"|(?P<serie>(?:(?:de\s+)?(?:Bancos|Cooperativas|Filiales|Auditores\s+Externos|Empresas\s+(?:Operadoras|Emisoras)|Sociedades\s+de\s+Apoyo)"
     r"|para\s+Emisores)\b)"
     r")",
     re.IGNORECASE,
@@ -150,12 +150,12 @@ def _etiqueta_norma(tipo: str, numero: int) -> str:
     """Rótulo de la norma afectada. Misma forma que `store.etiqueta_norma`."""
     return f"{tipo} N°{numero}"
 # «Deróguese» y «Deróganse» además de «Derógase»: la NCG 565/2026 usa la primera
-# y la 471/2022 la segunda. Sin ellas
+# y la 471/2022 la segunda. «Derogase» sin tilde, la NCG 562/2026. Sin ellas
 # su `modifica[]` salía con `acciones: []` y el dashboard la rotulaba «Modificada
 # por» sobre trece normas que deroga. Si agregas una forma de derogar, agrégala
 # también a `dashboard._DEROGA_RE`, que es quien la lee.
 _ACCION      = re.compile(
-    r"\b(Agréguese|Intercálase|Elimínese|Sustitúyase|Derógase|Deróguese|Deróganse|Modifíquese|Reemplácese|Agrégase)\b",
+    r"\b(Agréguese|Intercálase|Elimínese|Sustitúyase|Der[óo]gase|Deróguese|Deróganse|Modifíquese|Reemplácese|Agrégase)\b",
     re.IGNORECASE,
 )
 _SECCION_ROM = re.compile(r"^(I{1,3}|IV|VI{0,3}|IX|X{1,3}|XI{0,3}|XIV|XV)\.\s+", re.MULTILINE)
@@ -1116,7 +1116,18 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
 
     if secciones_pos:
         for i, (pos, num_rom) in enumerate(secciones_pos):
-            fin = secciones_pos[i + 1][0] if i + 1 < len(secciones_pos) else cuerpo_fin
+            if i + 1 < len(secciones_pos):
+                fin = secciones_pos[i + 1][0]
+            elif pos < cuerpo_fin:
+                fin = cuerpo_fin
+            else:
+                # La última sección va *después* de la vigencia. Cortarla en
+                # `cuerpo_fin`, que queda antes, la dejaba vacía: la NCG
+                # 562/2026 cierra con «V. VIGENCIA» y «VI. DEROGACIÓN», y sus
+                # tres derogaciones no llegaban a `modifica[]`. Se corta en la
+                # firma para no leer los anexos que siguen.
+                firma = _FIRMA.search(text, pos)
+                fin = firma.start() if firma else len(text)
             segmento = text[pos:fin]
 
             normas = _normas_mencionadas(segmento)
@@ -1163,11 +1174,39 @@ def _normas_mencionadas(segmento: str) -> list[tuple[str, int]]:
     REF del encabezado y otra al abrir el articulado—, y antes cada mención
     generaba su propia entrada en `modifica[]`.
     """
-    vistas: dict[tuple[str, int], None] = {}
+    menciones: list[tuple[int, tuple[str, int]]] = []
     for m in _NORMA_MOD.finditer(segmento):
-        for norma in _enumeracion(segmento, m):
-            vistas[norma] = None
+        menciones += [(m.start(), norma) for norma in _enumeracion(segmento, m)]
+    for m in _ENCABEZADO_NORMA.finditer(segmento):
+        menciones.append((m.start(), (_tipo_cuerpo(m.group(1)), _numero_norma(m.group(2)))))
+    vistas: dict[tuple[str, int], None] = {}
+    for _, norma in sorted(menciones, key=lambda x: x[0]):
+        vistas[norma] = None
     return list(vistas)
+
+
+# Norma que titula un bloque de cambios, sin verbo delante. La NCG 570/2026
+# «modifica diversos cuerpos normativos» así:
+#
+#     Norma de Carácter General N°209:
+#     • Reemplácese el undécimo párrafo del Anexo N°1 por el siguiente:
+#
+# y como `_NORMA_MOD` exige el verbo pegado a la norma, de sus cuatro normas
+# sólo veía la Circular 1677, la única con «Deróguese la Circular…» en la
+# viñeta. La línea tiene que ser *sólo* la norma y terminar en dos puntos: así
+# no calza con una norma citada en un párrafo, ni con la línea de identidad del
+# propio documento («NORMA DE CARÁCTER GENERAL N°570», sin dos puntos).
+#
+# Queda fuera, a propósito, la modificación en prosa con el verbo lejos de la
+# norma —la NCG 461/2021: «Reemplázase el título “Introducción” del numeral
+# 2.1.C.1 de la Sección II de la Norma de Carácter General N°30»—. Un patrón
+# que la alcance también alcanza «conforme a la Norma de Carácter General
+# N°431», que es una cita. Esas normas las aporta el listado de la CMF
+# (`relaciones_cmf`).
+_ENCABEZADO_NORMA = re.compile(
+    r"^[ \t]*" + _CUERPO_MOD + r"[ \t]*N[°oº][ \t]*(\d[\d.]*\d|\d)[ \t]*:[ \t]*$",
+    re.IGNORECASE | re.MULTILINE,
+)
 
 
 def _enumeracion(segmento: str, m: re.Match) -> list[tuple[str, int]]:

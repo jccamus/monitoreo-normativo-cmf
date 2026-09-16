@@ -702,10 +702,16 @@ ven chicos y no lo son:
   pone la entrada bajo un filtro que afirma algo que no pasó. La derogación sí
   es indiferente al cuerpo.
 - **Las series de la ex-SBIF no son circulares CMF.** «Circular N°3.530
-  Bancos», «Circular N°108 de Cooperativas» o «Circular N°1 para Emisores de
-  Tarjetas de Pago» tienen numeración propia. El parser las descarta
-  (`parser._ENUM_PASO`), pero **`store.normas_en_descripcion` todavía no**: la
-  descripción de la NCG 469/2022 aporta una «Circular N°3530» que no existe.
+  Bancos», «Circular N°108 de Cooperativas», «Circular N°1 de Empresas
+  Emisoras de Tarjetas de Pago» o «Circular N°23 de Sociedades de Apoyo al
+  Giro» tienen numeración propia, y rotularlas «Circular N°…» las confunde con
+  la circular CMF del mismo número. Las descartan **las dos** deducciones: el
+  parser (`parser._ENUM_PASO`) y la descripción
+  (`store._SERIE_TRAS_MENCION`, que además descarta «CARTA CIRCULAR»). Las dos
+  listas de series tienen que avanzar juntas. Consecuencia buscada: un documento
+  que sólo modifica una circular de cooperativas ya no cae en «Modificación
+  Circular», porque ese filtro es de circulares CMF. **«para bancos» no es
+  serie**: la CMF titula así sus propias circulares.
 
 La deducción desde la descripción vive en **`store.normas_en_descripcion`**, y
 el dashboard la llama en vez de tener su propia copia: eran dos regex parecidos
@@ -841,10 +847,10 @@ entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 255 |
+| Otro | 260 |
 | Derogación | 196 |
 | Modificación NCG | 131 |
-| Modificación Circular | 109 |
+| Modificación Circular | 104 |
 | Modificación Oficio Circular | 33 |
 | Postergación de vigencia | 4 |
 | Circular | 3 |
@@ -863,6 +869,9 @@ casi todas escaneos anteriores a 2020, ganaron categoría con lo que dice el
 listado. «Modificación Circular» quedó igual en el total pero cambió por
 dentro: 17 entradas la perdieron porque su descripción dice «DEROGA CIRCULAR
 Nº…» y la deducción desde la descripción las leía como modificaciones.
+Después, al descartar las series ex-SBIF de la descripción, 5 entradas que sólo
+modificaban circulares de cooperativas o de emisoras de tarjetas volvieron a
+«Otro» (255 → 260).
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.
