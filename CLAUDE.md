@@ -81,6 +81,8 @@ python scraper/reparse.py --recalcular --desde 2021-01-01   # re-parsea TODAS la
 python scraper/reparse.py --recalcular --todas              # sin corte de año: las 607
 python scraper/revisar.py                    # refresca data/revisiones.csv (revisión manual)
 python scraper/revisar.py --estado           # sólo informa, no escribe
+python scraper/relaciones.py --dry-run       # relaciones del listado: qué entradas cambiarían
+python scraper/relaciones.py                 # completa `relaciones_cmf` sin bajar PDF (segundos)
 ```
 
 Python 3.11 en CI. El código usa sintaxis de tipos `list[dict]` / `str | None`, así que necesita ≥3.10.
@@ -181,7 +183,10 @@ lo vuelvas a crear.
    `YYYY-01-01`; guarda `resolucion` **sólo** si el PDF declara una de verdad; y
    guarda `modifica`, `vigencia`, `ran_referencias`, `msi_referencias`,
    `archivos_afectados`, `tema` y `resumen_acciones` **siempre**, no sólo cuando
-   `parsed` es True. Luego `guardar_diferencial` escribe
+   `parsed` es True. Copia además `relaciones_cmf` —lo que el listado dice que
+   el documento modifica y deroga, ver «Las relaciones del listado»— **sólo si
+   el `raw` lo trae**, para que `reparse.py`, que no consulta el listado, no lo
+   borre. Luego `guardar_diferencial` escribe
    `data/daily/YYYY-MM-DD.json` de forma **idempotente**: si el archivo del día
    existe, fusiona por `clave` y las entradas nuevas pisan a las viejas, para que
    gane un re-parseo corregido. Un archivo ilegible se respalda como
@@ -610,6 +615,44 @@ NCG N°530, `documento` es el oficio y `ncg` es 530, la norma afectada.
 «NCG N°470») cuando el parser no logra identificarlo, lo que cubre las normas
 conjuntas con otro regulador.
 
+## Las relaciones del listado: `relaciones_cmf`
+
+Cada fila del listado de la CMF trae columnas «Modifica a», «Modificada por»,
+«Deroga a» y «Derogada por», con enlace al PDF de cada norma. `fetch` lee **sólo
+las dos salientes** y las guarda en `relaciones_cmf.modifica_a` /
+`relaciones_cmf.deroga_a`, con tipo, número y año sacados del `href` (nunca del
+texto de la celda, que trae el número pelado) y la fecha apareada por posición.
+El detalle de la lectura —enlaces vacíos intercalados, columnas ubicadas por el
+encabezado, descuadre que no emite nada— está en los comentarios de
+`fetch._relaciones_de_fila` y vecinas. El diseño completo, con las alternativas
+descartadas, en `openspec/changes/relaciones-del-listado/`.
+
+Tres cosas que no se deducen del código:
+
+- **Las entrantes no se guardan, y no es un olvido.** «Modificada por» crece
+  cada vez que sale una norma posterior; cada entrada se guarda una sola vez,
+  así que una foto de esa columna queda vieja con la primera modificación y se
+  lee como «nadie la ha modificado». Lo entrante se obtiene invirtiendo las
+  salientes de las demás entradas, que es lo que ya hace la línea de tiempo.
+- **Es un campo aparte de `modifica[]` a propósito.** `modifica[]` es lo que
+  dice el PDF; mezclarle fuentes ya costó el enredo de `descripcion_cmf` (sección
+  siguiente). En el dashboard el listado es **piso** (`_normas_afectadas_ids`
+  suma, nunca quita) y **segunda fuente** de la acción en `_accion_sobre_norma`:
+  PDF → listado → descripción. Las normas que sólo conoce el listado llevan
+  borde en el detalle (`_render_relaciones_listado`).
+- **El histórico se completa sin PDF**: `python scraper/relaciones.py` consulta
+  el listado una vez y escribe el campo en todo `data/daily/`. Es idempotente;
+  si la CMF corrige una relación, correrlo de nuevo la actualiza.
+
+Medido al implementarlo (16-09-2026): en 295 de 388 entradas con relaciones el
+listado nombra normas que el PDF no deja ver —la NCG 571/2026 deroga 55 según el
+listado y el parser encuentra 3—, y donde las dos fuentes conocen la misma norma
+coinciden en la acción en los 130 casos. **El listado tampoco es completo**: la
+565/2026 deroga la NCG 534 y el listado la omite. Antes de culpar al listado por
+una norma que el PDF «no dice», lee el PDF entero: la NCG 562/2026 deroga tres
+normas en una sección que va después de la de vigencia, donde el parser ya dejó
+de leer.
+
 ## La descripción del listado no es el PDF: `modifica[]` con `fuente: "descripcion_cmf"`
 
 Cuando el parser no encuentra ningún `modifica[]` en el PDF,
@@ -707,6 +750,12 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
   que **el formato es un contrato, no una decisión de presentación**: si le
   cambias el « N°» se rompe el agrupamiento. `tipo_norma` ausente = `NCG`
   (entradas anteriores a septiembre de 2026).
+- **`relaciones_cmf`**: `{"modifica_a": [...], "deroga_a": [...]}`, cada ítem
+  `{tipo, numero, anio, fecha, url}` con `tipo` en los mismos valores que
+  `tipo_norma`, así que `(tipo, numero)` es la misma identidad. Un ítem que no
+  es NCG, circular ni oficio circular (capítulo de la RAN, oficio ordinario)
+  lleva `tipo`, `numero` y `anio` nulos y el texto en `referencia`. Ausente =
+  entrada que nunca pasó por `relaciones.py`; el dashboard lo trata como vacío.
 - **Convención del nombre de archivo del PDF:** el año de la *nueva* resolución se
   recupera del patrón `ncg_<num>_<year>.pdf` / `cir_<num>_<year>.pdf` en
   `_fecha_y_numero_desde_url`. Si la URL no trae año (PDF anteriores a 2000,
@@ -791,9 +840,9 @@ entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 300 |
-| Derogación | 167 |
-| Modificación NCG | 120 |
+| Otro | 255 |
+| Derogación | 196 |
+| Modificación NCG | 131 |
 | Modificación Circular | 109 |
 | Modificación Oficio Circular | 33 |
 | Postergación de vigencia | 4 |
@@ -807,6 +856,12 @@ derogaciones quedaban con `acciones: []` y el dashboard las leía como
 modificaciones. Ver `parser._ACCION`. El mismo día la derogación pasó a
 asignarse por norma y no por sección (`parser._normas_derogadas`): «Derógase la
 Sección III de la NCG N°273» ya no deroga la 273 entera.
+
+Ese mismo día entró `relaciones_cmf` y «Otro» bajó de 300 a 255: 45 entradas,
+casi todas escaneos anteriores a 2020, ganaron categoría con lo que dice el
+listado. «Modificación Circular» quedó igual en el total pero cambió por
+dentro: 17 entradas la perdieron porque su descripción dice «DEROGA CIRCULAR
+Nº…» y la deducción desde la descripción las leía como modificaciones.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.

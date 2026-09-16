@@ -199,6 +199,13 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     entrada["archivos_afectados"] = parsed.get("archivos_afectados") or []
     entrada["tema"] = parsed.get("tema") or ""
     entrada["resumen_acciones"] = parsed.get("resumen_acciones") or []
+    # Lo que el listado de la CMF dice que el documento modifica y deroga. Va
+    # en un campo propio y no dentro de `modifica[]`, que es lo que dice el PDF:
+    # mezclar fuentes en esa lista ya obligó al dashboard a ignorar las entradas
+    # con `fuente: "descripcion_cmf"`. Sólo se emite si el `raw` lo trae, para
+    # que un ensamblado sin listado —`reparse.py`— no lo borre.
+    if "relaciones_cmf" in raw:
+        entrada["relaciones_cmf"] = raw["relaciones_cmf"]
 
     _avisar_incoherencias(entrada)
     return entrada

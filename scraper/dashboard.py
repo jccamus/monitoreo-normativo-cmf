@@ -254,6 +254,12 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
         ids[("NCG", entrada["ncg"])] = None
     for tn in store.normas_en_descripcion(entrada.get("descripcion_cmf") or ""):
         ids[tn] = None
+    # El listado de la CMF es un piso: suma lo que el PDF no deja ver y nunca
+    # quita. Medido en septiembre de 2026, en 295 de 388 entradas con
+    # relaciones el listado nombra normas que el parser no encuentra; la NCG
+    # 571/2026 deroga 55 según el listado y el parser ve 3.
+    for tn in _relaciones_listado(entrada):
+        ids[tn] = None
 
     # Una norma no se modifica a sí misma. `ncg` y la descripción traen el
     # número propio del documento, y aparecía listado entre las normas
@@ -266,6 +272,74 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
         ids.pop((doc.get("tipo"), doc["numero"]), None)
 
     return sorted(ids)
+
+
+def _relaciones_listado(entrada: dict) -> dict[tuple[str, int], str]:
+    """(tipo, número) → «deroga» o «modifica», según el listado de la CMF.
+
+    Lee `relaciones_cmf`, que `fetch` saca de las columnas «Modifica a» y
+    «Deroga a». Los ítems sin tipo reconocible (capítulos de la RAN, oficios
+    ordinarios) no entran: el dashboard indexa sólo NCG, circulares y oficios
+    circulares. Si una norma figura en las dos columnas, gana la derogación.
+    """
+    rel = entrada.get("relaciones_cmf") or {}
+    out: dict[tuple[str, int], str] = {}
+    for columna, accion in (("modifica_a", "modifica"), ("deroga_a", "deroga")):
+        for item in rel.get(columna) or []:
+            if item.get("tipo") and isinstance(item.get("numero"), int):
+                out[(item["tipo"], item["numero"])] = accion
+    return out
+
+
+def _normas_del_pdf(entrada: dict) -> set[tuple[str, int]]:
+    """Normas que el parser encontró en el PDF, sin el respaldo de la descripción."""
+    return {
+        (m.get("tipo_norma") or "NCG", m["numero_norma"])
+        for m in entrada.get("modifica") or []
+        if m.get("fuente") != "descripcion_cmf" and isinstance(m.get("numero_norma"), int)
+    }
+
+
+def _render_relaciones_listado(entrada: dict) -> str:
+    """Bloque del detalle con lo que el listado de la CMF dice que el documento
+    modifica y deroga.
+
+    Se muestra aparte de «Modificaciones desglosadas», que es lo que se leyó
+    en el PDF, y las normas que el PDF no nombra llevan borde y tooltip: el
+    dato vale, y de dónde salió también —el mismo criterio de «· calculada» y
+    «· confirmada» en la vigencia—. Los ítems sin identidad (un capítulo de la
+    RAN) se muestran con el texto que trae el listado.
+    """
+    rel = entrada.get("relaciones_cmf") or {}
+    del_pdf = _normas_del_pdf(entrada)
+    filas = []
+    solo_listado = False
+    for columna, rotulo, clase in (("deroga_a", "Deroga", "chip-eliminar"),
+                                   ("modifica_a", "Modifica", "chip-modificar")):
+        chips = []
+        for item in rel.get(columna) or []:
+            if item.get("tipo") and isinstance(item.get("numero"), int):
+                texto = store.etiqueta_norma(item["tipo"], item["numero"])
+                if item.get("anio"):
+                    texto += f" de {item['anio']}"
+                nuevo = (item["tipo"], item["numero"]) not in del_pdf
+            else:
+                texto, nuevo = item.get("referencia") or "—", False
+            solo_listado |= nuevo
+            extra = (' chip-solo-listado" title="Sólo en el listado de la CMF: '
+                     'no aparece en el texto del PDF') if nuevo else ""
+            chips.append(f'<span class="chip {clase}{extra}">{html.escape(texto)}</span>')
+        if chips:
+            filas.append(
+                f'<p class="d-rel"><span class="d-rel-rotulo">{rotulo}</span></p>'
+                f'<div class="chips">{"".join(chips)}</div>'
+            )
+    if not filas:
+        return ""
+    nota = ('<p class="d-extra">Con borde: la norma no aparece en el texto del PDF, '
+            'sólo en el listado.</p>') if solo_listado else ""
+    return (f'<div class="d-bloque"><span class="d-label">Según el listado de la CMF</span>'
+            f'{"".join(filas)}{nota}</div>')
 
 
 def _normas_afectadas(entrada: dict) -> list[str]:
@@ -2013,6 +2087,10 @@ def _render_detalle(e: dict) -> str:
             f'<ul>{"".join(items)}</ul></div>'
         )
 
+    bloque_listado = _render_relaciones_listado(e)
+    if bloque_listado:
+        bloques.append(bloque_listado)
+
     rans = e.get("ran_referencias") or []
     if rans:
         chips = "".join(f'<span class="chip">{html.escape(r)}</span>' for r in rans)
@@ -2161,6 +2239,14 @@ def _accion_sobre_norma(entrada: dict, numero: int, tipo: str = "NCG") -> str:
         if any(_DEROGA_RE.search(a or "") for a in m.get("acciones") or []):
             return "Derogada por"
         return "Modificada por"
+
+    # 1b. Lo que dice el listado de la CMF, en columnas propias. Va después del
+    #     PDF, que es el texto normativo, y antes de la descripción, que se lee
+    #     con regex. Donde las dos primeras conocen la misma norma coincidían en
+    #     los 130 casos medidos en septiembre de 2026.
+    accion = _relaciones_listado(entrada).get((tipo, numero))
+    if accion:
+        return "Derogada por" if accion == "deroga" else "Modificada por"
 
     # 2. Manda el último verbo que aparece antes de la mención dentro de su
     #    misma oración. Exigir que el verbo esté pegado no sirve, porque la
@@ -3378,6 +3464,10 @@ _TEMPLATE = """<!DOCTYPE html>
     .chip-crear     { background: var(--cmf-success-bg); color: var(--ink-on-success-bg); }
     .chip-modificar { background: var(--cmf-info-bg);    color: var(--cmf-navy); }
     .chip-eliminar  { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
+    .chip-solo-listado { box-shadow: inset 0 0 0 1px currentColor; }
+    .d-rel { margin: var(--space-2) 0 var(--space-1); }
+    .d-rel-rotulo { font-size: var(--fs-xs); font-weight: var(--fw-semibold);
+                    color: var(--text-muted); }
 
     .tl-norma { padding: var(--space-3) var(--space-5);
                 border-bottom: var(--border-w) solid var(--cmf-ink-100); }

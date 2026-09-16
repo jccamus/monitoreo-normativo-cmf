@@ -154,6 +154,10 @@ def reparsear(
                     "descripcion": entrada.get("descripcion_cmf", ""),
                     "url_documento": url,
                 }
+                # Las relaciones vienen del listado, que reparse no consulta:
+                # se arrastran las guardadas. Ver `scraper/relaciones.py`.
+                if "relaciones_cmf" in entrada:
+                    raw["relaciones_cmf"] = entrada["relaciones_cmf"]
                 nueva = ensamblar_entrada(raw, parsed)
             except Exception:
                 fallidas += 1

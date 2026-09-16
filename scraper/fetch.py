@@ -243,6 +243,7 @@ def _parse_listado(html: str) -> list[dict]:
         return []
 
     filas = tabla.find_all("tr")
+    posiciones = _posiciones_relaciones(filas[0]) if filas else {}
     for fila in filas[1:]:  # saltar encabezado
         celdas = fila.find_all("td")
         if len(celdas) < 3:
@@ -250,9 +251,103 @@ def _parse_listado(html: str) -> list[dict]:
 
         entrada = _extraer_celda(celdas)
         if entrada:
+            entrada["relaciones_cmf"] = _relaciones_de_fila(
+                celdas, posiciones, entrada["url_documento"]
+            )
             resoluciones.append(entrada)
 
     return resoluciones
+
+
+# Relaciones salientes que publica el listado, por el título de su columna en
+# el encabezado. Las entrantes («Modificada por», «Derogada por») no se leen a
+# propósito: crecen cada vez que sale una norma posterior, y en un almacén
+# diferencial —cada entrada se guarda una vez— quedarían desactualizadas y se
+# leerían como «nadie la ha modificado». Lo entrante se obtiene invirtiendo las
+# salientes de las demás entradas. Ver openspec/changes/relaciones-del-listado.
+_COLUMNAS_RELACION = {"MODIFICA A": "modifica_a", "DEROGA A": "deroga_a"}
+
+# Identidad de una norma relacionada, desde el `href` y nunca desde el texto de
+# la celda, que trae el número pelado («275») sin tipo ni año. El número admite
+# punto de miles: el listado enlaza `ofc_6.016_1999.pdf`.
+_HREF_NORMA = re.compile(r"(ncg|cir|ofc)_(\d[\d.]*)_(\d{4})(?:_\d+)?\.pdf", re.IGNORECASE)
+_TIPO_HREF = {"ncg": "NCG", "cir": "Circular", "ofc": "Oficio Circular"}
+_FECHA_CELDA = re.compile(r"(\d{2})/(\d{2})/(\d{4})")
+
+
+def _posiciones_relaciones(encabezado) -> dict[str, int]:
+    """Índice de la celda de enlaces de cada relación, leído del encabezado.
+
+    La tabla tiene un encabezado de dos renglones y cada relación ocupa dos
+    celdas por fila (enlaces y fechas) bajo un `colspan=2`, así que la posición
+    se obtiene sumando los `colspan` del primer renglón: hoy «Modifica a» cae
+    en la celda 9 y «Deroga a» en la 13. Se calcula en vez de fijarse para que,
+    si la CMF reordena la tabla, no se lean fechas o normas de otra columna: sin
+    las dos columnas el resultado es `{}`, las relaciones quedan vacías y hay
+    warning.
+    """
+    posiciones: dict[str, int] = {}
+    indice = 0
+    for th in encabezado.find_all(["th", "td"]):
+        titulo = " ".join(th.get_text(" ", strip=True).upper().split())
+        ancho = int(th.get("colspan") or 1)
+        if titulo in _COLUMNAS_RELACION and ancho == 2:
+            posiciones[_COLUMNAS_RELACION[titulo]] = indice
+        indice += ancho
+    if len(posiciones) != len(_COLUMNAS_RELACION):
+        logger.warning(
+            "El encabezado del listado no trae las columnas de relación esperadas "
+            "(%s) — no se leen relaciones", sorted(posiciones) or "ninguna",
+        )
+        return {}
+    return posiciones
+
+
+def _relaciones_de_fila(celdas: list, posiciones: dict[str, int], url: str) -> dict[str, list[dict]]:
+    """«Modifica a» y «Deroga a» de una fila, una lista de normas por relación."""
+    relaciones: dict[str, list[dict]] = {nombre: [] for nombre in _COLUMNAS_RELACION.values()}
+    for nombre, i in posiciones.items():
+        if i + 1 >= len(celdas):
+            continue
+        # Sólo los enlaces con texto. La celda intercala enlaces vacíos —a la
+        # SBIF (`LeyNorma?indice=…`) o a `__.pdf`— que no son ítems: contarlos
+        # descuadra el apareo con las fechas, que es de donde salió el falso
+        # «2 normas y 4 fechas» de la NCG 484/2022 (son 4 ítems, dos de ellos
+        # capítulos de la RAN).
+        enlaces = [a for a in celdas[i].find_all("a", href=True) if a.get_text(strip=True)]
+        fechas = _FECHA_CELDA.findall(celdas[i + 1].get_text(" "))
+        if len(enlaces) != len(fechas):
+            # Un apareo corrido le asigna a cada norma la fecha de otra sin que
+            # se note. En septiembre de 2026 no había ningún caso en 2.622
+            # celdas; si aparece, mejor el hueco.
+            logger.warning(
+                "«%s» con %d normas y %d fechas en %s — no se guarda esa relación",
+                nombre, len(enlaces), len(fechas), url,
+            )
+            continue
+        for a, (dia, mes, anio) in zip(enlaces, fechas):
+            relaciones[nombre].append(_item_relacion(a, f"{anio}-{mes}-{dia}"))
+    return relaciones
+
+
+def _item_relacion(enlace, fecha: str) -> dict:
+    """Una norma relacionada. Sin patrón reconocible, identidad nula y el texto.
+
+    Lo que no es NCG, circular ni oficio circular —capítulos de la RAN, oficios
+    ordinarios `ofo_`— se guarda igual, pero sin inventarle tipo ni número.
+    """
+    url = urljoin("https://www.cmfchile.cl/institucional/legislacion_normativa/", enlace["href"])
+    m = _HREF_NORMA.search(enlace["href"])
+    if not m:
+        return {"tipo": None, "numero": None, "anio": None, "fecha": fecha,
+                "referencia": enlace.get_text(" ", strip=True), "url": url}
+    return {
+        "tipo": _TIPO_HREF[m.group(1).lower()],
+        "numero": int(m.group(2).replace(".", "")),
+        "anio": int(m.group(3)),
+        "fecha": fecha,
+        "url": url,
+    }
 
 
 def _extraer_celda(celdas: list) -> dict | None:
