@@ -2753,7 +2753,7 @@
       "resumen_acciones": []
     },
     {
-      "clave": "0000_0000",
+      "clave": "2001_0141",
       "fecha": null,
       "resolucion": null,
       "sesion": null,
@@ -2775,7 +2775,7 @@
       "resumen_acciones": []
     },
     {
-      "clave": "0000_0014",
+      "clave": "2023_0500",
       "fecha": "2023-12-12",
       "resolucion": null,
       "sesion": null,
@@ -2812,7 +2812,7 @@
       "resumen_acciones": []
     },
     {
-      "clave": "0000_1720",
+      "clave": "2023_0499",
       "fecha": "2023-12-05",
       "resolucion": null,
       "sesion": null,
@@ -2849,7 +2849,7 @@
       "resumen_acciones": []
     },
     {
-      "clave": "0000_0003",
+      "clave": "2023_2340",
       "fecha": "2023-11-09",
       "resolucion": null,
       "sesion": null,
@@ -2888,7 +2888,7 @@
       "resumen_acciones": []
     },
     {
-      "clave": "0000_0001",
+      "clave": "2023_0498",
       "fecha": "2023-10-11",
       "resolucion": null,
       "sesion": {
@@ -3946,7 +3946,9 @@
           "numero_norma": 342,
           "tipo_norma": "NCG",
           "seccion_romana": null,
-          "acciones": [],
+          "acciones": [
+            "Derógase"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -4150,7 +4152,9 @@
           "numero_norma": 342,
           "tipo_norma": "NCG",
           "seccion_romana": "VI",
-          "acciones": [],
+          "acciones": [
+            "Derógase"
+          ],
           "vigencia": {
             "inicio": "no especificado"
           }
@@ -4173,7 +4177,7 @@
     },
     {
       "clave": "2022_0469",
-      "fecha": "2022-01-01",
+      "fecha": "2022-04-08",
       "resolucion": null,
       "sesion": {
         "tipo": "Ordinaria",
@@ -4195,7 +4199,9 @@
           "numero_norma": 330,
           "tipo_norma": "NCG",
           "seccion_romana": "IX",
-          "acciones": [],
+          "acciones": [
+            "Derógase"
+          ],
           "vigencia": {
             "inicio": "no especificado"
           }
@@ -4863,8 +4869,7 @@
           "tipo_norma": "NCG",
           "seccion_romana": "I",
           "acciones": [
-            "Agrégase",
-            "Derógase"
+            "Agrégase"
           ],
           "vigencia": {
             "inicio": "inmediata"
@@ -5177,7 +5182,7 @@
     },
     {
       "clave": "2020_2271",
-      "fecha": "2003-09-10",
+      "fecha": "2020-09-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -5189,7 +5194,30 @@
         "tipo": "Circular",
         "numero": 2271
       },
-      "modifica": [],
+      "modifica": [
+        {
+          "norma": "Circular N°1679",
+          "numero_norma": 1679,
+          "tipo_norma": "Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        },
+        {
+          "norma": "Oficio Circular N°863",
+          "numero_norma": 863,
+          "tipo_norma": "Oficio Circular",
+          "seccion_romana": null,
+          "acciones": [
+            "Derógase"
+          ],
+          "vigencia": {},
+          "fuente": "descripcion_cmf"
+        }
+      ],
       "vigencia": {
         "inicio": "no especificado",
         "fuente": "ninguna"
@@ -5522,7 +5550,9 @@
           "numero_norma": 1829,
           "tipo_norma": "Circular",
           "seccion_romana": null,
-          "acciones": [],
+          "acciones": [
+            "Derógase"
+          ],
           "vigencia": {
             "inicio": "inmediata"
           }
@@ -5865,9 +5895,7 @@
           "numero_norma": 273,
           "tipo_norma": "NCG",
           "seccion_romana": "II",
-          "acciones": [
-            "Derógase"
-          ],
+          "acciones": [],
           "vigencia": {
             "inicio": "inmediata"
           }

@@ -200,7 +200,29 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     entrada["tema"] = parsed.get("tema") or ""
     entrada["resumen_acciones"] = parsed.get("resumen_acciones") or []
 
+    _avisar_incoherencias(entrada)
     return entrada
+
+
+def _avisar_incoherencias(entrada: dict) -> None:
+    """Warning cuando la clave, la fecha y la URL no cuentan la misma historia.
+
+    No bloquea: la entrada se guarda igual. Existe porque los dos defectos que
+    motivaron esto no se veían en ningún lado. Una clave `0000_` significa que
+    no se supo el año del documento, y ahí empiezan las colisiones del diff. Y
+    una fecha con otro año que la clave es casi siempre una fecha *citada* que
+    el parser tomó por la del encabezado: la NCG 520/2024 figuró fechada el
+    6 de noviembre de 1995, que es la fecha de la NCG 64 que deroga.
+    """
+    clave = entrada.get("clave") or ""
+    fecha = entrada.get("fecha") or ""
+    if clave.startswith("0000_"):
+        logger.warning("Clave sin año: %s (%s)", clave, entrada.get("url_documento"))
+    elif fecha and fecha[:4] != clave[:4]:
+        logger.warning(
+            "La fecha %s no calza con el año de la clave %s (%s)",
+            fecha, clave, entrada.get("url_documento"),
+        )
 
 
 def _modifica_desde_descripcion(descripcion: str) -> list[dict]:

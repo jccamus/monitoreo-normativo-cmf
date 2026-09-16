@@ -709,9 +709,21 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
   (entradas anteriores a septiembre de 2026).
 - **Convención del nombre de archivo del PDF:** el año de la *nueva* resolución se
   recupera del patrón `ncg_<num>_<year>.pdf` / `cir_<num>_<year>.pdf` en
-  `_fecha_y_numero_desde_url`, porque la CMF lista cada norma con su fecha de
-  publicación original. Si la CMF cambia esta forma de nombrar, las fechas del
-  fetch se rompen.
+  `_fecha_y_numero_desde_url`. Si la URL no trae año (PDF anteriores a 2000,
+  `ofc_141_2001_01.pdf`, enlaces `ver_sgd.php?…`), el respaldo son las columnas
+  «Número» y «Fecha» de la propia fila (`_fecha_y_numero_desde_columnas`); en
+  las 2.874 filas donde se pueden comparar, las dos fuentes coinciden siempre.
+  Si la CMF cambia la forma de nombrar **y** reordena la tabla, las claves
+  vuelven a `0000_`.
+
+  **Una clave `0000_` no es un detalle cosmético: es una colisión esperando
+  ocurrir.** Hasta el 16-09-2026, 70 filas relevantes caían en `0000_0000`, el
+  diff dejaba pasar sólo la primera y las otras 69 quedaban «vistas» sin
+  haberse capturado nunca (la circular 2342/2023 entre ellas). Lo tapaba que
+  `0000_0000` ya estaba en `state.json`, así que nada se veía raro. Hoy
+  `diff.get_nuevas` avisa cuando dos filas comparten clave y
+  `store.ensamblar_entrada` avisa ante una clave `0000_` o una fecha de otro
+  año que la clave; si aparecen en el log del workflow, mira esto primero.
 - **`data/daily/`** acumula un archivo por día con las resoluciones nuevas
   (`YYYY-MM-DD.json`); en los días sin novedades no se escribe archivo. El
   directorio es **disperso por diseño** — no asumas densidad histórica (entre mayo
@@ -781,9 +793,9 @@ entrada puede llevar varias categorías):
 |---|---|
 | Otro | 300 |
 | Derogación | 167 |
-| Modificación NCG | 122 |
-| Modificación Circular | 111 |
-| Modificación Oficio Circular | 34 |
+| Modificación NCG | 120 |
+| Modificación Circular | 109 |
+| Modificación Oficio Circular | 33 |
 | Postergación de vigencia | 4 |
 | Circular | 3 |
 | Nueva Normativa | 1 |
@@ -792,7 +804,9 @@ entrada puede llevar varias categorías):
 El 16-09-2026 «Derogación» subió de 154 a 167 y las dos «Modificación» bajaron
 16 en conjunto: el parser no reconocía «Deróguese» ni «Deróganse», así que esas
 derogaciones quedaban con `acciones: []` y el dashboard las leía como
-modificaciones. Ver `parser._ACCION`.
+modificaciones. Ver `parser._ACCION`. El mismo día la derogación pasó a
+asignarse por norma y no por sección (`parser._normas_derogadas`): «Derógase la
+Sección III de la NCG N°273» ya no deroga la 273 entera.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.

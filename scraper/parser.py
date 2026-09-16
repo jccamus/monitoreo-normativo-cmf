@@ -1028,6 +1028,20 @@ def _fecha_encabezado(text: str) -> str | None:
         text[m.end():m.end() + _VENTANA_TRAS_SEPARADOR] if m
         else text[:_VENTANA_ENCABEZADO]
     )
+    # Sin separador, la ventana desde el inicio incluye el bloque REF entero, y
+    # el REF cita fechas de otras normas. La NCG 520/2024 abre «DEROGA NORMA DE
+    # CARÁCTER GENERAL N°64, DE 6 DE NOVIEMBRE DE 1995» y quedaba fechada en
+    # 1995; la circular 2271/2020, «Deroga Circular N°1679, de 10 de septiembre
+    # de 2003», en 2003. En las dos la fecha propia va bajo la línea de
+    # identidad («NORMA DE CARÁCTER GENERAL N°520»), así que se mira ahí
+    # primero. Si ahí no hay fecha se sigue con la ventana de siempre: hay
+    # documentos que ponen la fecha *antes* de la identidad.
+    if not m:
+        ident = _DOC_IDENTIDAD.search(text[:_MAX_BUSQUEDA_SEPARADOR])
+        if ident:
+            tras = text[ident.end():ident.end() + _VENTANA_TRAS_SEPARADOR]
+            if _FECHA_SPAN.search(tras):
+                ventana = tras
     fechas = _FECHA_SPAN.findall(ventana)
     if not fechas:
         return None
@@ -1110,6 +1124,7 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
                 continue
 
             acciones = _acciones_unicas(_ACCION.findall(segmento))
+            derogadas = _normas_derogadas(segmento)
             vigencia_sec = _parse_vigencia_seccion(segmento, num_rom, text[cuerpo_fin:],
                                                    fecha_base)
 
@@ -1119,13 +1134,14 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
                     "numero_norma": numero,
                     "tipo_norma": tipo,
                     "seccion_romana": num_rom,
-                    "acciones": acciones,
+                    "acciones": _acciones_de_norma(acciones, (tipo, numero) in derogadas),
                     "vigencia": _vigencia_impuesta(impuestas, tipo, numero, vigencia_sec),
                 })
     else:
         # Documento sin secciones romanas: modificación directa
         normas = _normas_mencionadas(text[:cuerpo_fin])
         acciones = _acciones_unicas(_ACCION.findall(text[:cuerpo_fin]))
+        derogadas = _normas_derogadas(text[:cuerpo_fin])
         vigencia_global = _parse_vigencia_global(text[cuerpo_fin:], fecha_base)
         for tipo, numero in normas:
             modificaciones.append({
@@ -1133,7 +1149,7 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
                 "numero_norma": numero,
                 "tipo_norma": tipo,
                 "seccion_romana": None,
-                "acciones": acciones,
+                "acciones": _acciones_de_norma(acciones, (tipo, numero) in derogadas),
                 "vigencia": _vigencia_impuesta(impuestas, tipo, numero, vigencia_global),
             })
 
@@ -1193,6 +1209,42 @@ def _enumeracion(segmento: str, m: re.Match) -> list[tuple[str, int]]:
                 tramo = []
             pendientes = []
     return aceptadas
+
+
+# Las acciones se leen por sección, pero derogar es algo que le pasa a *una*
+# norma, no a la sección. Aplicada en bloque, la derogación se equivocaba en
+# las dos direcciones, y el dashboard decide «Derogada por» mirando justo esto:
+#
+# - La NCG 520/2024 modifica la NCG 200 y deroga la NCG 64 en el mismo REF; la
+#   64 heredaba «Reemplácese, Elimínese, Agréguese» y salía «Modificada por».
+#   Igual la circular 2259/2020 («Derógase la Circular N°1829») o la NCG
+#   470/2022 («DEROGA NORMA DE CARACTER GENERAL N°342»), que no tenían ninguna.
+# - La NCG 435/2020 dice «Derógase la Sección III de la Norma de Carácter
+#   General N°273», y la 273 salía derogada entera. Lo mismo la NCG 457/2021
+#   (deroga numerales de la NCG 30) y la 542/2025 (un capítulo de la NCG 218).
+#
+# La regla: una norma está derogada si el verbo de derogación la nombra
+# —«Derógase la Circular N°…», con `_NORMA_MOD` y su enumeración—. Sobre el
+# corpus de 2020-2026 acierta los 11 casos en que difiere de la regla en bloque.
+_VERBO_DEROGA = re.compile(r"DER[OÓ]G", re.IGNORECASE)
+
+
+def _normas_derogadas(segmento: str) -> set[tuple[str, int]]:
+    """Normas que un verbo de derogación nombra en el segmento."""
+    derogadas: set[tuple[str, int]] = set()
+    for m in _NORMA_MOD.finditer(segmento):
+        if _VERBO_DEROGA.match(m.group(0)):
+            derogadas.update(_enumeracion(segmento, m))
+    return derogadas
+
+
+def _acciones_de_norma(acciones: list[str], derogada: bool) -> list[str]:
+    """Las acciones de la sección, con la derogación sólo si es de esta norma."""
+    if not derogada:
+        return [a for a in acciones if not _VERBO_DEROGA.match(a)]
+    if any(_VERBO_DEROGA.match(a) for a in acciones):
+        return acciones
+    return ["Derógase"] + acciones
 
 
 def _vigencia_impuesta(impuestas: dict, tipo: str, numero: int, por_defecto: dict) -> dict:

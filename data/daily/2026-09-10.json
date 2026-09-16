@@ -180,7 +180,7 @@
         "numero": 571
       },
       "tipo_acuerdo": "Otro",
-      "descripcion_cmf": "22/07/1988 \n  \n29/07/2011 \n  \n13/09/2005 \n  \n19/01/2010 \n  \n14/10/2010 \n  \n14/07/2014 \n  \n09/03/2015 \n  \n25/07/2022 \n  \n25/07/2022 \n  \n05/12/2023 \n  \n28/11/2024 \n  \n27/12/2024 \n  \n10/04/2025 \n  \n20/04/2026 \n  \n30/04/1999 \n  \n13/06/1985 \n  \n20/09/1989 \n  \n28/05/2009 \n  \n14/06/2013 \n  \n11/12/2002 \n  \n19/02/1991 \n  \n22/10/1984 \n  \n10/08/2000 \n  \n17/12/1991 \n  \n30/09/1986 \n  \n27/02/1998 \n  \n24/11/2010 \n  \n29/12/2010 \n  \n02/02/2012 \n  \n27/03/2012 \n  \n13/08/2010 \n  \n23/06/1995 \n  \n20/09/1991 \n  \n31/12/1984 \n  \n28/08/1985 \n  \n23/01/1987 \n  \n07/08/1991 \n  \n31/07/2009 \n  \n19/01/2010 \n  \n19/01/2010 \n  \n03/02/2010 \n  \n12/03/1999 \n  \n15/06/2001 \n  \n31/05/2012 \n  \n29/04/2002 \n  \n08/06/1993 \n  \n28/09/1989 \n  \n02/10/2002 \n  \n04/10/2000 \n  \n26/08/2010 \n  \n24/07/2002 \n  \n30/05/2002 \n  \n17/07/2000 \n  \n28/11/1990 \n  \n26/11/1996",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA EL COMPENDIO NORMATIVO DE BOLSAS E INTERMEDIARIOS",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_571_2026.pdf",
       "parsed": true,
       "modifica": [
@@ -392,7 +392,9 @@
           "numero_norma": 98,
           "tipo_norma": "Circular",
           "seccion_romana": "III",
-          "acciones": [],
+          "acciones": [
+            "Derógase"
+          ],
           "vigencia": {
             "inicio": "2027-01-27",
             "precision": "dia",
@@ -1604,7 +1606,7 @@
         "numero": 515
       },
       "tipo_acuerdo": "Otro",
-      "descripcion_cmf": "21/11/2022 \n  \n20/05/2022 \n  \n14/04/2022 \n  \n14/04/2022 \n  \n14/04/2022 \n  \n13/04/2022 \n  \n08/04/2022 \n  \n08/04/2022 \n  \n31/03/2022 \n  \n01/12/2021 \n  \n18/05/2021 \n  \n25/01/2021 \n  \n19/10/2020 \n  \n26/04/2018 \n  \n06/03/2018 \n  \n06/04/2016 \n  \n22/12/2015 \n  \n07/05/2014 \n  \n30/04/2014 \n  \n06/03/2014 \n  \n13/01/2014 \n  \n21/10/2013 \n  \n26/07/2013 \n  \n26/07/2013 \n  \n05/07/2013 \n  \n12/09/2012 \n  \n12/09/2012 \n  \n14/04/2011 \n  \n14/02/2011 \n  \n04/02/2011 \n  \n25/01/2011 \n  \n31/12/2010 \n  \n30/12/2010 \n  \n06/07/2010 \n  \n19/01/2010 \n  \n31/12/2009 \n  \n28/10/2009 \n  \n14/08/2009 \n  \n16/06/2009 \n  \n29/09/2008 \n  \n24/12/2007 \n  \n17/10/2006 \n  \n21/06/2005 \n  \n11/02/2003 \n  \n04/04/2002 \n  \n27/03/2001 \n  \n20/01/1995 \n  \n20/03/1992 \n  \n10/11/1989 \n  \n11/06/1985",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL QUE ESTABLECE UN NUEVO CANAL DE COMUNICACIÓN ENTRE LOS FISCALIZADOS Y LA COMISIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_515_2024.pdf",
       "parsed": true,
       "modifica": [
@@ -2658,7 +2660,9 @@
           "numero_norma": 479,
           "tipo_norma": "Oficio Circular",
           "seccion_romana": "III",
-          "acciones": [],
+          "acciones": [
+            "Derógase"
+          ],
           "vigencia": {
             "inicio": "no especificado"
           }
@@ -2893,7 +2897,7 @@
       "ncg": null,
       "documento": null,
       "tipo_acuerdo": "Otro",
-      "descripcion_cmf": "16/05/1997 \n  \n15/04/2004 \n  \n09/03/2001 \n  \n06/10/2005 \n  \n29/12/2005 \n  \n28/12/2006 \n  \n24/05/2011 \n  \n29/06/2011 \n  \n15/05/1986 \n  \n06/12/1989 \n  \n02/02/1990 \n  \n02/02/1990 \n  \n18/03/1991 \n  \n28/03/1991 \n  \n20/09/1991 \n  \n28/02/1992 \n  \n23/07/1992 \n  \n08/09/1994 \n  \n29/05/1995 \n  \n08/01/1996 \n  \n25/01/1996 \n  \n10/08/1998 \n  \n16/01/2001 \n  \n17/01/2002 \n  \n19/07/2005 \n  \n07/03/2006 \n  \n31/12/2010 \n  \n26/08/2011 \n  \n28/10/2011 \n  \n20/01/2009 \n  \n27/03/2002 \n  \n29/08/2008 \n  \n19/01/2009 \n  \n22/01/2001 \n  \n26/08/1992 \n  \n20/07/1990 \n  \n01/12/1994 \n  \n06/02/1995 \n  \n26/11/2001 \n  \n22/01/2001 \n  \n28/04/2006 \n  \n03/02/2010 \n  \n20/04/2011 \n  \n10/05/1988 \n  \n30/01/1990 \n  \n20/03/1995 \n  \n08/04/2004 \n  \n12/03/2004 \n  \n25/08/2009 \n  \n22/01/2001 \n  \n20/07/1990 \n  \n30/01/1998 \n  \n17/07/2013 \n  \n24/01/2005 \n  \n24/06/2011 \n  \n09/12/1994 \n  \n12/07/2000",
+      "descripcion_cmf": "1.- IMPARTE INSTRUCCIONES SOBRE LAS CONDICIONES MINIMAS DE INFORMACION, REGULACION Y SUPERVISION QUE DEBEN CUMPLIR LAS INVERSIONES DE LOS FONDOS MUTUOS Y FONDOS DE INVERSION.\n2.- ESTABLECE REQUISITOS PARA LA INVERSION EN, Y REALIZAR OPERACIONES CON, RELACIONADOS.\n3.- DETERMINA CONDICIONES PARA INVERSIONES DE FONDOS MUTUOS REFERIDAS EN LOS LITERALES A) Y C) DEL ARTICULO 59 DE LA LEY N° 20.712, Y DEFINE CONCEPTOS DE DEUDA Y FONDO FISCALIZADO.\n4.- REGULA TRATAMIENTO DE EXCESOS DE INVERSION.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_376_2015.pdf",
       "parsed": false,
       "modifica": [],

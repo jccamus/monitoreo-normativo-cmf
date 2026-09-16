@@ -51,8 +51,21 @@ def get_nuevas(resoluciones: list[dict]) -> list[dict]:
     """Retorna solo las resoluciones no vistas previamente."""
     seen = _load_state()
     nuevas = []
+    # Dos filas del mismo listado con la misma clave no son un duplicado: son
+    # dos documentos que `make_key` no logra distinguir, y el diff deja pasar
+    # sólo el primero. Así se perdieron 69 filas en silencio hasta septiembre de
+    # 2026, todas bajo `0000_0000` (ver `fetch._fecha_y_numero_desde_columnas`).
+    # Se avisa en vez de abortar: el resto del listado sigue siendo válido.
+    por_clave: dict[str, str] = {}
     for r in resoluciones:
         key = make_key(r.get("fecha", ""), r.get("numero"))
+        url = r.get("url_documento", "")
+        if key in por_clave and por_clave[key] != url:
+            logger.warning(
+                "Clave %s repetida en el listado: %s y %s — sólo se captura una",
+                key, por_clave[key], url,
+            )
+        por_clave.setdefault(key, url)
         if key not in seen:
             r["_key"] = key
             nuevas.append(r)

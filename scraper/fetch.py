@@ -265,8 +265,14 @@ def _extraer_celda(celdas: list) -> dict | None:
         textos = [c.get_text(strip=True) for c in celdas]
         texto_fila = " ".join(textos)
 
-        # Descripción: celda más larga de texto
-        descripcion = max(textos, key=len, default="")
+        # Descripción: celda más larga *con texto*. Sin el filtro, en una norma
+        # modificada muchas veces gana la columna «Modificada por», que es sólo
+        # una lista de fechas: la NCG 571/2026 y la 515/2024 quedaron guardadas
+        # con «22/07/1988 29/07/2011 …» como descripción, y la clasificación
+        # se calcula sobre ese campo.
+        descripcion = max(
+            (t for t in textos if re.search(r"[A-Za-zÁÉÍÓÚÑ]{3}", t)), key=len, default=""
+        )
 
         # URL del documento: primer link en la fila
         link = None
@@ -283,6 +289,8 @@ def _extraer_celda(celdas: list) -> dict | None:
         # Fecha y número de la NUEVA normativa desde el nombre del PDF
         # ej. ncg_564_2026.pdf → año=2026, numero=564
         fecha, numero = _fecha_y_numero_desde_url(link)
+        if not fecha:
+            fecha, numero = _fecha_y_numero_desde_columnas(textos)
 
         return {
             "fecha": fecha,
@@ -320,6 +328,38 @@ def _fecha_y_numero_desde_url(url: str) -> tuple[str | None, str | None]:
     if m2:
         return f"{m2.group(1)}-01-01", None
     return None, None
+
+
+def _fecha_y_numero_desde_columnas(textos: list[str]) -> tuple[str | None, str | None]:
+    """Año y número desde las columnas «Número» y «Fecha» de la propia fila.
+
+    Respaldo de `_fecha_y_numero_desde_url` para las filas cuyo enlace no trae
+    el año, que eran 1.734 de 4.608 en septiembre de 2026: PDF anteriores a
+    2000 (`cir_1459_1999.pdf`, fuera del rango 20XX a propósito), oficios con
+    sufijo (`ofc_141_2001_01.pdf`) y enlaces sin nombre de archivo
+    (`ver_sgd.php?s567=…`). Sin año, `make_key` las rotulaba todas `0000_0000`
+    —o `0000_0014`, con el 14 sacado de «LEY N°14.908»— y **el diff por clave
+    dejaba pasar sólo la primera**: 69 filas relevantes colisionaban, entre
+    ellas la circular 2342/2023, que nunca se capturó.
+
+    Va detrás de la URL y no delante para no mover ninguna clave ya guardada,
+    aunque en las 2.874 filas donde se pueden comparar las dos fuentes
+    coinciden sin excepción. Devuelve el mismo placeholder `YYYY-01-01` que la
+    URL: la fecha exacta la sigue poniendo el PDF.
+
+    Las columnas se validan por forma y no se confía en su posición a ciegas:
+    si la CMF reordena la tabla, esto devuelve (None, None) en vez de un año
+    sacado de otra columna.
+    """
+    if len(textos) < 3:
+        return None, None
+    numero, fecha = textos[1].strip(), textos[2].strip()
+    if not re.fullmatch(r"\d+", numero):
+        return None, None
+    m = re.fullmatch(r"\d{2}/\d{2}/(\d{4})", fecha)
+    if not m:
+        return None, None
+    return f"{m.group(1)}-01-01", numero
 
 
 def _filtrar(resoluciones: list[dict]) -> list[dict]:
