@@ -269,6 +269,11 @@ def _avisar_incoherencias(entrada: dict) -> None:
         )
 
 
+def _ultima_posicion(patron: re.Pattern, texto: str) -> int | None:
+    """Dónde empieza la última coincidencia de `patron` en `texto`, o None."""
+    return max((m.start() for m in patron.finditer(texto)), default=None)
+
+
 def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
     """Extrae normas afectadas desde la descripcion_cmf cuando el PDF no las detectó."""
     desc_upper = descripcion.upper()
@@ -281,10 +286,13 @@ def _modifica_desde_descripcion(descripcion: str) -> list[dict]:
         # en bloque: "MODIFICA NORMA DE CARÁCTER GENERAL N°152 … DEROGA OFICIO
         # CIRCULAR N°502" dejaba también la 152 como derogada. Manda el verbo
         # que gobierna a *esa* mención, que es el más cercano por la izquierda.
+        # El más cercano, no el primero de la ventana: con `.search` quedaba el
+        # primero, y en «MODIFICA NCG N°10, DEROGA NCG N°20 Y MODIFICA NCG N°30»
+        # la 30 salía derogada (lo detectó la revisión con Gemini, 16-09-2026).
         previo = desc_upper[max(0, m.start() - 60):m.start()]
-        deroga = _DEROGA_VERBO.search(previo)
-        modifica = _MODIFICA_VERBO.search(previo)
-        if deroga and (not modifica or deroga.start() > modifica.start()):
+        deroga = _ultima_posicion(_DEROGA_VERBO, previo)
+        modifica = _ultima_posicion(_MODIFICA_VERBO, previo)
+        if deroga is not None and (modifica is None or deroga > modifica):
             accion = "Derógase"
         else:
             accion = "Modifícase"

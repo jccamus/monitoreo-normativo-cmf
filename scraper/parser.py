@@ -1337,6 +1337,10 @@ def _normas_derogadas(segmento: str, texto: str | None = None,
 # «dentro» hasta el próximo cierre sobrante, y así marcaba citadas las
 # derogaciones reales de las NCG 502, 513 y 515. Y no hay tope de distancia,
 # a propósito: la cita de la 524 se abre 16.000 caracteres antes de la mención.
+# El costo de no tener tope: una apertura huérfana seguida de un tramo sin
+# ninguna otra comilla deja «citado» todo ese tramo. Sobre los 246 PDF legibles
+# (septiembre de 2026) la regla descarta sólo las 5 normas descritas arriba; si
+# un documento pierde normas que sí afecta, mirar esto primero.
 def _en_cita_local(texto: str, pos: int) -> bool:
     """Si `pos` cae dentro de un texto citado, mirando sólo las comillas vecinas."""
     apertura = max(texto.rfind(c, 0, pos) for c in _CITA_ABRE)

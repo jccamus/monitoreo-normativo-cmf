@@ -659,6 +659,8 @@ misma norma coinciden en la acción en los 130 casos. **Las fuentes se
 completan, no se contienen**: la NCG 571/2026 deroga 55 normas según el listado
 y el parser encuentra otras 3 que el listado no trae (la NCG 18 y las
 Circulares 632 y 695); la 565/2026 deroga la NCG 534 y el listado la omite.
+Que la 571 y la 562 deroguen las mismas tres no es un error de copia: la 571
+deroga también a la 562 y repite en su texto esas derogaciones.
 Antes de culpar al listado por una norma que el PDF «no dice», lee el PDF
 entero: la NCG 562/2026 deroga tres normas en una sección posterior a la de
 vigencia, que el parser no leía hasta que se corrigió ese mismo día.
