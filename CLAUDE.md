@@ -625,7 +625,8 @@ texto de la celda, que trae el número pelado) y la fecha apareada por posición
 El detalle de la lectura —enlaces vacíos intercalados, columnas ubicadas por el
 encabezado, descuadre que no emite nada— está en los comentarios de
 `fetch._relaciones_de_fila` y vecinas. El diseño completo, con las alternativas
-descartadas, en `openspec/changes/relaciones-del-listado/`.
+descartadas, en `openspec/changes/archive/2026-09-16-relaciones-del-listado/`; los requisitos vigentes, en
+`openspec/specs/relaciones-listado/spec.md`.
 
 Tres cosas que no se deducen del código:
 

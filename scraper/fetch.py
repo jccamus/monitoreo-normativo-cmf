@@ -264,7 +264,7 @@ def _parse_listado(html: str) -> list[dict]:
 # propósito: crecen cada vez que sale una norma posterior, y en un almacén
 # diferencial —cada entrada se guarda una vez— quedarían desactualizadas y se
 # leerían como «nadie la ha modificado». Lo entrante se obtiene invirtiendo las
-# salientes de las demás entradas. Ver openspec/changes/relaciones-del-listado.
+# salientes de las demás entradas. Ver openspec/changes/archive/2026-09-16-relaciones-del-listado.
 _COLUMNAS_RELACION = {"MODIFICA A": "modifica_a", "DEROGA A": "deroga_a"}
 
 # Identidad de una norma relacionada, desde el `href` y nunca desde el texto de
