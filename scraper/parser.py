@@ -84,11 +84,14 @@ _NORMA_MOD   = re.compile(
 )
 
 # Lo que sigue a `_NORMA_MOD` cuando el verbo rige sobre una lista. La NCG
-# 565/2026 deroga trece normas en una sola oración —«Deróguese las Normas de
-# Carácter General N°275 de 2010, N°302 de 2011, N°355 de 2013, N°534 de 2025,
-# las Circulares N°075 de 1981, […], los Oficios Circulares N°718 y N°764 de
-# 2012 y N°872 de 2015; y la Circular N°12 de 2010 de Auditores Externos»— y
-# `_NORMA_MOD`, que sólo ve el número pegado al verbo, se quedaba con la 275.
+# 565/2026 nombra trece normas derogadas en una sola oración —«Deróguese las
+# Normas de Carácter General N°275 de 2010, N°302 de 2011, N°355 de 2013, N°534
+# de 2025, las Circulares N°075 de 1981, […], los Oficios Circulares N°718 y
+# N°764 de 2012 y N°872 de 2015; y la Circular N°12 de 2010 de Auditores
+# Externos»— y `_NORMA_MOD`, que sólo ve el número pegado al verbo, se quedaba
+# con la 275.
+# Hoy se reconocen doce: la circular de Auditores Externos se descarta por la
+# tercera regla.
 #
 # `_enumeracion` recorre la lista paso a paso y se detiene en lo primero que no
 # sea uno de estos pasos. Cuatro reglas, las cuatro por un caso:
@@ -97,17 +100,21 @@ _NORMA_MOD   = re.compile(
 #   N°075…»): cada número se rotula con el último cuerpo nombrado, no con el
 #   del verbo.
 # - **Un número suelto tras un separador necesita un año antes de que termine
-#   su grupo.** «N°718 y N°764 de 2012» se acepta; «Modifícase la Circular
-#   N°2.110, N°1 letra a)» no, porque ese N°1 es un numeral del documento y no
-#   otra norma. El número pegado al nombre del cuerpo no lo necesita: ahí no
-#   hay ambigüedad.
+#   su grupo.** «N°718 y N°764 de 2012» se acepta. Lo que se evita es tomar
+#   por norma un numeral del propio documento —un «…Circular N°2.110, N°1
+#   letra a)» hipotético, no un caso del corpus—. El número pegado al nombre
+#   del cuerpo no lo necesita: ahí no hay ambigüedad.
 # - **Una serie de otro emisor descarta el grupo.** «Circular N°12 de 2010 de
 #   Auditores Externos», «Circular N°3.530 Bancos» (NCG 469/2022) y «Circular
 #   N°1 para Emisores de Tarjetas de Pago» (circular 2325/2022) son series
 #   de la ex-SBIF con numeración propia: rotularlas «Circular N°12» le
 #   atribuiría la derogación a otra norma. Sólo se descarta lo que la serie
-#   califica, no la lista entera. Ver «Una norma se identifica por tipo y
-#   número» en CLAUDE.md.
+#   califica, no la lista entera. La lista de series tiene que coincidir con
+#   la de `store._SERIE_TRAS_MENCION`, que aplica la misma regla a la
+#   descripción. Ver «Una norma se identifica por tipo y número» en CLAUDE.md.
+#   Límite conocido: el calificativo al final de una lista larga no se ve. La
+#   NCG 567/2026 deroga «las circulares N°98, 100, 112 […] aplicables a las
+#   cooperativas», y la N°98 queda rotulada como circular CMF.
 #   **«para bancos» no es una serie**: la circular 2371/2026 «Modifica la
 #   Circular N°2.364 para bancos», que es una circular CMF. «para» sólo marca
 #   serie delante de «Emisores»; no lo generalices a los demás destinatarios.
@@ -115,8 +122,7 @@ _NORMA_MOD   = re.compile(
 #   bloque REF, la línea que sigue a la norma modificada es la identidad del
 #   propio documento —«MODIFICA NORMA DE CARÁCTER GENERAL N° 526», y en la
 #   línea de abajo «NORMA DE CARÁCTER GENERAL N°545»—, y sin esta exigencia la
-#   NCG 545/2025 y la
-#   circular 2356/2024 figuraban modificándose a sí mismas.
+#   NCG 545/2025 y la circular 2356/2024 figuraban modificándose a sí mismas.
 _ENUM_PASO = re.compile(
     r"\s*(?:"
     r"(?P<sep>[,;]|\by\b)"
@@ -124,7 +130,8 @@ _ENUM_PASO = re.compile(
     r"|(?:(?:EL|LOS|L[AO]S?)\s+)?(?P<cuerpo>" + _CUERPO_MOD + r")"
     r"(?:\s*N[°oº]\s*|\s+)(?P<num_cuerpo>\d[\d.]*\d|\d)"
     r"|N[°oº]\s*(?P<num>\d[\d.]*\d|\d)"
-    r"|(?P<serie>(?:(?:de\s+)?(?:Bancos|Cooperativas|Filiales|Auditores\s+Externos|Empresas\s+(?:Operadoras|Emisoras)|Sociedades\s+de\s+Apoyo)"
+    r"|(?P<serie>(?:(?:de\s+)?(?:Bancos|Cooperativas|Filiales|Auditores\s+Externos"
+    r"|Empresas\s+(?:Operadoras|Emisoras)|Sociedades\s+de\s+Apoyo)"
     r"|para\s+Emisores)\b)"
     r")",
     re.IGNORECASE,
@@ -149,11 +156,14 @@ def _numero_norma(texto: str) -> int:
 def _etiqueta_norma(tipo: str, numero: int) -> str:
     """Rótulo de la norma afectada. Misma forma que `store.etiqueta_norma`."""
     return f"{tipo} N°{numero}"
+
+
 # «Deróguese» y «Deróganse» además de «Derógase»: la NCG 565/2026 usa la primera
-# y la 471/2022 la segunda. «Derogase» sin tilde, la NCG 562/2026. Sin ellas
-# su `modifica[]` salía con `acciones: []` y el dashboard la rotulaba «Modificada
-# por» sobre trece normas que deroga. Si agregas una forma de derogar, agrégala
-# también a `dashboard._DEROGA_RE`, que es quien la lee.
+# y la 471/2022 la segunda; «Derogase» sin tilde, la NCG 562/2026. Sin la
+# primera, la 565 guardaba la NCG 275 —la única de su lista que el parser veía
+# entonces— con `acciones: []`, y el dashboard la rotulaba «Modificada por»
+# aunque la deroga. Si agregas una forma de derogar, agrégala también a
+# `dashboard._DEROGA_RE`, que es quien la lee.
 _ACCION      = re.compile(
     r"\b(Agréguese|Intercálase|Elimínese|Sustitúyase|Der[óo]gase|Deróguese|Deróganse|Modifíquese|Reemplácese|Agrégase)\b",
     re.IGNORECASE,
@@ -1034,8 +1044,10 @@ def _fecha_encabezado(text: str) -> str | None:
     # 1995; la circular 2271/2020, «Deroga Circular N°1679, de 10 de septiembre
     # de 2003», en 2003. En las dos la fecha propia va bajo la línea de
     # identidad («NORMA DE CARÁCTER GENERAL N°520»), así que se mira ahí
-    # primero. Si ahí no hay fecha se sigue con la ventana de siempre: hay
-    # documentos que ponen la fecha *antes* de la identidad.
+    # primero. Si ahí no hay fecha se sigue con la ventana de siempre, porque
+    # hay documentos sin separador que ponen la fecha *antes* de la identidad:
+    # la NCG 489/2022 («Santiago, 21 de noviembre de 2022» y debajo «NORMA DE
+    # CARÁCTER GENERAL N° 489») y la circular 2306/2022.
     if not m:
         ident = _DOC_IDENTIDAD.search(text[:_MAX_BUSQUEDA_SEPARADOR])
         if ident:
@@ -1130,12 +1142,12 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
                 fin = firma.start() if firma else len(text)
             segmento = text[pos:fin]
 
-            normas = _normas_mencionadas(segmento)
+            normas = _normas_mencionadas(segmento, text, pos)
             if not normas:
                 continue
 
             acciones = _acciones_unicas(_ACCION.findall(segmento))
-            derogadas = _normas_derogadas(segmento)
+            derogadas = _normas_derogadas(segmento, text, pos)
             vigencia_sec = _parse_vigencia_seccion(segmento, num_rom, text[cuerpo_fin:],
                                                    fecha_base)
 
@@ -1150,9 +1162,9 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
                 })
     else:
         # Documento sin secciones romanas: modificación directa
-        normas = _normas_mencionadas(text[:cuerpo_fin])
+        normas = _normas_mencionadas(text[:cuerpo_fin], text, 0)
         acciones = _acciones_unicas(_ACCION.findall(text[:cuerpo_fin]))
-        derogadas = _normas_derogadas(text[:cuerpo_fin])
+        derogadas = _normas_derogadas(text[:cuerpo_fin], text, 0)
         vigencia_global = _parse_vigencia_global(text[cuerpo_fin:], fecha_base)
         for tipo, numero in normas:
             modificaciones.append({
@@ -1167,18 +1179,28 @@ def _parse_modificaciones(text: str, fecha_base: str | None = None) -> list[dict
     return modificaciones
 
 
-def _normas_mencionadas(segmento: str) -> list[tuple[str, int]]:
+def _normas_mencionadas(segmento: str, texto: str | None = None,
+                        desde: int = 0) -> list[tuple[str, int]]:
     """Normas modificadas o derogadas en el segmento, sin repetir y en orden.
 
     El mismo documento nombra la norma que modifica varias veces —una en el
     REF del encabezado y otra al abrir el articulado—, y antes cada mención
     generaba su propia entrada en `modifica[]`.
+
+    Con `texto` (el documento completo) y `desde` (dónde empieza el segmento
+    en él) se descartan las menciones que caen dentro de un texto citado. Ver
+    `_en_cita_local`.
     """
+    def citada(m: re.Match) -> bool:
+        return texto is not None and _en_cita_local(texto, desde + m.start())
+
     menciones: list[tuple[int, tuple[str, int]]] = []
     for m in _NORMA_MOD.finditer(segmento):
-        menciones += [(m.start(), norma) for norma in _enumeracion(segmento, m)]
+        if not citada(m):
+            menciones += [(m.start(), norma) for norma in _enumeracion(segmento, m)]
     for m in _ENCABEZADO_NORMA.finditer(segmento):
-        menciones.append((m.start(), (_tipo_cuerpo(m.group(1)), _numero_norma(m.group(2)))))
+        if not citada(m):
+            menciones.append((m.start(), (_tipo_cuerpo(m.group(1)), _numero_norma(m.group(2)))))
     vistas: dict[tuple[str, int], None] = {}
     for _, norma in sorted(menciones, key=lambda x: x[0]):
         vistas[norma] = None
@@ -1254,27 +1276,74 @@ def _enumeracion(segmento: str, m: re.Match) -> list[tuple[str, int]]:
 # norma, no a la sección. Aplicada en bloque, la derogación se equivocaba en
 # las dos direcciones, y el dashboard decide «Derogada por» mirando justo esto:
 #
-# - La NCG 520/2024 modifica la NCG 200 y deroga la NCG 64 en el mismo REF; la
-#   64 heredaba «Reemplácese, Elimínese, Agréguese» y salía «Modificada por».
-#   Igual la circular 2259/2020 («Derógase la Circular N°1829») o la NCG
-#   470/2022 («DEROGA NORMA DE CARACTER GENERAL N°342»), que no tenían ninguna.
+# - Derogaciones sin acción de derogar: la circular 2259/2020 («Derógase la
+#   Circular N°1829») y la NCG 470/2022 («DEROGA NORMA DE CARACTER GENERAL
+#   N°342») guardaban esas normas con `acciones: []` y salían «Modificada
+#   por». Igual la circular 2275/2020 con el Oficio Circular 479 y la NCG
+#   469/2022 con la NCG 330.
 # - La NCG 435/2020 dice «Derógase la Sección III de la Norma de Carácter
 #   General N°273», y la 273 salía derogada entera. Lo mismo la NCG 457/2021
 #   (deroga numerales de la NCG 30) y la 542/2025 (un capítulo de la NCG 218).
 #
 # La regla: una norma está derogada si el verbo de derogación la nombra
-# —«Derógase la Circular N°…», con `_NORMA_MOD` y su enumeración—. Sobre el
-# corpus de 2020-2026 acierta los 11 casos en que difiere de la regla en bloque.
+# —«Derógase la Circular N°…», con `_NORMA_MOD` y su enumeración— fuera de un
+# texto citado (ver `_en_cita_local`). Sobre los 246 PDF legibles del corpus
+# (septiembre de 2026) difiere de la regla en bloque en 11 normas: en 7 el
+# listado de la CMF confirma el resultado nuevo (las 4 derogaciones y las 3
+# derogaciones parciales, que registra como «modifica»); 3 eran menciones
+# dentro de un texto citado y hoy no se cuentan; la restante es la Circular 98
+# de la NCG 567, de la serie de cooperativas (ver `_ENUM_PASO`).
 _VERBO_DEROGA = re.compile(r"DER[OÓ]G", re.IGNORECASE)
 
 
-def _normas_derogadas(segmento: str) -> set[tuple[str, int]]:
-    """Normas que un verbo de derogación nombra en el segmento."""
+def _normas_derogadas(segmento: str, texto: str | None = None,
+                      desde: int = 0) -> set[tuple[str, int]]:
+    """Normas que un verbo de derogación nombra en el segmento, fuera de citas."""
     derogadas: set[tuple[str, int]] = set()
     for m in _NORMA_MOD.finditer(segmento):
+        if texto is not None and _en_cita_local(texto, desde + m.start()):
+            continue
         if _VERBO_DEROGA.match(m.group(0)):
             derogadas.update(_enumeracion(segmento, m))
     return derogadas
+
+
+# Una norma nombrada dentro de un texto citado no es una norma que *este*
+# documento afecte: es la que afecta el texto que cita. Tres formas reales, las
+# tres con el verbo de derogación a la vista:
+#
+# - **Título citado de la norma modificada.** La NCG 520/2024 modifica la NCG
+#   200, «QUE “ESTABLECE NORMAS SOBRE […] DEROGA NORMA DE CARÁCTER GENERAL
+#   N°64 […]”»: la 64 la derogó la 200, no la 520. Igual la circular
+#   2360/2024 con la Circular 1143, dentro del título citado de la Circular
+#   1.512.
+# - **Texto que se inserta en otra norma.** La NCG 479/2022 reemplaza el
+#   único párrafo del título «VI. Vigencia y derogación» de la NCG 470 por
+#   uno que termina «quedará derogada la Norma de Carácter General N° 342.”»:
+#   quien deroga la 342 es la 470.
+# - **Secciones enteras reemplazadas.** La NCG 524/2024 reemplaza las secciones
+#   VII a IX de la NCG 502 por un texto de unos 21.700 caracteres que incluye
+#   una sección «X. DEROGACIÓN» con «Deróguese la Norma de Carácter General
+#   N°493 de 2023 y la Norma de Carácter General N°494 de 2023».
+#
+# Son cinco normas en cuatro documentos, y en ninguna el listado de la CMF se
+# las atribuye al documento. Sin esta regla el dashboard mostraba, por ejemplo,
+# la NCG 64 «Derogada por» la NCG 520.
+#
+# La regla es **local**: está dentro de una cita si la comilla más cercana
+# hacia atrás es de apertura y hay una de cierre más adelante. No sirve
+# `_dentro_de_cita`, que cuenta aperturas y cierres desde el inicio del
+# documento: una apertura sin cierre en cualquier parte anterior lo deja
+# «dentro» hasta el próximo cierre sobrante, y así marcaba citadas las
+# derogaciones reales de las NCG 502, 513 y 515. Y no hay tope de distancia,
+# a propósito: la cita de la 524 se abre 16.000 caracteres antes de la mención.
+def _en_cita_local(texto: str, pos: int) -> bool:
+    """Si `pos` cae dentro de un texto citado, mirando sólo las comillas vecinas."""
+    apertura = max(texto.rfind(c, 0, pos) for c in _CITA_ABRE)
+    cierre = max(texto.rfind(c, 0, pos) for c in _CITA_CIERRA)
+    if apertura < 0 or apertura < cierre:
+        return False
+    return any(texto.find(c, pos) >= 0 for c in _CITA_CIERRA)
 
 
 def _acciones_de_norma(acciones: list[str], derogada: bool) -> list[str]:

@@ -82,7 +82,7 @@ python scraper/reparse.py --recalcular --todas              # sin corte de año:
 python scraper/revisar.py                    # refresca data/revisiones.csv (revisión manual)
 python scraper/revisar.py --estado           # sólo informa, no escribe
 python scraper/relaciones.py --dry-run       # relaciones del listado: qué entradas cambiarían
-python scraper/relaciones.py                 # completa `relaciones_cmf` sin bajar PDF (segundos)
+python scraper/relaciones.py                 # completa `relaciones_cmf` sin bajar PDF (~1 min)
 ```
 
 Python 3.11 en CI. El código usa sintaxis de tipos `list[dict]` / `str | None`, así que necesita ≥3.10.
@@ -193,7 +193,7 @@ lo vuelvas a crear.
    `*.json.corrupt-<timestamp>` en vez de descartarse en silencio.
 6. **`dashboard.generar_html()`** — lee `data/daily/`, aplana y arma
    `docs/index.html` de una pasada. Es el módulo más grande con diferencia
-   (~3.900 líneas, más de la mitad de la base de código) porque el HTML/CSS/JS va en
+   (~4.200 líneas de ~7.800, más de la mitad de la base de código) porque el HTML/CSS/JS va en
    línea en `_TEMPLATE` más funciones `_render_*`; no hay paso de build. Rinde
    **cuatro** pestañas:
    - **Agenda de tareas** — el **«Calendario de modificaciones»**, un riel
@@ -278,10 +278,17 @@ funcionar".
 
 ### 1. La fecha placeholder — el más caro
 
-La CMF lista cada norma con su fecha de publicación *original*, así que lo único
-que `fetch` puede deducir es el año del nombre del PDF, y lo rellena como
-`YYYY-01-01`. **La fecha real sale del encabezado del PDF**
-(`parser._fecha_encabezado`), y `store.ensamblar_entrada` la prefiere.
+`fetch` sólo toma el año —del nombre del PDF o, si no está, de la columna
+«Fecha» de la fila— y lo rellena como `YYYY-01-01`. **La fecha real sale del
+encabezado del PDF** (`parser._fecha_encabezado`), y `store.ensamblar_entrada`
+la prefiere.
+
+Este párrafo decía que la CMF lista cada norma con su fecha de publicación
+*original*, y que por eso sólo se podía deducir el año. Contrastado el
+16-09-2026, no se sostiene: la columna «Fecha» coincide con la fecha del
+encabezado del PDF en 234 de 244 entradas comparables, y en otras 7 difiere en
+una semana o menos. Usarla como respaldo del día —en vez del placeholder— es
+una decisión pendiente, no un hecho del sistema.
 
 Cuando esa extracción falla, la entrada queda fechada el 1 de enero: el cambio
 aparece al comienzo del año en el dashboard y la actividad reciente se vuelve
@@ -634,7 +641,8 @@ Tres cosas que no se deducen del código:
   cada vez que sale una norma posterior; cada entrada se guarda una sola vez,
   así que una foto de esa columna queda vieja con la primera modificación y se
   lee como «nadie la ha modificado». Lo entrante se obtiene invirtiendo las
-  salientes de las demás entradas, que es lo que ya hace la línea de tiempo.
+  salientes de las demás entradas capturadas, que es lo que ya hace la línea
+  de tiempo; lo que modifiquen documentos que el filtro no captura no se ve.
 - **Es un campo aparte de `modifica[]` a propósito.** `modifica[]` es lo que
   dice el PDF; mezclarle fuentes ya costó el enredo de `descripcion_cmf` (sección
   siguiente). En el dashboard el listado es **piso** (`_normas_afectadas_ids`
@@ -646,13 +654,23 @@ Tres cosas que no se deducen del código:
   si la CMF corrige una relación, correrlo de nuevo la actualiza.
 
 Medido al implementarlo (16-09-2026): en 295 de 388 entradas con relaciones el
-listado nombra normas que el PDF no deja ver —la NCG 571/2026 deroga 55 según el
-listado y el parser encuentra 3—, y donde las dos fuentes conocen la misma norma
-coinciden en la acción en los 130 casos. **El listado tampoco es completo**: la
-565/2026 deroga la NCG 534 y el listado la omite. Antes de culpar al listado por
-una norma que el PDF «no dice», lee el PDF entero: la NCG 562/2026 deroga tres
-normas en una sección que va después de la de vigencia, donde el parser ya dejó
-de leer.
+listado nombra normas que el PDF no deja ver, y donde las dos fuentes conocen la
+misma norma coinciden en la acción en los 130 casos. **Las fuentes se
+completan, no se contienen**: la NCG 571/2026 deroga 55 normas según el listado
+y el parser encuentra otras 3 que el listado no trae (la NCG 18 y las
+Circulares 632 y 695); la 565/2026 deroga la NCG 534 y el listado la omite.
+Antes de culpar al listado por una norma que el PDF «no dice», lee el PDF
+entero: la NCG 562/2026 deroga tres normas en una sección posterior a la de
+vigencia, que el parser no leía hasta que se corrigió ese mismo día.
+
+**Una norma nombrada dentro de un texto citado no cuenta como afectada**
+(`parser._en_cita_local`): la NCG 520/2024 cita el título de la NCG 200, que
+dice «DEROGA NORMA DE CARÁCTER GENERAL N°64», y sin esa regla el dashboard
+mostraba la 64 derogada por la 520. El detector es local —mira las comillas
+vecinas— porque `_dentro_de_cita`, que cuenta desde el inicio del documento, se
+desalinea con un par desbalanceado. Ojo: `_clausula_aplicacion` todavía usa
+`_dentro_de_cita` para las fechas de vigencia, y no está medido si ese
+desalineamiento la afecta.
 
 ## La descripción del listado no es el PDF: `modifica[]` con `fuente: "descripcion_cmf"`
 
@@ -708,10 +726,15 @@ ven chicos y no lo son:
   la circular CMF del mismo número. Las descartan **las dos** deducciones: el
   parser (`parser._ENUM_PASO`) y la descripción
   (`store._SERIE_TRAS_MENCION`, que además descarta «CARTA CIRCULAR»). Las dos
-  listas de series tienen que avanzar juntas. Consecuencia buscada: un documento
-  que sólo modifica una circular de cooperativas ya no cae en «Modificación
-  Circular», porque ese filtro es de circulares CMF. **«para bancos» no es
-  serie**: la CMF titula así sus propias circulares.
+  listas de series tienen que avanzar juntas. Consecuencia buscada: si la única
+  circular numerada que un documento modifica es de esas series, no cae en
+  «Modificación Circular», porque ese filtro es de circulares CMF. **«para
+  bancos» no es serie**: la CMF titula así sus propias circulares. Límite
+  conocido: el calificativo al final de una lista no se ve —la NCG 567/2026
+  deroga «las circulares N°98, 100, 112 […] aplicables a las cooperativas» y
+  la N°98 queda rotulada como circular CMF—, y tampoco la serie que sólo se
+  deduce del contexto: la NCG 534/2025 «MODIFICA LA CIRCULAR N°12 DE 2010», que
+  es la de Auditores Externos, y queda rotulada «Circular N°12».
 
 La deducción desde la descripción vive en **`store.normas_en_descripcion`**, y
 el dashboard la llama en vez de tener su propia copia: eran dos regex parecidos
@@ -769,14 +792,18 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
   `ofc_141_2001_01.pdf`, enlaces `ver_sgd.php?…`), el respaldo son las columnas
   «Número» y «Fecha» de la propia fila (`_fecha_y_numero_desde_columnas`); en
   las 2.874 filas donde se pueden comparar, las dos fuentes coinciden siempre.
-  Si la CMF cambia la forma de nombrar **y** reordena la tabla, las claves
-  vuelven a `0000_`.
+  El respaldo valida las columnas sólo por forma: si la CMF reordena la tabla,
+  las filas sin año en la URL vuelven a `0000_` cuando esas posiciones dejan de
+  tener un número y una fecha, y toman un dato equivocado sin aviso cuando
+  quedan otras columnas con la misma forma.
 
   **Una clave `0000_` no es un detalle cosmético: es una colisión esperando
-  ocurrir.** Hasta el 16-09-2026, 70 filas relevantes caían en `0000_0000`, el
-  diff dejaba pasar sólo la primera y las otras 69 quedaban «vistas» sin
-  haberse capturado nunca (la circular 2342/2023 entre ellas). Lo tapaba que
-  `0000_0000` ya estaba en `state.json`, así que nada se veía raro. Hoy
+  ocurrir.** El diff deja pasar una sola fila por clave. Hasta el 16-09-2026, 70
+  filas relevantes caían en `0000_0000`: 64 estaban guardadas con clave `19XX_`
+  desde antes del 14-05-2026 (cuando el año de la URL se restringió a 20XX), una
+  estaba guardada bajo la propia `0000_0000` y **5 no se habían capturado
+  nunca**, entre ellas la circular 2342/2023. Lo tapaba que `0000_0000` ya
+  estaba en `state.json`, así que nada se veía raro. Hoy
   `diff.get_nuevas` avisa cuando dos filas comparten clave y
   `store.ensamblar_entrada` avisa ante una clave `0000_` o una fecha de otro
   año que la clave; si aparecen en el log del workflow, mira esto primero.
@@ -848,7 +875,7 @@ entrada puede llevar varias categorías):
 | categoría | entradas |
 |---|---|
 | Otro | 260 |
-| Derogación | 196 |
+| Derogación | 192 |
 | Modificación NCG | 131 |
 | Modificación Circular | 104 |
 | Modificación Oficio Circular | 33 |
@@ -864,14 +891,17 @@ modificaciones. Ver `parser._ACCION`. El mismo día la derogación pasó a
 asignarse por norma y no por sección (`parser._normas_derogadas`): «Derógase la
 Sección III de la NCG N°273» ya no deroga la 273 entera.
 
-Ese mismo día entró `relaciones_cmf` y «Otro» bajó de 300 a 255: 45 entradas,
-casi todas escaneos anteriores a 2020, ganaron categoría con lo que dice el
-listado. «Modificación Circular» quedó igual en el total pero cambió por
-dentro: 17 entradas la perdieron porque su descripción dice «DEROGA CIRCULAR
-Nº…» y la deducción desde la descripción las leía como modificaciones.
-Después, al descartar las series ex-SBIF de la descripción, 5 entradas que sólo
-modificaban circulares de cooperativas o de emisoras de tarjetas volvieron a
-«Otro» (255 → 260).
+Ese mismo día entró `relaciones_cmf` y «Otro» bajó de 300 a 255: 45 entradas
+ganaron categoría con lo que dice el listado (37 anteriores a 2020; 38 con
+`parsed: False`). «Modificación Circular» quedó igual en el total pero cambió
+por dentro: 17 entradas la perdieron porque su descripción dice «DEROGA
+CIRCULAR Nº…» y la deducción desde la descripción las leía como
+modificaciones. Después, al descartar las series ex-SBIF de la descripción, 5
+entradas cuya única circular numerada era de cooperativas o de emisoras de
+tarjetas pasaron a «Otro» (255 → 260); las cinco modifican además capítulos de
+la RAN o archivos del MSI, que no tienen categoría. Por último, la regla de
+citas quitó 5 normas mal atribuidas en 4 documentos, que dejaron de figurar en
+«Derogación» (196 → 192).
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.
@@ -887,6 +917,12 @@ bug** — pero es lo primero que hay que revisar cuando una resolución aparece 
 `.github/workflows/monitoreo.yml` corre `python scraper/main.py` **dos veces al
 día** —11:00 y 15:00 UTC (≈ 8:00 AM y mediodía de Chile)— y luego hace commit de
 cualquier cambio bajo `data/` y `docs/` de vuelta al repo.
+
+**Ese es el horario programado, no el real.** GitHub atrasa los cron de este
+workflow: entre el 10 y el 15-09-2026 la corrida de las 11:00 partió entre las
+13:48 y las 16:41 UTC, y la de las 15:00 entre las 17:40 y las 19:43 UTC. Si a
+media mañana no hay commit del día, no es una falla; mira `gh run list` antes de
+concluir nada.
 
 La segunda corrida es una red de seguridad, no un duplicado: la CMF queda
 inalcanzable de a ratos (05-08-2026 y 13-08-2026, las dos con `ConnectTimeout`)

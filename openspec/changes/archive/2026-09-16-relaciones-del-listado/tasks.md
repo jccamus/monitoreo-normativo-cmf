@@ -20,7 +20,7 @@
 
 - [x] 4.1 `_normas_afectadas_ids` suma las `(tipo, numero)` de `relaciones_cmf` con tipo conocido
 - [x] 4.2 `_accion_sobre_norma`: PDF → `relaciones_cmf` → descripción
-- [x] 4.3 Rotular en el detalle las normas afectadas que sólo aporta el listado; darle clase a cualquier celda nueva y ubicarla en la grilla de celular
+- [x] 4.3 Rotular en el detalle las normas afectadas que sólo aporta el listado; darle clase a cualquier celda nueva y ubicarla en la grilla de celular (⟳ no hubo celdas nuevas: el bloque va dentro del detalle, que ya es un `div`. No se revisó en el navegador)
 - [x] 4.4 Medir el reparto de categorías antes y después y revisar a mano una muestra de entradas que salen de «Otro»
 
 ## 5. Cierre

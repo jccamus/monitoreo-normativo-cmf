@@ -4,7 +4,8 @@ Existe por lo mismo que `reparse.py`: `data/state.json` impide que una
 resolución ya vista se vuelva a procesar, así que un campo nuevo sólo llegaría a
 lo que se capture de aquí en adelante. A diferencia de `reparse.py` no baja
 ningún PDF: las relaciones («Modifica a», «Deroga a») están en el listado, que
-se consulta una sola vez. Toma segundos, no minutos.
+se consulta una sola vez: la descarga del listado toma alrededor de un minuto
+(~5 MB), contra los ~15 minutos que `reparse.py` necesita para 70 PDF.
 
 Cada entrada se busca por su URL sin el parámetro `&t=`, que los enlaces
 `ver_sgd.php?…` cambian en cada consulta. Reescribir el campo con el mismo

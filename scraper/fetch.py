@@ -264,7 +264,8 @@ def _parse_listado(html: str) -> list[dict]:
 # propósito: crecen cada vez que sale una norma posterior, y en un almacén
 # diferencial —cada entrada se guarda una vez— quedarían desactualizadas y se
 # leerían como «nadie la ha modificado». Lo entrante se obtiene invirtiendo las
-# salientes de las demás entradas. Ver openspec/changes/archive/2026-09-16-relaciones-del-listado.
+# salientes de las demás entradas. Ver
+# openspec/changes/archive/2026-09-16-relaciones-del-listado.
 _COLUMNAS_RELACION = {"MODIFICA A": "modifica_a", "DEROGA A": "deroga_a"}
 
 # Identidad de una norma relacionada, desde el `href` y nunca desde el texto de
@@ -310,16 +311,19 @@ def _relaciones_de_fila(celdas: list, posiciones: dict[str, int], url: str) -> d
         if i + 1 >= len(celdas):
             continue
         # Sólo los enlaces con texto. La celda intercala enlaces vacíos —a la
-        # SBIF (`LeyNorma?indice=…`) o a `__.pdf`— que no son ítems: contarlos
-        # descuadra el apareo con las fechas, que es de donde salió el falso
-        # «2 normas y 4 fechas» de la NCG 484/2022 (son 4 ítems, dos de ellos
-        # capítulos de la RAN).
+        # SBIF (`LeyNorma?indice=…`) o a `__.pdf`— que no son ítems, y
+        # contarlos descuadraría el apareo con las fechas. Ojo con el reverso:
+        # un ítem con texto no siempre es una norma. La NCG 484/2022 trae 4
+        # ítems y 4 fechas, pero dos ítems son capítulos de la RAN; contando
+        # sólo los enlaces a PDF de normas salen «2 normas y 4 fechas», que es
+        # el descuadre que anotaba el reporte de la Malla y que no existe.
         enlaces = [a for a in celdas[i].find_all("a", href=True) if a.get_text(strip=True)]
         fechas = _FECHA_CELDA.findall(celdas[i + 1].get_text(" "))
         if len(enlaces) != len(fechas):
             # Un apareo corrido le asigna a cada norma la fecha de otra sin que
-            # se note. En septiembre de 2026 no había ningún caso en 2.622
-            # celdas; si aparece, mejor el hueco.
+            # se note. En septiembre de 2026 no había ningún caso en las 2.622
+            # celdas con contenido de las cuatro columnas de relación; si
+            # aparece, mejor el hueco.
             logger.warning(
                 "«%s» con %d normas y %d fechas en %s — no se guarda esa relación",
                 nombre, len(enlaces), len(fechas), url,
@@ -353,13 +357,20 @@ def _item_relacion(enlace, fecha: str) -> dict:
 def _extraer_celda(celdas: list) -> dict | None:
     """Extrae una resolución desde las celdas de una fila de la tabla CMF.
 
-    El CMF lista cada normativa con la fecha de la NCG ORIGINAL (puede ser de 1986).
-    La fecha real de la nueva resolución se extrae del nombre del PDF (ej. ncg_564_2026.pdf).
+    El año y el número salen del nombre del PDF (ej. ncg_564_2026.pdf) y, si
+    no está, de las columnas «Número» y «Fecha» de la fila. La fecha exacta la
+    pone después el encabezado del PDF.
+
+    Este docstring decía que el listado muestra «la fecha de la NCG ORIGINAL».
+    Contrastado el 16-09-2026, la columna «Fecha» coincide con la fecha del
+    encabezado del PDF en 234 de 244 entradas comparables, y en otras 7 difiere
+    en una semana o menos: es la fecha del propio documento. Las fechas de las
+    normas relacionadas van en otras columnas («Modifica a», «Deroga a», etc.).
     """
     try:
         # Con separador: sin él, `get_text` pega el texto de un nodo con el del
         # siguiente, y un `<br>` o un enlace dentro de la celda produce
-        # «INFORME NORMATIVOPRESENTACIÓN». `FRASES_CLAVE` se compara con `in`
+        # «Informe NormativoPresentación». `FRASES_CLAVE` se compara con `in`
         # literal, así que una frase partida así deja de calzar sin avisar. En
         # septiembre de 2026 pasaba en 3.497 celdas, pero ninguna era el título
         # ni el texto del acuerdo, y el cambio no movió ni una fila relevante
@@ -369,10 +380,11 @@ def _extraer_celda(celdas: list) -> dict | None:
         texto_fila = " ".join(textos)
 
         # Descripción: celda más larga *con texto*. Sin el filtro, en una norma
-        # modificada muchas veces gana la columna «Modificada por», que es sólo
-        # una lista de fechas: la NCG 571/2026 y la 515/2024 quedaron guardadas
-        # con «22/07/1988 29/07/2011 …» como descripción, y la clasificación
-        # se calcula sobre ese campo.
+        # con muchas relaciones gana una celda que es sólo una lista de fechas:
+        # la NCG 571/2026 quedó guardada con «22/07/1988 29/07/2011 …» —las
+        # fechas de su «Deroga a»— como descripción, igual que la NCG 515/2024
+        # y la 2015_0376, y la circular 1194/1995 iba a entrar con las de su
+        # «Modificada por». La clasificación se calcula sobre este campo.
         descripcion = max(
             (t for t in textos if re.search(r"[A-Za-zÁÉÍÓÚÑ]{3}", t)), key=len, default=""
         )
@@ -440,19 +452,25 @@ def _fecha_y_numero_desde_columnas(textos: list[str]) -> tuple[str | None, str |
     el año, que eran 1.734 de 4.608 en septiembre de 2026: PDF anteriores a
     2000 (`cir_1459_1999.pdf`, fuera del rango 20XX a propósito), oficios con
     sufijo (`ofc_141_2001_01.pdf`) y enlaces sin nombre de archivo
-    (`ver_sgd.php?s567=…`). Sin año, `make_key` las rotulaba todas `0000_0000`
-    —o `0000_0014`, con el 14 sacado de «LEY N°14.908»— y **el diff por clave
-    dejaba pasar sólo la primera**: 69 filas relevantes colisionaban, entre
-    ellas la circular 2342/2023, que nunca se capturó.
+    (`ver_sgd.php?s567=…`). Sin año, `make_key` las rotulaba `0000_0000` —o
+    `0000_0014` en la NCG 500/2023, con el 14 sacado de «LEY N°14.908», el
+    primer «N°» de su fila— y **el diff por clave deja pasar sólo la primera
+    fila de cada clave**. En septiembre de 2026, 70 filas relevantes compartían
+    `0000_0000`: 64 ya estaban guardadas con clave `19XX_` desde antes del
+    14-05-2026, cuando el año de la URL se restringió a 20XX; una, el oficio
+    circular 141/2001, estaba guardada bajo la propia `0000_0000`, y 5 no se
+    habían capturado nunca, entre ellas la circular 2342/2023.
 
-    Va detrás de la URL y no delante para no mover ninguna clave ya guardada,
-    aunque en las 2.874 filas donde se pueden comparar las dos fuentes
-    coinciden sin excepción. Devuelve el mismo placeholder `YYYY-01-01` que la
-    URL: la fecha exacta la sigue poniendo el PDF.
+    Va detrás de la URL y no delante porque la URL es la convención
+    documentada; en las 2.874 filas donde se pueden comparar las dos fuentes
+    coinciden sin excepción, así que el orden no mueve ninguna clave. Devuelve
+    el mismo placeholder `YYYY-01-01` que la URL: la fecha exacta la sigue
+    poniendo el PDF.
 
-    Las columnas se validan por forma y no se confía en su posición a ciegas:
-    si la CMF reordena la tabla, esto devuelve (None, None) en vez de un año
-    sacado de otra columna.
+    Las columnas se validan sólo por forma (número entero, fecha dd/mm/aaaa).
+    Si la CMF reordena la tabla y en esas posiciones quedan columnas de otra
+    forma, esto devuelve (None, None); si quedan otras columnas con esa misma
+    forma, no lo detecta.
     """
     if len(textos) < 3:
         return None, None

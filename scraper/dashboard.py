@@ -256,9 +256,10 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
     for tn in store.normas_en_descripcion(entrada.get("descripcion_cmf") or ""):
         ids[tn] = None
     # El listado de la CMF es un piso: suma lo que el PDF no deja ver y nunca
-    # quita. Medido en septiembre de 2026, en 295 de 388 entradas con
-    # relaciones el listado nombra normas que el parser no encuentra; la NCG
-    # 571/2026 deroga 55 según el listado y el parser ve 3.
+    # quita. Medido el 16-09-2026, en 295 de 388 entradas con relaciones el
+    # listado nombra normas que el parser no encuentra. La NCG 571/2026 deroga
+    # 55 según el listado; el parser encuentra otras 3 que el listado no trae
+    # (la NCG 18 y las Circulares 632 y 695), así que las fuentes se completan.
     for tn in _relaciones_listado(entrada):
         ids[tn] = None
 

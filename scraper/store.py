@@ -69,17 +69,22 @@ def normas_en_descripcion(descripcion: str) -> list[tuple[str, int]]:
 # Lo que sigue o precede a una mención y la saca de la numeración CMF. La
 # NCG 469/2022 describe «DEROGA NORMA DE CARÁCTER GENERAL N° 330, CIRCULAR
 # N°3.530 BANCOS (CIRCULAR N° 147 DE COOPERATIVAS Y LA CIRCULAR N° 62 DE
-# FILIALES), CARTA CIRCULAR N°2 DEL 2012 BANCOS […]»: sólo la 330 es una norma
-# de la CMF (lo mismo «CIRCULAR N°1 DE EMPRESAS OPERADORAS DE TARJETAS DE PAGO»,
-# «… DE EMPRESAS EMISORAS» y «CIRCULAR N°23 DE SOCIEDADES DE APOYO AL GIRO», las
-# tres en la descripción de la circular 2361/2025). Las demás son series de la ex-SBIF, con numeración propia, y
-# rotularlas «Circular N°3530» o «Circular N°2» le atribuye la derogación a
-# otro documento —o a uno que no existe—. Es la misma regla que aplica el
-# parser en `_ENUM_PASO`; «para Emisores» es serie y «para bancos» no, porque
-# la CMF titula así sus propias circulares («Circular N°2.364 para bancos»).
+# FILIALES), CARTA CIRCULAR N°2 DEL 2012 BANCOS […]»: de esas, sólo la 330 es
+# una norma de la CMF. Las demás son series de la ex-SBIF con numeración
+# propia, y rotularlas «Circular N°3530» o «Circular N°2» le atribuye la
+# derogación a otro documento —o a uno que no existe: la numeración de
+# circulares CMF no llega a 3.530—. La descripción de la circular 2361/2025
+# agrega tres series más: «DE EMPRESAS OPERADORAS», «DE EMPRESAS EMISORAS» y
+# «DE SOCIEDADES DE APOYO AL GIRO».
+#
+# Es la misma regla que aplica el parser en `_ENUM_PASO`, y las dos listas
+# tienen que coincidir. «para Emisores» es serie y «para bancos» no, porque la
+# CMF titula así sus propias circulares («Circular N°2.364 para bancos»).
 _SERIE_TRAS_MENCION = re.compile(
     r"\s*(?:,?\s*DEL?\s+\d{4}\s*)?"
-    r"(?:(?:DE\s+)?(?:BANCOS|COOPERATIVAS|FILIALES|AUDITORES\s+EXTERNOS|EMPRESAS\s+(?:OPERADORAS|EMISORAS)|SOCIEDADES\s+DE\s+APOYO)|PARA\s+EMISORES)\b",
+    r"(?:(?:DE\s+)?(?:BANCOS|COOPERATIVAS|FILIALES|AUDITORES\s+EXTERNOS"
+    r"|EMPRESAS\s+(?:OPERADORAS|EMISORAS)|SOCIEDADES\s+DE\s+APOYO)"
+    r"|PARA\s+EMISORES)\b",
     re.IGNORECASE,
 )
 _CARTA_ANTES = re.compile(r"CARTA\s+$", re.IGNORECASE)
@@ -241,9 +246,12 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
 
 
 def _avisar_incoherencias(entrada: dict) -> None:
-    """Warning cuando la clave, la fecha y la URL no cuentan la misma historia.
+    """Warning cuando la clave y la fecha no cuentan la misma historia.
 
-    No bloquea: la entrada se guarda igual. Existe porque los dos defectos que
+    Basta con la clave: su año sale de la URL o, si la URL no lo trae, de las
+    columnas del listado (`fetch._fecha_y_numero_desde_columnas`), así que
+    comparar también contra la URL no agrega nada. No bloquea: la entrada se
+    guarda igual. Existe porque los dos defectos que
     motivaron esto no se veían en ningún lado. Una clave `0000_` significa que
     no se supo el año del documento, y ahí empiezan las colisiones del diff. Y
     una fecha con otro año que la clave es casi siempre una fecha *citada* que

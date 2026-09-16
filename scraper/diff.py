@@ -53,9 +53,12 @@ def get_nuevas(resoluciones: list[dict]) -> list[dict]:
     nuevas = []
     # Dos filas del mismo listado con la misma clave no son un duplicado: son
     # dos documentos que `make_key` no logra distinguir, y el diff deja pasar
-    # sólo el primero. Así se perdieron 69 filas en silencio hasta septiembre de
-    # 2026, todas bajo `0000_0000` (ver `fetch._fecha_y_numero_desde_columnas`).
-    # Se avisa en vez de abortar: el resto del listado sigue siendo válido.
+    # sólo el primero. Hasta septiembre de 2026, 70 filas relevantes compartían
+    # `0000_0000`: 64 ya estaban guardadas con su clave `19XX_` desde antes de
+    # que el año de la URL se restringiera a 20XX, una estaba guardada bajo la
+    # propia `0000_0000` y 5 no se habían capturado nunca, entre ellas la
+    # circular 2342/2023 (ver `fetch._fecha_y_numero_desde_columnas`). Se avisa
+    # en vez de abortar: el resto del listado sigue siendo válido.
     por_clave: dict[str, str] = {}
     for r in resoluciones:
         key = make_key(r.get("fecha", ""), r.get("numero"))

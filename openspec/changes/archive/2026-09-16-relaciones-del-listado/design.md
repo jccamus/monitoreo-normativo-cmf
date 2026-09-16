@@ -11,11 +11,13 @@ Cada fila del listado de la CMF tiene 18 celdas `<td>`. Las cuatro relaciones oc
 
 Lo que se midió sobre el listado completo (4.608 filas, 16-09-2026):
 
-- **La celda de enlaces intercala enlaces vacíos** hacia la SBIF (`LeyNorma?indice=…`) o hacia `__.pdf`. Contando sólo los enlaces con texto, el número de ítems y el de fechas cuadra en las 2.622 celdas con contenido, sin excepción. (El «2 normas y 4 fechas» de la NCG 484 que anotaba el pendiente salía de contar mal: son 4 ítems, dos de ellos capítulos de la RAN.)
-- **El tipo sale del `href`** en 3.862 de 3.871 ítems. Los 9 restantes: capítulos de la RAN (`cap. 2-2`, enlazados a una página del portal), oficios ordinarios (`ofo_5280_2010.pdf`) y un `ofc_6.016_1999.pdf` con punto de miles. En ningún caso el texto del enlace contradice al `href`.
+- **La celda de enlaces intercala enlaces vacíos** hacia la SBIF (`LeyNorma?indice=…`) o hacia `__.pdf`. Contando sólo los enlaces con texto, el número de ítems y el de fechas cuadra en las 2.622 celdas con contenido, sin excepción. (El «2 normas y 4 fechas» de la NCG 484 que anotaba el pendiente salía de contar como normas sólo los enlaces a PDF: son 4 ítems con 4 fechas, dos de ellos capítulos de la RAN.)
+- **El tipo sale del `href`** en 3.862 de 3.871 ítems de las cuatro columnas (en las dos que se guardan, 1.940 de 1.947). Los 9 restantes: capítulos de la RAN (`cap. 2-2`, enlazados a una página del portal), oficios ordinarios (`ofo_5280_2010.pdf`) y un `ofc_6.016_1999.pdf` con punto de miles. En ningún caso el texto del enlace contradice al `href`.
 - **Frente al PDF**: en 295 de 388 entradas guardadas el listado aporta normas que el parser no ve; en 10 el parser ve normas que el listado no trae (la NCG 565/2026 deroga la NCG 534 y el listado la omite); donde ambos conocen la norma, la acción coincide en 130 de 130.
 
 El caso que conviene tener a mano: la NCG 562/2026 deroga la NCG 18 y las Circulares 632 y 695 en una sección «VI. DEROGACIÓN» que va *después* de la de vigencia. El parser corta el cuerpo en la vigencia y no la ve; el listado sí la trae. Se sospechó primero un error del listado y era un hueco del parser.
+
+**⟳ Después de archivar (16-09-2026)**: el hueco de la 562 se corrigió en el parser. De las 10 entradas en que el parser veía normas que el listado no trae, 4 eran menciones dentro de un texto citado (NCG 479, 520 y 524, circular 2360) y hoy el parser las descarta (`parser._en_cita_local`); otras 2 eran series ex-SBIF: la Circular N°1 de Empresas Emisoras en la 537, que hoy se descarta, y la Circular N°12 de 2010 en la 534, que no: la 534 no escribe «de Auditores Externos» y la serie sólo se deduce del contexto.
 
 ## Goals / Non-Goals
 
@@ -76,6 +78,7 @@ Como `_tipos_de_entrada` se engancha a `_accion_sobre_norma`, las categorías se
 - [La CMF cambia el HTML de la tabla] → validación contra el encabezado; campo vacío más warning en vez de datos corridos.
 - [Las categorías cambian de golpe (muchas entradas «Otro» ganan categoría)] → medir el reparto antes y después al aplicar y dejarlo en CLAUDE.md, como en los cambios anteriores.
 - [Series ex-SBIF en el listado] → la identidad sale del `href` (`cir_…` del sitio CMF), no del texto; si el listado enlaza un PDF CMF, es una circular CMF. No se esperan series ex-SBIF acá, pero se verifica al aplicar.
+  **⟳ Verificación parcial (16-09-2026)**: ninguna circular del listado pasa del N°2.400, cuando la numeración CMF va en la 2.378 y la ex-SBIF llega a la 3.530. Es un indicio, no una prueba: una serie ex-SBIF de número bajo no se distinguiría así.
 
 ## Migration Plan
 
