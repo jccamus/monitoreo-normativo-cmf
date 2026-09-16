@@ -43,7 +43,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Modifica la Circular N°2.364 para bancos",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "Circular",
+            "numero": 2364,
+            "anio": 2025,
+            "fecha": "2025-06-26",
+            "url": "https://www.cmfchile.cl/normativa/cir_2364_2025.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     }
   ]
 }

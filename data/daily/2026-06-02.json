@@ -40,7 +40,19 @@
         "numero": 568
       },
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 538,
+            "anio": 2025,
+            "fecha": "2025-06-17",
+            "url": "https://www.cmfchile.cl/normativa/ncg_538_2025.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     }
   ]
 }

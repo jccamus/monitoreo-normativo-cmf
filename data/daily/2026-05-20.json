@@ -44,7 +44,19 @@
       "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°30 DE 1989",
       "resumen_acciones": [
         "Agrégase en la Norma de Carácter General N°30 de 1989, la siguiente nueva Sección VI, pasando la actual Sección VI a ser la nueva Sección VII: “SECCION VI OBLIGACIONES DE LAS…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 30,
+            "anio": 1989,
+            "fecha": "1989-11-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_30_1989.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0565",
@@ -224,7 +236,89 @@
         "numero": 565
       },
       "tema": "CREA EL COMPENDIO NORMATIVO DE EMPRESAS DE AUDITORÍA EXTERNA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 275,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/ncg_275_2010.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 302,
+            "anio": 2011,
+            "fecha": "2011-01-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_302_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 355,
+            "anio": 2013,
+            "fecha": "2013-12-02",
+            "url": "https://www.cmfchile.cl/normativa/ncg_355_2013.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 75,
+            "anio": 1981,
+            "fecha": "1981-09-03",
+            "url": "https://www.cmfchile.cl/normativa/cir_75_1981.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 478,
+            "anio": 1985,
+            "fecha": "1985-02-01",
+            "url": "https://www.cmfchile.cl/normativa/cir_478_1985.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 872,
+            "anio": 2015,
+            "fecha": "2015-03-03",
+            "url": "https://www.cmfchile.cl/normativa/ofc_872_2015.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1202,
+            "anio": 1995,
+            "fecha": "1995-03-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_1202_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1964,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_1964_2010.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 718,
+            "anio": 2012,
+            "fecha": "2012-02-10",
+            "url": "https://www.cmfchile.cl/normativa/ofc_718_2012.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 764,
+            "anio": 2012,
+            "fecha": "2012-12-21",
+            "url": "https://www.cmfchile.cl/normativa/ofc_764_2012.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1167,
+            "anio": 1994,
+            "fecha": "1994-08-01",
+            "url": "https://www.cmfchile.cl/normativa/cir_1167_1994.pdf"
+          }
+        ]
+      }
     }
   ]
 }

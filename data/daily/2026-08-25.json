@@ -33,7 +33,11 @@
       ],
       "archivos_afectados": [],
       "tema": "Introduce nuevo Capítulo CAC-21 a la Recopilación Actualizada de Normas para Cooperativas de Ahorro y Crédito fiscalizadas, sobre los requisitos y condiciones excepcionales para solicitar devolución de cuotas de participación, y establece modificaciones en el Compendio Normas Contables para Cooperativas",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     }
   ]
 }

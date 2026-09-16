@@ -74,7 +74,11 @@
       "tema": "Revisión y racionalización de archivos normativos",
       "resumen_acciones": [
         "Elimínese del Manual del Sistema de Información de Cooperativas de Ahorro y Crédito las referencias al archivo C51 contenidas en el “Catálogo de archivos del sistema de…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     }
   ]
 }

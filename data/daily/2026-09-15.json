@@ -87,7 +87,19 @@
         }
       ],
       "tema": "Introduce modificaciones a la NCG N°540 que contiene las Normas de Funcionamiento Operativo del Registro de Deuda Consolidada y a su Manual del Sistema de Información, y crea el documento Anexo Técnico REDEC",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 540,
+            "anio": 2025,
+            "fecha": "2025-07-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_540_2025.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     }
   ]
 }

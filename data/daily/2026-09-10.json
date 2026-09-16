@@ -41,7 +41,19 @@
       "tema": "MODIFICA CIRCULAR N°2.110 EN LOS TÉRMINOS QUE INDICA",
       "resumen_acciones": [
         "Elimínese los Anexos 1 y 2"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "Circular",
+            "numero": 2110,
+            "anio": 2013,
+            "fecha": "2013-07-05",
+            "url": "https://www.cmfchile.cl/normativa/cir_2110_2013.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0575",
@@ -81,7 +93,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°539 DE 2025 EN LOS TÉRMINOS QUE INDICA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 539,
+            "anio": 2025,
+            "fecha": "2025-06-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_539_2025.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_2375",
@@ -121,7 +145,19 @@
       "resumen_acciones": [
         "Agrégase al título 2. Pérdida o cambio de la calidad de beneficiario, el siguiente párrafo final: “Si la compañía toma conocimiento de que un beneficiario legal de pensión se…",
         "Agrégase el siguiente número 4: “4. Anticipo de la cláusula adicional de aumento diferido y vitalicio de pensión. Mientras no se inicie el pago de la renta vitalicia mensual…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "Circular",
+            "numero": 2062,
+            "anio": 2012,
+            "fecha": "2012-02-17",
+            "url": "https://www.cmfchile.cl/normativa/cir_2062_2012.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0572",
@@ -163,7 +199,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°519 DE 2024 REFERIDA A LA MEMORIA ANUAL INTEGRADA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 519,
+            "anio": 2024,
+            "fecha": "2024-10-28",
+            "url": "https://www.cmfchile.cl/normativa/ncg_519_2024.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0571",
@@ -243,7 +291,419 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "COMPENDIO NORMATIVO DE BOLSAS E INTERMEDIARIOS",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 431,
+            "anio": 2019,
+            "fecha": "2019-02-12",
+            "url": "https://www.cmfchile.cl/normativa/ncg_431_2019.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 352,
+            "anio": 2013,
+            "fecha": "2013-10-21",
+            "url": "https://www.cmfchile.cl/normativa/ncg_352_2013.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1816,
+            "anio": 2006,
+            "fecha": "2006-10-26",
+            "url": "https://www.cmfchile.cl/normativa/cir_1816_2006.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 26,
+            "anio": 1988,
+            "fecha": "1988-07-22",
+            "url": "https://www.cmfchile.cl/normativa/ncg_26_1988.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 684,
+            "anio": 2011,
+            "fecha": "2011-07-29",
+            "url": "https://www.cmfchile.cl/normativa/ofc_684_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 186,
+            "anio": 2005,
+            "fecha": "2005-09-13",
+            "url": "https://www.cmfchile.cl/normativa/ncg_186_2005.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 278,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/ncg_278_2010.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 293,
+            "anio": 2010,
+            "fecha": "2010-10-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_293_2010.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 366,
+            "anio": 2014,
+            "fecha": "2014-07-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_366_2014.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 380,
+            "anio": 2015,
+            "fecha": "2015-03-09",
+            "url": "https://www.cmfchile.cl/normativa/ncg_380_2015.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 429,
+            "anio": 2022,
+            "fecha": "2022-07-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_429_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 480,
+            "anio": 2022,
+            "fecha": "2022-07-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_480_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 499,
+            "anio": 2023,
+            "fecha": "2023-12-05",
+            "url": "https://www.cmfchile.cl/normativa/ncg_499_2023.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 522,
+            "anio": 2024,
+            "fecha": "2024-11-28",
+            "url": "https://www.cmfchile.cl/normativa/ncg_522_2024.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 528,
+            "anio": 2024,
+            "fecha": "2024-12-27",
+            "url": "https://www.cmfchile.cl/normativa/ncg_528_2024.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 535,
+            "anio": 2025,
+            "fecha": "2025-04-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_535_2025.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 562,
+            "anio": 2026,
+            "fecha": "2026-04-20",
+            "url": "https://www.cmfchile.cl/normativa/ncg_562_2026.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1435,
+            "anio": 1999,
+            "fecha": "1999-04-30",
+            "url": "https://www.cmfchile.cl/normativa/cir_1435_1999.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 514,
+            "anio": 1985,
+            "fecha": "1985-06-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_514_1985.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 887,
+            "anio": 1989,
+            "fecha": "1989-09-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_887_1989.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1926,
+            "anio": 2009,
+            "fecha": "2009-05-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_1926_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2108,
+            "anio": 2013,
+            "fecha": "2013-06-14",
+            "url": "https://www.cmfchile.cl/normativa/cir_2108_2013.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1638,
+            "anio": 2002,
+            "fecha": "2002-12-11",
+            "url": "https://www.cmfchile.cl/normativa/cir_1638_2002.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 997,
+            "anio": 1991,
+            "fecha": "1991-02-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_997_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 445,
+            "anio": 1984,
+            "fecha": "1984-10-22",
+            "url": "https://www.cmfchile.cl/normativa/cir_445_1984.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1493,
+            "anio": 2000,
+            "fecha": "2000-08-10",
+            "url": "https://www.cmfchile.cl/normativa/cir_1493_2000.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1046,
+            "anio": 1991,
+            "fecha": "1991-12-17",
+            "url": "https://www.cmfchile.cl/normativa/cir_1046_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 653,
+            "anio": 1986,
+            "fecha": "1986-09-30",
+            "url": "https://www.cmfchile.cl/normativa/cir_653_1986.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1377,
+            "anio": 1998,
+            "fecha": "1998-02-27",
+            "url": "https://www.cmfchile.cl/normativa/cir_1377_1998.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1992,
+            "anio": 2010,
+            "fecha": "2010-11-24",
+            "url": "https://www.cmfchile.cl/normativa/cir_1992_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1995,
+            "anio": 2010,
+            "fecha": "2010-12-29",
+            "url": "https://www.cmfchile.cl/normativa/cir_1995_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2057,
+            "anio": 2012,
+            "fecha": "2012-02-02",
+            "url": "https://www.cmfchile.cl/normativa/cir_2057_2012.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2067,
+            "anio": 2012,
+            "fecha": "2012-03-27",
+            "url": "https://www.cmfchile.cl/normativa/cir_2067_2012.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1985,
+            "anio": 2010,
+            "fecha": "2010-08-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_1985_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1227,
+            "anio": 1995,
+            "fecha": "1995-06-23",
+            "url": "https://www.cmfchile.cl/normativa/cir_1227_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1033,
+            "anio": 1991,
+            "fecha": "1991-09-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_1033_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 467,
+            "anio": 1984,
+            "fecha": "1984-12-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_467_1984.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 538,
+            "anio": 1985,
+            "fecha": "1985-08-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_538_1985.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 682,
+            "anio": 1987,
+            "fecha": "1987-01-23",
+            "url": "https://www.cmfchile.cl/normativa/cir_682_1987.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1026,
+            "anio": 1991,
+            "fecha": "1991-08-07",
+            "url": "https://www.cmfchile.cl/normativa/cir_1026_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1930,
+            "anio": 2009,
+            "fecha": "2009-07-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_1930_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1962,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_1962_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1963,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_1963_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1968,
+            "anio": 2010,
+            "fecha": "2010-02-03",
+            "url": "https://www.cmfchile.cl/normativa/cir_1968_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1430,
+            "anio": 1999,
+            "fecha": "1999-03-12",
+            "url": "https://www.cmfchile.cl/normativa/cir_1430_1999.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 46,
+            "anio": 2001,
+            "fecha": "2001-06-15",
+            "url": "https://www.cmfchile.cl/normativa/ofc_46_2001.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 737,
+            "anio": 2012,
+            "fecha": "2012-05-31",
+            "url": "https://www.cmfchile.cl/normativa/ofc_737_2012.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 98,
+            "anio": 2002,
+            "fecha": "2002-04-29",
+            "url": "https://www.cmfchile.cl/normativa/ofc_98_2002.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 2194,
+            "anio": 1993,
+            "fecha": "1993-06-08",
+            "url": "https://www.cmfchile.cl/normativa/ofc_2194_1993.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 3438,
+            "anio": 1989,
+            "fecha": "1989-09-28",
+            "url": "https://www.cmfchile.cl/normativa/ofc_3438_1989.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 125,
+            "anio": 2002,
+            "fecha": "2002-10-02",
+            "url": "https://www.cmfchile.cl/normativa/ofc_125_2002.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 6589,
+            "anio": 2000,
+            "fecha": "2000-10-04",
+            "url": "https://www.cmfchile.cl/normativa/ofc_6589_2000.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 631,
+            "anio": 2010,
+            "fecha": "2010-08-26",
+            "url": "https://www.cmfchile.cl/normativa/ofc_631_2010.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 115,
+            "anio": 2002,
+            "fecha": "2002-07-24",
+            "url": "https://www.cmfchile.cl/normativa/ofc_115_2002.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 102,
+            "anio": 2002,
+            "fecha": "2002-05-30",
+            "url": "https://www.cmfchile.cl/normativa/ofc_102_2002.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 4456,
+            "anio": 2000,
+            "fecha": "2000-07-17",
+            "url": "https://www.cmfchile.cl/normativa/ofc_4456_2000.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 5076,
+            "anio": 1990,
+            "fecha": "1990-11-28",
+            "url": "https://www.cmfchile.cl/normativa/ofc_5076_1990.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 69,
+            "anio": 1996,
+            "fecha": "1996-11-26",
+            "url": "https://www.cmfchile.cl/normativa/ncg_69_1996.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2026_0570",
@@ -282,7 +742,41 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Modifica diversos cuerpos normativos con el fin de optimizar su aplicación práctica, fortalecer la certeza jurídica y mejorar la eficiencia de los procesos asociados al cumplimiento regulatorio",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 318,
+            "anio": 2011,
+            "fecha": "2011-09-01",
+            "url": "https://www.cmfchile.cl/normativa/ncg_318_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 209,
+            "anio": 2007,
+            "fecha": "2007-12-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_209_2007.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 139,
+            "anio": 2002,
+            "fecha": "2002-04-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_139_2002.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "Circular",
+            "numero": 1677,
+            "anio": 2003,
+            "fecha": "2003-09-05",
+            "url": "https://www.cmfchile.cl/normativa/cir_1677_2003.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2026_2372",
@@ -313,7 +807,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Introduce modificaciones al Capítulo 18-5 de la Recopilación Actualizada de Normas para bancos, respecto a la información sobre deudores de las instituciones financieras",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0569",
@@ -370,7 +868,19 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 514,
+            "anio": 2024,
+            "fecha": "2024-07-03",
+            "url": "https://www.cmfchile.cl/normativa/ncg_514_2024.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0567",
@@ -565,7 +1075,11 @@
         }
       ],
       "tema": "Crea la Recopilación Actualizada de Normas para Cooperativas de Ahorro y Crédito (RAN CACs), el Manual de Sistema de Información para Cooperativas de Ahorro y Crédito (MSI CACs), y deroga Circulares en concordancia",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0560",
@@ -607,7 +1121,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA NCG N°275 DE 2010 REFERIDA A LAS NORMAS DE INSCRIPCIÓN Y FUNCIONAMIENTO DEL REGISTRO DE EMPRESAS DE AUDITORÍA EXTERNA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 275,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/ncg_275_2010.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0558",
@@ -636,7 +1162,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0555",
@@ -673,7 +1203,11 @@
       "tema": "ESTABLECE MECANISMO DE ENVÍO DE IDENTIFICACIÓN Y SEXO DE LOS DIRECTORES DE LAS SOCIEDADES ANÓNIMAS ABIERTAS Y ESPECIALES",
       "resumen_acciones": [
         "Reemplácese el texto del numeral 3.2.i por el siguiente: “i. La identificación y sexo de cada uno de sus integrantes señalando la fecha de su nombramiento o última reelección,…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0552",
@@ -698,7 +1232,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "IMPARTE INSTRUCCIONES RELATIVAS AL ENVÍO DE INFORMACIÓN PARA ENTIDADES INSCRITAS EN EL REGISTRO DE ADMINISTRADORES DE CARTERAS DISTINTAS DE ADMINISTRADORAS GENERALES DE FONDOS E INTERMEDIARIOS DE VALORES, SOBRE VOLUMEN DE NEGOCIOS Y NÚMERO DE CLIENTES, PATRIMONIO MÍNIMO Y ACTIVOS PONDERADOS POR RIESGOS, REQUERIMIENTO DE PATRIMONIO Y ACTIVOS PONDERADOS POR RIESGO DE CRIPTOACTIVOS, INFORMACIÓN DE…",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_2367",
@@ -742,7 +1280,11 @@
         }
       ],
       "tema": "Información referida a créditos otorgados bajo programas de garantías estatales: Actualiza las Instrucciones Generales del Manual del Sistema de Información y el Capítulo C-3 del Compendio de Normas Contables, ambos para Bancos",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_1382",
@@ -781,7 +1323,11 @@
         }
       ],
       "tema": "Introduce ajustes a la Tabla 61 y a los archivos P02 y P36 del Manual del Sistema de Información para bancos",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0543",
@@ -829,7 +1375,19 @@
       ],
       "archivos_afectados": [],
       "tema": "DEROGA EL CAPÍTULO 1-6 Y MODIFICA EL CAPÍTULO 1-8, AMBOS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS EN LOS TÉRMINOS QUE INDICA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "Circular",
+            "numero": 2166,
+            "anio": 2014,
+            "fecha": "2014-12-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_2166_2014.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2025_0541",
@@ -1085,7 +1643,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0540",
@@ -1118,7 +1680,11 @@
       ],
       "archivos_afectados": [],
       "tema": "Establece las Normas de Funcionamiento Operativo del Registro de Deuda Consolidada, conforme con lo dispuesto en la Ley N° 21.680 que Crea el Registro de Deuda Consolidada",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0539",
@@ -1157,7 +1723,19 @@
         }
       ],
       "tema": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA DICTACIÓN DE NORMATIVA QUE ACTUALIZA OBLIGACIONES DE INFORMACIÓN DE LA LEY N°20.009",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 487,
+            "anio": 2022,
+            "fecha": "2022-10-03",
+            "url": "https://www.cmfchile.cl/normativa/ncg_487_2022.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0538",
@@ -1196,7 +1774,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0537",
@@ -1240,7 +1822,11 @@
       "tema": "Introduce modificaciones al Capítulo 8- 41 de la Recopilación Actualizada de Normas y a la Circular N°1 de Emisores de Tarjetas No Bancarios, respecto de la determinación de una fórmula para el cálculo del monto mínimo a pagar en tarjetas de crédito, y las situaciones excepcionales que se liberará a los deudores de dicha obligación",
       "resumen_acciones": [
         "CAPÍTULO 8-41 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0536",
@@ -1269,7 +1855,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "ESTABLECE LOS REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR DE LOS PRESTADORES DEL SERVICIO DE INTERMEDIACIÓN Y CUSTODIA DE INSTRUMENTOS FINANCIEROS DEL TÍTULO II DE LA LEY 21.521",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0535",
@@ -1298,7 +1888,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "ESTABLECE REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR O ADMINISTRADOR PROVISIONAL PARA INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_2361",
@@ -1458,7 +2052,11 @@
       "resumen_acciones": [
         "Agréguese el Archivo P73 al Manual del Sistema de Información para bancos, señalado a continuación: CÓDIGO ARCHIVO: P73 NOMBRE: INGRESOS Y COSTOS EMISIÓN DE TARJETAS PERIODICIDAD:…",
         "Agréguese la siguiente información al ANEXO N°1 de la Circular N°108 de 4 de junio de 2003, como a continuación se indica: ANEXO N° 1 ENVIO DE INFORMACIÓN EN ARCHIVOS Archivos que…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2024_0529",
@@ -1510,7 +2108,19 @@
         "Reemplácese el encabezado del numeral 2 de la sección B.2. por “Realizar o actualizar, al menos anualmente o ante eventos que amenacen la continuidad de las operaciones del…",
         "Reemplácese el numeral 4 de la sección B.2. por “Realizar o actualizar, al menos anualmente, una evaluación de los riesgos de continuidad de negocio que, de materializarse,…",
         "Reemplácese el numeral 5 de la sección B.2. por “Definir una estrategia de continuidad de negocio que tenga por objetivo mantener la continuidad de los procesos de mayor…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 510,
+            "anio": 2024,
+            "fecha": "2024-05-08",
+            "url": "https://www.cmfchile.cl/normativa/ncg_510_2024.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2024_0518",
@@ -1554,7 +2164,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE LA CARTERA DE CLIENTES DE LAS EMPRESAS DE AUDITORÍA EXTERNA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 275,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/ncg_275_2010.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2024_1340",
@@ -1589,7 +2211,11 @@
         }
       ],
       "tema": "Informa ajustes a la Tabla 39 y al archivo P72 del Manual del Sistema de Información para bancos",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2024_0515",
@@ -1668,7 +2294,384 @@
         "Agréguese en la letra A del N°3.1 de la Sección I de la NCG N°30 el siguiente nuevo párrafo final: “Además, se deberá señalar el correo electrónico del representante legal y…",
         "Agréguese en el número 2 de la Sección I de la NCG N°30 el siguiente nuevo número 2.5: “2.5 Actualización información Mientras la entidad cuente con inscripciones vigentes en el…",
         "Agréguese en el N°1.3 de la Sección II de la NCG N°136 el siguiente nuevo párrafo penúltimo: “En el caso del representante legal, se deberá señalar su correo electrónico y…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 488,
+            "anio": 2022,
+            "fecha": "2022-11-21",
+            "url": "https://www.cmfchile.cl/normativa/ncg_488_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 477,
+            "anio": 2022,
+            "fecha": "2022-05-20",
+            "url": "https://www.cmfchile.cl/normativa/ncg_477_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 473,
+            "anio": 2022,
+            "fecha": "2022-04-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_473_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 474,
+            "anio": 2022,
+            "fecha": "2022-04-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_474_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 475,
+            "anio": 2022,
+            "fecha": "2022-04-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_475_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 471,
+            "anio": 2022,
+            "fecha": "2022-04-13",
+            "url": "https://www.cmfchile.cl/normativa/ncg_471_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 469,
+            "anio": 2022,
+            "fecha": "2022-04-08",
+            "url": "https://www.cmfchile.cl/normativa/ncg_469_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 470,
+            "anio": 2022,
+            "fecha": "2022-04-08",
+            "url": "https://www.cmfchile.cl/normativa/ncg_470_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 467,
+            "anio": 2022,
+            "fecha": "2022-03-31",
+            "url": "https://www.cmfchile.cl/normativa/ncg_467_2022.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 462,
+            "anio": 2021,
+            "fecha": "2021-12-01",
+            "url": "https://www.cmfchile.cl/normativa/ncg_462_2021.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 454,
+            "anio": 2021,
+            "fecha": "2021-05-18",
+            "url": "https://www.cmfchile.cl/normativa/ncg_454_2021.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 451,
+            "anio": 2021,
+            "fecha": "2021-01-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_451_2021.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2275,
+            "anio": 2020,
+            "fecha": "2020-10-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_2275_2020.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 424,
+            "anio": 2018,
+            "fecha": "2018-04-26",
+            "url": "https://www.cmfchile.cl/normativa/ncg_424_2018.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2236,
+            "anio": 2018,
+            "fecha": "2018-03-06",
+            "url": "https://www.cmfchile.cl/normativa/cir_2236_2018.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 409,
+            "anio": 2016,
+            "fecha": "2016-04-06",
+            "url": "https://www.cmfchile.cl/normativa/ncg_409_2016.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 402,
+            "anio": 2015,
+            "fecha": "2015-12-22",
+            "url": "https://www.cmfchile.cl/normativa/ncg_402_2015.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 365,
+            "anio": 2014,
+            "fecha": "2014-05-07",
+            "url": "https://www.cmfchile.cl/normativa/ncg_365_2014.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 363,
+            "anio": 2014,
+            "fecha": "2014-04-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_363_2014.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 361,
+            "anio": 2014,
+            "fecha": "2014-03-06",
+            "url": "https://www.cmfchile.cl/normativa/ncg_361_2014.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2137,
+            "anio": 2014,
+            "fecha": "2014-01-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_2137_2014.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 352,
+            "anio": 2013,
+            "fecha": "2013-10-21",
+            "url": "https://www.cmfchile.cl/normativa/ncg_352_2013.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 349,
+            "anio": 2013,
+            "fecha": "2013-07-26",
+            "url": "https://www.cmfchile.cl/normativa/ncg_349_2013.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2115,
+            "anio": 2013,
+            "fecha": "2013-07-26",
+            "url": "https://www.cmfchile.cl/normativa/cir_2115_2013.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2110,
+            "anio": 2013,
+            "fecha": "2013-07-05",
+            "url": "https://www.cmfchile.cl/normativa/cir_2110_2013.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2085,
+            "anio": 2012,
+            "fecha": "2012-09-12",
+            "url": "https://www.cmfchile.cl/normativa/cir_2085_2012.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2087,
+            "anio": 2012,
+            "fecha": "2012-09-12",
+            "url": "https://www.cmfchile.cl/normativa/cir_2087_2012.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 306,
+            "anio": 2011,
+            "fecha": "2011-04-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_306_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 303,
+            "anio": 2011,
+            "fecha": "2011-02-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_303_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2007,
+            "anio": 2011,
+            "fecha": "2011-02-04",
+            "url": "https://www.cmfchile.cl/normativa/cir_2007_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 302,
+            "anio": 2011,
+            "fecha": "2011-01-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_302_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1998,
+            "anio": 2010,
+            "fecha": "2010-12-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_1998_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1997,
+            "anio": 2010,
+            "fecha": "2010-12-30",
+            "url": "https://www.cmfchile.cl/normativa/cir_1997_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1981,
+            "anio": 2010,
+            "fecha": "2010-07-06",
+            "url": "https://www.cmfchile.cl/normativa/cir_1981_2010.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 275,
+            "anio": 2010,
+            "fecha": "2010-01-19",
+            "url": "https://www.cmfchile.cl/normativa/ncg_275_2010.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 269,
+            "anio": 2009,
+            "fecha": "2009-12-31",
+            "url": "https://www.cmfchile.cl/normativa/ncg_269_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1951,
+            "anio": 2009,
+            "fecha": "2009-10-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_1951_2009.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 259,
+            "anio": 2009,
+            "fecha": "2009-08-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_259_2009.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 251,
+            "anio": 2009,
+            "fecha": "2009-06-16",
+            "url": "https://www.cmfchile.cl/normativa/ncg_251_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1896,
+            "anio": 2008,
+            "fecha": "2008-09-29",
+            "url": "https://www.cmfchile.cl/normativa/cir_1896_2008.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 209,
+            "anio": 2007,
+            "fecha": "2007-12-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_209_2007.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1815,
+            "anio": 2006,
+            "fecha": "2006-10-17",
+            "url": "https://www.cmfchile.cl/normativa/cir_1815_2006.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 182,
+            "anio": 2005,
+            "fecha": "2005-06-21",
+            "url": "https://www.cmfchile.cl/normativa/ncg_182_2005.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1652,
+            "anio": 2003,
+            "fecha": "2003-02-11",
+            "url": "https://www.cmfchile.cl/normativa/cir_1652_2003.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 136,
+            "anio": 2002,
+            "fecha": "2002-04-04",
+            "url": "https://www.cmfchile.cl/normativa/ncg_136_2002.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1535,
+            "anio": 2001,
+            "fecha": "2001-03-27",
+            "url": "https://www.cmfchile.cl/normativa/cir_1535_2001.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1194,
+            "anio": 1995,
+            "fecha": "1995-01-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_1194_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1064,
+            "anio": 1992,
+            "fecha": "1992-03-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_1064_1992.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 30,
+            "anio": 1989,
+            "fecha": "1989-11-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_30_1989.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 16,
+            "anio": 1985,
+            "fecha": "1985-06-11",
+            "url": "https://www.cmfchile.cl/normativa/ncg_16_1985.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 314,
+            "anio": 2011,
+            "fecha": "2011-07-27",
+            "url": "https://www.cmfchile.cl/normativa/ncg_314_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1913,
+            "anio": 2009,
+            "fecha": "2009-01-30",
+            "url": "https://www.cmfchile.cl/normativa/cir_1913_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1777,
+            "anio": 2005,
+            "fecha": "2005-10-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_1777_2005.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2024_0512",
@@ -1697,7 +2700,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "ESTABLECE INSTRUCCIONES PARA EL ENVÍO DE ESTADOS FINANCIEROS POR PARTE DE EXPLOTADORES MINEROS",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2024_1312",
@@ -1742,7 +2749,19 @@
       "tema": "",
       "resumen_acciones": [
         "Agréguese, a continuación del único párrafo del número 4., lo siguiente: modelos de condiciones generales no podrán contener en su denominación oponen al artículo 61 del Decreto…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "Oficio Circular",
+            "numero": 972,
+            "anio": 2017,
+            "fecha": "2017-01-13",
+            "url": "https://www.cmfchile.cl/normativa/ofc_972_2017.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2023_0495",
@@ -1768,7 +2787,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2023_0494",
@@ -1810,7 +2833,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "ESTABLECE PROCEDIMIENTO PARA SOLICITAR AUTORIZACIÓN PARA REALIZAR EL SERVICIO DE ASESORÍA DE INVERSIÓN. DEROGA NORMA DE CARÁCTER GENERAL N°472 DE 2022",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 472,
+            "anio": 2022,
+            "fecha": "2022-04-13",
+            "url": "https://www.cmfchile.cl/normativa/ncg_472_2022.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2023_0493",
@@ -1839,7 +2874,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "REGULA LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2023_0492",
@@ -1882,7 +2921,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°30, EN LOS TÉRMINOS QUE SEÑALA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 30,
+            "anio": 1989,
+            "fecha": "1989-11-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_30_1989.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2023_2330",
@@ -1908,7 +2959,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Incorpora nuevo Capítulo 21-14 a la Recopilación Actualizada de Normas para Bancos, que contiene las disposiciones relativas al desarrollo del Proceso de Evaluación de la Adecuación de Liquidez Interna (ILAAP) y los requisitos y condiciones generales que considera la Comisión para la evaluación de la suficiencia de la posición de liquidez de los bancos",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2023_0491",
@@ -1951,7 +3006,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°471, EN LOS TÉRMINOS QUE SEÑALA",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 471,
+            "anio": 2022,
+            "fecha": "2022-04-13",
+            "url": "https://www.cmfchile.cl/normativa/ncg_471_2022.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_0490",
@@ -2007,7 +3074,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°426 DE 2018 QUE DETERMINA LAS INFRACCIONES DE MENOR ENTIDAD QUE SERÁN SOMETIDAS AL PROCEDIMIENTO SIMPLIFICADO",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 426,
+            "anio": 2018,
+            "fecha": "2018-09-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_426_2018.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_0488",
@@ -2061,7 +3140,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "IMPARTE INSTRUCCIONES PARA EL ENVÍO DE INFORMACIÓN DE LOS ARTÍCULOS 26 BIS, 38 BIS Y 80 BIS DE LA LEY ÚNICA DE FONDOS",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "Circular",
+            "numero": 1790,
+            "anio": 2006,
+            "fecha": "2006-01-13",
+            "url": "https://www.cmfchile.cl/normativa/cir_1790_2006.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_2315",
@@ -2093,7 +3184,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_0476",
@@ -2122,7 +3217,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "REGULA INSCRIPCIÓN EN EL REGISTRO DE VALORES EXTRANJEROS Y MODIFICA NORMA DE CARÁCTER GENERAL N°352",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 352,
+            "anio": 2013,
+            "fecha": "2013-10-21",
+            "url": "https://www.cmfchile.cl/normativa/ncg_352_2013.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_0474",
@@ -2162,7 +3269,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "REGULA INSCRIPCIÓN EN EL REGISTRO DE CORREDORES DE REASEGURO EXTRANJERO Y MODIFICA NORMA DE CARÁCTER GENERAL N°139",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 139,
+            "anio": 2002,
+            "fecha": "2002-04-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_139_2002.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_2303",
@@ -2188,7 +3307,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_2294",
@@ -2245,7 +3368,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_2293",
@@ -2300,7 +3427,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_1222",
@@ -2353,7 +3484,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_0460",
@@ -2385,7 +3520,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_0459",
@@ -2411,7 +3550,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_2288",
@@ -2499,7 +3642,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_2285",
@@ -2542,7 +3689,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_2284",
@@ -2587,7 +3738,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_1192",
@@ -2609,7 +3764,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_2283",
@@ -2634,7 +3793,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_2275",
@@ -2677,7 +3840,19 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "Oficio Circular",
+            "numero": 479,
+            "anio": 2008,
+            "fecha": "2008-10-17",
+            "url": "https://www.cmfchile.cl/normativa/ofc_479_2008.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2020_1176",
@@ -2706,7 +3881,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Portabilidad de Mutuos Hipotecarios Endosables regulados en el art. 88 DFL 251",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_2266",
@@ -2767,7 +3946,11 @@
         }
       ],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_2258",
@@ -2792,7 +3975,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_1150",
@@ -2821,7 +4008,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Medidas transitorias relativas a la contabilización y provisiones de primas por cobrar y recuperos, establecidas en la Circular N°1499, de 2000",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_1146",
@@ -2846,7 +4037,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_0436",
@@ -2868,7 +4063,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2019_0429",
@@ -2887,7 +4086,34 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 426,
+            "anio": 2018,
+            "fecha": "2018-09-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_426_2018.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 301,
+            "anio": 2010,
+            "fecha": "2010-12-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_301_2010.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 206,
+            "anio": 2007,
+            "fecha": "2007-07-13",
+            "url": "https://www.cmfchile.cl/normativa/ncg_206_2007.pdf"
+          }
+        ]
+      }
     },
     {
       "clave": "2015_0376",
@@ -2906,7 +4132,411 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 74,
+            "anio": 1997,
+            "fecha": "1997-05-16",
+            "url": "https://www.cmfchile.cl/normativa/ncg_74_1997.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1715,
+            "anio": 2004,
+            "fecha": "2004-04-15",
+            "url": "https://www.cmfchile.cl/normativa/cir_1715_2004.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 113,
+            "anio": 2001,
+            "fecha": "2001-03-09",
+            "url": "https://www.cmfchile.cl/normativa/ncg_113_2001.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 187,
+            "anio": 2005,
+            "fecha": "2005-10-06",
+            "url": "https://www.cmfchile.cl/normativa/ncg_187_2005.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 191,
+            "anio": 2005,
+            "fecha": "2005-12-29",
+            "url": "https://www.cmfchile.cl/normativa/ncg_191_2005.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 204,
+            "anio": 2006,
+            "fecha": "2006-12-28",
+            "url": "https://www.cmfchile.cl/normativa/ncg_204_2006.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 308,
+            "anio": 2011,
+            "fecha": "2011-05-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_308_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 313,
+            "anio": 2011,
+            "fecha": "2011-06-29",
+            "url": "https://www.cmfchile.cl/normativa/ncg_313_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 618,
+            "anio": 1986,
+            "fecha": "1986-05-15",
+            "url": "https://www.cmfchile.cl/normativa/cir_618_1986.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 908,
+            "anio": 1989,
+            "fecha": "1989-12-06",
+            "url": "https://www.cmfchile.cl/normativa/cir_908_1989.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 928,
+            "anio": 1990,
+            "fecha": "1990-02-02",
+            "url": "https://www.cmfchile.cl/normativa/cir_928_1990.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 929,
+            "anio": 1990,
+            "fecha": "1990-02-02",
+            "url": "https://www.cmfchile.cl/normativa/cir_929_1990.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1001,
+            "anio": 1991,
+            "fecha": "1991-03-18",
+            "url": "https://www.cmfchile.cl/normativa/cir_1001_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1004,
+            "anio": 1991,
+            "fecha": "1991-03-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_1004_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1034,
+            "anio": 1991,
+            "fecha": "1991-09-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_1034_1991.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1061,
+            "anio": 1992,
+            "fecha": "1992-02-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_1061_1992.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1081,
+            "anio": 1992,
+            "fecha": "1992-07-23",
+            "url": "https://www.cmfchile.cl/normativa/cir_1081_1992.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1175,
+            "anio": 1994,
+            "fecha": "1994-09-08",
+            "url": "https://www.cmfchile.cl/normativa/cir_1175_1994.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1218,
+            "anio": 1995,
+            "fecha": "1995-05-29",
+            "url": "https://www.cmfchile.cl/normativa/cir_1218_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1254,
+            "anio": 1996,
+            "fecha": "1996-01-08",
+            "url": "https://www.cmfchile.cl/normativa/cir_1254_1996.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1259,
+            "anio": 1996,
+            "fecha": "1996-01-25",
+            "url": "https://www.cmfchile.cl/normativa/cir_1259_1996.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1400,
+            "anio": 1998,
+            "fecha": "1998-08-10",
+            "url": "https://www.cmfchile.cl/normativa/cir_1400_1998.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1518,
+            "anio": 2001,
+            "fecha": "2001-01-16",
+            "url": "https://www.cmfchile.cl/normativa/cir_1518_2001.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1579,
+            "anio": 2002,
+            "fecha": "2002-01-17",
+            "url": "https://www.cmfchile.cl/normativa/cir_1579_2002.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1765,
+            "anio": 2005,
+            "fecha": "2005-07-19",
+            "url": "https://www.cmfchile.cl/normativa/cir_1765_2005.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1797,
+            "anio": 2006,
+            "fecha": "2006-03-07",
+            "url": "https://www.cmfchile.cl/normativa/cir_1797_2006.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1999,
+            "anio": 2010,
+            "fecha": "2010-12-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_1999_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2038,
+            "anio": 2011,
+            "fecha": "2011-08-26",
+            "url": "https://www.cmfchile.cl/normativa/cir_2038_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2047,
+            "anio": 2011,
+            "fecha": "2011-10-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_2047_2011.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 238,
+            "anio": 2009,
+            "fecha": "2009-01-20",
+            "url": "https://www.cmfchile.cl/normativa/ncg_238_2009.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 133,
+            "anio": 2002,
+            "fecha": "2002-03-27",
+            "url": "https://www.cmfchile.cl/normativa/ncg_133_2002.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 225,
+            "anio": 2008,
+            "fecha": "2008-08-29",
+            "url": "https://www.cmfchile.cl/normativa/ncg_225_2008.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 237,
+            "anio": 2009,
+            "fecha": "2009-01-19",
+            "url": "https://www.cmfchile.cl/normativa/ncg_237_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1519,
+            "anio": 2001,
+            "fecha": "2001-01-22",
+            "url": "https://www.cmfchile.cl/normativa/cir_1519_2001.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1084,
+            "anio": 1992,
+            "fecha": "1992-08-26",
+            "url": "https://www.cmfchile.cl/normativa/cir_1084_1992.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 958,
+            "anio": 1990,
+            "fecha": "1990-07-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_958_1990.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1187,
+            "anio": 1994,
+            "fecha": "1994-12-01",
+            "url": "https://www.cmfchile.cl/normativa/cir_1187_1994.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1197,
+            "anio": 1995,
+            "fecha": "1995-02-06",
+            "url": "https://www.cmfchile.cl/normativa/cir_1197_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1572,
+            "anio": 2001,
+            "fecha": "2001-11-26",
+            "url": "https://www.cmfchile.cl/normativa/cir_1572_2001.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1519,
+            "anio": 2001,
+            "fecha": "2001-01-22",
+            "url": "https://www.cmfchile.cl/normativa/cir_1519_2001.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1802,
+            "anio": 2006,
+            "fecha": "2006-04-28",
+            "url": "https://www.cmfchile.cl/normativa/cir_1802_2006.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1967,
+            "anio": 2010,
+            "fecha": "2010-02-03",
+            "url": "https://www.cmfchile.cl/normativa/cir_1967_2010.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2017,
+            "anio": 2011,
+            "fecha": "2011-04-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_2017_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 798,
+            "anio": 1988,
+            "fecha": "1988-05-10",
+            "url": "https://www.cmfchile.cl/normativa/cir_798_1988.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 926,
+            "anio": 1990,
+            "fecha": "1990-01-30",
+            "url": "https://www.cmfchile.cl/normativa/cir_926_1990.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1203,
+            "anio": 1995,
+            "fecha": "1995-03-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_1203_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1714,
+            "anio": 2004,
+            "fecha": "2004-04-08",
+            "url": "https://www.cmfchile.cl/normativa/cir_1714_2004.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1710,
+            "anio": 2004,
+            "fecha": "2004-03-12",
+            "url": "https://www.cmfchile.cl/normativa/cir_1710_2004.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1940,
+            "anio": 2009,
+            "fecha": "2009-08-25",
+            "url": "https://www.cmfchile.cl/normativa/cir_1940_2009.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 108,
+            "anio": 2001,
+            "fecha": "2001-01-22",
+            "url": "https://www.cmfchile.cl/normativa/ncg_108_2001.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 958,
+            "anio": 1990,
+            "fecha": "1990-07-20",
+            "url": "https://www.cmfchile.cl/normativa/cir_958_1990.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1372,
+            "anio": 1998,
+            "fecha": "1998-01-30",
+            "url": "https://www.cmfchile.cl/normativa/cir_1372_1998.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2112,
+            "anio": 2013,
+            "fecha": "2013-07-17",
+            "url": "https://www.cmfchile.cl/normativa/cir_2112_2013.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 177,
+            "anio": 2005,
+            "fecha": "2005-01-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_177_2005.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 310,
+            "anio": 2011,
+            "fecha": "2011-06-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_310_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1187,
+            "anio": 1994,
+            "fecha": "1994-12-09",
+            "url": "https://www.cmfchile.cl/normativa/cir_1187_1994.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 98,
+            "anio": 2000,
+            "fecha": "2000-07-12",
+            "url": "https://www.cmfchile.cl/normativa/ncg_98_2000.pdf"
+          }
+        ]
+      }
     }
   ]
 }

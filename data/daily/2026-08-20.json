@@ -40,7 +40,11 @@
       "resumen_acciones": [
         "Se introducen ajustes al Capítulo 2-13 de la Recopilación Actualizada de Normas en los siguientes términos",
         "Se introducen ajustes a la Circular N°1 de Empresas Emisoras de Tarjetas de Pago no Bancarias en los siguientes términos"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     }
   ]
 }

@@ -44,6 +44,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 497
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 152,
+            "anio": 2002,
+            "fecha": "2002-12-26",
+            "url": "https://www.cmfchile.cl/normativa/ncg_152_2002.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -85,6 +97,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 481
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 323,
+            "anio": 2011,
+            "fecha": "2011-11-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_323_2011.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -139,7 +163,19 @@
         "Agrégase en el décimo párrafo del Capítulo II. Selección de la letra M. ACEPTACIÓN Y SELECCIÓN, entre la última y penúltima oración, lo siguiente: de aumento temporal de pensión,…",
         "Agrégase la siguiente nota en el Anexo N° 8 Certificado de Ofertas Pensión de Sobrevivencia: La Cláusula de Periodo Garantizado de Pago corresponde a una cobertura adicional que…"
       ],
-      "documento": null
+      "documento": null,
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 218,
+            "anio": 2008,
+            "fecha": "2008-07-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_218_2008.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_0465",
@@ -173,7 +209,19 @@
       "archivos_afectados": [],
       "tema": "",
       "resumen_acciones": [],
-      "documento": null
+      "documento": null,
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 398,
+            "anio": 2015,
+            "fecha": "2015-11-20",
+            "url": "https://www.cmfchile.cl/normativa/ncg_398_2015.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2022_0464",
@@ -213,6 +261,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 464
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 460,
+            "anio": 2021,
+            "fecha": "2021-08-13",
+            "url": "https://www.cmfchile.cl/normativa/ncg_460_2021.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -256,6 +316,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 463
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 152,
+            "anio": 2002,
+            "fecha": "2002-12-16",
+            "url": "https://www.cmfchile.cl/normativa/ncg_152_2002.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -303,7 +375,19 @@
         "Reemplácese en la letra b) del número 1.2 la expresión “BBB” por “BB”",
         "Agréguese en el número 3.1 el siguiente párrafo final: “En el cálculo del límite antes señalado, no se deberán considerar aquellas inversiones en el exterior que se generen como…",
         "Elimínese en el primer párrafo de la letra a) del número 3.2 la frase: “Los instrumentos señalados en las letras a) y b) no podrán presentar clasificación de riesgo internacional…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 152,
+            "anio": 2002,
+            "fecha": "2002-12-26",
+            "url": "https://www.cmfchile.cl/normativa/ncg_152_2002.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_0455",
@@ -364,7 +448,19 @@
         "Agrégase antes del punto final del primer párrafo de las Instrucciones para el llenado de las Clasificaciones de Riesgo, del Anexo N° 18, lo siguiente: “, sólo cuando existan…",
         "Agrégase el siguiente segundo párrafo al número 10 de las Instrucciones para generar el formulario Solicitud de Ofertas, del Anexo N° 3: “Esta fila no deberá desplegarse cuando se…"
       ],
-      "documento": null
+      "documento": null,
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 218,
+            "anio": 2008,
+            "fecha": "2008-07-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_218_2008.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2021_0453",
@@ -406,6 +502,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 453
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 323,
+            "anio": 2011,
+            "fecha": "2011-11-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_323_2011.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -462,6 +570,33 @@
       "documento": {
         "tipo": "NCG",
         "numero": 452
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 336,
+            "anio": 2012,
+            "fecha": "2012-06-27",
+            "url": "https://www.cmfchile.cl/normativa/ncg_336_2012.pdf"
+          },
+          {
+            "tipo": "Oficio Circular",
+            "numero": 125,
+            "anio": 2002,
+            "fecha": "2002-10-02",
+            "url": "https://www.cmfchile.cl/normativa/ofc_125_2002.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 345,
+            "anio": 2013,
+            "fecha": "2013-04-18",
+            "url": "https://www.cmfchile.cl/normativa/ncg_345_2013.pdf"
+          }
+        ]
       }
     },
     {
@@ -496,7 +631,19 @@
       "archivos_afectados": [],
       "tema": "",
       "resumen_acciones": [],
-      "documento": null
+      "documento": null,
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 234,
+            "anio": 2008,
+            "fecha": "2008-11-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_234_2008.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_0443",
@@ -539,6 +686,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 443
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 30,
+            "anio": 1989,
+            "fecha": "1989-11-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_30_1989.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -591,6 +750,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 442
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 243,
+            "anio": 2009,
+            "fecha": "2009-02-03",
+            "url": "https://www.cmfchile.cl/normativa/ncg_243_2009.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -629,7 +800,19 @@
         "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…",
         "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: 4 \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…"
       ],
-      "documento": null
+      "documento": null,
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 234,
+            "anio": 2008,
+            "fecha": "2008-11-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_234_2008.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2020_0440",
@@ -684,6 +867,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 440
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 243,
+            "anio": 2009,
+            "fecha": "2009-02-03",
+            "url": "https://www.cmfchile.cl/normativa/ncg_243_2009.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -722,7 +917,19 @@
       },
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 200,
+            "anio": 2006,
+            "fecha": "2006-08-07",
+            "url": "https://www.cmfchile.cl/normativa/ncg_200_2006.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2018_0427",
@@ -752,7 +959,19 @@
       "vigencia": {},
       "ran_referencias": [],
       "msi_referencias": [],
-      "archivos_afectados": []
+      "archivos_afectados": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 200,
+            "anio": 2006,
+            "fecha": "2006-08-07",
+            "url": "https://www.cmfchile.cl/normativa/ncg_200_2006.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2026_0564",
@@ -793,6 +1012,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 564
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 550,
+            "anio": 2025,
+            "fecha": "2025-10-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_550_2025.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -834,6 +1065,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 563
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 549,
+            "anio": 2025,
+            "fecha": "2025-10-24",
+            "url": "https://www.cmfchile.cl/normativa/ncg_549_2025.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -907,6 +1150,32 @@
       "documento": {
         "tipo": "NCG",
         "numero": 562
+      },
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 18,
+            "anio": 1986,
+            "fecha": "1986-07-01",
+            "url": "https://www.cmfchile.cl/normativa/ncg_18_1986.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 695,
+            "anio": 1987,
+            "fecha": "1987-03-17",
+            "url": "https://www.cmfchile.cl/normativa/cir_695_1987.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 632,
+            "anio": 1986,
+            "fecha": "1986-07-01",
+            "url": "https://www.cmfchile.cl/normativa/cir_632_1986.pdf"
+          }
+        ]
       }
     },
     {
@@ -997,6 +1266,10 @@
       "documento": {
         "tipo": "Circular",
         "numero": 2370
+      },
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
       }
     },
     {
@@ -1065,6 +1338,25 @@
       "documento": {
         "tipo": "NCG",
         "numero": 561
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 451,
+            "anio": 2021,
+            "fecha": "2021-01-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_451_2021.pdf"
+          },
+          {
+            "tipo": "NCG",
+            "numero": 303,
+            "anio": 2011,
+            "fecha": "2011-02-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_303_2011.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1131,6 +1423,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 553
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 243,
+            "anio": 2009,
+            "fecha": "2009-02-03",
+            "url": "https://www.cmfchile.cl/normativa/ncg_243_2009.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1171,6 +1475,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 550
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 182,
+            "anio": 2005,
+            "fecha": "2005-06-21",
+            "url": "https://www.cmfchile.cl/normativa/ncg_182_2005.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1213,6 +1529,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 549
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 16,
+            "anio": 1985,
+            "fecha": "1985-06-11",
+            "url": "https://www.cmfchile.cl/normativa/ncg_16_1985.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1249,6 +1577,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 548
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 258,
+            "anio": 2009,
+            "fecha": "2009-08-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_258_2009.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1289,6 +1629,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 545
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 526,
+            "anio": 2024,
+            "fecha": "2024-12-23",
+            "url": "https://www.cmfchile.cl/normativa/ncg_526_2024.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1335,7 +1687,19 @@
         "Modifíquese el capítulo VI. ALTERNATIVAS DEL CONSULTANTE, de acuerdo con lo siguiente: 6.1 Modifíquense las alternativas del tercer párrafo de este capítulo como sigue: a) b)…",
         "Derógase el capítulo VII. Oferta Externa, agregando al final del título el siguiente ley N° 3.500, de 1980, de la Ley N° 21.735, publicada en el Diario Oficial el 26 de marzo de…",
         "Derógase la letra H. Oferta Externa, agregando al final del título el siguiente ley N° 3.500, de 1980, de la Ley N° 21.735, publicada en el Diario Oficial el 26 de marzo de 2025,…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 218,
+            "anio": 2008,
+            "fecha": "2008-07-30",
+            "url": "https://www.cmfchile.cl/normativa/ncg_218_2008.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2025_0531",
@@ -1375,6 +1739,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 531
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 529,
+            "anio": 2024,
+            "fecha": "2024-12-27",
+            "url": "https://www.cmfchile.cl/normativa/ncg_529_2024.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1418,6 +1794,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 525
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 152,
+            "anio": 2002,
+            "fecha": "2002-12-26",
+            "url": "https://www.cmfchile.cl/normativa/ncg_152_2002.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1512,6 +1900,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 524
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 502,
+            "anio": 2024,
+            "fecha": "2024-01-12",
+            "url": "https://www.cmfchile.cl/normativa/ncg_502_2024.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1568,7 +1968,19 @@
       "resumen_acciones": [
         "Reemplácese cada vez que aparezcan en la normativa los términos “Superintendencia de Valores y Seguros” y “Superintendencia” por “Comisión para el Mercado Financiero” y “Comisión”…",
         "Agréguese en el título VII el siguiente nuevo numeral 4: “4. Inversiones de renta fija nacionales emitidos en moneda nacional. A efectos de determinar la posición de calce entre…"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "Circular",
+            "numero": 1512,
+            "anio": 2001,
+            "fecha": "2001-01-02",
+            "url": "https://www.cmfchile.cl/normativa/cir_1512_2001.pdf"
+          }
+        ],
+        "deroga_a": []
+      }
     },
     {
       "clave": "2024_0520",
@@ -1643,6 +2055,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 520
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 200,
+            "anio": 2006,
+            "fecha": "2006-08-07",
+            "url": "https://www.cmfchile.cl/normativa/ncg_200_2006.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1723,6 +2147,40 @@
       "documento": {
         "tipo": "NCG",
         "numero": 513
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 426,
+            "anio": 2018,
+            "fecha": "2018-09-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_426_2018.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "Circular",
+            "numero": 818,
+            "anio": 1988,
+            "fecha": "1988-08-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_818_1988.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1222,
+            "anio": 1995,
+            "fecha": "1995-05-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_1222_1995.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 819,
+            "anio": 1988,
+            "fecha": "1988-08-31",
+            "url": "https://www.cmfchile.cl/normativa/cir_819_1988.pdf"
+          }
+        ]
       }
     },
     {
@@ -1779,6 +2237,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 511
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 306,
+            "anio": 2011,
+            "fecha": "2011-04-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_306_2011.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1821,6 +2291,40 @@
       "documento": {
         "tipo": "NCG",
         "numero": 510
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 480,
+            "anio": 2022,
+            "fecha": "2022-07-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_480_2022.pdf"
+          }
+        ],
+        "deroga_a": [
+          {
+            "tipo": "NCG",
+            "numero": 256,
+            "anio": 2009,
+            "fecha": "2009-08-14",
+            "url": "https://www.cmfchile.cl/normativa/ncg_256_2009.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 2020,
+            "anio": 2011,
+            "fecha": "2011-05-02",
+            "url": "https://www.cmfchile.cl/normativa/cir_2020_2011.pdf"
+          },
+          {
+            "tipo": "Circular",
+            "numero": 1939,
+            "anio": 2009,
+            "fecha": "2009-08-14",
+            "url": "https://www.cmfchile.cl/normativa/cir_1939_2009.pdf"
+          }
+        ]
       }
     },
     {
@@ -1858,6 +2362,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 508
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 480,
+            "anio": 2022,
+            "fecha": "2022-07-25",
+            "url": "https://www.cmfchile.cl/normativa/ncg_480_2022.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     },
     {
@@ -1905,6 +2421,18 @@
       "documento": {
         "tipo": "NCG",
         "numero": 506
+      },
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 325,
+            "anio": 2011,
+            "fecha": "2011-12-29",
+            "url": "https://www.cmfchile.cl/normativa/ncg_325_2011.pdf"
+          }
+        ],
+        "deroga_a": []
       }
     }
   ]

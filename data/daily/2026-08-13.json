@@ -32,7 +32,11 @@
       "msi_referencias": [],
       "archivos_afectados": [],
       "tema": "Imparte instrucciones en materia de externalización de servicios en el contexto de la gestión de riesgo operacional",
-      "resumen_acciones": []
+      "resumen_acciones": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     }
   ]
 }

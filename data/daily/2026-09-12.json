@@ -53,7 +53,11 @@
       "tema": "Ajustes al Capítulo 21-7 de la Recopilación Actualizada de Normas de Bancos sobre la medición de los activos ponderados por riesgo de mercado y el Sistema de Riesgos del Manual de Sistemas de Información de Bancos",
       "resumen_acciones": [
         "Capítulo 21-7 de la RAN"
-      ]
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      }
     }
   ]
 }
