@@ -193,7 +193,7 @@ lo vuelvas a crear.
    `*.json.corrupt-<timestamp>` en vez de descartarse en silencio.
 6. **`dashboard.generar_html()`** — lee `data/daily/`, aplana y arma
    `docs/index.html` de una pasada. Es el módulo más grande con diferencia
-   (~4.200 líneas de ~7.800, más de la mitad de la base de código) porque el HTML/CSS/JS va en
+   (~4.250 líneas de ~8.000, más de la mitad de la base de código) porque el HTML/CSS/JS va en
    línea en `_TEMPLATE` más funciones `_render_*`; no hay paso de build. Rinde
    **cuatro** pestañas:
    - **Agenda de tareas** — el **«Calendario de modificaciones»**, un riel
@@ -212,6 +212,14 @@ lo vuelvas a crear.
      centra en hoy midiendo con `getBoundingClientRect` y no con `offsetLeft`,
      que cuenta desde el ancestro posicionado y no desde el contenedor con
      scroll — con `offsetLeft` abría en el primer mes.
+
+     El control del riel —«Hoy», las dos flechas y la pista de lectura— se
+     rinde **dos veces**, arriba y abajo (`_render_ag_nav`), porque el riel es
+     más alto que la pantalla y quien llega al final tendría que subir a buscar
+     los botones. Por lo mismo cada tarjeta repite su mes al pie. Como hay dos
+     copias, los botones van **por clase** (`ag-ctrl-izq` y vecinas) y no por
+     `id`: con `id` duplicado el JS cablea sólo la primera y la de abajo queda
+     muerta sin ningún error visible.
 
      Arriba van tres paneles: cuerpo normativo (con conmutador entre tareas y
      cambios recibidos, y que **filtra el riel** al hacer clic), proyectos por
@@ -542,10 +550,12 @@ APIs de consentimiento al tercer mes y cada archivo del MSI en su propio
 reporte: su fila lleva el 14-10-2026, que es la primera. Los tramos posteriores,
 cuando convenga distinguirlos, van en la columna `archivos`.
 
-Es la misma regla que ya aplica el parser —`inicio` global sale del primer
-tramo, ver «La vigencia»— y por eso la anotación manual no puede contradecirla:
-si la persona anota la fecha lejana, el documento desaparece del aviso temprano
-sin que nada lo señale.
+El mecanismo obliga a elegir: cuando el parser reconoce los tramos, cada uno
+entra al Calendario como su propio hito (`_fechas_vigencia` recorre `plazos`),
+pero **una anotación manual reemplaza la vigencia entera** —`revisiones.aplicar`
+hace `entrada["vigencia"] = {...}`— y con ella se pierden los tramos parseados.
+La fila deja un solo hito, así que tiene que ser el primero; si se anota la
+fecha lejana, el aviso temprano desaparece sin que nada lo señale.
 
 Las otras columnas:
 
@@ -568,7 +578,7 @@ nunca. Lo que hay que dejar dicho ahí es que **`dashboard.py` hace las dos cosa
 en la misma pasada** —saca el documento de la lista y lo mete al Calendario—,
 porque es lo que no se deduce mirando la página.
 
-Y que **falta un cuarto paso: commitear y pushear.** `dashboard.py` deja el HTML
+Y que **falta un paso final: commitear y pushear.** `dashboard.py` deja el HTML
 actualizado en el disco de quien anota, y ahí se queda; la página que la gente
 abre sale de `main`. Sin el push la anotación existe y no se ve, y el síntoma
 —«corrí el comando sin errores y el Calendario no se actualizó»— no apunta a la
@@ -884,13 +894,13 @@ propósito, así que la categoría reaparece sola cuando llega el primer caso. H
 dicen «EXIME DEL TRÁMITE DE CONSULTA PÚBLICA», o sea documentos que se la
 **saltaron**.
 
-Reparto vigente sobre las 674 entradas (16-09-2026; suma más de 674 porque una
+Reparto vigente sobre las 679 entradas (29-09-2026; suma más de 679 porque una
 entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 260 |
-| Derogación | 192 |
+| Otro | 263 |
+| Derogación | 194 |
 | Modificación NCG | 131 |
 | Modificación Circular | 104 |
 | Modificación Oficio Circular | 33 |
@@ -917,6 +927,11 @@ tarjetas pasaron a «Otro» (255 → 260); las cinco modifican además capítulo
 la RAN o archivos del MSI, que no tienen categoría. Por último, la regla de
 citas quitó 5 normas mal atribuidas en 4 documentos, que dejaron de figurar en
 «Derogación» (196 → 192).
+
+Esa misma tarde la corrida del workflow capturó las 5 normas que las claves
+`0000_` escondían, y el total pasó de 674 a 679 entradas: dos aportan
+«Derogación» (194) y tres caen en «Otro» (263), que es lo esperable en
+documentos de 1993 a 2001, casi todos escaneos sin capa de texto.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.

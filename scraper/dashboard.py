@@ -1117,7 +1117,7 @@ def _render_como_anotar() -> str:
         'entradas del histórico repetían la fecha del documento como si fuera '
         'su vigencia. Si el texto sí dice «rige a contar de esta fecha», '
         'entonces la declara y la fecha corresponde.</p>'
-        '<p>El paso 3 hace las dos cosas de una vez: el documento sale de '
+        '<p><code>dashboard.py</code> hace las dos cosas de una vez: el documento sale de '
         'esta lista <b>y</b> aparece en el Calendario de modificaciones en la '
         'fecha anotada, marcado «confirmada» para no confundirlo con lo que se '
         'extrajo del PDF. Refrescar la planilla nunca pisa lo ya escrito.</p>'
@@ -2956,8 +2956,7 @@ _TEMPLATE = """<!DOCTYPE html>
                    gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-3); }
     .ag-sec-head h2 { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-semibold); }
     .ag-hint { font-size: var(--fs-xs); color: var(--text-muted); }
-    /* La navegación del riel, arriba y abajo. La de abajo va separada del riel
-       y no pegada, para que no se lea como parte del último mes. */
+    /* La navegación del riel, arriba y abajo. */
     /* La pista va pegada a los botones, no en el extremo opuesto: con
        `space-between` quedaban a un ancho de pantalla de distancia y la frase
        dejaba de leerse como la explicación de esos tres botones. */
