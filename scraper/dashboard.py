@@ -1547,19 +1547,40 @@ def _render_ag_riel(
         if n_sin_fecha else ""
     )
     return (
-        f'<div class="ag-sec-head"><h2>Calendario de modificaciones</h2>'
-        f'<div class="ag-riel-ctrl">'
-        f'<span class="ag-hint">A la izquierda lo cumplido, a la derecha lo que viene</span>'
-        f'<button type="button" id="ag-izq" aria-label="Meses anteriores">‹</button>'
-        f'<button type="button" id="ag-hoy" class="es-hoy">Hoy</button>'
-        f'<button type="button" id="ag-der" aria-label="Meses siguientes">›</button>'
-        f'</div></div>'
+        f'<div class="ag-sec-head"><h2>Calendario de modificaciones</h2></div>'
         f'{aviso}'
         f'<div class="ag-filtro" id="ag-filtro" data-total="{n_ventana}"></div>'
+        f'{_render_ag_nav("arriba")}'
         f'<div class="ag-riel-outer">'
         f'<div class="ag-riel" id="ag-riel" tabindex="0" role="region" '
         f'aria-label="Calendario de modificaciones, {len(calendario)} meses">'
         f'{"".join(piezas)}</div></div>'
+        f'{_render_ag_nav("abajo")}'
+    )
+
+
+def _render_ag_nav(lugar: str) -> str:
+    """El control del riel: la pista de lectura y los tres botones.
+
+    Va **pegado al riel, arriba y abajo**, y no en el encabezado de la sección:
+    ahí quedaba separado del calendario por el aviso de obligaciones sin fecha y
+    por el panel de filtros, así que no se leía como su control. La copia de
+    abajo es para quien llegó al final del riel con scroll y tendría que subir
+    a buscar los botones.
+
+    Los botones se identifican por **clase y no por `id`**: hay dos copias en la
+    página, y el JS cablea las dos (ver `ag-ctrl-izq` y vecinas). Con `id`
+    duplicado, `getElementById` habría cableado sólo la primera y la de abajo
+    habría quedado muerta sin ningún error visible.
+    """
+    return (
+        f'<div class="ag-riel-nav es-{lugar}">'
+        f'<span class="ag-hint">A la izquierda lo cumplido, a la derecha lo que viene</span>'
+        f'<div class="ag-riel-ctrl">'
+        f'<button type="button" class="ag-ctrl-izq" aria-label="Meses anteriores">‹</button>'
+        f'<button type="button" class="ag-ctrl-hoy es-hoy">Hoy</button>'
+        f'<button type="button" class="ag-ctrl-der" aria-label="Meses siguientes">›</button>'
+        f'</div></div>'
     )
 
 
@@ -1577,16 +1598,26 @@ def _render_ag_mes(m: dict) -> str:
         '<span class="ag-hoy-chip">hoy</span>' if m["offset"] == 0
         else f'<span class="ag-mes-n ag-num">{len(m["items"])}</span>'
     )
+    # El mismo rótulo arriba y al pie. El riel es más alto que la pantalla, así
+    # que quien baja hasta el control de abajo ya no ve el encabezado y pierde
+    # de vista qué mes está mirando. Al pie va sólo el nombre —y el «hoy», que
+    # es el ancla del eje—: el contador ya está arriba y repetirlo invita a
+    # leerlo como si fuera otro dato.
+    nombre = (
+        f'<span class="ag-mes-nom">{html.escape(_MESES_ES[mes_num - 1])}'
+        f'<small>{html.escape(m["mes"][:4])}</small></span>'
+    )
+    pie_marca = '<span class="ag-hoy-chip">hoy</span>' if m["offset"] == 0 else ""
     return (
         f'<article class="ag-mes {estado}" data-mes="{html.escape(m["mes"])}"'
         f'{" id=ag-mes-hoy" if m["offset"] == 0 else ""}>'
-        f'<div class="ag-mes-head"><span class="ag-mes-nom">'
-        f'{html.escape(_MESES_ES[mes_num - 1])}<small>{html.escape(m["mes"][:4])}</small>'
-        f'</span>{marca}</div>'
+        f'<div class="ag-mes-head">{nombre}{marca}</div>'
         f'<div class="ag-mes-body">{cuerpo}'
         f'<div class="ag-mes-filtrado" hidden><span class="ag-regla"></span>'
         f'<span>Ningún proyecto de este cuerpo normativo en el mes</span></div>'
-        f'</div></article>'
+        f'</div>'
+        f'<div class="ag-mes-pie">{nombre}{pie_marca}</div>'
+        f'</article>'
     )
 
 
@@ -2913,6 +2944,18 @@ _TEMPLATE = """<!DOCTYPE html>
                    gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-3); }
     .ag-sec-head h2 { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-semibold); }
     .ag-hint { font-size: var(--fs-xs); color: var(--text-muted); }
+    /* La navegación del riel, arriba y abajo. La de abajo va separada del riel
+       y no pegada, para que no se lea como parte del último mes. */
+    /* La pista va pegada a los botones, no en el extremo opuesto: con
+       `space-between` quedaban a un ancho de pantalla de distancia y la frase
+       dejaba de leerse como la explicación de esos tres botones. */
+    .ag-riel-nav { display: flex; align-items: center; justify-content: flex-end;
+                   gap: var(--space-2); flex-wrap: wrap; }
+    .ag-riel-nav.es-arriba { margin-bottom: var(--space-2); }
+    /* El aire que había bajo el riel pasa a ir bajo esta copia del control:
+       si no, los botones quedan pegados al título de la sección siguiente y se
+       leen como si fueran de ella. */
+    .ag-riel-nav.es-abajo { margin-top: var(--space-3); margin-bottom: var(--space-6); }
     .ag-riel-ctrl { display: inline-flex; align-items: center; gap: 4px; }
     .ag-riel-ctrl .ag-hint { margin-right: 6px; }
     .ag-riel-ctrl button { border: var(--border-w) solid var(--border-default);
@@ -2982,7 +3025,7 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-riel-outer { background: var(--surface-sunken);
                      border: var(--border-w) solid var(--border-subtle);
                      border-radius: var(--radius-lg); padding: var(--space-4) 0 6px;
-                     margin-bottom: var(--space-6); position: relative; }
+                     margin-bottom: var(--space-3); position: relative; }
     /* Difuminado en los bordes: dice "hay más hacia allá" sin ocupar espacio.
        Se apaga al llegar al extremo, para no prometer contenido que no hay. */
     .ag-riel-outer::before, .ag-riel-outer::after { content: ""; position: absolute;
@@ -3022,6 +3065,17 @@ _TEMPLATE = """<!DOCTYPE html>
                    border-radius: var(--radius-pill); }
     .ag-mes-body { padding: var(--space-2); display: flex; flex-direction: column;
                    gap: var(--space-2); flex: 1; }
+    /* Pie de la tarjeta: el mes otra vez, para quien está al final del riel.
+       Más tenue que el encabezado — orienta, no compite con él. */
+    .ag-mes-pie { padding: 7px var(--space-3) 8px;
+                  border-top: var(--border-w) solid var(--border-subtle);
+                  display: flex; align-items: baseline; justify-content: space-between;
+                  gap: var(--space-2); }
+    .ag-mes-pie .ag-mes-nom { font-size: var(--fs-xs); color: var(--text-muted); }
+    .ag-mes.es-pasado .ag-mes-pie { background: var(--surface-sunken); }
+    .ag-mes.es-hoy .ag-mes-pie { background: var(--color-brand-tint-faint);
+                  border-top-color: var(--color-brand-soft); }
+    .ag-mes.es-hoy .ag-mes-pie .ag-mes-nom { color: var(--color-brand-strong); }
     .ag-mes-vacio, .ag-mes-filtrado { display: flex; flex-direction: column;
                    align-items: center; justify-content: center; gap: 9px; flex: 1;
                    padding: var(--space-3) var(--space-2); text-align: center;
@@ -3665,7 +3719,7 @@ _TEMPLATE = """<!DOCTYPE html>
     <div class="hd-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200.15 37.59" role="img" aria-label="Comisión para el Mercado Financiero" focusable="false"><g><rect x="83.71" y="1.7" width="0.56" height="35.89" style="fill: currentColor"/><polygon points="66.98 37.59 66.95 21.83 76.63 21.83 76.63 15.68 66.94 15.68 66.93 7.85 78.49 7.85 78.49 1.7 59.11 1.7 59.17 34.36 66.98 37.59" style="fill: currentColor"/><polygon points="46.48 12.88 46.48 29.11 53.08 31.85 53.08 1.7 35.49 10.65 17.9 1.7 17.9 10.09 35.49 17.36 46.48 12.88" style="fill: currentColor"/><path d="M97.79,3.25v1l0,0h0a3.34,3.34,0,0,0-4.5.26,3.36,3.36,0,0,0-1,2.44,3.34,3.34,0,0,0,1,2.43,3.24,3.24,0,0,0,2.39,1,3.31,3.31,0,0,0,2.11-.74s0,0,0,0a.05.05,0,0,1,0,0v.65a.52.52,0,0,1-.31.5A4.21,4.21,0,0,1,92.62,10a4.24,4.24,0,0,1-1.24-3,4.24,4.24,0,0,1,1.24-3.06,4.06,4.06,0,0,1,3-1.26,4.14,4.14,0,0,1,2.15.59.05.05,0,0,1,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M101.74,4.5a3.36,3.36,0,0,0-1,2.44,3.34,3.34,0,0,0,1,2.43,3.33,3.33,0,0,0,4.78,0,3.34,3.34,0,0,0,1-2.43,3.37,3.37,0,0,0-1-2.44,3.33,3.33,0,0,0-4.78,0m6.63,2.44A4.2,4.2,0,0,1,107.13,10a4.2,4.2,0,0,1-6,0,4.2,4.2,0,0,1-1.24-3,4.2,4.2,0,0,1,1.24-3.06,4.2,4.2,0,0,1,6,0,4.2,4.2,0,0,1,1.24,3.06" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M111.14,2.81l3.71,4.84,3.7-4.84a.16.16,0,0,1,.18-.05.15.15,0,0,1,.1.15V11s0,0,0,0h-.51a.29.29,0,0,1-.22-.09.33.33,0,0,1-.09-.23V5l-3.07,4a.09.09,0,0,1-.06,0,.09.09,0,0,1-.07,0l-3.07-4v6a0,0,0,0,1,0,0h-.78s0,0,0,0V2.91a.15.15,0,0,1,.1-.15.16.16,0,0,1,.18.05" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M122.82,11.07H122s0,0,0,0V2.84s0,0,0,0h.78a0,0,0,0,1,0,0V11a0,0,0,0,1,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M128,10.39a3,3,0,0,0,1.09-.2,1.28,1.28,0,0,0,.67-.7,1.32,1.32,0,0,0,0-1.05,1.47,1.47,0,0,0-.77-.8l-2.44-1.15-.08,0a1.94,1.94,0,0,1-1-1.1,1.88,1.88,0,0,1,0-1.15,1.86,1.86,0,0,1,.33-.66,2.14,2.14,0,0,1,1.06-.73,3.45,3.45,0,0,1,.67-.15,4.59,4.59,0,0,1,.75,0,5,5,0,0,1,2.08.49s0,0,0,0V4s0,0,0,0h0L130.26,4a4.11,4.11,0,0,0-1.92-.51,3.25,3.25,0,0,0-.63,0,2.64,2.64,0,0,0-.52.12,1.48,1.48,0,0,0-.52.3,1,1,0,0,0-.31.52,1.06,1.06,0,0,0,0,.61,1.26,1.26,0,0,0,.69.67l2.35,1.11a2.25,2.25,0,0,1,1.2,1.26,2.19,2.19,0,0,1,0,1.72A2.1,2.1,0,0,1,129.47,11a3.6,3.6,0,0,1-1.41.28,4.33,4.33,0,0,1-2.13-.47.52.52,0,0,1-.3-.5V9.64s0,0,0,0,0,0,0,0a4.44,4.44,0,0,0,.38.27,3.49,3.49,0,0,0,2,.51" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M134.1,11.07h-.78a0,0,0,0,1,0,0V2.84a0,0,0,0,1,0,0h.78a0,0,0,0,1,0,0V11a0,0,0,0,1,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M140.49,2.18l-.31-.3a.05.05,0,0,1,0-.06L141.41.57h.8l0,0s0,0,0,.05L140.7,2.18a.12.12,0,0,1-.21,0m-2,2.32a3.36,3.36,0,0,0-1,2.44,3.34,3.34,0,0,0,1,2.43,3.34,3.34,0,0,0,4.79,0,3.34,3.34,0,0,0,1-2.43,3.36,3.36,0,0,0-1-2.44,3.34,3.34,0,0,0-4.79,0m6.64,2.44A4.21,4.21,0,0,1,143.86,10a4.19,4.19,0,0,1-6,0,4.21,4.21,0,0,1-1.25-3,4.21,4.21,0,0,1,1.25-3.06,4.19,4.19,0,0,1,6,0,4.21,4.21,0,0,1,1.25,3.06" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M153.2,11.11a.14.14,0,0,1-.18-.06L148.45,5v6a0,0,0,0,1,0,0h-.78a0,0,0,0,1,0,0V2.92a.16.16,0,0,1,.11-.16.15.15,0,0,1,.19.06l4.57,6.06V3.12a.29.29,0,0,1,.09-.22.28.28,0,0,1,.22-.1h.51a0,0,0,0,1,0,0V11a.16.16,0,0,1-.12.16" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M92.24,19.79H94.1a1.29,1.29,0,0,0,1.31-.87,1.92,1.92,0,0,0,0-1.28,1.29,1.29,0,0,0-1.31-.87H92.24Zm0,.87v3.46a0,0,0,0,1,0,0h-.78a0,0,0,0,1,0,0V15.93s0,0,0,0H94.1a2.15,2.15,0,0,1,2.1,1.43,2.64,2.64,0,0,1,.18,1,2.55,2.55,0,0,1-.18.95,2.17,2.17,0,0,1-.75,1,2.21,2.21,0,0,1-1.35.41Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M101,17.7,99.4,21.44h3.22Zm-2.78,6.43a0,0,0,0,1,0,0h-.85l0,0a.06.06,0,0,1,0,0L100.83,16a.18.18,0,0,1,.18-.11.2.2,0,0,1,.18.11l3.51,8.15a0,0,0,0,1,0,0l0,0h-.62a.37.37,0,0,1-.36-.24l-.7-1.61H99Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M107.37,19.79h1.87a1.27,1.27,0,0,0,1.3-.87,1.92,1.92,0,0,0,0-1.28,1.27,1.27,0,0,0-1.3-.87h-1.87Zm0,.87v3.46a0,0,0,0,1,0,0h-.78s0,0,0,0V15.93s0,0,0,0h2.69a2.16,2.16,0,0,1,1.34.42,2.28,2.28,0,0,1,.76,1,2.63,2.63,0,0,1,.17,1,2.54,2.54,0,0,1-.17.95,2.06,2.06,0,0,1-1.82,1.42L112,24.09s0,0,0,0a0,0,0,0,1,0,0h-.75a.46.46,0,0,1-.38-.2l-2.32-3.2a.23.23,0,0,0-.19-.1Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M116.54,17.7l-1.61,3.74h3.22Zm-2.78,6.43a0,0,0,0,1,0,0h-.85l0,0a.06.06,0,0,1,0,0L116.36,16a.18.18,0,0,1,.18-.11.2.2,0,0,1,.18.11l3.51,8.15a0,0,0,0,1,0,0l0,0h-.61a.37.37,0,0,1-.36-.24l-.7-1.61h-4Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M127.26,19.38h2.31s0,0,0,.05v.51a.29.29,0,0,1-.09.22.27.27,0,0,1-.22.1h-2v3h2a.3.3,0,0,1,.22.1.29.29,0,0,1,.09.22v.52a0,0,0,0,1,0,0h-2.86a.27.27,0,0,1-.22-.1.29.29,0,0,1-.09-.22V15.93s0,0,0,0h3.14s0,0,0,0v.79s0,.05,0,.05h-2.31Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M135.34,23.29a.31.31,0,0,1,.22.09.29.29,0,0,1,.09.22v.52a0,0,0,0,1,0,0h-2.86a.3.3,0,0,1-.23-.1.29.29,0,0,1-.09-.22V15.93a0,0,0,0,1,0,0h.78s0,0,0,0v7.36Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M142.69,15.9l3.71,4.84,3.71-4.84a.15.15,0,0,1,.18-.05.14.14,0,0,1,.1.15v8.12a0,0,0,0,1,0,0h-.51a.28.28,0,0,1-.22-.1.29.29,0,0,1-.09-.22V18.07l-3.07,4a.08.08,0,0,1-.12,0l-3.07-4v6.05a0,0,0,0,1,0,0h-.78a0,0,0,0,1,0,0V16a.16.16,0,0,1,.28-.1" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M154.42,19.38h2.32a0,0,0,0,1,0,.05v.51a.29.29,0,0,1-.09.22.29.29,0,0,1-.23.1h-2v3h2a.33.33,0,0,1,.23.1.29.29,0,0,1,.09.22v.52a0,0,0,0,1,0,0h-2.87a.28.28,0,0,1-.22-.1.29.29,0,0,1-.09-.22V15.93s0,0,0,0h3.14a0,0,0,0,1,0,0v.79a0,0,0,0,1,0,.05h-2.32Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M160.46,19.79h1.86a1.27,1.27,0,0,0,1.3-.87,1.77,1.77,0,0,0,0-1.28,1.27,1.27,0,0,0-1.3-.87h-1.86Zm0,.87v3.46a0,0,0,0,1-.05,0h-.77a0,0,0,0,1,0,0V15.93s0,0,0,0h2.68a2.16,2.16,0,0,1,1.34.42,2.21,2.21,0,0,1,.76,1,2.63,2.63,0,0,1,.17,1,2.54,2.54,0,0,1-.17.95,2.06,2.06,0,0,1-1.82,1.42l2.49,3.44s0,0,0,0a0,0,0,0,1,0,0h-.75a.46.46,0,0,1-.38-.2l-2.32-3.2a.22.22,0,0,0-.18-.1Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M173,16.33v1s0,0,0,0a0,0,0,0,1,0,0,3.34,3.34,0,0,0-4.5.26,3.49,3.49,0,0,0,0,4.87,3.34,3.34,0,0,0,4.5.26h0s0,0,0,0v.66a.53.53,0,0,1-.3.5,4.16,4.16,0,0,1-1.86.43,4.06,4.06,0,0,1-3-1.26,4.36,4.36,0,0,1,0-6.11,4.06,4.06,0,0,1,3-1.26,4.13,4.13,0,0,1,2.14.59s0,0,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M178.13,17.7l-1.62,3.74h3.23Zm-2.78,6.43a0,0,0,0,1,0,0h-.85a.05.05,0,0,1,0,0v0L178,16a.18.18,0,0,1,.18-.11.18.18,0,0,1,.17.11l3.52,8.15a0,0,0,0,1,0,0,.05.05,0,0,1,0,0h-.62a.35.35,0,0,1-.35-.24l-.7-1.61h-4Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M184.49,23.29h1.59a2.55,2.55,0,0,0,1.63-.55,2.93,2.93,0,0,0,.93-1.35,4.34,4.34,0,0,0,0-2.73,2.88,2.88,0,0,0-.93-1.35,2.54,2.54,0,0,0-1.63-.54h-1.59Zm3.74-6.68a3.74,3.74,0,0,1,1.21,1.76,5,5,0,0,1,0,3.31,3.74,3.74,0,0,1-1.21,1.76,3.34,3.34,0,0,1-2.15.72H184a.34.34,0,0,1-.23-.1.29.29,0,0,1-.09-.22V15.93a0,0,0,0,1,0,0h2.41a3.34,3.34,0,0,1,2.15.72" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M193.36,17.59a3.49,3.49,0,0,0,0,4.87,3.34,3.34,0,0,0,4.79,0,3.49,3.49,0,0,0,0-4.87,3.34,3.34,0,0,0-4.79,0M200,20a4.2,4.2,0,0,1-1.24,3,4.2,4.2,0,0,1-6,0,4.36,4.36,0,0,1,0-6.11,4.2,4.2,0,0,1,6,0A4.19,4.19,0,0,1,200,20" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M92.24,37.17s0,0,0,0h-.78s0,0,0,0V29s0,0,0,0h3.14a0,0,0,0,1,0,0v.79a0,0,0,0,1,0,0H92.24v2.62h2.32a0,0,0,0,1,0,0V33a.29.29,0,0,1-.09.22.33.33,0,0,1-.23.1h-2Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M98.09,37.2h-.78a0,0,0,0,1,0,0V29s0,0,0,0h.78s0,0,0,0v8.19s0,0,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M106.92,37.25a.17.17,0,0,1-.19-.06l-4.57-6.07v6.05s0,0,0,0h-.78a0,0,0,0,1,0,0V29.06a.14.14,0,0,1,.11-.16.15.15,0,0,1,.19.06L106.17,35V29.26a.33.33,0,0,1,.1-.23.29.29,0,0,1,.22-.09h.5s0,0,0,0v8.11a.16.16,0,0,1-.11.16" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M112.54,30.75l-1.61,3.74h3.22Zm-2.77,6.43s0,0,0,0h-.88s0,0,0,0L112.36,29a.18.18,0,0,1,.18-.12.19.19,0,0,1,.18.12l3.51,8.15s0,0,0,0h-.65a.36.36,0,0,1-.36-.23l-.69-1.61h-4Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M123.66,37.25a.18.18,0,0,1-.19-.06l-4.56-6.07v6.05s0,0,0,0h-.78s0,0,0,0V29.06a.15.15,0,0,1,.11-.16.15.15,0,0,1,.19.06L122.92,35V29.26A.32.32,0,0,1,123,29a.29.29,0,0,1,.22-.09h.51s0,0,0,0v8.11a.15.15,0,0,1-.11.16" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M132.67,29.38v1s0,0,0,0,0,0,0,0a3.32,3.32,0,0,0-4.49.26,3.49,3.49,0,0,0,0,4.87,3.32,3.32,0,0,0,4.49.26s0,0,0,0a0,0,0,0,1,0,0v.66a.51.51,0,0,1-.31.49,4.17,4.17,0,0,1-1.86.44,4.06,4.06,0,0,1-3-1.26,4.38,4.38,0,0,1,0-6.11,4.21,4.21,0,0,1,5.15-.67l0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M136.27,37.2h-.78s0,0,0,0V29a0,0,0,0,1,0,0h.78s0,0,0,0v8.19s0,0,0,0" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M140.34,32.43h2.32a0,0,0,0,1,0,0V33a.29.29,0,0,1-.09.22.32.32,0,0,1-.22.1h-2v3h2a.31.31,0,0,1,.22.09.33.33,0,0,1,.09.23v.52s0,0,0,0h-2.87a.33.33,0,0,1-.22-.09.29.29,0,0,1-.09-.22V29a0,0,0,0,1,0,0h3.14s0,0,0,0v.79s0,0,0,0h-2.32Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M146.38,32.84h1.86a1.27,1.27,0,0,0,1.3-.87,1.79,1.79,0,0,0,0-1.29,1.27,1.27,0,0,0-1.3-.87h-1.86Zm0,.87v3.46s0,0,0,0h-.78s0,0,0,0V29s0,0,0,0h2.68a2.22,2.22,0,0,1,1.34.41,2.19,2.19,0,0,1,.76,1,2.6,2.6,0,0,1,.18,1,2.55,2.55,0,0,1-.18,1,2.06,2.06,0,0,1-1.82,1.42L151,37.14s0,0,0,0,0,0,0,0h-.75a.42.42,0,0,1-.37-.19l-2.32-3.2a.22.22,0,0,0-.19-.1Z" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M154.36,30.64a3.49,3.49,0,0,0,0,4.87,3.34,3.34,0,0,0,4.79,0,3.49,3.49,0,0,0,0-4.87,3.34,3.34,0,0,0-4.79,0M161,33.07a4.22,4.22,0,0,1-1.24,3.06,4.2,4.2,0,0,1-6,0,4.38,4.38,0,0,1,0-6.11,4.2,4.2,0,0,1,6,0A4.18,4.18,0,0,1,161,33.07" transform="translate(0 -0.41)" style="fill: currentColor;stroke: currentColor;stroke-miterlimit: 10;stroke-width: 0.30000001192092896px"/><path d="M27.35,21.62a9.16,9.16,0,0,1-.44,1.75,10.09,10.09,0,0,1-9.34,6.7A10,10,0,0,1,7.69,20a10.15,10.15,0,0,1,1.8-5.78l-7.23-3A18,18,0,0,0,0,20,17.75,17.75,0,0,0,17.57,37.9a17.74,17.74,0,0,0,17-13.3Z" transform="translate(0 -0.41)" style="fill: currentColor"/></g></svg></div>
     <h1>Monitoreo normativo CMF</h1>
     <hr class="cmf-rule">
-    <p class="hd-sub">Seguimiento automático diario de resoluciones normativas de la Comisión para el Mercado Financiero de Chile.</p>
+    <p class="hd-sub">Seguimiento automático diario de resoluciones normativas de la CMF y su impacto en los archivos normativos.</p>
   </div>
 </header>
 
@@ -3891,6 +3945,10 @@ _TEMPLATE = """<!DOCTYPE html>
     if (!raiz) return;
     const AG = JSON.parse(document.getElementById('ag-datos').textContent);
     const riel = document.getElementById('ag-riel');
+    /* Dos copias del control, arriba y abajo del riel: por clase, no por id.
+       Ver `_render_ag_nav`. */
+    const ctrlIzq = raiz.querySelectorAll('.ag-ctrl-izq');
+    const ctrlDer = raiz.querySelectorAll('.ag-ctrl-der');
     const cajaFiltro = document.getElementById('ag-filtro');
     let filtro = null;
 
@@ -3922,8 +3980,8 @@ _TEMPLATE = """<!DOCTYPE html>
       const max = riel.scrollWidth - riel.clientWidth;
       caja.classList.toggle('puede-izq', riel.scrollLeft > 4);
       caja.classList.toggle('puede-der', riel.scrollLeft < max - 4);
-      document.getElementById('ag-izq').disabled = riel.scrollLeft <= 4;
-      document.getElementById('ag-der').disabled = riel.scrollLeft >= max - 4;
+      ctrlIzq.forEach(b => { b.disabled = riel.scrollLeft <= 4; });
+      ctrlDer.forEach(b => { b.disabled = riel.scrollLeft >= max - 4; });
     }
 
     function correr(dir) {
@@ -4143,9 +4201,10 @@ _TEMPLATE = """<!DOCTYPE html>
       }
     }
 
-    document.getElementById('ag-izq').addEventListener('click', () => correr(-1));
-    document.getElementById('ag-der').addEventListener('click', () => correr(1));
-    document.getElementById('ag-hoy').addEventListener('click', () => centrarEnHoy(true));
+    ctrlIzq.forEach(b => b.addEventListener('click', () => correr(-1)));
+    ctrlDer.forEach(b => b.addEventListener('click', () => correr(1)));
+    raiz.querySelectorAll('.ag-ctrl-hoy').forEach(
+      b => b.addEventListener('click', () => centrarEnHoy(true)));
     riel.addEventListener('scroll', bordes, { passive: true });
     addEventListener('resize', bordes);
     aplicarFiltro();
