@@ -534,6 +534,19 @@ Qué acepta `vigencia`:
 `inmediata` **y no la fecha del propio documento**: la fecha afirmaría que el
 texto la declara, que es la confusión que originó los bugs de este proyecto.
 
+**Con vigencia escalonada se anota la fecha más cercana**, no la última ni la
+«principal». Este panel existe para avisar que hay algo que hacer, y un aviso
+que llega con el último tramo llega tarde para todos los anteriores. La NCG
+576/2026 exige la notificación al deudor un mes después de su publicación, las
+APIs de consentimiento al tercer mes y cada archivo del MSI en su propio
+reporte: su fila lleva el 14-10-2026, que es la primera. Los tramos posteriores,
+cuando convenga distinguirlos, van en la columna `archivos`.
+
+Es la misma regla que ya aplica el parser —`inicio` global sale del primer
+tramo, ver «La vigencia»— y por eso la anotación manual no puede contradecirla:
+si la persona anota la fecha lejana, el documento desaparece del aviso temprano
+sin que nada lo señale.
+
 Las otras columnas:
 
 - `sin_fecha: si` es un resultado válido de revisión distinto de `inmediata`: el

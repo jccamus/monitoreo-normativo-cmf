@@ -1081,14 +1081,26 @@ def _render_como_anotar() -> str:
         'de verdad no lo declara — es una respuesta válida, no un pendiente. '
         'Una fecha por archivo se escribe '
         '<code>RDC40=2026-01-01;RDC02=2025-11-01</code>.</li>'
+        # La vigencia escalonada no es un empate entre fechas: la que sirve es
+        # la primera. Este panel existe para avisar que hay algo que hacer, y
+        # avisar de la última llega tarde para todo lo anterior.
+        '<li><b>Si la vigencia viene escalonada, anota la fecha más cercana.</b> '
+        'La NCG 576/2026 exige la notificación al deudor un mes después de su '
+        'publicación, las APIs al tercer mes y cada archivo del MSI en su propio '
+        'reporte: la fila lleva el 14 de octubre, la primera. Avisar con la '
+        'última deja sin aviso todo lo que vence antes. Los tramos posteriores, '
+        'si conviene distinguirlos, van en la columna <b>archivos</b>.</li>'
         '<li><code>python scraper/dashboard.py</code> — aplica lo anotado.</li>'
         # El paso que faltaba: `dashboard.py` deja el HTML actualizado en el
         # disco de quien anota, y ahí se queda. La página que la gente abre sale
         # de `main`, así que sin el push la anotación existe y no se ve — y el
         # síntoma es que el Calendario "no se actualizó" pese a que el comando
         # corrió sin errores.
-        '<li><code>git add data/revisiones.csv docs/index.html</code>, '
-        '<code>git commit</code> y <code>git push</code> — publica. '
+        '<li>Publicar. Son tres comandos, uno por línea — pegados en una sola, '
+        'la terminal lee <code>git</code> como si fuera un archivo:'
+        '<pre class="rv-cmd">git add data/revisiones.csv docs/index.html\n'
+        'git commit -m "anota la vigencia de …"\n'
+        'git push</pre>'
         'GitHub Pages sirve <code>docs/</code> desde <code>main</code>: hasta '
         'este paso el cambio existe sólo en tu equipo.</li>'
         '</ol>'
@@ -3238,6 +3250,10 @@ _TEMPLATE = """<!DOCTYPE html>
                        padding: var(--space-2) var(--space-3);
                        border-left: 3px solid var(--cmf-warning); }
     .rv-como code { font-size: 0.92em; }
+    .rv-cmd { margin: var(--space-2) 0; padding: var(--space-2) var(--space-3);
+              background: var(--surface-sunken); border-radius: var(--radius-sm);
+              font-size: var(--fs-xs); line-height: 1.6; white-space: pre-wrap;
+              overflow-x: auto; color: var(--text-body); }
     .rv-revisados { font-size: var(--fs-xs); color: var(--ink-on-success-bg);
                     background: var(--cmf-success-bg);
                     border-left: var(--accent-bar-w) solid var(--cmf-success);
