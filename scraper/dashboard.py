@@ -1390,6 +1390,14 @@ def _render_como_anotar() -> str:
         '<details class="rv-como">'
         '<summary>¿Encontraste la fecha? Así se anota</summary>'
         '<ol>'
+        # El paso que faltaba la segunda vez: `revisar.py` lee `data/daily/` del
+        # disco, y el robot captura documentos dos veces al día en GitHub. Con la
+        # copia local atrasada la planilla salía sin el pendiente que esta misma
+        # lista mostraba (oficio circular 1425, 30-09-2026). Hoy `revisar.py` se
+        # detiene si está atrasada, pero el paso tiene que estar escrito acá.
+        '<li><code>git pull</code> — trae lo que el robot capturó desde la última '
+        'vez. Sin esto la planilla puede salir sin los pendientes más nuevos; '
+        '<code>revisar.py</code> se detiene y lo avisa si te lo saltas.</li>'
         '<li><code>python scraper/revisar.py</code> — deja en '
         '<code>data/revisiones.csv</code> una fila por pendiente, con el PDF, '
         'los archivos detectados y las fechas candidatas para decidir sin abrir '
@@ -1422,7 +1430,9 @@ def _render_como_anotar() -> str:
         'git commit -m "anota la vigencia de …"\n'
         'git push</pre>'
         'GitHub Pages sirve <code>docs/</code> desde <code>main</code>: hasta '
-        'este paso el cambio existe sólo en tu equipo.</li>'
+        'este paso el cambio existe sólo en tu equipo. Si <code>git push</code> '
+        'responde <i>rejected</i>, es que el robot subió algo mientras anotabas: '
+        '<code>git pull</code> y de nuevo <code>git push</code>.</li>'
         '</ol>'
         # El paso 2 ya nombraba `inmediata`, y aun así una revisión de 30
         # documentos anotó 17 con la fecha del propio encabezado: saber que la

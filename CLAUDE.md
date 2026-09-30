@@ -540,11 +540,28 @@ originó todo esto.
 `data/revisiones.csv` es la hoja de trabajo de la revisión manual. Se edita en
 Excel (separador `;`, UTF-8 con BOM, que es lo que Excel en español espera).
 
+La secuencia completa, un comando por línea:
+
 ```powershell
-python scraper/revisar.py            # crea o refresca la planilla
-python scraper/revisar.py --estado   # sólo informa, no escribe
-python scraper/dashboard.py          # aplica lo anotado
+git pull                             # 1. traer lo que capturó el robot
+python scraper/revisar.py            # 2. crea o refresca la planilla (--estado: sólo informa)
+# 3. llenar data/revisiones.csv en Excel
+python scraper/dashboard.py          # 4. aplica lo anotado
+git add data/revisiones.csv docs/index.html
+git commit -m "anota la vigencia de …"
+git push                             # 5. publica; si lo rechaza: git pull y de nuevo git push
 ```
+
+**El `git pull` del paso 1 no es opcional.** `revisar.py` lee `data/daily/` del
+disco y el workflow captura en GitHub dos veces al día: con la copia atrasada,
+la planilla sale sin los pendientes nuevos y se ve igual que una completa. Pasó
+el 30-09-2026 con el oficio circular 1425, que el dashboard publicado mostraba
+como pendiente. Desde entonces `revisar.py` compara con `origin/main` y **se
+detiene** si la copia está atrasada (`--sin-verificar` lo omite, por ejemplo sin
+red), e imprime al final los pasos 3 a 5. Es la segunda vez que el
+procedimiento falla por un paso que no estaba escrito —la primera fue el push—,
+así que si cambia el flujo, cambia también el panel (`_render_como_anotar`), el
+docstring de `revisar.py` y este bloque.
 
 Dos clases de columnas: la persona llena la **entrada** (`vigencia`, `sin_fecha`,
 `archivos`, `nota`, `revisado`) y `revisar.py` escribe el **contexto** (`norma`,
