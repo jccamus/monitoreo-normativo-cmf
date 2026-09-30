@@ -605,6 +605,18 @@ def _clausula_aplicacion(text: str) -> re.Match | None:
     casos es el sujeto: el que dice "la presente norma" habla de la norma que
     recibe el texto; el que nombra qué es lo que rige, habla de este documento.
     """
+    # Acá se usa `_dentro_de_cita`, el detector global, y no `_en_cita_local`
+    # a propósito. Los dos fallan, pero en direcciones opuestas, y para una
+    # fecha de vigencia importa cuál. El global se desalinea con una comilla
+    # desbalanceada y marca «citada» una cláusula propia: si dice «la presente
+    # norma», se descarta y el documento queda sin fecha —un hueco visible—. El
+    # local se equivoca con comillas anidadas y marca «propia» una citada: se
+    # acepta sin mirar el sujeto y el documento se queda con la fecha de otra
+    # norma, que es el error que este filtro existe para evitar. Medido en
+    # septiembre de 2026 sobre los 246 PDF legibles: los detectores difieren en
+    # 8 cláusulas de 7 documentos y la vigencia no cambia en ninguno (6 tienen
+    # sección de vigencia, así que la cláusula no se consulta; en la circular
+    # 2317/2022 los dos caminos llegan a la misma fecha).
     for m in _CLAUSULA_APLICACION.finditer(text):
         if not _dentro_de_cita(text, m.start()):
             return m
@@ -1341,6 +1353,13 @@ def _normas_derogadas(segmento: str, texto: str | None = None,
 # ninguna otra comilla deja «citado» todo ese tramo. Sobre los 246 PDF legibles
 # (septiembre de 2026) la regla descarta sólo las 5 normas descritas arriba; si
 # un documento pierde normas que sí afecta, mirar esto primero.
+#
+# El límite contrario: **no ve las comillas anidadas**. Un texto insertado que
+# a su vez cita un título —la circular 2317/2022: «…numeral 6 sobre “Política
+# Interna de seguridad…” del presente Capítulo regirán desde…”»— tiene un cierre
+# interno justo antes de la mención, y la regla la da por no citada. Para las
+# normas afectadas eso deja las cosas como estaban antes de esta regla; para
+# las fechas de vigencia sería peor, y por eso `_clausula_aplicacion` no la usa.
 def _en_cita_local(texto: str, pos: int) -> bool:
     """Si `pos` cae dentro de un texto citado, mirando sólo las comillas vecinas."""
     apertura = max(texto.rfind(c, 0, pos) for c in _CITA_ABRE)

@@ -693,9 +693,16 @@ vigencia, que el parser no leía hasta que se corrigió ese mismo día.
 dice «DEROGA NORMA DE CARÁCTER GENERAL N°64», y sin esa regla el dashboard
 mostraba la 64 derogada por la 520. El detector es local —mira las comillas
 vecinas— porque `_dentro_de_cita`, que cuenta desde el inicio del documento, se
-desalinea con un par desbalanceado. Ojo: `_clausula_aplicacion` todavía usa
-`_dentro_de_cita` para las fechas de vigencia, y no está medido si ese
-desalineamiento la afecta.
+desalinea con un par desbalanceado.
+
+Pero **`_clausula_aplicacion` sigue usando `_dentro_de_cita`, y es a
+propósito**: el detector local tiene el límite contrario —no ve comillas
+anidadas, como en la circular 2317/2022— y para una fecha de vigencia los dos
+errores no pesan lo mismo. El global, desalineado, descarta una cláusula propia
+y deja el documento sin fecha, que es un hueco visible; el local aceptaría una
+cláusula citada y le daría al documento la fecha de otra norma. Medido el
+29-09-2026 sobre los 246 PDF legibles: difieren en 8 cláusulas de 7 documentos
+y ninguna vigencia cambia. El detalle está en el comentario de la función.
 
 ## La descripción del listado no es el PDF: `modifica[]` con `fuente: "descripcion_cmf"`
 
