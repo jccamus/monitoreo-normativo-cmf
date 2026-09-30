@@ -1,0 +1,93 @@
+{
+  "date": "2026-09-30",
+  "generated_at": "2026-09-30T16:34:11.072688+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_1425",
+      "fecha": "2026-09-28",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 540,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1425
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LAS INSTRUCCIONES GENERALES Y ARCHIVOS NORMATIVOS DEL MSI REDEC QUE SE INDICAN.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1425_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna",
+        "candidatas": [
+          {
+            "fecha": "2026-04-01",
+            "precision": "dia",
+            "contexto": "…caso de que la obligación reportada haya sido otorgada con fecha anterior al 1 de abril de 2026, este campo debe…"
+          }
+        ]
+      },
+      "ran_referencias": [],
+      "msi_referencias": [
+        {
+          "contexto": "2024 y la Resolución N°\n7.045 del 14 de julio de 2025, esta Comisión procede a realizar ajustes al Manual de\nSistema de Información del Registro de Consolidado de Deuda (MSI REDEC) mediante\nel presente Oficio Circular.\nLos ajustes"
+        },
+        {
+          "contexto": "nir un código\nexclusivo que permita vincular inequívocamente la información, independientemente del\nManual de Sistema de Información que se trate, entre los diversos archivos que la\ncontengan a través del tiempo.\nMoneda\nTodos los mo"
+        }
+      ],
+      "archivos_afectados": [
+        {
+          "accion": "modificar",
+          "nombre": "RDC01",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC10",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC12",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC30",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC40",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC20",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC11",
+          "vigencia": "no especificado"
+        },
+        {
+          "accion": "modificar",
+          "nombre": "RDC02",
+          "vigencia": "no especificado"
+        }
+      ],
+      "tema": "Introduce ajustes técnicos a las instrucciones generales y archivos normativos del MSI REDEC que se indican",
+      "resumen_acciones": [],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-09-28"
+    }
+  ]
+}
