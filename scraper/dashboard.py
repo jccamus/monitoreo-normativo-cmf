@@ -344,6 +344,82 @@ _CORRECCIONES_NORMA: dict[tuple[str, str, int], str] = {
 }
 
 
+# Normas de otra serie que el documento afecta y que ninguna fuente automática
+# ve completas: la NCG 567/2026 deroga «las circulares N°98, 100, 112 […]
+# aplicables a las cooperativas» —el calificativo al final de la lista no lo
+# alcanza un patrón— y la NCG 534/2025 modifica «la Circular N°12 de 2010», la
+# de Auditores Externos, sin decirlo ahí. Clave → (tipo, números, serie,
+# acción, nota). Complementa a `_CORRECCIONES_NORMA`, que saca la norma mal
+# rotulada; esto pone la bien rotulada. Verificado a mano el 30-09-2026.
+_SERIES_A_MANO: dict[str, list[tuple[str, list[int], str, str, str | None]]] = {
+    "2026_0567": [
+        ("Circular", [98, 100, 112, 116, 123, 126, 134, 142], "de Cooperativas", "deroga", None),
+        ("Circular", [108], "de Cooperativas", "deroga", "en parte"),
+    ],
+    "2025_0534": [
+        ("Circular", [12], "de Auditores Externos", "modifica", None),
+    ],
+}
+
+# Series que no son de la CMF ni de la ex-SBIF sino de otro organismo: la CMF
+# no las puede modificar, así que una mención es siempre una referencia. La
+# circular 2368/2026 se ajusta «en concordancia con la Circular N° 62 de la
+# UAF», y el verbo más cercano («actualiza») la hacía pasar por modificada.
+_SERIES_DE_OTRO_ORGANISMO = {"de la UAF"}
+
+
+def _otras_series(entrada: dict) -> list[dict]:
+    """Normas de otra serie que el documento modifica o deroga, sin repetir.
+
+    Tres fuentes: lo que el parser separó del PDF (`otras_series`), lo que la
+    descripción nombra con su serie (`store.series_en_descripcion`, con la
+    acción de `_accion_sobre_norma`, que descarta las sólo referidas) y
+    `_SERIES_A_MANO`. No son normas CMF, así que no entran a la línea de tiempo
+    ni a las categorías: sólo a la columna y al detalle, con su nombre completo.
+    """
+    vistas: dict[tuple[str, int, str], dict] = {}
+
+    def sumar(tipo, numero, serie, accion, nota=None):
+        if serie in _SERIES_DE_OTRO_ORGANISMO:
+            return
+        clave = (tipo, numero, serie)
+        previa = vistas.get(clave)
+        if previa is None or (accion == "deroga" and previa["accion"] != "deroga") or nota:
+            vistas[clave] = {"tipo": tipo, "numero": numero, "serie": serie,
+                             "accion": accion, "nota": nota or (previa or {}).get("nota")}
+
+    for x in entrada.get("otras_series") or []:
+        sumar(x["tipo"], x["numero"], x["serie"], x.get("accion") or "modifica")
+    for x in store.series_en_descripcion(entrada.get("descripcion_cmf") or ""):
+        accion = _accion_sobre_norma(entrada, x["numero"], x["tipo"])
+        if accion != "Referida por":
+            sumar(x["tipo"], x["numero"], x["serie"],
+                  "deroga" if accion == "Derogada por" else "modifica")
+    for tipo, numeros, serie, accion, nota in _SERIES_A_MANO.get(entrada.get("clave"), []):
+        for n in numeros:
+            sumar(tipo, n, serie, accion, nota)
+    return sorted(vistas.values(), key=lambda x: (x["serie"], x["tipo"], x["numero"]))
+
+
+_PLURAL_CUERPO = {"Circular": "Circulares", "Oficio Circular": "Oficios Circulares", "NCG": "NCG"}
+
+
+def _rotulos_otras_series(entrada: dict) -> list[str]:
+    """«Circulares N°98, 100 y 112 de Cooperativas», agrupadas por serie."""
+    grupos: dict[tuple[str, str, str | None], list[int]] = {}
+    for x in _otras_series(entrada):
+        grupos.setdefault((x["tipo"], x["serie"], x.get("nota")), []).append(x["numero"])
+    rotulos = []
+    for (tipo, serie, nota), numeros in grupos.items():
+        nums = [str(n) for n in sorted(numeros)]
+        if len(nums) == 1:
+            texto = f"{tipo} N°{nums[0]} {serie}"
+        else:
+            texto = f"{_PLURAL_CUERPO.get(tipo, tipo)} N°{', '.join(nums[:-1])} y {nums[-1]} {serie}"
+        rotulos.append(f"{texto} ({nota})" if nota else texto)
+    return rotulos
+
+
 def _corregidas(entrada: dict) -> dict[tuple[str, int], str]:
     """(tipo, número) → motivo, de las correcciones a mano de esta entrada."""
     clave = entrada.get("clave")
@@ -523,7 +599,7 @@ def _normas_de_columna(entrada: dict) -> list[str]:
     esa relación se lee bien; en la columna se leía como una afectada más.
     """
     return [store.etiqueta_norma(t, n) for t, n in _normas_afectadas_ids(entrada)
-            if _accion_sobre_norma(entrada, n, t) != "Referida por"]
+            if _accion_sobre_norma(entrada, n, t) != "Referida por"] + _rotulos_otras_series(entrada)
 
 
 def _heredadas(entrada: dict) -> dict[tuple[str, int], str]:
@@ -2400,6 +2476,21 @@ def _render_detalle(e: dict) -> str:
             f'Consejo</span><p class="d-extra">La descripción del listado es la '
             f'del acuerdo, que aprobó este documento junto con otro. Nombra '
             f'normas que modifica el otro:</p><ul>{items}</ul></div>'
+        )
+
+    otras = _otras_series(e)
+    if otras:
+        items = "".join(
+            f'<li>{html.escape(x["tipo"])} N°{x["numero"]} {html.escape(x["serie"])}: la '
+            f'{"deroga" if x["accion"] == "deroga" else "modifica"}'
+            f'{" " + html.escape(x["nota"]) if x.get("nota") else ""}</li>'
+            for x in otras
+        )
+        bloques.append(
+            f'<div class="d-bloque"><span class="d-label">Normas de otras series</span>'
+            f'<p class="d-extra">Numeración propia de la ex-SBIF, distinta de la de '
+            f'la CMF: no entran a la línea de tiempo ni a los filtros por cuerpo '
+            f'normativo.</p><ul>{items}</ul></div>'
         )
 
     corregidas = _corregidas(e)

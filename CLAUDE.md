@@ -836,6 +836,28 @@ ven chicos y no lo son:
   producir la norma, `generar_html` avisa que la corrección sobra. Un caso
   nuevo del mismo tipo se agrega ahí, con su cita; no hace falta reparsear.
 
+  **Descartar no es esconder.** Hasta el 30-09-2026 una norma de otra serie
+  se descartaba y desaparecía: la NCG 567 deroga nueve circulares de
+  Cooperativas y la columna decía «—», que se lee como «no afecta nada».
+  Ahora se guardan aparte y se muestran **con su nombre completo** en la
+  columna «Norma(s) afectada(s)» («Circulares N°98, 100 […] y 142 de
+  Cooperativas») y en el detalle («Normas de otras series»), sin entrar a la
+  línea de tiempo ni a los filtros por cuerpo, que son de normas CMF. Tres
+  fuentes, que `dashboard._otras_series` junta:
+
+  - el PDF: `parser._normas_de_otra_serie` anota lo que `_enumeracion`
+    descarta, en el campo `otras_series` de la entrada;
+  - la descripción: `store.series_en_descripcion`, con la acción de
+    `_accion_sobre_norma` (las sólo referidas no entran);
+  - `dashboard._SERIES_A_MANO`, para lo que ninguna ve completo (la lista de
+    la 567, la Circular 12 de la 534).
+
+  El rótulo de cada serie lo arma `store.serie_canonica`; si agregas una serie
+  a las listas de descarte, agrégale su rótulo ahí. Las circulares de **otro
+  organismo** (la UAF) se descartan igual pero **no se muestran**: la CMF no
+  las puede modificar, así que una mención es siempre una referencia
+  (`_SERIES_DE_OTRO_ORGANISMO`).
+
   Desde el 30-09-2026 las dos listas descartan además «**para** Empresas
   Emisoras» (NCG 537/2025, que modifica la Circular N°1 de esa serie) y las
   circulares de **otro organismo**: «la Circular N° 62 de la Unidad de Análisis
@@ -886,6 +908,12 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
   que **el formato es un contrato, no una decisión de presentación**: si le
   cambias el « N°» se rompe el agrupamiento. `tipo_norma` ausente = `NCG`
   (entradas anteriores a septiembre de 2026).
+- **`otras_series`**: `[{tipo, numero, serie, accion}]`, con `serie` ya
+  rotulada («de Cooperativas») y `accion` en `modifica` / `deroga`. Normas que
+  no son de la CMF; nunca van en `modifica[]`. Ausente = entrada anterior al
+  30-09-2026 (se reparseó sólo la ventana de dos años); el dashboard lo trata
+  como vacío.
+- **`fecha_fuente`** / **`fecha_listado`**: ver el modo de falla 1.
 - **`relaciones_cmf`**: `{"modifica_a": [...], "deroga_a": [...]}`, cada ítem
   `{tipo, numero, anio, fecha, url}` con `tipo` en los mismos valores que
   `tipo_norma`, así que `(tipo, numero)` es la misma identidad. Un ítem que no

@@ -58,7 +58,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-05-18",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0565",
@@ -322,7 +323,15 @@
         ]
       },
       "fecha_listado": "2026-05-18",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": [
+        {
+          "tipo": "Circular",
+          "numero": 12,
+          "serie": "de Auditores Externos",
+          "accion": "deroga"
+        }
+      ]
     }
   ]
 }

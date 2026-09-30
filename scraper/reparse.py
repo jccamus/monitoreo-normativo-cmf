@@ -182,6 +182,7 @@ def reparsear(
                 "fecha", "parsed", "documento", "resolucion", "sesion",
                 "vigencia", "tema", "modifica", "archivos_afectados",
                 "ran_referencias", "msi_referencias", "resumen_acciones", "ncg",
+                "otras_series", "fecha_fuente",
             )
             if all(nueva.get(c) == entrada.get(c) for c in campos):
                 sin_cambio += 1

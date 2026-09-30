@@ -94,7 +94,54 @@ _SERIE_TRAS_MENCION = re.compile(
     r"|PARA\s+(?:EMISORES|EMPRESAS\s+EMISORAS))\b",
     re.IGNORECASE,
 )
+# El texto de la serie tal como lo escribe la CMF → cómo se rotula. Las claves
+# cubren las alternativas de `parser._ENUM_PASO` (grupo `serie`) y de
+# `_SERIE_TRAS_MENCION`, en minúsculas. Si agregas una serie allá, agrégala acá.
+# Vive acá y no en el parser porque la usan las dos deducciones.
+_SERIES_ROTULO = (
+    ("cooperativas", "de Cooperativas"),
+    ("bancos", "de Bancos"),
+    ("filiales", "de Filiales"),
+    ("auditores externos", "de Auditores Externos"),
+    ("empresas operadoras", "de Empresas Operadoras de Tarjetas de Pago"),
+    ("empresas emisoras", "de Empresas Emisoras de Tarjetas de Pago"),
+    ("emisores", "de Empresas Emisoras de Tarjetas de Pago"),
+    ("sociedades de apoyo", "de Sociedades de Apoyo al Giro"),
+    ("unidad de análisis financiero", "de la UAF"),
+    ("unidad de analisis financiero", "de la UAF"),
+    ("uaf", "de la UAF"),
+)
+
+
+def serie_canonica(texto: str) -> str:
+    """«de COOPERATIVAS», «para Emisores» → «de Cooperativas», «de Empresas Emisoras…»."""
+    t = " ".join(texto.lower().split())
+    for clave, rotulo in _SERIES_ROTULO:
+        if clave in t:
+            return rotulo
+    return texto
+
+
 _CARTA_ANTES = re.compile(r"CARTA\s+$", re.IGNORECASE)
+
+
+def series_en_descripcion(descripcion: str) -> list[dict]:
+    """Las menciones que `_menciones_en_descripcion` descarta por serie, con ella.
+
+    La contracara de `normas_en_descripcion`: la «CIRCULAR N°1 PARA EMPRESAS
+    EMISORAS DE TARJETAS DE PAGO NO BANCARIAS» que modifica la NCG 537/2025 no
+    es la Circular N°1 de la CMF, pero el documento sí la modifica. Mismo
+    formato que `parser._normas_de_otra_serie`, sin la acción, que el dashboard
+    decide con `_accion_sobre_norma` como para cualquier otra mención.
+    """
+    vistas: dict[tuple[str, int, str], None] = {}
+    for m in _NORMA_EN_DESC.finditer(descripcion or ""):
+        s = _SERIE_TRAS_MENCION.match(descripcion, m.end())
+        if not s or _CARTA_ANTES.search(descripcion[max(0, m.start() - 12):m.start()]):
+            continue
+        vistas[(_tipo_cuerpo(m.group(1)), int(m.group(2).replace(".", "")),
+                serie_canonica(s.group(0)))] = None
+    return [{"tipo": t, "numero": n, "serie": s} for t, n, s in vistas]
 
 
 def _menciones_en_descripcion(descripcion: str):
@@ -259,6 +306,10 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     entrada["archivos_afectados"] = parsed.get("archivos_afectados") or []
     entrada["tema"] = parsed.get("tema") or ""
     entrada["resumen_acciones"] = parsed.get("resumen_acciones") or []
+    # Normas de otra serie (ex-SBIF, UAF) que el documento modifica o deroga.
+    # Aparte de `modifica[]` porque no son normas CMF: ver
+    # `parser._normas_de_otra_serie`.
+    entrada["otras_series"] = parsed.get("otras_series") or []
     # Lo que el listado de la CMF dice que el documento modifica y deroga. Va
     # en un campo propio y no dentro de `modifica[]`, que es lo que dice el PDF:
     # mezclar fuentes en esa lista ya obligó al dashboard a ignorar las entradas

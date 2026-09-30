@@ -55,7 +55,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-09-08",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0575",
@@ -109,7 +110,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-09-08",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_2375",
@@ -163,7 +165,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-08-20",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0572",
@@ -219,7 +222,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-07-27",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0571",
@@ -713,7 +717,8 @@
         ]
       },
       "fecha_listado": "2026-07-27",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0570",
@@ -824,7 +829,8 @@
         ]
       },
       "fecha_listado": "2026-06-23",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_2372",
@@ -861,7 +867,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-06-22",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0569",
@@ -932,7 +939,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-06-01",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0567",
@@ -1133,7 +1141,15 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-05-27",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": [
+        {
+          "tipo": "Circular",
+          "numero": 108,
+          "serie": "de Cooperativas",
+          "accion": "deroga"
+        }
+      ]
     },
     {
       "clave": "2026_0560",
@@ -1189,7 +1205,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-03-13",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2026_0558",
@@ -1224,7 +1241,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2026-01-07",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0555",
@@ -1267,7 +1285,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-12-01",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0552",
@@ -1298,7 +1317,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-11-05",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_2367",
@@ -1348,7 +1368,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-10-21",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_1382",
@@ -1393,7 +1414,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-09-04",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0543",
@@ -1455,7 +1477,8 @@
         ]
       },
       "fecha_listado": "2025-08-01",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0541",
@@ -1717,7 +1740,21 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-07-23",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": [
+        {
+          "tipo": "Circular",
+          "numero": 1,
+          "serie": "de Empresas Emisoras de Tarjetas de Pago",
+          "accion": "modifica"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 1,
+          "serie": "de Empresas Operadoras de Tarjetas de Pago",
+          "accion": "modifica"
+        }
+      ]
     },
     {
       "clave": "2025_0540",
@@ -1756,7 +1793,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-07-14",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0539",
@@ -1809,7 +1847,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-06-30",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0538",
@@ -1854,7 +1893,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-06-17",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0537",
@@ -1874,19 +1914,7 @@
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA DE CARÁCTER GENERAL QUE MODIFICA EL CAPÍTULO 8-41 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LA CIRCULAR N°1 PARA EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS, RESPECTO DE LA DETERMINACIÓN DE UNA FÓRMULA PARA EL CÁLCULO DEL MONTO MÍNIMO A PAGAR EN TARJETAS DE CRÉDITO, Y A LAS SITUACIONES EXCEPCIONALES EN QUE SE LIBERARÁ A LOS DEUDORES DE DICHA OBLIGACIÓN.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_537_2025.pdf",
       "parsed": true,
-      "modifica": [
-        {
-          "norma": "Circular N°1",
-          "numero_norma": 1,
-          "tipo_norma": "Circular",
-          "seccion_romana": null,
-          "acciones": [
-            "Modifícase"
-          ],
-          "vigencia": {},
-          "fuente": "descripcion_cmf"
-        }
-      ],
+      "modifica": [],
       "vigencia": {
         "inicio": "inmediata",
         "fuente": "seccion"
@@ -1905,7 +1933,15 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-06-04",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": [
+        {
+          "tipo": "Circular",
+          "numero": 1,
+          "serie": "de Empresas Emisoras de Tarjetas de Pago",
+          "accion": "modifica"
+        }
+      ]
     },
     {
       "clave": "2025_0536",
@@ -1940,7 +1976,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-04-10",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_0535",
@@ -1975,7 +2012,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-04-10",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2025_2361",
@@ -2141,7 +2179,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2025-01-08",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2024_0529",
@@ -2207,7 +2246,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2024-12-27",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2024_0518",
@@ -2265,7 +2305,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2024-10-10",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2024_1340",
@@ -2306,7 +2347,8 @@
         "deroga_a": []
       },
       "fecha_listado": "2024-10-02",
-      "fecha_fuente": "pdf"
+      "fecha_fuente": "pdf",
+      "otras_series": []
     },
     {
       "clave": "2024_0515",

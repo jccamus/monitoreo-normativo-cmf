@@ -5,6 +5,8 @@ from calendar import monthrange
 from datetime import date, timedelta
 from typing import Any
 
+from store import serie_canonica
+
 logger = logging.getLogger(__name__)
 
 # ── Patrones regex identificados en documentos CMF reales ──────────────────
@@ -901,6 +903,11 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
 
     # ── Modificaciones ───────────────────────────────────────────────────────
     result["modifica"] = _parse_modificaciones(text, fecha_base)
+    # Sobre el texto entero y no sólo el cuerpo: las derogaciones pueden ir en
+    # una sección posterior a la de vigencia (la NCG 562/2026). `_NORMA_MOD`
+    # exige el verbo pegado a la norma y las citas se descartan, así que
+    # ensanchar la ventana no arrastra menciones sueltas.
+    result["otras_series"] = _normas_de_otra_serie(text, text, 0)
 
     # ── RAN / MSI ───────────────────────────────────────────────────────────
     result["ran_referencias"] = _parse_ran(text)
@@ -1250,10 +1257,13 @@ _ENCABEZADO_NORMA = re.compile(
 )
 
 
-def _enumeracion(segmento: str, m: re.Match) -> list[tuple[str, int]]:
+def _enumeracion(segmento: str, m: re.Match,
+                 series: list[tuple[str, int, str]] | None = None) -> list[tuple[str, int]]:
     """La norma que calzó `_NORMA_MOD` más las que siguen en su misma lista.
 
-    Ver `_ENUM_PASO` para las reglas y el caso que las motivó.
+    Ver `_ENUM_PASO` para las reglas y el caso que las motivó. Las que una
+    serie de otro emisor descarta no se pierden si se pasa `series`: ahí se
+    anotan como (tipo, número, texto de la serie). Ver `_normas_de_otra_serie`.
     """
     tipo = _tipo_cuerpo(m.group(1))
     tramo = [(tipo, _numero_norma(m.group(2)))]   # lo último aceptado
@@ -1285,10 +1295,44 @@ def _enumeracion(segmento: str, m: re.Match) -> list[tuple[str, int]]:
             # dos de la serie, pero en «N°075 de 1981, N°478 de Bancos» la 075
             # queda fuera.
             if not (pendientes and tramo_cerrado):
+                de_la_serie = tramo + pendientes
                 aceptadas = [n for n in aceptadas if n not in tramo]
                 tramo = []
+            else:
+                de_la_serie = pendientes
+            if series is not None:
+                texto_serie = " ".join(p.group("serie").split())
+                series += [(t, n, texto_serie) for t, n in de_la_serie]
             pendientes = []
     return aceptadas
+
+
+def _normas_de_otra_serie(segmento: str, texto: str | None = None,
+                          desde: int = 0) -> list[dict]:
+    """Las normas que `_enumeracion` descarta por ser de otra serie, con su serie.
+
+    No son normas de la CMF —«Circular N°147 de Cooperativas», «Circular N°1
+    para Empresas Emisoras»— y por eso no entran a `modifica[]`, que se indexa
+    por (tipo, número) y las confundiría con la circular CMF del mismo número.
+    Pero el documento sí las modifica o deroga, y hasta el 30-09-2026 se
+    perdían: la NCG 567/2026 deroga nueve circulares de Cooperativas y el
+    dashboard decía que no afectaba ninguna norma. Van en un campo aparte,
+    `otras_series`, que el dashboard muestra con su nombre completo.
+    """
+    vistas: dict[tuple[str, int, str], str] = {}
+    for m in _NORMA_MOD.finditer(segmento):
+        if texto is not None and _en_cita_local(texto, desde + m.start()):
+            continue
+        series: list[tuple[str, int, str]] = []
+        _enumeracion(segmento, m, series)
+        accion = "deroga" if _VERBO_DEROGA.match(m.group(0)) else "modifica"
+        for t, n, serie in series:
+            clave = (t, n, serie_canonica(serie))
+            if vistas.get(clave) != "deroga":
+                vistas[clave] = accion
+    return [{"tipo": t, "numero": n, "serie": s, "accion": a}
+            for (t, n, s), a in vistas.items()]
+
 
 
 # Las acciones se leen por sección, pero derogar es algo que le pasa a *una*
