@@ -254,10 +254,13 @@ lo vuelvas a crear.
      `_TIMELINE_MIN_EVENTOS` eventos, ordenada por cantidad de eventos).
 
      Ojo con las dos columnas de norma: **«Norma» es el documento**
-     (`_etiqueta_documento`) y **«Norma(s) afectada(s)» son las que modifica**
-     (`_normas_afectadas`, que descarta el documento propio — el par
-     tipo+número, así que un oficio circular que modifica la NCG N°530 conserva
-     ese 530). Las normas afectadas pueden ser NCG, circulares u oficios
+     (`_etiqueta_documento`) y **«Norma(s) afectada(s)» son las que modifica
+     o deroga** (`_normas_de_columna`). La columna y la línea de tiempo no
+     muestran lo mismo: `_normas_afectadas` —la base de la línea de tiempo—
+     incluye también las que el documento sólo menciona («Referida por», que
+     allá se rotula «sólo la menciona»), y la columna las omite. Las dos
+     descartan el documento propio por el par tipo+número, así que un oficio
+     circular que modifica la NCG N°530 conserva ese 530. Las normas afectadas pueden ser NCG, circulares u oficios
      circulares; ver «Una norma se identifica por tipo y número». Y la línea de
      tiempo **sigue a la tabla por `data-clave`** en vez de reimplementar el
      filtrado.
@@ -755,6 +758,16 @@ la Circular 2360 fue a buscar la NCG 200 al PDF. Las categorías que salen de la
 descripción siguen la misma regla: no se aplican si el documento no las
 sostiene y un hermano sí.
 
+El mismo fenómeno sin hermano: **el acuerdo puede hacer más que el
+documento.** La descripción de la NCG 545/2025 dice «DEROGA NCG N°157», y el
+texto de la 545 no la nombra: la deroga la Resolución Exenta 8369, que ejecuta
+el acuerdo. `_marcar_del_acuerdo` saca de la columna, de la línea de tiempo y de
+las categorías la norma que sólo aparece en la descripción **cuando el parser sí
+encontró normas en el PDF**, y la deja en el detalle bajo «Según la descripción
+del acuerdo». Sin nada leído del PDF la descripción sigue siendo el respaldo y
+no se toca. Son tres en todo el corpus (30-09-2026): la 545, la Circular 108 de
+Cooperativas en la NCG 567 y el Oficio Circular 479 en la circular 2357.
+
 ### Una norma se identifica por tipo y número, nunca sólo por el número
 
 Existen la NCG N°519 y la Circular N°519, y son documentos distintos. Por eso
@@ -950,7 +963,7 @@ entrada puede llevar varias categorías):
 | categoría | entradas |
 |---|---|
 | Otro | 276 |
-| Derogación | 194 |
+| Derogación | 192 |
 | Modificación NCG | 112 |
 | Modificación Circular | 101 |
 | Modificación Oficio Circular | 33 |
@@ -993,6 +1006,8 @@ y 556 a «Otro»; la NCG 520 pierde «Modificación Circular» y la NCG 561
 a «Otro» (Modificación Circular 103 → 101) al dejar de rotularse como
 circulares CMF la Circular N°1 para Empresas Emisoras y la Circular N°62 de la
 UAF; la 537 modifica además el capítulo 8-41 de la RAN, que no tiene categoría.
+Y «Derogación» bajó de 194 a 192: la NCG 545 y la circular 2357 la tenían sólo
+por una derogación que nombra la descripción del acuerdo y no el documento.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.

@@ -266,9 +266,9 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
             # Sin `tipo_norma` es una entrada anterior a que el parser
             # distinguiera cuerpos, y entonces sólo podía ser una NCG.
             ids[(m.get("tipo_norma") or "NCG", n)] = None
-    heredadas = _heredadas(entrada)
+    fuera = set(_heredadas(entrada)) | set(_del_acuerdo(entrada))
     for tn in store.normas_en_descripcion(entrada.get("descripcion_cmf") or ""):
-        if tn not in heredadas:
+        if tn not in fuera:
             ids[tn] = None
     # El listado de la CMF es un piso: suma lo que el PDF no deja ver y nunca
     # quita. Medido el 16-09-2026, en 295 de 388 entradas con relaciones el
@@ -411,6 +411,69 @@ def _marcar_heredadas(entradas: list[dict]) -> None:
                 c for c in de_desc - cats[i]
                 if any(c in cats[j] for j in range(len(grupo)) if j != i)
             )
+
+
+def _marcar_del_acuerdo(entradas: list[dict]) -> None:
+    """Separa lo que sólo dice la descripción cuando el PDF sí se leyó.
+
+    La descripción del listado es la del **acuerdo del Consejo**, y el acuerdo
+    puede hacer más de lo que dice el texto del documento. La NCG 545/2025
+    modifica la NCG 526 y nada más; la descripción agrega «DEROGA NCG N°157»,
+    que no está en el PDF: la deroga la Resolución Exenta 8369, que ejecuta el
+    acuerdo y oficializa la 545 (verificado a mano el 30-09-2026). La
+    derogación existe, pero no es de la NCG 545.
+
+    Cuando el parser encontró normas en el PDF, una norma más que sólo aparece
+    en la descripción —ni en el PDF ni en las columnas del listado— sale de la
+    columna, de la línea de tiempo y de las categorías, y queda en el detalle
+    atribuida a la descripción. Sin nada leído del PDF (escaneos, documentos
+    que no nombran normas) la descripción sigue siendo el respaldo legítimo y
+    no se toca. Medido el 30-09-2026 son tres en todo el corpus: la 545, la
+    «Circular N°108» que la NCG 567/2026 deroga en parte —que es la de
+    Cooperativas; el PDF la nombra y el parser la descarta por serie— y el
+    Oficio Circular 479 en la circular 2357/2024. Por eso la nota del detalle
+    es mecánica y no afirma de dónde viene cada una.
+
+    Las «Referida por» no entran: esas sí están en la línea de tiempo, que dice
+    «sólo la menciona», y la columna ya las omite (`_normas_de_columna`).
+    """
+    for e in entradas:
+        e["_del_acuerdo"] = []
+        if not _normas_del_pdf(e):
+            continue
+        propias = _normas_propias(e)
+        heredadas = _heredadas(e)
+        doc = e.get("documento") or {}
+        for tn in store.normas_en_descripcion(e.get("descripcion_cmf") or ""):
+            if tn in propias or tn in heredadas or tn == (doc.get("tipo"), doc.get("numero")):
+                continue
+            accion = _accion_sobre_norma(e, tn[1], tn[0])
+            if accion != "Referida por":
+                e["_del_acuerdo"].append({"tipo": tn[0], "numero": tn[1], "accion": accion})
+        # «Derogación» también sale de la descripción por `_es_derogacion`, que
+        # mira la palabra y no la norma: si lo único derogado era una de éstas y
+        # el documento no deroga nada por sí mismo, la categoría tampoco es suya.
+        if (any(x["accion"] == "Derogada por" for x in e["_del_acuerdo"])
+                and "Derogación" not in _categorias_propias(e)):
+            e["_categorias_heredadas"] = sorted(
+                set(e.get("_categorias_heredadas") or []) | {"Derogación"})
+
+
+def _del_acuerdo(entrada: dict) -> dict[tuple[str, int], str]:
+    """(tipo, número) → acción, de lo que sólo dice la descripción del acuerdo."""
+    return {(x["tipo"], x["numero"]): x["accion"] for x in entrada.get("_del_acuerdo") or []}
+
+
+def _normas_de_columna(entrada: dict) -> list[str]:
+    """Las normas afectadas que se muestran en la columna: sin las referidas.
+
+    «Norma(s) afectada(s)» dice lo que el documento hace. Una norma que sólo
+    nombra —la NCG 510 en la NCG 531/2025, «que a su vez modificó»— sigue en
+    la línea de tiempo de esa norma, rotulada «sólo la menciona», que es donde
+    esa relación se lee bien; en la columna se leía como una afectada más.
+    """
+    return [store.etiqueta_norma(t, n) for t, n in _normas_afectadas_ids(entrada)
+            if _accion_sobre_norma(entrada, n, t) != "Referida por"]
 
 
 def _heredadas(entrada: dict) -> dict[tuple[str, int], str]:
@@ -837,7 +900,7 @@ def _indice_busqueda(entradas: list[dict], hoy: datetime) -> list[dict]:
             "g": [t for c, t, _ in GRUPOS_CUERPO_NORMATIVO if c in _grupos_de_entrada(e)],
             # El código del archivo vive en `nombre`, no en `codigo`.
             "a": [a.get("nombre") for a in (e.get("archivos_afectados") or []) if a.get("nombre")],
-            "m": _normas_afectadas(e)[:4],
+            "m": _normas_de_columna(e)[:4],
             "v": fechas[0][0].strftime("%Y-%m-%d") if fechas else (vig.get("inicio") or ""),
             "u": e.get("url_documento") or "",
             "s": _situacion(e, hoy),
@@ -906,6 +969,7 @@ def generar_html() -> None:
     # Antes de cualquier cosa que lea normas afectadas o categorías: separa lo
     # que la descripción de un acuerdo compartido atribuye a cada documento.
     _marcar_heredadas(entradas)
+    _marcar_del_acuerdo(entradas)
 
     # Las anotaciones manuales se aplican acá, antes de clasificar: al
     # renderizar y no al guardar, para que los datos parseados queden intactos
@@ -1592,7 +1656,7 @@ def _render_ag_ultimo(entradas: list[dict], hoy: datetime) -> str:
     e = max(entradas, key=lambda x: (x.get("fecha") or "", x.get("clave") or ""))
     clave = e.get("clave", "")
     url = e.get("url_documento") or ""
-    normas = _normas_afectadas(e)
+    normas = _normas_de_columna(e)
 
     # El "hace N días" se calcula sobre la fecha guardada, que puede ser el
     # placeholder YYYY-01-01 (ver el modo de falla 1 en CLAUDE.md). No se
@@ -2157,7 +2221,7 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
 
     badges = "".join(_tipo_tag(t) for t in tipos)
     normas = _normas_afectadas(e)
-    normas_html = ", ".join(html.escape(n) for n in normas) or "—"
+    normas_html = ", ".join(html.escape(n) for n in _normas_de_columna(e)) or "—"
     link = (
         f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
         if url else "—"
@@ -2275,6 +2339,24 @@ def _render_detalle(e: dict) -> str:
             f'Consejo</span><p class="d-extra">La descripción del listado es la '
             f'del acuerdo, que aprobó este documento junto con otro. Nombra '
             f'normas que modifica el otro:</p><ul>{items}</ul></div>'
+        )
+
+    # Lo que el acuerdo hace y el documento no dice: ver `_marcar_del_acuerdo`.
+    del_acuerdo = _del_acuerdo(e)
+    if del_acuerdo:
+        verbo = {"Derogada por": "deroga", "Modificada por": "modifica"}
+        items = "".join(
+            f'<li>{html.escape(store.etiqueta_norma(t, n))}: la '
+            f'{verbo.get(accion, "nombra")}, según la descripción</li>'
+            for (t, n), accion in del_acuerdo.items()
+        )
+        bloques.append(
+            f'<div class="d-bloque"><span class="d-label">Según la descripción del '
+            f'acuerdo</span><p class="d-extra">La descripción del listado es la del '
+            f'acuerdo del Consejo que aprobó este documento. Nombra además estas '
+            f'normas, que no están entre las que se leyeron en el PDF; el acuerdo '
+            f'puede haberlas afectado por otro acto, como la resolución que lo '
+            f'ejecuta:</p><ul>{items}</ul></div>'
         )
 
     rans = e.get("ran_referencias") or []
