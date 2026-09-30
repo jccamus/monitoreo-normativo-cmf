@@ -117,7 +117,10 @@ _NORMA_MOD   = re.compile(
 #   cooperativas», y la N°98 queda rotulada como circular CMF.
 #   **«para bancos» no es una serie**: la circular 2371/2026 «Modifica la
 #   Circular N°2.364 para bancos», que es una circular CMF. «para» sólo marca
-#   serie delante de «Emisores»; no lo generalices a los demás destinatarios.
+#   serie delante de «Emisores» y de «Empresas Emisoras» (NCG 537/2025); no
+#   lo generalices a los demás destinatarios. Una circular de otro organismo
+#   se descarta igual: «la Circular N°62 de la UAF» (circular 2368/2026) es de
+#   la Unidad de Análisis Financiero.
 # - **Entre un elemento y el siguiente tiene que haber un separador.** En el
 #   bloque REF, la línea que sigue a la norma modificada es la identidad del
 #   propio documento —«MODIFICA NORMA DE CARÁCTER GENERAL N° 526», y en la
@@ -131,8 +134,9 @@ _ENUM_PASO = re.compile(
     r"(?:\s*N[°oº]\s*|\s+)(?P<num_cuerpo>\d[\d.]*\d|\d)"
     r"|N[°oº]\s*(?P<num>\d[\d.]*\d|\d)"
     r"|(?P<serie>(?:(?:de\s+)?(?:Bancos|Cooperativas|Filiales|Auditores\s+Externos"
-    r"|Empresas\s+(?:Operadoras|Emisoras)|Sociedades\s+de\s+Apoyo)"
-    r"|para\s+Emisores)\b)"
+    r"|Empresas\s+(?:Operadoras|Emisoras)|Sociedades\s+de\s+Apoyo"
+    r"|la\s+Unidad\s+de\s+An[aá]lisis\s+Financiero|la\s+UAF)"
+    r"|para\s+(?:Emisores|Empresas\s+Emisoras))\b)"
     r")",
     re.IGNORECASE,
 )

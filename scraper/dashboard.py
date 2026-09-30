@@ -2368,6 +2368,18 @@ _VERBO_MODIFICA = re.compile(
 # normalizado sólo calzaría "DEROGA". Acá hace falta la familia completa.
 _VERBO_DEROGA = re.compile(r"DEROG\w*")
 
+# Un verbo en pasado narra lo que hizo *otra* norma, no lo que hace este
+# documento: la NCG 531/2025 «MODIFICA LA NCG N°529, QUE A SU VEZ MODIFICÓ LA
+# NCG N°510», y con el último verbo mandando, la 510 figuraba modificada por
+# la 531, que sólo toca la 529. Cuando el verbo más cercano a la mención es
+# uno de éstos, la mención es una referencia. Sólo tercera persona del
+# pretérito: la CMF no escribe en primera persona, y así «REEMPLAZO» como
+# sustantivo («el reemplazo de…») es el único falso positivo posible.
+_VERBO_PASADO = re.compile(
+    r"\b(?:MODIFICO|DEROGO|REEMPLAZO|SUSTITUYO|AJUSTO|AGREGO|ELIMINO"
+    r"|ACTUALIZO|POSTERGO|INCORPORO|INTRODUJO|COMPLEMENTO)\b"
+)
+
 
 # Cómo se nombra cada cuerpo normativo en la descripción ya normalizada por
 # `store.normalizar` (mayúsculas, sin tildes, espacios colapsados).
@@ -2448,6 +2460,11 @@ def _accion_sobre_norma(entrada: dict, numero: int, tipo: str = "NCG") -> str:
         oracion = desc[_inicio_de_oracion(desc, m.start()):m.start()]
         mod = _ultimo(_VERBO_MODIFICA, oracion)
         der = _ultimo(_VERBO_DEROGA, oracion)
+        # «>=» porque «MODIFICO» calza también en `_VERBO_MODIFICA`, en la
+        # misma posición: ahí el verbo más cercano es el pasado.
+        pasado = _ultimo(_VERBO_PASADO, oracion)
+        if pasado is not None and all(v is None or pasado >= v for v in (mod, der)):
+            continue
         if der is not None and (mod is None or der > mod):
             return "Derogada por"
         if mod is not None:

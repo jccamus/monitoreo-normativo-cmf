@@ -77,14 +77,21 @@ def normas_en_descripcion(descripcion: str) -> list[tuple[str, int]]:
 # agrega tres series más: «DE EMPRESAS OPERADORAS», «DE EMPRESAS EMISORAS» y
 # «DE SOCIEDADES DE APOYO AL GIRO».
 #
+# Y dos más del 30-09-2026: la NCG 537/2025 modifica «LA CIRCULAR N°1 PARA
+# EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS» —con «para» y no «de»—,
+# y la circular 2368/2026 se ajusta a «LA CIRCULAR N° 62 DE LA UNIDAD DE
+# ANÁLISIS FINANCIERO», que no es una serie ex-SBIF sino otro organismo. Las
+# dos figuraban como la Circular N°1 y la Circular N°62 de la CMF.
+#
 # Es la misma regla que aplica el parser en `_ENUM_PASO`, y las dos listas
 # tienen que coincidir. «para Emisores» es serie y «para bancos» no, porque la
 # CMF titula así sus propias circulares («Circular N°2.364 para bancos»).
 _SERIE_TRAS_MENCION = re.compile(
     r"\s*(?:,?\s*DEL?\s+\d{4}\s*)?"
     r"(?:(?:DE\s+)?(?:BANCOS|COOPERATIVAS|FILIALES|AUDITORES\s+EXTERNOS"
-    r"|EMPRESAS\s+(?:OPERADORAS|EMISORAS)|SOCIEDADES\s+DE\s+APOYO)"
-    r"|PARA\s+EMISORES)\b",
+    r"|EMPRESAS\s+(?:OPERADORAS|EMISORAS)|SOCIEDADES\s+DE\s+APOYO"
+    r"|LA\s+UNIDAD\s+DE\s+AN[AÁ]LISIS\s+FINANCIERO|LA\s+UAF)"
+    r"|PARA\s+(?:EMISORES|EMPRESAS\s+EMISORAS))\b",
     re.IGNORECASE,
 )
 _CARTA_ANTES = re.compile(r"CARTA\s+$", re.IGNORECASE)

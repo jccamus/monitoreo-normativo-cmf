@@ -730,6 +730,9 @@ pasan a ser inocuos, no incorrectos.
 
 `_accion_sobre_norma` decide entre «Derogada por», «Modificada por» y «Referida
 por» buscando el último verbo antes de la mención **dentro de su misma oración**.
+Un verbo en **pasado** (`_VERBO_PASADO`) no cuenta como acción del documento:
+«MODIFICA LA NCG N°529, QUE A SU VEZ MODIFICÓ LA NCG N°510» (NCG 531/2025)
+deja la 510 como referida, no modificada.
 
 ### Una descripción puede ser de dos documentos
 
@@ -794,7 +797,16 @@ ven chicos y no lo son:
   deroga «las circulares N°98, 100, 112 […] aplicables a las cooperativas» y
   la N°98 queda rotulada como circular CMF—, y tampoco la serie que sólo se
   deduce del contexto: la NCG 534/2025 «MODIFICA LA CIRCULAR N°12 DE 2010», que
-  es la de Auditores Externos, y queda rotulada «Circular N°12».
+  es la de Auditores Externos, y queda rotulada «Circular N°12». Tampoco la
+  «Circular N°108» que la misma NCG 567 deroga en parte («determinadas
+  disposiciones de la Circular N°108, aplicables a las mismas entidades»),
+  que es la de Cooperativas.
+
+  Desde el 30-09-2026 las dos listas descartan además «**para** Empresas
+  Emisoras» (NCG 537/2025, que modifica la Circular N°1 de esa serie) y las
+  circulares de **otro organismo**: «la Circular N° 62 de la Unidad de Análisis
+  Financiero» (circular 2368/2026, que se ajusta a ella). Las dos figuraban como
+  la Circular N°1 y la Circular N°62 de la CMF.
 
 La deducción desde la descripción vive en **`store.normas_en_descripcion`**, y
 el dashboard la llama en vez de tener su propia copia: eran dos regex parecidos
@@ -937,10 +949,10 @@ entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 274 |
+| Otro | 276 |
 | Derogación | 194 |
 | Modificación NCG | 112 |
-| Modificación Circular | 103 |
+| Modificación Circular | 101 |
 | Modificación Oficio Circular | 33 |
 | Postergación de vigencia | 4 |
 | Circular | 2 |
@@ -977,7 +989,10 @@ las modifica—: el campo `ncg` dejó de contar como norma afectada (15 entradas
 pierden la NCG que sólo ese campo aportaba; 9 quedan en «Otro») y las descripciones compartidas
 dejaron de repartir sus normas entre los documentos del mismo acuerdo (NCG 546
 y 556 a «Otro»; la NCG 520 pierde «Modificación Circular» y la NCG 561
-«Circular»).
+«Circular»). El mismo día, la NCG 537/2025 y la circular 2368/2026 pasaron
+a «Otro» (Modificación Circular 103 → 101) al dejar de rotularse como
+circulares CMF la Circular N°1 para Empresas Emisoras y la Circular N°62 de la
+UAF; la 537 modifica además el capítulo 8-41 de la RAN, que no tiene categoría.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.
