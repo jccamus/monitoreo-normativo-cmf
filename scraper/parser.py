@@ -117,7 +117,7 @@ _NORMA_MOD   = re.compile(
 #   Límite conocido: el calificativo al final de una lista larga no se ve. La
 #   NCG 567/2026 deroga «las circulares N°98, 100, 112 […] aplicables a las
 #   cooperativas», y la N°98 queda rotulada como circular CMF. Esos casos los
-#   corrige a mano `dashboard._CORRECCIONES_NORMA`.
+#   corrige a mano `store.CORRECCIONES`.
 #   **«para bancos» no es una serie**: la circular 2371/2026 «Modifica la
 #   Circular N°2.364 para bancos», que es una circular CMF. «para» sólo marca
 #   serie delante de «Emisores» y de «Empresas Emisoras» (NCG 537/2025); no

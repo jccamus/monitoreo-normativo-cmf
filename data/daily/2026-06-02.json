@@ -37,7 +37,9 @@
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 568
+        "numero": 568,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tema": "",
       "resumen_acciones": [],

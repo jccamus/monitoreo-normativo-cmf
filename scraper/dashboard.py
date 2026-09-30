@@ -320,46 +320,11 @@ def _normas_del_pdf(entrada: dict) -> set[tuple[str, int]]:
     }
 
 
-# Correcciones a mano: normas que el parser rotula mal y que ninguna regla
-# general puede separar sin arriesgar otros documentos. (clave, tipo, número) →
-# qué es en realidad. La norma sale de todo lo que cuenta —columna, línea de
-# tiempo, categorías— y el motivo se muestra en el detalle.
-#
-# Son series de la ex-SBIF con numeración propia (ver «Las series de la
-# ex-SBIF no son circulares CMF» en CLAUDE.md) en las dos formas que un patrón
-# no alcanza: el calificativo al final de una lista larga y la serie que sólo
-# se deduce del contexto. Si el parser o el listado dejan de producir la norma,
-# `generar_html` avisa que la corrección sobra.
-_CORRECCIONES_NORMA: dict[tuple[str, str, int], str] = {
-    ("2026_0567", "Circular", 98): (
-        "Es la Circular N°98 de Cooperativas (serie ex-SBIF), no la Circular "
-        "N°98 de la CMF: la NCG 567 deroga «las circulares N°98, 100, 112 […] "
-        "aplicables a las cooperativas»."),
-    ("2026_0567", "Circular", 108): (
-        "Es la Circular N°108 de Cooperativas (serie ex-SBIF), no la Circular "
-        "N°108 de la CMF, y la NCG 567 deroga sólo «determinadas disposiciones»."),
-    ("2025_0534", "Circular", 12): (
-        "Es la Circular N°12 de 2010 de Auditores Externos (serie ex-SBIF), no "
-        "la Circular N°12 de la CMF."),
-}
-
-
-# Normas de otra serie que el documento afecta y que ninguna fuente automática
-# ve completas: la NCG 567/2026 deroga «las circulares N°98, 100, 112 […]
-# aplicables a las cooperativas» —el calificativo al final de la lista no lo
-# alcanza un patrón— y la NCG 534/2025 modifica «la Circular N°12 de 2010», la
-# de Auditores Externos, sin decirlo ahí. Clave → (tipo, números, serie,
-# acción, nota). Complementa a `_CORRECCIONES_NORMA`, que saca la norma mal
-# rotulada; esto pone la bien rotulada. Verificado a mano el 30-09-2026.
-_SERIES_A_MANO: dict[str, list[tuple[str, list[int], str, str, str | None]]] = {
-    "2026_0567": [
-        ("Circular", [98, 100, 112, 116, 123, 126, 134, 142], "de Cooperativas", "deroga", None),
-        ("Circular", [108], "de Cooperativas", "deroga", "en parte"),
-    ],
-    "2025_0534": [
-        ("Circular", [12], "de Auditores Externos", "modifica", None),
-    ],
-}
+# Las correcciones a mano de normas mal rotuladas vivían acá
+# (`_CORRECCIONES_NORMA`, `_SERIES_A_MANO`) y desde el 01-10-2026 viven en
+# `store.CORRECCIONES`: se aplican al armar la entrada y llegan en los datos
+# —`correcciones` y `otras_series` con `fuente: "correccion_manual"`—, para
+# que cualquier consumidor las reciba sin copiar la tabla.
 
 # Series que no son de la CMF ni de la ex-SBIF sino de otro organismo: la CMF
 # no las puede modificar, así que una mención es siempre una referencia. La
@@ -371,11 +336,12 @@ _SERIES_DE_OTRO_ORGANISMO = {"de la UAF"}
 def _otras_series(entrada: dict) -> list[dict]:
     """Normas de otra serie que el documento modifica o deroga, sin repetir.
 
-    Tres fuentes: lo que el parser separó del PDF (`otras_series`), lo que la
-    descripción nombra con su serie (`store.series_en_descripcion`, con la
-    acción de `_accion_sobre_norma`, que descarta las sólo referidas) y
-    `_SERIES_A_MANO`. No son normas CMF, así que no entran a la línea de tiempo
-    ni a las categorías: sólo a la columna y al detalle, con su nombre completo.
+    Dos fuentes: el campo `otras_series` —lo que el parser separó del PDF más
+    las correcciones a mano de `store.CORRECCIONES`— y lo que la descripción
+    nombra con su serie (`store.series_en_descripcion`, con la acción de
+    `_accion_sobre_norma`, que descarta las sólo referidas). No son normas CMF,
+    así que no entran a la línea de tiempo ni a las categorías: sólo a la
+    columna y al detalle, con su nombre completo.
     """
     vistas: dict[tuple[str, int, str], dict] = {}
 
@@ -389,15 +355,12 @@ def _otras_series(entrada: dict) -> list[dict]:
                              "accion": accion, "nota": nota or (previa or {}).get("nota")}
 
     for x in entrada.get("otras_series") or []:
-        sumar(x["tipo"], x["numero"], x["serie"], x.get("accion") or "modifica")
+        sumar(x["tipo"], x["numero"], x["serie"], x.get("accion") or "modifica", x.get("nota"))
     for x in store.series_en_descripcion(entrada.get("descripcion_cmf") or ""):
         accion = _accion_sobre_norma(entrada, x["numero"], x["tipo"])
         if accion != "Referida por":
             sumar(x["tipo"], x["numero"], x["serie"],
                   "deroga" if accion == "Derogada por" else "modifica")
-    for tipo, numeros, serie, accion, nota in _SERIES_A_MANO.get(entrada.get("clave"), []):
-        for n in numeros:
-            sumar(tipo, n, serie, accion, nota)
     return sorted(vistas.values(), key=lambda x: (x["serie"], x["tipo"], x["numero"]))
 
 
@@ -421,24 +384,13 @@ def _rotulos_otras_series(entrada: dict) -> list[str]:
 
 
 def _corregidas(entrada: dict) -> dict[tuple[str, int], str]:
-    """(tipo, número) → motivo, de las correcciones a mano de esta entrada."""
-    clave = entrada.get("clave")
-    return {(t, n): motivo for (c, t, n), motivo in _CORRECCIONES_NORMA.items() if c == clave}
+    """(tipo, número) → motivo, de las normas que `store.CORRECCIONES` quitó.
 
-
-def _correcciones_sobrantes(entradas: list[dict]) -> list[tuple[str, str, int]]:
-    """Correcciones que ya no corrigen nada: ninguna fuente produce la norma."""
-    por_clave = {e.get("clave"): e for e in entradas}
-    sobran = []
-    for clave, tipo, numero in _CORRECCIONES_NORMA:
-        e = por_clave.get(clave)
-        fuentes = set()
-        if e is not None:
-            fuentes = (_normas_del_pdf(e) | set(_relaciones_listado(e))
-                       | set(store.normas_en_descripcion(e.get("descripcion_cmf") or "")))
-        if (tipo, numero) not in fuentes:
-            sobran.append((clave, tipo, numero))
-    return sobran
+    Ya no están en `modifica[]`, pero la descripción puede volver a nombrarlas
+    («MODIFICA LA CIRCULAR N°12»): se usan para no deducirlas de nuevo y para
+    explicar la corrección en el detalle.
+    """
+    return {(c["tipo"], c["numero"]): c["motivo"] for c in entrada.get("correcciones") or []}
 
 
 def _normas_propias(entrada: dict) -> set[tuple[str, int]]:
@@ -554,7 +506,7 @@ def _marcar_del_acuerdo(entradas: list[dict]) -> None:
     no se toca. Medido el 30-09-2026 eran tres en todo el corpus: la 545, la
     «Circular N°108» que la NCG 567/2026 deroga en parte —que es la de
     Cooperativas; el PDF la nombra y el parser la descarta por serie, y ahora
-    la cubre `_CORRECCIONES_NORMA`— y el Oficio Circular 479 en la circular
+    la cubre `store.CORRECCIONES`— y el Oficio Circular 479 en la circular
     2357/2024. Por eso la nota del detalle es mecánica y no afirma de dónde
     viene cada una.
 
@@ -1096,12 +1048,6 @@ def generar_html() -> None:
     # que la descripción de un acuerdo compartido atribuye a cada documento.
     _marcar_heredadas(entradas)
     _marcar_del_acuerdo(entradas)
-    for clave, tipo, numero in _correcciones_sobrantes(entradas):
-        logger.warning(
-            "Corrección a mano de %s (%s) ya no corrige nada: ninguna fuente "
-            "produce esa norma — revisar si `_CORRECCIONES_NORMA` todavía la necesita",
-            clave, store.etiqueta_norma(tipo, numero),
-        )
 
     # Las anotaciones manuales se aplican acá, antes de clasificar: al
     # renderizar y no al guardar, para que los datos parseados queden intactos

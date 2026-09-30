@@ -10,7 +10,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2374
+        "numero": 2374,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA CIRCULAR QUE ACTUALIZA EL CAPÍTULO 2-13 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LA CIRCULAR N°1 DE EMPRESAS EMISORAS DE TARJETAS DE PAGO, EXCLUYENDO EL TRÁMITE DE CONSULTA PÚBLICA",

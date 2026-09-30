@@ -43,7 +43,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 497
+        "numero": 497,
+        "fuente": "pdf",
+        "anio": 2023
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -98,7 +100,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 481
+        "numero": 481,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -167,7 +171,12 @@
         "Agrégase en el décimo párrafo del Capítulo II. Selección de la letra M. ACEPTACIÓN Y SELECCIÓN, entre la última y penúltima oración, lo siguiente: de aumento temporal de pensión,…",
         "Agrégase la siguiente nota en el Anexo N° 8 Certificado de Ofertas Pensión de Sobrevivencia: La Cláusula de Periodo Garantizado de Pago corresponde a una cobertura adicional que…"
       ],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 466,
+        "anio": 2022,
+        "fuente": "url"
+      },
       "relaciones_cmf": {
         "modifica_a": [
           {
@@ -215,7 +224,12 @@
       "archivos_afectados": [],
       "tema": "",
       "resumen_acciones": [],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 465,
+        "anio": 2022,
+        "fuente": "url"
+      },
       "relaciones_cmf": {
         "modifica_a": [
           {
@@ -268,7 +282,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 464
+        "numero": 464,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -325,7 +341,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 463
+        "numero": 463,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -350,7 +368,9 @@
       "ncg": 152,
       "documento": {
         "tipo": "NCG",
-        "numero": 458
+        "numero": 458,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N° 152 QUE IMPARTE NORMAS SOBRE ACTIVOS REPRESENTATIVOS DE RESERVAS TÉCNICAS Y PATRIMONIO DE RIESGO.",
@@ -462,7 +482,12 @@
         "Agrégase antes del punto final del primer párrafo de las Instrucciones para el llenado de las Clasificaciones de Riesgo, del Anexo N° 18, lo siguiente: “, sólo cuando existan…",
         "Agrégase el siguiente segundo párrafo al número 10 de las Instrucciones para generar el formulario Solicitud de Ofertas, del Anexo N° 3: “Esta fila no deberá desplegarse cuando se…"
       ],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 455,
+        "anio": 2021,
+        "fuente": "url"
+      },
       "relaciones_cmf": {
         "modifica_a": [
           {
@@ -517,7 +542,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 453
+        "numero": 453,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -587,7 +614,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 452
+        "numero": 452,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -651,7 +680,12 @@
       "archivos_afectados": [],
       "tema": "",
       "resumen_acciones": [],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 444,
+        "anio": 2020,
+        "fuente": "url"
+      },
       "relaciones_cmf": {
         "modifica_a": [
           {
@@ -707,7 +741,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 443
+        "numero": 443,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -773,7 +809,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 442
+        "numero": 442,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -826,7 +864,12 @@
         "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…",
         "Agrégase en el número 4., a continuación de su párrafo único, el siguiente párrafo segundo nuevo: 4 \"Con todo, si concluido un proceso de licitación subsisten fracciones sin…"
       ],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 441,
+        "anio": 2020,
+        "fuente": "url"
+      },
       "relaciones_cmf": {
         "modifica_a": [
           {
@@ -894,7 +937,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 440
+        "numero": 440,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -925,7 +970,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 437
+        "numero": 437,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "modifica": [
         {
@@ -975,7 +1022,12 @@
       "parsed": false,
       "tema": "",
       "resumen_acciones": [],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 427,
+        "anio": 2018,
+        "fuente": "url"
+      },
       "modifica": [
         {
           "norma": "NCG N°200",
@@ -1045,7 +1097,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 564
+        "numero": 564,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1101,7 +1155,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 563
+        "numero": 563,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1192,7 +1248,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 562
+        "numero": 562,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "relaciones_cmf": {
         "modifica_a": [],
@@ -1311,7 +1369,9 @@
       ],
       "documento": {
         "tipo": "Circular",
-        "numero": 2370
+        "numero": 2370,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "relaciones_cmf": {
         "modifica_a": [],
@@ -1386,7 +1446,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 561
+        "numero": 561,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1474,7 +1536,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 553
+        "numero": 553,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1529,7 +1593,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 550
+        "numero": 550,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1586,7 +1652,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 549
+        "numero": 549,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1637,7 +1705,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 548
+        "numero": 548,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1692,7 +1762,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 545
+        "numero": 545,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1747,7 +1819,12 @@
       "ran_referencias": [],
       "msi_referencias": [],
       "archivos_afectados": [],
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 542,
+        "anio": 2025,
+        "fuente": "url"
+      },
       "tema": "",
       "resumen_acciones": [
         "Modifíquese en el capítulo II. DEFINICIONES, lo siguiente: 3.1 Elimínese la definición de Oferta Asociada y la de Oferta Externa. 3.2",
@@ -1808,7 +1885,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 531
+        "numero": 531,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1866,7 +1945,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 525
+        "numero": 525,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1949,7 +2030,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 524
+        "numero": 524,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -1975,7 +2058,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2360
+        "numero": 2360,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°200 QUE ESTABLECE NORMAS SOBRE OPERACIONES DE COBERTURA DE RIESGOS FINANCIEROS, INVERSIÓN EN PRODUCTOS DERIVADOS FINANCIEROS Y OPERACIONES DE PRÉSTAMO DE ACCIONES, Y LA CIRCULAR QUE MODIFICA LA CIRCULAR N°1512 QUE IMPARTE INSTRUCCIONES SOBRE CONSTITUCIÓN DE RESERVAS TÉCNICAS Y VALORIZACIÓN DE  ACTIVOS Y PASIVOS EN RELACIÓN AL CALCE DE ACTIVOS Y PASIVOS.",
@@ -2081,7 +2166,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 520
+        "numero": 520,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -2176,7 +2263,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 513
+        "numero": 513,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -2268,7 +2357,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 511
+        "numero": 511,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -2324,7 +2415,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 510
+        "numero": 510,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -2397,7 +2490,9 @@
       "resumen_acciones": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 508
+        "numero": 508,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [
@@ -2458,7 +2553,9 @@
       ],
       "documento": {
         "tipo": "NCG",
-        "numero": 506
+        "numero": 506,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "relaciones_cmf": {
         "modifica_a": [

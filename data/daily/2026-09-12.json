@@ -10,7 +10,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2378
+        "numero": 2378,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Circular",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE EMITE CIRCULAR QUE MODIFICA EL CAPÍTULO 21-7 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y EL ARCHIVO R07 DEL SISTEMA DE RIESGOS DEL MANUAL DE SISTEMAS DE INFORMACIÓN DE BANCOS.",

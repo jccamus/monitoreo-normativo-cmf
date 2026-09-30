@@ -1,5 +1,10 @@
 """Completa `relaciones_cmf` y la fecha en las entradas ya guardadas, desde el listado de la CMF.
 
+De paso aplica lo que `store.ensamblar_entrada` hace hoy y las entradas viejas
+no tienen: `documento` desde la URL cuando el PDF no lo identificó
+(`store.completar_documento`) y las correcciones a mano
+(`store.aplicar_correcciones`). Ninguna de las dos necesita el listado.
+
 La fecha: guarda `fecha_listado` —la columna «Fecha» de la fila— en todas, y
 en las que no tienen fecha del PDF la usa como `fecha` (`fecha_fuente:
 "listado"`). Ver `fetch._fecha_de_la_fila` y `store.ensamblar_entrada`.
@@ -20,7 +25,8 @@ ejemplo, si la CMF corrige una relación en el listado—.
     python scraper/relaciones.py                   # escribir
     python scraper/relaciones.py --html listado.html  # usar un listado ya bajado
 
-Regenerar el dashboard después. No toca `state.json` ni `modifica[]`.
+Regenerar el dashboard después. No toca `state.json`; de `modifica[]` sólo
+quita lo que ordena `store.CORRECCIONES`.
 """
 import argparse
 import json
@@ -29,6 +35,7 @@ import re
 import sys
 from pathlib import Path
 
+import store
 from fetch import CMF_URL, _get_con_reintentos, _parse_listado
 
 logging.basicConfig(
@@ -101,15 +108,19 @@ def completar(dry_run: bool, html_local: str | None = None) -> None:
         modificado = False
         for entrada in payload.get("new_entries", []) or []:
             total += 1
+            antes = dict(entrada)
+            # Lo que no depende del listado va antes de buscar la fila: el
+            # documento sale de la URL y las correcciones de `store.CORRECCIONES`.
+            store.completar_documento(entrada)
+            store.aplicar_correcciones(entrada)
             fila = por_url.get(_sin_marca_de_tiempo(entrada.get("url_documento")))
             if fila is None:
                 no_encontradas += 1
                 logger.warning("  %s no está en el listado (%s)",
                                entrada.get("clave"), entrada.get("url_documento"))
-                continue
-            antes = dict(entrada)
-            entrada["relaciones_cmf"] = fila["relaciones_cmf"]
-            _completar_fecha(entrada, fila.get("fecha_listado"))
+            else:
+                entrada["relaciones_cmf"] = fila["relaciones_cmf"]
+                _completar_fecha(entrada, fila.get("fecha_listado"))
             if entrada == antes:
                 continue
             cambiadas += 1

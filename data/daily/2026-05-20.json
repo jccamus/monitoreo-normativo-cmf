@@ -39,7 +39,9 @@
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 566
+        "numero": 566,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°30 DE 1989",
       "resumen_acciones": [
@@ -236,7 +238,9 @@
       "archivos_afectados": [],
       "documento": {
         "tipo": "NCG",
-        "numero": 565
+        "numero": 565,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tema": "CREA EL COMPENDIO NORMATIVO DE EMPRESAS DE AUDITORÍA EXTERNA",
       "resumen_acciones": [],

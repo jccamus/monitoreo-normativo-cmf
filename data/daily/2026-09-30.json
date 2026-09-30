@@ -11,7 +11,9 @@
       "ncg": 540,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1425
+        "numero": 1425,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES TÉCNICOS A LAS INSTRUCCIONES GENERALES Y ARCHIVOS NORMATIVOS DEL MSI REDEC QUE SE INDICAN.",

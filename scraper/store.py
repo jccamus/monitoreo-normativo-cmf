@@ -244,6 +244,153 @@ def inferir_tipo_acuerdo(descripcion: str) -> str:
 
 
 
+# El nombre del PDF identifica el documento: `ncg_544_2025.pdf`,
+# `cir_2332_2023.pdf`, `ofc_141_2001_01.pdf`, `ofc_6.016_1999.pdf`. Es la misma
+# convención de la que sale la clave (`fetch._fecha_y_numero_desde_url`), sin
+# la restricción a 20XX, que allá existe para no confundir un número con un
+# año y acá no hace falta porque el patrón exige los tres segmentos.
+_DOC_EN_URL = re.compile(r"/(ncg|cir|ofc)_(\d[\d.]*)_(\d{4})(?:_\d+)?\.pdf", re.IGNORECASE)
+_TIPO_EN_URL = {"ncg": "NCG", "cir": "Circular", "ofc": "Oficio Circular"}
+
+
+def documento_desde_url(url: str | None) -> dict | None:
+    """{tipo, numero, anio} desde el nombre del PDF, o None si no lo trae."""
+    m = _DOC_EN_URL.search(url or "")
+    if not m:
+        return None
+    return {"tipo": _TIPO_EN_URL[m.group(1).lower()],
+            "numero": int(m.group(2).replace(".", "")), "anio": int(m.group(3))}
+
+
+def completar_documento(entrada: dict) -> None:
+    """`documento` con año y fuente; si el PDF no lo identificó, desde la URL.
+
+    Hasta el 01-10-2026, 447 de 680 entradas llevaban `documento: null` —casi
+    todas escaneos anteriores a 2020, en que el parser no lee nada— aunque las
+    447 lo traen en el nombre del PDF. El dashboard ya lo rotulaba desde ahí
+    (`_etiqueta_documento`), pero el dato no estaba en el JSON, y la Malla CMF,
+    que sólo toma las entradas que identifican su documento, las perdía todas.
+
+    **El año va siempre.** Los oficios circulares anteriores al 15-02-2001 se
+    numeraban por año, y seis circulares de 1979-1980 repiten número con otras
+    de 2000-2001: sin el año, `(tipo, número)` no identifica esos documentos.
+
+    `fuente` dice de dónde salió: `pdf` (el parser lo leyó en el documento) o
+    `url` (el nombre del archivo). Si las dos fuentes discrepan manda el PDF y
+    queda un aviso: el nombre del archivo lo escribe quien lo sube.
+    """
+    desde_url = documento_desde_url(entrada.get("url_documento"))
+    doc = entrada.get("documento")
+    # Idempotente: un documento que ya vino de la URL se vuelve a deducir de
+    # ella. Sin esta rama, la segunda pasada de `relaciones.py` lo leía como
+    # identificado por el PDF y lo rotulaba `fuente: "pdf"` —las 447 entradas,
+    # en la prueba del 01-10-2026—.
+    if doc and doc.get("fuente") == "url":
+        if desde_url:
+            entrada["documento"] = {**desde_url, "fuente": "url"}
+        return
+    if doc and doc.get("tipo") and isinstance(doc.get("numero"), int):
+        nuevo = {"tipo": doc["tipo"], "numero": doc["numero"], "fuente": "pdf"}
+        if doc.get("anio"):
+            nuevo["anio"] = doc["anio"]
+        if desde_url:
+            if (desde_url["tipo"], desde_url["numero"]) == (nuevo["tipo"], nuevo["numero"]):
+                nuevo.setdefault("anio", desde_url["anio"])
+            else:
+                logger.warning("%s: el PDF dice %s y la URL %s; se deja el del PDF",
+                               entrada.get("clave"), etiqueta_norma(nuevo["tipo"], nuevo["numero"]),
+                               etiqueta_norma(desde_url["tipo"], desde_url["numero"]))
+        # Los enlaces `ver_sgd.php?…` no traen nombre de archivo (NCG 498 a 500
+        # y circulares 2340 y 2342 de 2023). Su clave sí trae año, sacado de la
+        # fila del listado; se usa sólo si el número de la clave es el mismo.
+        clave = entrada.get("clave") or ""
+        if "anio" not in nuevo and re.fullmatch(r"\d{4}_\d+", clave) \
+                and int(clave[5:]) == nuevo["numero"] and not clave.startswith("0000"):
+            nuevo["anio"] = int(clave[:4])
+        entrada["documento"] = nuevo
+    elif desde_url:
+        entrada["documento"] = {**desde_url, "fuente": "url"}
+
+
+# Correcciones a mano: normas que el parser rotula como normas CMF y son de una
+# serie ex-SBIF con numeración propia, en las dos formas que ningún patrón
+# alcanza —el calificativo al final de una lista larga y la serie que sólo se
+# deduce del contexto—. Vivían en el dashboard (`_CORRECCIONES_NORMA`,
+# `_SERIES_A_MANO`) y por eso no llegaban a los datos: la Malla CMF tuvo que
+# copiar la tabla, y dos copias terminan divergiendo. Desde el 01-10-2026 se
+# aplican al armar la entrada (`aplicar_correcciones`), así que sobreviven a un
+# reparse y quedan en el JSON:
+#
+# - `quitar`: (tipo, número, motivo). Sale de `modifica[]` y queda en
+#   `correcciones` con su motivo, que el dashboard muestra y usa para no
+#   volver a deducirla de la descripción.
+# - `series`: (tipo, números, serie, acción, nota). Entra a `otras_series`
+#   con `fuente: "correccion_manual"`.
+#
+# Verificado en el PDF de cada documento el 30-09-2026.
+CORRECCIONES: dict[str, dict] = {
+    "2026_0567": {
+        "quitar": [
+            ("Circular", 98, "Es la Circular N°98 de Cooperativas (serie ex-SBIF), no la "
+             "Circular N°98 de la CMF: la NCG 567 deroga «las circulares N°98, 100, 112 […] "
+             "aplicables a las cooperativas»."),
+            ("Circular", 108, "Es la Circular N°108 de Cooperativas (serie ex-SBIF), no la "
+             "Circular N°108 de la CMF, y la NCG 567 deroga sólo «determinadas disposiciones»."),
+        ],
+        "series": [
+            ("Circular", [98, 100, 112, 116, 123, 126, 134, 142], "de Cooperativas", "deroga", None),
+            ("Circular", [108], "de Cooperativas", "deroga", "en parte"),
+        ],
+    },
+    "2025_0534": {
+        "quitar": [
+            ("Circular", 12, "Es la Circular N°12 de 2010 de Auditores Externos (serie "
+             "ex-SBIF), no la Circular N°12 de la CMF."),
+        ],
+        "series": [
+            ("Circular", [12], "de Auditores Externos", "modifica", None),
+        ],
+    },
+}
+
+
+def aplicar_correcciones(entrada: dict, verificar: bool = False) -> None:
+    """Aplica `CORRECCIONES` a la entrada. Idempotente.
+
+    Con `verificar`, que se usa al armar la entrada desde un parseo fresco,
+    avisa si una norma a quitar ya no la produce ninguna fuente: la corrección
+    sobra y conviene retirarla de la tabla.
+    """
+    c = CORRECCIONES.get(entrada.get("clave") or "")
+    if not c:
+        return
+    quitar = {(t, n): motivo for t, n, motivo in c.get("quitar", [])}
+    if verificar:
+        presentes = {((m.get("tipo_norma") or "NCG"), m.get("numero_norma"))
+                     for m in entrada.get("modifica") or []}
+        presentes |= set(normas_en_descripcion(entrada.get("descripcion_cmf") or ""))
+        for t, n in quitar:
+            if (t, n) not in presentes:
+                logger.warning("Corrección a mano de %s (%s) ya no corrige nada: ninguna "
+                               "fuente produce esa norma — revisar `CORRECCIONES`",
+                               entrada.get("clave"), etiqueta_norma(t, n))
+    entrada["modifica"] = [m for m in entrada.get("modifica") or []
+                           if ((m.get("tipo_norma") or "NCG"), m.get("numero_norma")) not in quitar]
+    entrada["correcciones"] = [{"tipo": t, "numero": n, "motivo": motivo}
+                               for (t, n), motivo in quitar.items()]
+    manuales = [
+        {"tipo": t, "numero": n, "serie": serie, "accion": accion,
+         **({"nota": nota} if nota else {}), "fuente": "correccion_manual"}
+        for t, numeros, serie, accion, nota in c.get("series", []) for n in numeros
+    ]
+    claves = {(x["tipo"], x["numero"], x["serie"]) for x in manuales}
+    entrada["otras_series"] = [
+        x for x in entrada.get("otras_series") or []
+        if x.get("fuente") != "correccion_manual"
+        and (x["tipo"], x["numero"], x["serie"]) not in claves
+    ] + manuales
+
+
 def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     """Combina los datos del listado HTML con el parsing del PDF."""
     # La fecha, en orden de preferencia: la del PDF (resolución o encabezado),
@@ -323,6 +470,8 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     if raw.get("fecha_listado"):
         entrada["fecha_listado"] = raw["fecha_listado"]
 
+    completar_documento(entrada)
+    aplicar_correcciones(entrada, verificar=True)
     _avisar_incoherencias(entrada)
     return entrada
 

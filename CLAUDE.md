@@ -674,7 +674,9 @@ dashboard, así que no afecta lo que se muestra.
 
 **La identidad del documento no depende de `ncg`.** La resuelve
 `parser._identidad_documento`, que llena `documento: {tipo, numero}` con `NCG`,
-`Circular` u `Oficio Circular`. Hasta julio de 2026 `parsed: False` bastaba con no
+`Circular` u `Oficio Circular`, y `store.completar_documento` le agrega el año y,
+si el parser no lo encontró, lo saca del nombre del PDF (ver el contrato de
+`documento`). Hasta julio de 2026 `parsed: False` bastaba con no
 encontrar `ncg` ni `modifica[]` —y **ninguna circular ni oficio circular tiene
 número de NCG**—, así que 399 de 502 entradas degradadas eran documentos
 perfectamente legibles que simplemente no eran NCG.
@@ -852,12 +854,20 @@ ven chicos y no lo son:
   a las cooperativas»— y la serie que sólo se deduce del contexto —la NCG
   534/2025 «MODIFICA LA CIRCULAR N°12 DE 2010», que es la de Auditores
   Externos; y la «Circular N°108» que la 567 deroga en parte, que es la de
-  Cooperativas—. Para esos casos está **`dashboard._CORRECCIONES_NORMA`**, una
-  tabla de correcciones a mano: `(clave, tipo, número) → qué es en realidad`.
-  La norma sale de la columna, la línea de tiempo y las categorías, y el motivo
-  se muestra en el detalle bajo «Corregido a mano». Si la fuente deja de
-  producir la norma, `generar_html` avisa que la corrección sobra. Un caso
-  nuevo del mismo tipo se agrega ahí, con su cita; no hace falta reparsear.
+  Cooperativas—. Para esos casos está **`store.CORRECCIONES`**, una tabla de
+  correcciones a mano por clave: qué norma **quitar** de `modifica[]` (con su
+  motivo) y qué normas de serie **agregar** a `otras_series`. Se aplica al armar
+  la entrada (`store.aplicar_correcciones`), así que queda en los datos y
+  sobrevive a un reparse: la entrada lleva `correcciones` con lo quitado y
+  `otras_series` con `fuente: "correccion_manual"`. El dashboard muestra el
+  motivo bajo «Corregido a mano» y usa `correcciones` para no volver a deducir
+  la norma de la descripción. Si un parseo fresco ya no produce la norma, el
+  armado avisa que la corrección sobra. Un caso nuevo se agrega a la tabla con
+  su cita y se corre `relaciones.py`, que la aplica al histórico sin bajar PDF.
+
+  Hasta el 01-10-2026 la tabla vivía en el dashboard (`_CORRECCIONES_NORMA`,
+  `_SERIES_A_MANO`), y por eso no llegaba a los datos: la Malla CMF tuvo que
+  copiarla, y dos copias de la misma corrección terminan divergiendo.
 
   **Descartar no es esconder.** Hasta el 30-09-2026 una norma de otra serie
   se descartaba y desaparecía: la NCG 567 deroga nueve circulares de
@@ -872,8 +882,8 @@ ven chicos y no lo son:
     descarta, en el campo `otras_series` de la entrada;
   - la descripción: `store.series_en_descripcion`, con la acción de
     `_accion_sobre_norma` (las sólo referidas no entran);
-  - `dashboard._SERIES_A_MANO`, para lo que ninguna ve completo (la lista de
-    la 567, la Circular 12 de la 534).
+  - `store.CORRECCIONES`, para lo que ninguna ve completo (la lista de la 567,
+    la Circular 12 de la 534), que llega en el mismo campo `otras_series`.
 
   El rótulo de cada serie lo arma `store.serie_canonica`; si agregas una serie
   a las listas de descarte, agrégale su rótulo ahí. Las circulares de **otro
@@ -932,10 +942,22 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
   cambias el « N°» se rompe el agrupamiento. `tipo_norma` ausente = `NCG`
   (entradas anteriores a septiembre de 2026).
 - **`otras_series`**: `[{tipo, numero, serie, accion}]`, con `serie` ya
-  rotulada («de Cooperativas») y `accion` en `modifica` / `deroga`. Normas que
-  no son de la CMF; nunca van en `modifica[]`. Ausente = entrada anterior al
-  30-09-2026 (se reparseó sólo la ventana de dos años); el dashboard lo trata
-  como vacío.
+  rotulada («de Cooperativas») y `accion` en `modifica` / `deroga`; las que
+  vienen de `store.CORRECCIONES` llevan además `fuente: "correccion_manual"` y,
+  si corresponde, `nota` («en parte»). Normas que no son de la CMF; nunca van en
+  `modifica[]`. Ausente = entrada anterior al 30-09-2026 (se reparseó sólo la
+  ventana de dos años); el dashboard lo trata como vacío.
+- **`correcciones`**: `[{tipo, numero, motivo}]`, lo que `store.CORRECCIONES`
+  quitó de `modifica[]`. Sólo en las entradas corregidas.
+- **`documento`**: `{tipo, numero, anio, fuente}`. `fuente` es `pdf` (el
+  parser lo leyó) o `url` (el nombre del PDF, cuando el parser no lo
+  identifica: escaneos, casi todos anteriores a 2020). **Desde el 01-10-2026
+  ninguna entrada lo tiene nulo**: antes eran 447 de 680, y la Malla CMF, que
+  sólo toma las entradas con documento, no veía ninguna. `anio` va siempre
+  porque el número solo no alcanza: los oficios circulares anteriores al
+  15-02-2001 se numeraban por año, y seis circulares de 1979-1980 repiten
+  número con otras de 2000-2001. Los enlaces `ver_sgd.php` no traen nombre de
+  archivo y toman el año de la clave. Ver `store.completar_documento`.
 - **`fecha_fuente`** / **`fecha_listado`**: ver el modo de falla 1.
 - **`relaciones_cmf`**: `{"modifica_a": [...], "deroga_a": [...]}`, cada ítem
   `{tipo, numero, anio, fecha, url}` con `tipo` en los mismos valores que

@@ -10,7 +10,9 @@
       "ncg": null,
       "documento": {
         "tipo": "NCG",
-        "numero": 573
+        "numero": 573,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA NORMA QUE IMPARTE INSTRUCCIONES SOBRE LA EXTERNALIZACIÓN DE SERVICIOS DE LAS COMPAÑÍAS DE SEGUROS Y REASEGUROS.",

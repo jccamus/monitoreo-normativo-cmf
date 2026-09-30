@@ -10,7 +10,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2377
+        "numero": 2377,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE PERMITE EL CIERRE MASIVO DE SINIESTROS ASOCIADOS A CIRCULAR N°2.110.",
@@ -70,7 +72,9 @@
       "ncg": 539,
       "documento": {
         "tipo": "NCG",
-        "numero": 575
+        "numero": 575,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN A LA NORMA DE CARÁCTER GENERAL N°539 DE 2025 EN LOS TÉRMINOS QUE INDICA.",
@@ -121,7 +125,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2375
+        "numero": 2375,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA QUE MODIFICA CIRCULAR N°2062, QUE INSTRUYE RESPECTO AL TRATAMIENTO DE RECÁLCULO DE PENSIÓN, EN PÓLIZAS DE SEGUROS DE RENTA VITALICIA DEL D.L. N°3.500, DE 1980.",
@@ -180,7 +186,9 @@
       "ncg": 519,
       "documento": {
         "tipo": "NCG",
-        "numero": 572
+        "numero": 572,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA EL PLAZO DE ADOPCIÓN DE LAS NORMAS NIIF S1 Y S2.",
@@ -237,7 +245,9 @@
       "ncg": 571,
       "documento": {
         "tipo": "NCG",
-        "numero": 571
+        "numero": 571,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA EL COMPENDIO NORMATIVO DE BOLSAS E INTERMEDIARIOS",
@@ -728,7 +738,9 @@
       "ncg": 570,
       "documento": {
         "tipo": "NCG",
-        "numero": 570
+        "numero": 570,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISION PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE MODIFICA DIVERSOS CUERPOS NORMATIVOS CON EL FIN DE OPTIMIZAR SU APLICACIÓN PRÁCTICA, FORTALECER LA CERTEZA JURÍDICA Y MEJORAR LA EFICIENCIA DE LOS PROCESOS ASOCIADOS AL CUMPLIMIENTO REGULATORIO.",
@@ -844,7 +856,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2372
+        "numero": 2372,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA CIRCULAR QUE INTRODUCE MODIFICACIONES AL CAPÍTULO 18-5 DE INFORMACIÓN SOBRE DEUDORES DE LAS INSTITUCIONES FINANCIERAS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS.",
@@ -882,7 +896,9 @@
       "ncg": 569,
       "documento": {
         "tipo": "NCG",
-        "numero": 569
+        "numero": 569,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN DE NORMA QUE REGULA EL SISTEMA DE FINANZAS ABIERTAS E INCORPORA ANEXO 3.",
@@ -950,33 +966,15 @@
       "ncg": 567,
       "documento": {
         "tipo": "NCG",
-        "numero": 567
+        "numero": 567,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE LA NORMA QUE CREA LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS POR LA COMISIÓN Y LOS CAPÍTULOS CAC-1, CAC-2, CAC-3, CAC-4, CAC-10, CAC-11 y CAC-12 QUE LA CONTIENEN; CREA EL MANUAL DE SISTEMA DE INFORMACIÓN PARA COOPERATIVAS DE AHORRO Y CRÉDITO FISCALIZADAS POR LA COMISIÓN Y DEROGA LAS CIRCULARES N°98, 100, 112, 116, 123, 126, 134, 142 Y DETERMINADAS DISPOSICIONES DE LA CIRCULAR N°108, APLICABLES A LAS MISMAS ENTIDADES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_567_2026.pdf",
       "parsed": true,
-      "modifica": [
-        {
-          "norma": "Circular N°98",
-          "numero_norma": 98,
-          "tipo_norma": "Circular",
-          "seccion_romana": "III",
-          "acciones": [
-            "Derógase"
-          ],
-          "vigencia": {
-            "inicio": "2027-01-27",
-            "precision": "dia",
-            "calculo": {
-              "base": "publicacion",
-              "fecha_base": "2026-05-27",
-              "expresion": "8 meses desde la publicación",
-              "texto": "comenzarán a regir dieciocho meses después de la publicación"
-            }
-          }
-        }
-      ],
+      "modifica": [],
       "vigencia": {
         "inicio": "inmediata",
         "precision": "dia",
@@ -1145,9 +1143,79 @@
       "otras_series": [
         {
           "tipo": "Circular",
+          "numero": 98,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 100,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 112,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 116,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 123,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 126,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 134,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
+          "numero": 142,
+          "serie": "de Cooperativas",
+          "accion": "deroga",
+          "fuente": "correccion_manual"
+        },
+        {
+          "tipo": "Circular",
           "numero": 108,
           "serie": "de Cooperativas",
-          "accion": "deroga"
+          "accion": "deroga",
+          "nota": "en parte",
+          "fuente": "correccion_manual"
+        }
+      ],
+      "correcciones": [
+        {
+          "tipo": "Circular",
+          "numero": 98,
+          "motivo": "Es la Circular N°98 de Cooperativas (serie ex-SBIF), no la Circular N°98 de la CMF: la NCG 567 deroga «las circulares N°98, 100, 112 […] aplicables a las cooperativas»."
+        },
+        {
+          "tipo": "Circular",
+          "numero": 108,
+          "motivo": "Es la Circular N°108 de Cooperativas (serie ex-SBIF), no la Circular N°108 de la CMF, y la NCG 567 deroga sólo «determinadas disposiciones»."
         }
       ]
     },
@@ -1163,7 +1231,9 @@
       "ncg": 560,
       "documento": {
         "tipo": "NCG",
-        "numero": 560
+        "numero": 560,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "MODIFICA NCG N°275 DE 2010 REFERIDA A LAS NORMAS DE INSCRIPCIÓN Y FUNCIONAMIENTO DEL REGISTRO DE EMPRESAS DE AUDITORÍA EXTERNA",
@@ -1220,7 +1290,9 @@
       "ncg": 558,
       "documento": {
         "tipo": "NCG",
-        "numero": 558
+        "numero": 558,
+        "fuente": "pdf",
+        "anio": 2026
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO\nQUE APRUEBA INFORME NORMATIVO CON FORMULARIO DE OPERACIONES EFECTUADAS MEDIANTE CÁMARAS DE COMPENSACIÓN DE PAGOS DE BAJO VALOR Y ENTIDADES CON PROYECTOS EXPERIMENTALES APROBADOS POR EL BCCH.",
@@ -1252,7 +1324,9 @@
       "ncg": 555,
       "documento": {
         "tipo": "NCG",
-        "numero": 555
+        "numero": 555,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE ESTABLECE MECANISMO DE ENVÍO DE IDENTIFICACIÓN Y SEXO DE LOS DIRECTORES DE LAS SOCIEDADES ANÓNIMAS ABIERTAS Y ESPECIALES.",
@@ -1296,7 +1370,9 @@
       "ncg": 552,
       "documento": {
         "tipo": "NCG",
-        "numero": 552
+        "numero": 552,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE CREA  ARCHIVOS SOBRE VOLUMEN DE NEGOCIOS Y NÚMERO DE CLIENTES, PATRIMONIO MÍNIMO Y ACTIVOS PONDERADOS POR RIESGOS, REQUERIMIENTO DE PATRIMONIO Y ACTIVOS PONDERADOS POR RIESGO DE CRIPTOACTIVOS, INFORMACIÓN DE ADMINISTRACIÓN DE CARTERAS Y GARANTÍAS CONSTITUIDAS,   PARA OTRAS ENTIDADES INSCRITAS EN EL REGISTRO DE ADMINISTRADORES DE CARTERA DISTINTAS DE ADMINISTRADORAS GENERALES DE FONDOS E INTERMEDIARIOS DE VALORES.",
@@ -1328,7 +1404,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2367
+        "numero": 2367,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA PUBLICACIÓN DE LA CIRCULAR QUE AJUSTA EL ALCANCE DE LA INFORMACIÓN REFERIDA A CRÉDITOS OTORGADOS BAJO PROGRAMAS DE GARANTÍAS ESTATALES; ACTUALIZA LAS INSTRUCCIONES GENERALES DEL MANUAL DEL SISTEMA DE INFORMACIÓN Y EL CAPÍTULO C-3 DEL COMPENDIO DE NORMAS CONTABLES, AMBOS PARA BANCOS.",
@@ -1379,7 +1457,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1382
+        "numero": 1382,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES A LA TABLA 61 Y A LOS ARCHIVOS P02 Y P36 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS.",
@@ -1429,7 +1509,9 @@
       "ncg": 543,
       "documento": {
         "tipo": "NCG",
-        "numero": 543
+        "numero": 543,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE DEROGA EL CAPÍTULO 1-6 Y MODIFICA EL CAPÍTULO 1-8 AMBOS DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS.",
@@ -1488,7 +1570,9 @@
       "ncg": 541,
       "documento": {
         "tipo": "NCG",
-        "numero": 541
+        "numero": 541,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA AJUSTES A INSTRUCCIONES SOBRE EMISORES Y OPERADORES DE TARJETAS DE PAGO EN RELACIÓN CON SUB-ADQUIRENCIA, ADQUIRENCIA TRANSFRONTERIZA Y OTROS AJUSTES EFECTUADOS POR EL BANCO CENTRAL DE CHILE AL COMPENDIO DE NORMAS FINANCIERAS.",
@@ -1764,7 +1848,9 @@
       "ncg": 540,
       "documento": {
         "tipo": "NCG",
-        "numero": 540
+        "numero": 540,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LAS NORMAS DE FUNCIONAMIENTO OPERATIVO DEL REGISTRO DE DEUDA CONSOLIDADA, CONFORME A LO DISPUESTO EN LA LEY N°21.680 QUE CREA UN REGISTRO DE DEUDA CONSOLIDADA.",
@@ -1808,7 +1894,9 @@
       "ncg": 539,
       "documento": {
         "tipo": "NCG",
-        "numero": 539
+        "numero": 539,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA DICTACIÓN DE NORMATIVA QUE ACTUALIZA OBLIGACIONES DE INFORMACIÓN DE LA LEY N°20.009.",
@@ -1862,7 +1950,9 @@
       "ncg": 538,
       "documento": {
         "tipo": "NCG",
-        "numero": 538
+        "numero": 538,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA SOBRE ESTÁNDARES DE SEGURIDAD Y AUTENTICACIÓN A EMISORES BANCARIOS Y NO BANCARIOS, Y EXIME DE TRAMITE QUE INDICA .",
@@ -1908,7 +1998,9 @@
       "ncg": 537,
       "documento": {
         "tipo": "NCG",
-        "numero": 537
+        "numero": 537,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA NORMA DE CARÁCTER GENERAL QUE MODIFICA EL CAPÍTULO 8-41 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS DE BANCOS Y LA CIRCULAR N°1 PARA EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS, RESPECTO DE LA DETERMINACIÓN DE UNA FÓRMULA PARA EL CÁLCULO DEL MONTO MÍNIMO A PAGAR EN TARJETAS DE CRÉDITO, Y A LAS SITUACIONES EXCEPCIONALES EN QUE SE LIBERARÁ A LOS DEUDORES DE DICHA OBLIGACIÓN.",
@@ -1955,7 +2047,9 @@
       "ncg": 536,
       "documento": {
         "tipo": "NCG",
-        "numero": 536
+        "numero": 536,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE ESTABLECE LOS REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR DE LOS PRESTADORES DEL SERVICIO DE INTERMEDIACIÓN Y CUSTODIA DE INSTRUMENTOS FINANCIEROS DEL TÍTULO II DE LA LEY N°21.521.",
@@ -1991,7 +2085,9 @@
       "ncg": 535,
       "documento": {
         "tipo": "NCG",
-        "numero": 535
+        "numero": 535,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE ESTABLECE REQUISITOS DE IDONEIDAD Y CAPACIDAD TÉCNICA PARA SER DESIGNADO INTERVENTOR O ADMINISTRADOR PROVISIONAL DE INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS.",
@@ -2027,7 +2123,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2361
+        "numero": 2361,
+        "fuente": "pdf",
+        "anio": 2025
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INCORPORA NUEVOS ARCHIVOS DE INGRESOS Y COSTOS DE EMISIÓN Y OPERACIÓN DE TARJETAS. ACTUALIZA EL MANUAL DE SISTEMA DE INFORMACIÓN PARA BANCOS, LA CIRCULAR N°1 DE EMPRESAS OPERADORAS DE TARJETAS DE PAGO Y ACTUALIZA REFERENCIAS EN LA CIRCULAR N°1 DE EMPRESAS EMISORAS DE TARJETAS DE PAGO NO BANCARIAS, EN LA CIRCULAR N°108 DE COOPERATIVAS DE AHORRO Y CRÉDITO, Y EN LA CIRCULAR N°23 DE SOCIEDADES DE APOYO AL GIRO.",
@@ -2190,7 +2288,9 @@
       "ncg": 510,
       "documento": {
         "tipo": "NCG",
-        "numero": 529
+        "numero": 529,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE DEJA SIN EFECTO ACUERDO QUE INDICA Y APRUEBA PROPUESTA NORMATIVA QUE MODIFICA LA NORMA  DE CARÁCTER GENERAL N°510 QUE IMPARTE INSTRUCCIONES DE GESTIÓN DE RIESGO OPERACIONAL.",
@@ -2261,7 +2361,9 @@
       "ncg": 518,
       "documento": {
         "tipo": "NCG",
-        "numero": 518
+        "numero": 518,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA FORMA DE ENVÍO DE LA INFORMACIÓN SOBRE LA CARTERA DE CLIENTES DE LAS EMPRESAS DE AUDITORÍA EXTERNA",
@@ -2316,7 +2418,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1340
+        "numero": 1340,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INTRODUCE AJUSTES A LA TABLA 39 Y AL ARCHIVO P72 DEL MANUAL DEL SISTEMA DE INFORMACIÓN PARA BANCOS.",
@@ -2362,7 +2466,9 @@
       "ncg": 515,
       "documento": {
         "tipo": "NCG",
-        "numero": 515
+        "numero": 515,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL QUE ESTABLECE UN NUEVO CANAL DE COMUNICACIÓN ENTRE LOS FISCALIZADOS Y LA COMISIÓN.",
@@ -2820,7 +2926,9 @@
       "ncg": 512,
       "documento": {
         "tipo": "NCG",
-        "numero": 512
+        "numero": 512,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA REFERIDA AL ARTÍCULO 10 DE LA LEY N°21.591",
@@ -2855,7 +2963,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1312
+        "numero": 1312,
+        "fuente": "pdf",
+        "anio": 2024
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE MODIFICACIÓN AL OFICIO CIRCULAR N°972, DE 2017, QUE PRECISA ALCANCE DEL INCISO FINAL DEL ARTÍCULO 583 DEL CÓDIGO DE COMERCIO.",
@@ -2912,7 +3022,12 @@
         "fecha": "2023-02-23"
       },
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 495,
+        "anio": 2023,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE FIJA TABLAS DE MORTALIDAD CB-H-2020 (HOMBRES), MI-H-2020 (HOMBRES), RV-M-2020 (MUJERES), B-M-2020 (MUJERES), Y MI-M-2020 (MUJERES).",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_495_2023.pdf",
@@ -2946,7 +3061,9 @@
       "ncg": 472,
       "documento": {
         "tipo": "NCG",
-        "numero": 494
+        "numero": 494,
+        "fuente": "pdf",
+        "anio": 2023
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVAS QUE REGULAN LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS Y LA AUTORIZACIÓN DEL SERVICIO DE ASESORÍA DE INVERSIÓN",
@@ -3002,7 +3119,9 @@
       "ncg": 493,
       "documento": {
         "tipo": "NCG",
-        "numero": 493
+        "numero": 493,
+        "fuente": "pdf",
+        "anio": 2023
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVAS QUE REGULAN LA INSCRIPCIÓN EN EL REGISTRO DE PRESTADORES DE SERVICIOS FINANCIEROS Y LA AUTORIZACIÓN DEL SERVICIO DE ASESORÍA DE INVERSIÓN",
@@ -3037,7 +3156,9 @@
       "ncg": 30,
       "documento": {
         "tipo": "NCG",
-        "numero": 492
+        "numero": 492,
+        "fuente": "pdf",
+        "anio": 2023
       },
       "tipo_acuerdo": "Modificación NCG",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN A NORMA DE CARÁCTER GENERAL N°30 EN LOS TÉRMINOS QUE SEÑALA Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA.",
@@ -3090,7 +3211,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2330
+        "numero": 2330,
+        "fuente": "pdf",
+        "anio": 2023
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INCORPORA NUEVO CAPÍTULO 21-14 A LA RECOPILACIÓN ACTUALIZADA DE NORMAS PARA BANCOS, QUE CONTIENE LAS DISPOSICIONES RELATIVAS AL DESARROLLO DEL PROCESO DE EVALUACIÓN DE LA ADECUACIÓN DE LIQUIDEZ INTERNA (ILAAP) Y LOS REQUISITOS Y CONDICIONES GENERALES QUE CONSIDERA LA COMISIÓN PARA LA EVALUACIÓN DE LA SUFICIENCIA DE LA POSICIÓN DE LIQUIDEZ DE LOS BANCOS.",
@@ -3126,7 +3249,9 @@
       "ncg": 471,
       "documento": {
         "tipo": "NCG",
-        "numero": 491
+        "numero": 491,
+        "fuente": "pdf",
+        "anio": 2023
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA MODIFICACIÓN DE LA NORMA DE CARÁCTER GENERAL N°471 EN LOS TÉRMINOS QUE SEÑALA Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA.",
@@ -3183,7 +3308,9 @@
       "ncg": 426,
       "documento": {
         "tipo": "NCG",
-        "numero": 490
+        "numero": 490,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA MODIFICACIÓN DE NORMA DE CARÁCTER GENERAL N°426 Y QUE EXCEPTÚA DE TRÁMITE QUE INDICA",
@@ -3253,7 +3380,9 @@
       "ncg": 488,
       "documento": {
         "tipo": "NCG",
-        "numero": 488
+        "numero": 488,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE IMPARTE INSTRUCCIONES PARA EL ENVÍO DE INFORMACIÓN DE LOS ARTÍCULOS 26 BIS, 38 BIS Y 80 BIS DE LA LEY ÚNICA DE FONDOS.",
@@ -3317,7 +3446,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2315
+        "numero": 2315,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE EXTIENDE EL PERIODO DE MARCHA PARA EL ENVÍO DEL ARCHIVO D10 APLICABLE A EMISORES NO BANCARIOS DE TARJETAS DE CRÉDITO Y LA EXIME DE TRÁMITES QUE INDICA.",
@@ -3359,7 +3490,9 @@
       "ncg": 352,
       "documento": {
         "tipo": "NCG",
-        "numero": 476
+        "numero": 476,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMAS DE CARÁCTER GENERAL QUE SIMPLIFICAN REGISTROS E INFORMACIÓN CONTINUA DE ENTIDADES QUE INDICA.",
@@ -3402,7 +3535,9 @@
       "ncg": 139,
       "documento": {
         "tipo": "NCG",
-        "numero": 474
+        "numero": 474,
+        "fuente": "pdf",
+        "anio": 2022
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMAS DE CARÁCTER GENERAL QUE SIMPLIFICAN REGISTROS E INFORMACIÓN CONTINUA DE ENTIDADES QUE INDICA.",
@@ -3452,7 +3587,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2303
+        "numero": 2303,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "CAPÍTULOS 21-12 Y 21-16 DE LA RECOPILACIÓN ACTUALIZADA DE NORMAS. PRECISA DEFINICIÓN DE LAS PARTIDAS DISTRIBUIBLES Y AJUSTA INSTRUCCIONES SOBRE EXPOSICIÓN A LA ADQUISIÓN DE TERRENOS, PROMOCIÓN Y CONSTRUCCIÓN.",
@@ -3484,7 +3621,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2294
+        "numero": 2294,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "INFORMACIÓN SOBRE DEUDORES QUE REFUNDE ESTA COMISIÓN DE ACUERDO AL ARTÍCULO 14 DE LA LEY GENERAL DE BANCOS.\nREQUISITOS QUE DEBEN CUMPLIR LAS EMPRESAS EMISORAS DE TARJETAS DE CRÉDITO NO BANCARIAS PARA ENVIAR INFORMACIÓN DE SUS DEUDORES Y RECIBIRLA REFUNDIDA.",
@@ -3547,7 +3686,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2293
+        "numero": 2293,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA LA FRECUENCIA DE ENVÍO DE LOS ARCHIVOS D10, D27, R04 Y R05; Y LA DICTACIÓN DE UN OFICIO CIRCULAR QUE RECALCA Y REFUERZA ALGUNOS ASPECTOS DE LAS NORMAS RELATIVAS AL TRATAMIENTO GENERAL DE LA INFORMACIÓN QUE CONTIENE LA NÓMINA REFUNDIDA DE DEUDORES A QUE SE REFIERE EL ARTÍCULO 14 DE LA LEY GENERAL DE BANCOS CONTENIDAS EN EL CAPÍTULO 18-5.",
@@ -3606,7 +3747,12 @@
       "resolucion": null,
       "sesion": null,
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1222,
+        "anio": 2021,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE MODIFICA LA FRECUENCIA DE ENVÍO DE LOS ARCHIVOS D10, D27, R04 Y R05; Y LA DICTACIÓN DE UN OFICIO CIRCULAR QUE RECALCA Y REFUERZA ALGUNOS ASPECTOS DE LAS NORMAS RELATIVAS AL TRATAMIENTO GENERAL DE LA INFORMACIÓN QUE CONTIENE LA NÓMINA REFUNDIDA DE DEUDORES A QUE SE REFIERE EL ARTÍCULO 14 DE LA LEY GENERAL DE BANCOS CONTENIDAS EN EL CAPÍTULO 18-5.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1222_2021.pdf",
@@ -3667,7 +3813,9 @@
       "ncg": 460,
       "documento": {
         "tipo": "NCG",
-        "numero": 460
+        "numero": 460,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE DETERMINA LOS SEGUROS QUE SE PUEDEN CONTRATAR DE ACUERDO A LO SEÑALADO EN EL ARTÍCULO 538 BIS DEL CÓDIGO DE COMERCIO Y LA EXIME DE TRAMITE QUE INDICA.",
@@ -3707,7 +3855,12 @@
         "fecha": "2021-07-29"
       },
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 459,
+        "anio": 2021,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "ESTABLECE REGULACIÓN RELATIVA A LAS ENTIDADES DE ASESORÍA FINANCIERA PREVISIONAL Y ASESORES FINANCIEROS PREVISIONALES, SEGÚN LO DISPUESTO EN EL TÍTULO XVII DE LA ASESORÍA PREVISIONAL, DEL D.L. N° 3.500, DE 1980.  AGRÉGUESE LA SIGUIENTE LETRA NUEVA B. DE LAS ASESORÍAS FINANCIERAS PREVISIONALES, EN EL TÍTULO VIII DEL LIBRO V DEL COMPENDIO DE NORMAS DEL SISTEMA DE PENSIONES.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_459_2021.pdf",
@@ -3737,7 +3890,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2288
+        "numero": 2288,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LOS ARCHIVOS NORMATIVOS DEL SISTEMA DE RIESGOS DEL MANUAL DE SISTEMA DE INFORMACIÓN DE BANCOS PARA LA SUPERVISIÓN DEL MARCO DE CAPITAL DE LA LEY GENERAL DE BANCOS Y DISPOSICIONES TRANSITORIAS DE LA LEY N° 21.130.",
@@ -3831,7 +3986,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2285
+        "numero": 2285,
+        "fuente": "pdf",
+        "anio": 2021
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA CIRCULAR QUE COMPLEMENTA INSTRUCCIONES DEL ARCHIVO NORMATIVO R11, EXTIENDE SU PLAZO DE ENVÍO Y LA EXCLUYE DE LOS TRAMITES PREVISTOS EN EL INCISO PRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538 DE 1980.",
@@ -3880,7 +4037,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2284
+        "numero": 2284,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO \nFINANCIERO QUE APRUEBA LA EMISIÓN DEL ARCHIVO NORMATIVO R11 PARA EL\nCÁLCULO DEL ÍNDICE DE IMPORTANCIA SISTÉMICA Y CALIFICAR LA CALIDAD DE\nSISTÉMICO DE UN BANCO QUE SE INCORPORA AL MANUAL DE SISTEMA DE\nINFORMACIÓN. EXCLUYE A LA DISPOSICIÓN DEL TRAMITE PREVISTO EN EL INCISO\nPRIMERO DEL NUMERAL 3 DEL ARTÍCULO 20 DEL D.L. N°3.538, RELATIVO A LA\nELABORACIÓN DEL INFORME DE EVALUACIÓN DE IMPACTO REGULATORIO.",
@@ -3929,7 +4088,12 @@
       "resolucion": null,
       "sesion": null,
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1192,
+        "anio": 2020,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE OFICIO CIRCULAR QUE PRORROGA LA ACREDITACION DE CONOCIMIENTOS A AQUELLOS ASESORES PREVISIONALES, REPRESENTANTES Y APODERADOS DE LAS ENTIDADES DE ASESORÍA PREVISIONAL VIGENTES EN EL REGISTRO DE ASESORES PREVISIONALES, QUE LES CORRESPONDÍA REVALIDAR SUS CONOCIMIENTOS DURANTE EL AÑO 2020, INCLUIDOS AQUELLOS A LOS QUE LES FUE PRORROGADA SU ACREDITACIÓN MEDIANTE OFICIO ORDINARIO N°28.243 DE LA SUPERINTENDENCIA DE PENSIONES Y OFICIO CIRCULAR N°1.125 DE LA COMISIÓN PARA EL MERCADO FINANCIERO, DE DICIEMBRE DE 2019, HASTA EL PRÓXIMO PROCESO DE ACREDITACIÓN QUE SE EFECTÚE, Y EXCEPTÚA DE LOS TRÁMITES PREVISTOS EN EL INCISO PRIMERO DEL N° 3 DEL ARTÍCULO 20 DEL D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ofc_1192_2020.pdf",
@@ -3959,7 +4123,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2283
+        "numero": 2283,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "PROMOCIÓN DE LA DISCIPLINA Y TRANSPARENCIA DE MERCADO A TRAVÉS DE LA DIVULGACIÓN DE REQUERIMIENTOS DE INFORMACIÓN DESDE LAS ENTIDADES BANCARIAS (PILAR 3). INCORPORA CAPÍTULO 21-20 A LA RECOPILACIÓN ACTUALIZADA DE NORMAS. (RESOLUCIÓN N°5866 DE 01-12-2020 EJECUTA ACUERDO DEL CONSEJO).",
@@ -3994,7 +4160,9 @@
       "ncg": 323,
       "documento": {
         "tipo": "Circular",
-        "numero": 2275
+        "numero": 2275,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE CIRCULAR QUE ESTABLECE REQUERIMIENTO MENSUAL DE INFORMACIÓN FINANCIERA Y DE SOLVENCIA Y DEROGA OFICIO CIRCULAR N° 479.",
@@ -4051,7 +4219,9 @@
       "ncg": 136,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1176
+        "numero": 1176,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE OFICIO CIRCULAR RELATIVO A LA PORTABILIDAD DE MUTUOS HIPOTECARIOS ENDOSABLES REGULADOS EN EL ARTÍCULO 88 DEL DFL 251.",
@@ -4082,7 +4252,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Circular",
-        "numero": 2266
+        "numero": 2266,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "BANCOS COOPERATIVAS\r\nINFORMACIÓN SOBRE PRÉSTAMOS ESTUDIANTILES PARA LA EDUCACIÓN SUPERIOR, CONSOLIDACIÓN DE DEUDAS Y RECTIFICACIONES. MODIFICA CAPÍTULO 20-6 PARA BANCOS Y CIRCULAR N°102 DE COOPERATIVAS SOBRE PUBLICACIONES EN EL BOLETÍN DE INFORMACIONES COMERCIALES. INTRODUCE NUEVOS CAMPOS A LOS ARCHIVOS R04 Y R05. MODIFICA ARCHIVO D10. \r\n(RESOLUCIÓN N°3759 DE 25-08-2020 EJECUTA ACUERDO DEL CONSEJO).",
@@ -4149,7 +4321,9 @@
       "ncg": 314,
       "documento": {
         "tipo": "Circular",
-        "numero": 2258
+        "numero": 2258,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "BANCOS\nSOCIEDADES DE APOYO AL GIRO\nCOOPERATIVAS\nEMPRESAS EMISORAS DE TARJETAS DE PAGO\nEMPRESAS OPERADORAS DE TARJETAS DE PAGO\nUSO DEL SISTEMA DE COMUNICACIÓN ELECTRÓNICA DE LA COMISIÓN PARA EL MERCADO FINANCIERO COMO MEDIO PARA RESPUESTA DE REQUERIMIENTO SOBRE RECLAMOS.\n(RESOLUCIÓN N°2935 DE 25-05-2020 EJECUTA ACUERDO DEL CONSEJO).",
@@ -4184,7 +4358,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1150
+        "numero": 1150,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DE OFICIO CIRCULAR QUE ESTABLECE MEDIDAS TRANSITORIAS RELATIVAS A LA CONTABILIZACIÓN Y PROVISIONES DE PRIMAS POR COBRAR Y RECUPEROS, ESTABLECIDAS EN LA CIRCULAR N°1499; Y QUE EXCEPTÚA DE TRÁMITES ESTABLECIDOS EN EL ARTÍCULO 20 N°3 DEL DECRETO LEY N°3.538.",
@@ -4215,7 +4391,9 @@
       "ncg": null,
       "documento": {
         "tipo": "Oficio Circular",
-        "numero": 1146
+        "numero": 1146,
+        "fuente": "pdf",
+        "anio": 2020
       },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISION DEL INFORME DE EVALUACIÓN DE IMPACTO REGULATORIO DEL OFICIO CIRCULAR N° 1146 QUE ESTABLECE PARA ESTE AÑO 2020 FECHAS LIMITES DE PRESENTACIÓN DE INFORMACION QUE INDICA PARA LAS ENTIDADES FISCALIZADAS DEL MERCADO DE SEGUROS Y SUSPENDE EL EXAMEN QUE SEÑALA POR BROTE DE COVID-19.",
@@ -4244,7 +4422,12 @@
       "resolucion": null,
       "sesion": null,
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 436,
+        "anio": 2020,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE IMPARTE INSTRUCCIONES TRANSITORIAS SOBRE EL SISTEMA DE CONSULTAS Y OFERTAS DE MONTOS DE PENSIÓN, ESTABLECIDO POR EL ARTÍCULO 61 BIS DEL D.L. N° 3.500, DE 1980 Y EXCEPTÚA DE TRÁMITE ESTABLECIDO EN EL ARTÍCULO 20 N°3 del D.L. N°3.538.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_436_2020.pdf",
@@ -4272,7 +4455,12 @@
       "resolucion": null,
       "sesion": null,
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 429,
+        "anio": 2019,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "MODERNIZA LOS REQUISITOS DE INSCRIPCIÓN DE FACTURAS Y TÍTULOS REPRESENTATIVOS DE LAS MISMAS EN EL REGISTRO DE PRODUCTOS ESTABLECIDO EN LA LEY N° 19.220 DE 1993",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_429_2019.pdf",
@@ -4320,7 +4508,12 @@
       "resolucion": null,
       "sesion": null,
       "ncg": null,
-      "documento": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 376,
+        "anio": 2015,
+        "fuente": "url"
+      },
       "tipo_acuerdo": "Otro",
       "descripcion_cmf": "1.- IMPARTE INSTRUCCIONES SOBRE LAS CONDICIONES MINIMAS DE INFORMACION, REGULACION Y SUPERVISION QUE DEBEN CUMPLIR LAS INVERSIONES DE LOS FONDOS MUTUOS Y FONDOS DE INVERSION.\n2.- ESTABLECE REQUISITOS PARA LA INVERSION EN, Y REALIZAR OPERACIONES CON, RELACIONADOS.\n3.- DETERMINA CONDICIONES PARA INVERSIONES DE FONDOS MUTUOS REFERIDAS EN LOS LITERALES A) Y C) DEL ARTICULO 59 DE LA LEY N° 20.712, Y DEFINE CONCEPTOS DE DEUDA Y FONDO FISCALIZADO.\n4.- REGULA TRATAMIENTO DE EXCESOS DE INVERSION.",
       "url_documento": "https://www.cmfchile.cl/normativa/ncg_376_2015.pdf",
