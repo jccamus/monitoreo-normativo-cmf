@@ -226,12 +226,27 @@ def _es_derogacion(descripcion: str) -> bool:
 
 
 def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
-    """Normas afectadas como (tipo, número), combinando modifica[], ncg y descripción.
+    """Normas afectadas como (tipo, número): modifica[], descripción y listado.
 
     **El número solo no identifica una norma**: existen la NCG N°519 y la
     Circular N°519. Hasta septiembre de 2026 esto devolvía enteros y rotulaba
     todo como NCG, lo que obligaba a descartar las circulares por completo —la
     2377/2026 modifica la Circular N°2.110 y salía sin ninguna norma afectada—.
+
+    **El campo `ncg` no entra**, aunque se llame así. El parser lo llena con la
+    primera «Norma de Carácter General N°x» del texto, que en una circular o un
+    oficio circular es casi siempre una cita: la circular 2370/2026 nombra la
+    NCG 502 al definir un bloque de intermediarios, la 2373/2026 exige cumplir
+    la NCG 509, los oficios circulares 1387/2025 y 1403/2026 citan la NCG 540
+    como marco del REDEC y la 2332/2023 aplica tablas «fijadas por» la NCG 495.
+    Las cinco figuraban modificándolas. Medido el 30-09-2026: de 150 entradas
+    con `ncg`, en 134 esa norma ya la aportan el PDF o el listado; en 15 de
+    las 16 restantes era la única fuente (el oficio circular 1336/2024 la
+    tiene también en la descripción). Se revisaron en su PDF las cinco
+    nombradas arriba, y las cinco eran citas.
+
+    Las normas que la descripción le atribuye pero que son de otro documento
+    aprobado en el mismo acuerdo tampoco entran: ver `_marcar_heredadas`.
     """
     ids: dict[tuple[str, int], None] = {}
     for m in entrada.get("modifica", []) or []:
@@ -251,10 +266,10 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
             # Sin `tipo_norma` es una entrada anterior a que el parser
             # distinguiera cuerpos, y entonces sólo podía ser una NCG.
             ids[(m.get("tipo_norma") or "NCG", n)] = None
-    if isinstance(entrada.get("ncg"), int):
-        ids[("NCG", entrada["ncg"])] = None
+    heredadas = _heredadas(entrada)
     for tn in store.normas_en_descripcion(entrada.get("descripcion_cmf") or ""):
-        ids[tn] = None
+        if tn not in heredadas:
+            ids[tn] = None
     # El listado de la CMF es un piso: suma lo que el PDF no deja ver y nunca
     # quita. Medido el 16-09-2026, en 295 de 388 entradas con relaciones el
     # listado nombra normas que el parser no encuentra. La NCG 571/2026 deroga
@@ -263,8 +278,9 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
     for tn in _relaciones_listado(entrada):
         ids[tn] = None
 
-    # Una norma no se modifica a sí misma. `ncg` y la descripción traen el
-    # número propio del documento, y aparecía listado entre las normas
+    # Una norma no se modifica a sí misma. La descripción trae el número
+    # propio del documento (y `ncg` también, cuando se usaba), y aparecía
+    # listado entre las normas
     # afectadas: "NCG N°568 → afecta a NCG N°538, NCG N°568". Con el tipo en la
     # llave el descarte es exacto y ya no hace falta limitarlo a las NCG: un
     # oficio circular que modifica la NCG N°530 conserva ese 530, porque
@@ -300,6 +316,119 @@ def _normas_del_pdf(entrada: dict) -> set[tuple[str, int]]:
         for m in entrada.get("modifica") or []
         if m.get("fuente") != "descripcion_cmf" and isinstance(m.get("numero_norma"), int)
     }
+
+
+def _normas_propias(entrada: dict) -> set[tuple[str, int]]:
+    """Lo que el documento dice de sí mismo: su PDF y su fila del listado.
+
+    Excluye la descripción, que puede ser la de otro documento (ver
+    `_marcar_heredadas`), y el propio documento.
+    """
+    propias = _normas_del_pdf(entrada) | set(_relaciones_listado(entrada))
+    doc = entrada.get("documento") or {}
+    propias.discard((doc.get("tipo"), doc.get("numero")))
+    return propias
+
+
+def _categorias_propias(entrada: dict) -> set[str]:
+    """Las categorías que el documento sostiene con sus propias fuentes.
+
+    Sólo sirve para decidir qué categoría de la descripción es heredada; no
+    reemplaza a `_tipos_de_entrada`. «Circular» es emitir una circular, y un
+    documento que *es* una circular la emite.
+    """
+    cats: set[str] = set()
+    if (entrada.get("documento") or {}).get("tipo") == "Circular":
+        cats.add("Circular")
+    for tipo, numero in _normas_propias(entrada):
+        accion = _accion_sobre_norma(entrada, numero, tipo)
+        if accion == "Modificada por":
+            cats.add(_CATEGORIA_MODIFICA.get(tipo, "Modificación NCG"))
+        elif accion == "Derogada por":
+            cats.add("Derogación")
+    return cats
+
+
+def _marcar_heredadas(entradas: list[dict]) -> None:
+    """Marca lo que la descripción le atribuye a un documento y es de otro.
+
+    Cuando un mismo acuerdo del Consejo aprueba dos documentos, el listado les
+    pone a los dos la misma descripción —la del acuerdo—, y todo lo que se
+    deduce de ella se le atribuía a cada uno: la NCG 520/2024 figuraba
+    modificando la Circular 1512 y la Circular 2360/2024 la NCG 200, cuando
+    cada una modifica sólo la suya. Medido el 30-09-2026: 66 entradas
+    comparten descripción; en 11 la descripción aporta una norma que ni el PDF
+    ni el listado le atribuyen, y **en las 11 esa norma es del documento
+    hermano**. Revisados los 22 PDF: siete no la nombran y cuatro sólo la citan
+    («las entidades contempladas en la NCG N°469…»). Ninguno la modifica.
+
+    Esto incluye la circular 2370/2026, que llegó a documentarse como ejemplo
+    de documento que «emite una circular y modifica dos NCG»: las modifica la
+    NCG 561, aprobada en el mismo acuerdo.
+
+    La norma heredada **se marca en vez de quitarse**: la frontera la pone un
+    parser con huecos conocidos, y si el documento sí la modificara y el
+    parser no lo viera, quitarla la haría desaparecer sin rastro. Se muestra
+    rotulada «· según el acuerdo», con el hermano en el tooltip, y queda fuera
+    de todo lo que cuenta —la línea de tiempo de esa norma y las categorías—,
+    porque ahí la marca no se ve y el evento falso sí.
+
+    Lo mismo con las categorías, que no admiten marca: la que sale de la
+    descripción no se aplica si el documento no la sostiene y el hermano sí
+    (la NCG 561 caía bajo «Circular» porque el acuerdo «emite circular»).
+
+    Sólo se marca lo que un hermano reclama con sus propias fuentes: sin eso
+    no hay a quién atribuirlo, y la descripción sigue siendo el respaldo que
+    siempre fue.
+    """
+    grupos: dict[str, list[dict]] = {}
+    for e in entradas:
+        desc = store.normalizar(e.get("descripcion_cmf") or "")
+        if desc:
+            grupos.setdefault(desc, []).append(e)
+    for grupo in grupos.values():
+        if len(grupo) < 2:
+            continue
+        propias = [_normas_propias(e) for e in grupo]
+        cats = [_categorias_propias(e) for e in grupo]
+        for i, e in enumerate(grupo):
+            desc = e.get("descripcion_cmf") or ""
+            doc = e.get("documento") or {}
+            heredadas = []
+            for tn in store.normas_en_descripcion(desc):
+                if tn in propias[i] or tn == (doc.get("tipo"), doc.get("numero")):
+                    continue
+                por = next((o for j, o in enumerate(grupo) if j != i and tn in propias[j]), None)
+                if por is not None:
+                    heredadas.append({"tipo": tn[0], "numero": tn[1],
+                                      "por": _etiqueta_documento(por)})
+            e["_heredadas"] = heredadas
+            de_desc = set(store.inferir_tipos_acuerdo(desc))
+            if _es_derogacion(desc):
+                de_desc.add("Derogación")
+            e["_categorias_heredadas"] = sorted(
+                c for c in de_desc - cats[i]
+                if any(c in cats[j] for j in range(len(grupo)) if j != i)
+            )
+
+
+def _heredadas(entrada: dict) -> dict[tuple[str, int], str]:
+    """(tipo, número) → rótulo del documento hermano que sí la modifica."""
+    return {(h["tipo"], h["numero"]): h["por"] for h in entrada.get("_heredadas") or []}
+
+
+def _render_normas_afectadas(entrada: dict) -> str:
+    """La celda «Norma(s) afectada(s)», con las heredadas marcadas al final."""
+    partes = [html.escape(n) for n in _normas_afectadas(entrada)]
+    for (tipo, numero), por in _heredadas(entrada).items():
+        titulo = (f"El mismo acuerdo del Consejo aprobó {por}, y es ese documento "
+                  f"el que la modifica. La descripción del listado es la del "
+                  f"acuerdo y se la atribuye a los dos.")
+        partes.append(
+            f'<span class="norma-acuerdo" title="{html.escape(titulo)}">'
+            f'{html.escape(store.etiqueta_norma(tipo, numero))} · según el acuerdo</span>'
+        )
+    return ", ".join(partes)
 
 
 def _render_relaciones_listado(entrada: dict) -> str:
@@ -457,7 +586,11 @@ def _tipos_de_entrada(entrada: dict) -> list[str]:
     cuatro y dejaba otros catorce; derivar ambas cosas del mismo análisis los
     vuelve coherentes por construcción.
     """
-    tipos = store.inferir_tipos_acuerdo(entrada.get("descripcion_cmf") or "")
+    # Menos las que la descripción aporta sólo porque es la de un acuerdo que
+    # aprobó también otro documento: ver `_marcar_heredadas`.
+    heredadas = set(entrada.get("_categorias_heredadas") or [])
+    tipos = [t for t in store.inferir_tipos_acuerdo(entrada.get("descripcion_cmf") or "")
+             if t not in heredadas]
     for tipo_norma, numero in _normas_afectadas_ids(entrada):
         accion = _accion_sobre_norma(entrada, numero, tipo_norma)
         # La categoría sigue al cuerpo modificado, no al documento que modifica:
@@ -475,7 +608,7 @@ def _tipos_de_entrada(entrada: dict) -> list[str]:
             tipos.append(_CATEGORIA_MODIFICA.get(tipo_norma, "Modificación NCG"))
         elif accion == "Derogada por":
             tipos.append("Derogación")
-    if _es_derogacion(entrada.get("descripcion_cmf", "")):
+    if _es_derogacion(entrada.get("descripcion_cmf", "")) and "Derogación" not in heredadas:
         tipos.append("Derogación")
     # "Otro" es el centinela de "ninguna categoría calzó": deja de aplicar en
     # cuanto una calza, y si se queda infla su conteo y contradice al resto.
@@ -782,6 +915,10 @@ def generar_html() -> None:
             "tipo_acuerdo recalculado en %d de %d entradas guardadas",
             reclasificadas, len(entradas),
         )
+
+    # Antes de cualquier cosa que lea normas afectadas o categorías: separa lo
+    # que la descripción de un acuerdo compartido atribuye a cada documento.
+    _marcar_heredadas(entradas)
 
     # Las anotaciones manuales se aplican acá, antes de clasificar: al
     # renderizar y no al guardar, para que los datos parseados queden intactos
@@ -1468,7 +1605,6 @@ def _render_ag_ultimo(entradas: list[dict], hoy: datetime) -> str:
     e = max(entradas, key=lambda x: (x.get("fecha") or "", x.get("clave") or ""))
     clave = e.get("clave", "")
     url = e.get("url_documento") or ""
-    normas = _normas_afectadas(e)
 
     # El "hace N días" se calcula sobre la fecha guardada, que puede ser el
     # placeholder YYYY-01-01 (ver el modo de falla 1 en CLAUDE.md). No se
@@ -1489,8 +1625,7 @@ def _render_ag_ultimo(entradas: list[dict], hoy: datetime) -> str:
     meta = "".join(
         f'<div class="ag-ult-dato"><span>{k}</span><b>{v}</b></div>'
         for k, v in (
-            ("Norma(s) afectada(s)", ", ".join(html.escape(n) for n in normas)
-             if normas else "—"),
+            ("Norma(s) afectada(s)", _render_normas_afectadas(e) or "—"),
             ("Vigencia", html.escape(_vigencia_fmt(e.get("vigencia")))),
         )
     )
@@ -2027,13 +2162,13 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
     documento = _etiqueta_documento(e)
     tipos = _tipos_de_entrada(e)
     descripcion = e.get("descripcion_cmf", "") or ""
-    normas = _normas_afectadas(e) or ["—"]
     vigencia = _vigencia_fmt(e.get("vigencia"))
     url = e.get("url_documento") or ""
     clave = e.get("clave", "")
 
     badges = "".join(_tipo_tag(t) for t in tipos)
-    normas_html = ", ".join(html.escape(n) for n in normas)
+    normas = _normas_afectadas(e)
+    normas_html = _render_normas_afectadas(e) or "—"
     link = (
         f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
         if url else "—"
@@ -2135,6 +2270,23 @@ def _render_detalle(e: dict) -> str:
     bloque_listado = _render_relaciones_listado(e)
     if bloque_listado:
         bloques.append(bloque_listado)
+
+    # Va al lado de «Según el listado» porque responde lo mismo —de dónde sale
+    # una norma que el PDF no nombra— con la respuesta contraria: ésta no es
+    # de este documento. Ver `_marcar_heredadas`.
+    heredadas = _heredadas(e)
+    if heredadas:
+        items = "".join(
+            f'<li>{html.escape(store.etiqueta_norma(t, n))}: la modifica '
+            f'{html.escape(por)}</li>'
+            for (t, n), por in heredadas.items()
+        )
+        bloques.append(
+            f'<div class="d-bloque"><span class="d-label">Del mismo acuerdo del '
+            f'Consejo</span><p class="d-extra">La descripción del listado es la '
+            f'del acuerdo, que aprobó este documento junto con otro. Nombra '
+            f'normas que modifica el otro:</p><ul>{items}</ul></div>'
+        )
 
     rans = e.get("ran_referencias") or []
     if rans:
@@ -3536,6 +3688,10 @@ _TEMPLATE = """<!DOCTYPE html>
     .chip-modificar { background: var(--cmf-info-bg);    color: var(--cmf-navy); }
     .chip-eliminar  { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
     .chip-solo-listado { box-shadow: inset 0 0 0 1px currentColor; }
+    /* Norma que la descripción compartida le atribuye y es del documento
+       hermano: se ve, pero sin el peso de una afectada. */
+    .norma-acuerdo { color: var(--text-muted); font-weight: var(--fw-regular);
+                     border-bottom: 1px dotted currentColor; cursor: help; }
     .d-rel { margin: var(--space-2) 0 var(--space-1); }
     .d-rel-rotulo { font-size: var(--fs-xs); font-weight: var(--fw-semibold);
                     color: var(--text-muted); }

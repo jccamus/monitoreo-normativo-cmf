@@ -167,11 +167,17 @@ _TIPO_ACUERDO_RX = tuple(
 def inferir_tipos_acuerdo(descripcion: str) -> list[str]:
     """Todas las categorías que calzan, no sólo la primera.
 
-    Las categorías no son excluyentes y hay documentos que hacen dos cosas a
-    la vez: la circular 2370/2026 emite una circular *y* modifica las NCG
-    N°303 y N°451. Con una sola etiqueta ganaba la primera del orden y el
-    documento desaparecía del otro filtro — quedaba invisible justo para
-    quien buscara por el criterio equivocado.
+    Las categorías no son excluyentes y hay documentos que hacen varias cosas
+    a la vez: la NCG 532/2025 modifica la NCG N°365 y la Circular N°1998 y
+    deroga la Circular N°1333. Con una sola etiqueta ganaba la primera del
+    orden y el documento desaparecía de los otros filtros — quedaba invisible
+    justo para quien buscara por el criterio equivocado.
+
+    Ojo: esto lee la descripción del listado, y cuando un acuerdo del Consejo
+    aprueba dos documentos los dos la comparten. El ejemplo que había acá, la
+    circular 2370/2026 «que emite una circular y modifica las NCG N°303 y
+    N°451», era justamente eso: las NCG las modifica la NCG 561, aprobada en
+    el mismo acuerdo. El dashboard lo separa en `_marcar_heredadas`.
     """
     desc = normalizar(descripcion)
     tipos = [tipo for rx, tipo in _TIPO_ACUERDO_RX if rx.search(desc)]

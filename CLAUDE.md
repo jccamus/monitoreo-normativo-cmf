@@ -639,8 +639,15 @@ encontrar `ncg` ni `modifica[]` —y **ninguna circular ni oficio circular tiene
 número de NCG**—, así que 399 de 502 entradas degradadas eran documentos
 perfectamente legibles que simplemente no eran NCG.
 
-No confundir `documento.numero` con `ncg`: en un oficio circular que modifica la
-NCG N°530, `documento` es el oficio y `ncg` es 530, la norma afectada.
+No confundir `documento.numero` con `ncg`, **ni leer `ncg` como la norma
+afectada**. `ncg` es la primera «Norma de Carácter General N°x» que aparece en el
+texto: en una NCG suele ser la propia o la que modifica, y en una circular u
+oficio circular casi siempre una cita —la circular 2373/2026 exige «cumplir con
+la NCG N°509», los oficios circulares 1387/2025 y 1403/2026 citan la NCG 540
+como marco del REDEC—. El dashboard la usaba como norma afectada y esas
+entradas figuraban modificándolas; desde el 30-09-2026 no la lee (ver el
+docstring de `_normas_afectadas_ids`). Sigue en el JSON porque el parser la usa
+para decidir `parsed`. La identidad del documento está en `documento`;
 `_etiqueta_documento` lo muestra y cae al nombre del PDF (`ncg_470_2022.pdf` →
 «NCG N°470») cuando el parser no logra identificarlo, lo que cubre las normas
 conjuntas con otro regulador.
@@ -723,6 +730,25 @@ pasan a ser inocuos, no incorrectos.
 
 `_accion_sobre_norma` decide entre «Derogada por», «Modificada por» y «Referida
 por» buscando el último verbo antes de la mención **dentro de su misma oración**.
+
+### Una descripción puede ser de dos documentos
+
+La descripción del listado es la del **acuerdo del Consejo**, y cuando un
+acuerdo aprueba dos documentos —una NCG y una circular, típicamente— los dos la
+llevan idéntica. Todo lo que se deduce de ella se le atribuía a cada uno: la NCG
+520/2024 figuraba modificando la Circular 1512, que modifica la Circular 2360, y
+la 2360 la NCG 200, que modifica la 520. Medido el 30-09-2026: 66 entradas
+comparten descripción, en 11 la descripción aporta una norma que ni el PDF ni
+el listado le atribuyen, y en las 11 esa norma es del documento hermano;
+revisados los PDF, ninguno de los 11 la modifica.
+
+`dashboard._marcar_heredadas` lo separa al renderizar: la norma que un hermano
+reclama con sus propias fuentes (PDF o listado) se muestra **marcada** «· según
+el acuerdo», con el hermano en el tooltip y en el detalle, y **no cuenta** para
+la línea de tiempo ni para las categorías. Marcada y no borrada, porque la
+frontera la traza un parser con huecos. Las categorías que salen de la
+descripción siguen la misma regla, sin marca posible: no se aplican si el
+documento no las sostiene y un hermano sí.
 
 ### Una norma se identifica por tipo y número, nunca sólo por el número
 
@@ -860,8 +886,11 @@ Dos consumidores no equivalentes:
 - `store.inferir_tipo_acuerdo` devuelve **una** categoría (la primera que calza) y
   es la que se graba en el JSON.
 - `store.inferir_tipos_acuerdo` devuelve **todas** las que calzan, y es la base de
-  `dashboard._tipos_de_entrada`. Las categorías no son excluyentes: la circular
-  2370/2026 emite una circular *y* modifica dos NCG.
+  `dashboard._tipos_de_entrada`. Las categorías no son excluyentes: la NCG
+  532/2025 modifica la NCG 365 y la Circular 1998 y deroga la Circular 1333.
+  (El ejemplo que había acá, la circular 2370/2026 «que emite una circular y
+  modifica dos NCG», era una descripción compartida: ver «Una descripción puede
+  ser de dos documentos».)
 
 **Hay tres categorías que no existen en `TIPO_ACUERDO_MAP`: «Derogación»,
 «Modificación Circular» y «Modificación Oficio Circular».** Las tres se generan
@@ -901,18 +930,18 @@ propósito, así que la categoría reaparece sola cuando llega el primer caso. H
 dicen «EXIME DEL TRÁMITE DE CONSULTA PÚBLICA», o sea documentos que se la
 **saltaron**.
 
-Reparto vigente sobre las 679 entradas (29-09-2026; suma más de 679 porque una
+Reparto vigente sobre las 679 entradas (30-09-2026; suma más de 679 porque una
 entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 263 |
+| Otro | 274 |
 | Derogación | 194 |
-| Modificación NCG | 131 |
-| Modificación Circular | 104 |
+| Modificación NCG | 112 |
+| Modificación Circular | 103 |
 | Modificación Oficio Circular | 33 |
 | Postergación de vigencia | 4 |
-| Circular | 3 |
+| Circular | 2 |
 | Nueva Normativa | 1 |
 | Consulta Pública | 0 |
 
@@ -939,6 +968,14 @@ Esa misma tarde la corrida del workflow capturó las 5 normas que las claves
 `0000_` escondían, y el total pasó de 674 a 679 entradas: dos aportan
 «Derogación» (194) y tres caen en «Otro» (263), que es lo esperable en
 documentos de 1993 a 2001, casi todos escaneos sin capa de texto.
+
+El 30-09-2026 «Modificación NCG» bajó de 131 a 112 y «Otro» subió de 263 a
+274, por dos arreglos del mismo tipo —normas atribuidas a un documento que no
+las modifica—: el campo `ncg` dejó de contar como norma afectada (15 entradas
+pierden la NCG que sólo ese campo aportaba; 9 quedan en «Otro») y las descripciones compartidas
+dejaron de repartir sus normas entre los documentos del mismo acuerdo (NCG 546
+y 556 a «Otro»; la NCG 520 pierde «Modificación Circular» y la NCG 561
+«Circular»).
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.
