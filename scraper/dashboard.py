@@ -288,6 +288,8 @@ def _normas_afectadas_ids(entrada: dict) -> list[tuple[str, int]]:
     doc = entrada.get("documento") or {}
     if isinstance(doc.get("numero"), int):
         ids.pop((doc.get("tipo"), doc["numero"]), None)
+    for tn in _corregidas(entrada):
+        ids.pop(tn, None)
 
     return sorted(ids)
 
@@ -318,6 +320,51 @@ def _normas_del_pdf(entrada: dict) -> set[tuple[str, int]]:
     }
 
 
+# Correcciones a mano: normas que el parser rotula mal y que ninguna regla
+# general puede separar sin arriesgar otros documentos. (clave, tipo, número) →
+# qué es en realidad. La norma sale de todo lo que cuenta —columna, línea de
+# tiempo, categorías— y el motivo se muestra en el detalle.
+#
+# Son series de la ex-SBIF con numeración propia (ver «Las series de la
+# ex-SBIF no son circulares CMF» en CLAUDE.md) en las dos formas que un patrón
+# no alcanza: el calificativo al final de una lista larga y la serie que sólo
+# se deduce del contexto. Si el parser o el listado dejan de producir la norma,
+# `generar_html` avisa que la corrección sobra.
+_CORRECCIONES_NORMA: dict[tuple[str, str, int], str] = {
+    ("2026_0567", "Circular", 98): (
+        "Es la Circular N°98 de Cooperativas (serie ex-SBIF), no la Circular "
+        "N°98 de la CMF: la NCG 567 deroga «las circulares N°98, 100, 112 […] "
+        "aplicables a las cooperativas»."),
+    ("2026_0567", "Circular", 108): (
+        "Es la Circular N°108 de Cooperativas (serie ex-SBIF), no la Circular "
+        "N°108 de la CMF, y la NCG 567 deroga sólo «determinadas disposiciones»."),
+    ("2025_0534", "Circular", 12): (
+        "Es la Circular N°12 de 2010 de Auditores Externos (serie ex-SBIF), no "
+        "la Circular N°12 de la CMF."),
+}
+
+
+def _corregidas(entrada: dict) -> dict[tuple[str, int], str]:
+    """(tipo, número) → motivo, de las correcciones a mano de esta entrada."""
+    clave = entrada.get("clave")
+    return {(t, n): motivo for (c, t, n), motivo in _CORRECCIONES_NORMA.items() if c == clave}
+
+
+def _correcciones_sobrantes(entradas: list[dict]) -> list[tuple[str, str, int]]:
+    """Correcciones que ya no corrigen nada: ninguna fuente produce la norma."""
+    por_clave = {e.get("clave"): e for e in entradas}
+    sobran = []
+    for clave, tipo, numero in _CORRECCIONES_NORMA:
+        e = por_clave.get(clave)
+        fuentes = set()
+        if e is not None:
+            fuentes = (_normas_del_pdf(e) | set(_relaciones_listado(e))
+                       | set(store.normas_en_descripcion(e.get("descripcion_cmf") or "")))
+        if (tipo, numero) not in fuentes:
+            sobran.append((clave, tipo, numero))
+    return sobran
+
+
 def _normas_propias(entrada: dict) -> set[tuple[str, int]]:
     """Lo que el documento dice de sí mismo: su PDF y su fila del listado.
 
@@ -327,7 +374,7 @@ def _normas_propias(entrada: dict) -> set[tuple[str, int]]:
     propias = _normas_del_pdf(entrada) | set(_relaciones_listado(entrada))
     doc = entrada.get("documento") or {}
     propias.discard((doc.get("tipo"), doc.get("numero")))
-    return propias
+    return propias - set(_corregidas(entrada))
 
 
 def _categorias_propias(entrada: dict) -> set[str]:
@@ -428,11 +475,12 @@ def _marcar_del_acuerdo(entradas: list[dict]) -> None:
     columna, de la línea de tiempo y de las categorías, y queda en el detalle
     atribuida a la descripción. Sin nada leído del PDF (escaneos, documentos
     que no nombran normas) la descripción sigue siendo el respaldo legítimo y
-    no se toca. Medido el 30-09-2026 son tres en todo el corpus: la 545, la
+    no se toca. Medido el 30-09-2026 eran tres en todo el corpus: la 545, la
     «Circular N°108» que la NCG 567/2026 deroga en parte —que es la de
-    Cooperativas; el PDF la nombra y el parser la descarta por serie— y el
-    Oficio Circular 479 en la circular 2357/2024. Por eso la nota del detalle
-    es mecánica y no afirma de dónde viene cada una.
+    Cooperativas; el PDF la nombra y el parser la descarta por serie, y ahora
+    la cubre `_CORRECCIONES_NORMA`— y el Oficio Circular 479 en la circular
+    2357/2024. Por eso la nota del detalle es mecánica y no afirma de dónde
+    viene cada una.
 
     Las «Referida por» no entran: esas sí están en la línea de tiempo, que dice
     «sólo la menciona», y la columna ya las omite (`_normas_de_columna`).
@@ -446,6 +494,8 @@ def _marcar_del_acuerdo(entradas: list[dict]) -> None:
         doc = e.get("documento") or {}
         for tn in store.normas_en_descripcion(e.get("descripcion_cmf") or ""):
             if tn in propias or tn in heredadas or tn == (doc.get("tipo"), doc.get("numero")):
+                continue
+            if tn in _corregidas(e):
                 continue
             accion = _accion_sobre_norma(e, tn[1], tn[0])
             if accion != "Referida por":
@@ -970,6 +1020,12 @@ def generar_html() -> None:
     # que la descripción de un acuerdo compartido atribuye a cada documento.
     _marcar_heredadas(entradas)
     _marcar_del_acuerdo(entradas)
+    for clave, tipo, numero in _correcciones_sobrantes(entradas):
+        logger.warning(
+            "Corrección a mano de %s (%s) ya no corrige nada: ninguna fuente "
+            "produce esa norma — revisar si `_CORRECCIONES_NORMA` todavía la necesita",
+            clave, store.etiqueta_norma(tipo, numero),
+        )
 
     # Las anotaciones manuales se aplican acá, antes de clasificar: al
     # renderizar y no al guardar, para que los datos parseados queden intactos
@@ -2344,6 +2400,19 @@ def _render_detalle(e: dict) -> str:
             f'Consejo</span><p class="d-extra">La descripción del listado es la '
             f'del acuerdo, que aprobó este documento junto con otro. Nombra '
             f'normas que modifica el otro:</p><ul>{items}</ul></div>'
+        )
+
+    corregidas = _corregidas(e)
+    if corregidas:
+        items = "".join(
+            f'<li>{html.escape(store.etiqueta_norma(t, n))}: {html.escape(motivo)}</li>'
+            for (t, n), motivo in corregidas.items()
+        )
+        bloques.append(
+            f'<div class="d-bloque"><span class="d-label">Corregido a mano</span>'
+            f'<p class="d-extra">El texto nombra estas normas con un número que '
+            f'también es de una norma de la CMF. No se cuentan como afectadas:</p>'
+            f'<ul>{items}</ul></div>'
         )
 
     # Lo que el acuerdo hace y el documento no dice: ver `_marcar_del_acuerdo`.

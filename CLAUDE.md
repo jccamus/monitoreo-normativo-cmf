@@ -781,8 +781,9 @@ el acuerdo. `_marcar_del_acuerdo` saca de la columna, de la línea de tiempo y d
 las categorías la norma que sólo aparece en la descripción **cuando el parser sí
 encontró normas en el PDF**, y la deja en el detalle bajo «Según la descripción
 del acuerdo». Sin nada leído del PDF la descripción sigue siendo el respaldo y
-no se toca. Son tres en todo el corpus (30-09-2026): la 545, la Circular 108 de
-Cooperativas en la NCG 567 y el Oficio Circular 479 en la circular 2357.
+no se toca. Eran tres en todo el corpus (30-09-2026): la 545, la Circular 108
+de Cooperativas en la NCG 567 —que desde ese mismo día cubre la tabla de
+correcciones— y el Oficio Circular 479 en la circular 2357.
 
 ### Una norma se identifica por tipo y número, nunca sólo por el número
 
@@ -821,15 +822,19 @@ ven chicos y no lo son:
   listas de series tienen que avanzar juntas. Consecuencia buscada: si la única
   circular numerada que un documento modifica es de esas series, no cae en
   «Modificación Circular», porque ese filtro es de circulares CMF. **«para
-  bancos» no es serie**: la CMF titula así sus propias circulares. Límite
-  conocido: el calificativo al final de una lista no se ve —la NCG 567/2026
-  deroga «las circulares N°98, 100, 112 […] aplicables a las cooperativas» y
-  la N°98 queda rotulada como circular CMF—, y tampoco la serie que sólo se
-  deduce del contexto: la NCG 534/2025 «MODIFICA LA CIRCULAR N°12 DE 2010», que
-  es la de Auditores Externos, y queda rotulada «Circular N°12». Tampoco la
-  «Circular N°108» que la misma NCG 567 deroga en parte («determinadas
-  disposiciones de la Circular N°108, aplicables a las mismas entidades»),
-  que es la de Cooperativas.
+  bancos» no es serie**: la CMF titula así sus propias circulares.
+
+  Hay dos formas que ningún patrón alcanza: el calificativo al final de una
+  lista —la NCG 567/2026 deroga «las circulares N°98, 100, 112 […] aplicables
+  a las cooperativas»— y la serie que sólo se deduce del contexto —la NCG
+  534/2025 «MODIFICA LA CIRCULAR N°12 DE 2010», que es la de Auditores
+  Externos; y la «Circular N°108» que la 567 deroga en parte, que es la de
+  Cooperativas—. Para esos casos está **`dashboard._CORRECCIONES_NORMA`**, una
+  tabla de correcciones a mano: `(clave, tipo, número) → qué es en realidad`.
+  La norma sale de la columna, la línea de tiempo y las categorías, y el motivo
+  se muestra en el detalle bajo «Corregido a mano». Si la fuente deja de
+  producir la norma, `generar_html` avisa que la corrección sobra. Un caso
+  nuevo del mismo tipo se agrega ahí, con su cita; no hace falta reparsear.
 
   Desde el 30-09-2026 las dos listas descartan además «**para** Empresas
   Emisoras» (NCG 537/2025, que modifica la Circular N°1 de esa serie) y las
@@ -978,10 +983,10 @@ entrada puede llevar varias categorías):
 
 | categoría | entradas |
 |---|---|
-| Otro | 276 |
+| Otro | 277 |
 | Derogación | 192 |
 | Modificación NCG | 112 |
-| Modificación Circular | 101 |
+| Modificación Circular | 100 |
 | Modificación Oficio Circular | 33 |
 | Postergación de vigencia | 4 |
 | Circular | 2 |
@@ -1024,6 +1029,9 @@ circulares CMF la Circular N°1 para Empresas Emisoras y la Circular N°62 de la
 UAF; la 537 modifica además el capítulo 8-41 de la RAN, que no tiene categoría.
 Y «Derogación» bajó de 194 a 192: la NCG 545 y la circular 2357 la tenían sólo
 por una derogación que nombra la descripción del acuerdo y no el documento.
+Con la tabla de correcciones, la NCG 534 pasó de «Modificación Circular» a
+«Otro» (101 → 100; 276 → 277): la circular que modifica es la de Auditores
+Externos. La 567 conserva «Derogación», que no distingue cuerpo normativo.
 
 «Otro» bajó de 364 a 299 al reconocerse las circulares: 106 de esas 153 entradas
 —121 + 34 menos las 2 que están en ambas— no tenían ninguna otra categoría.
