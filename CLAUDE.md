@@ -743,12 +743,14 @@ el listado le atribuyen, y en las 11 esa norma es del documento hermano;
 revisados los PDF, ninguno de los 11 la modifica.
 
 `dashboard._marcar_heredadas` lo separa al renderizar: la norma que un hermano
-reclama con sus propias fuentes (PDF o listado) se muestra **marcada** «· según
-el acuerdo», con el hermano en el tooltip y en el detalle, y **no cuenta** para
-la línea de tiempo ni para las categorías. Marcada y no borrada, porque la
-frontera la traza un parser con huecos. Las categorías que salen de la
-descripción siguen la misma regla, sin marca posible: no se aplican si el
-documento no las sostiene y un hermano sí.
+reclama con sus propias fuentes (PDF o listado) **sale de la columna «Norma(s)
+afectada(s)»** y queda sólo en el detalle, en el bloque «Del mismo acuerdo del
+Consejo», que nombra al documento que sí la modifica. Tampoco cuenta para la
+línea de tiempo ni para las categorías. Se probó primero dejarla en la columna
+marcada «· según el acuerdo»: aun marcada se leía como relación, y quien revisó
+la Circular 2360 fue a buscar la NCG 200 al PDF. Las categorías que salen de la
+descripción siguen la misma regla: no se aplican si el documento no las
+sostiene y un hermano sí.
 
 ### Una norma se identifica por tipo y número, nunca sólo por el número
 

@@ -366,12 +366,13 @@ def _marcar_heredadas(entradas: list[dict]) -> None:
     de documento que «emite una circular y modifica dos NCG»: las modifica la
     NCG 561, aprobada en el mismo acuerdo.
 
-    La norma heredada **se marca en vez de quitarse**: la frontera la pone un
-    parser con huecos conocidos, y si el documento sí la modificara y el
-    parser no lo viera, quitarla la haría desaparecer sin rastro. Se muestra
-    rotulada «· según el acuerdo», con el hermano en el tooltip, y queda fuera
-    de todo lo que cuenta —la línea de tiempo de esa norma y las categorías—,
-    porque ahí la marca no se ve y el evento falso sí.
+    La norma heredada **sale de la columna y queda sólo en el detalle**, en el
+    bloque «Del mismo acuerdo del Consejo», que nombra al documento que sí la
+    modifica. Primero se mostró en la columna rotulada «· según el acuerdo», por
+    si el parser se equivocaba; pero los 11 casos resultaron confirmados, y aun
+    marcada se leía como una relación: quien revisó la Circular 2360 buscó la
+    NCG 200 en el PDF sin encontrarla. No cuenta para la línea de tiempo de la
+    norma ni para las categorías.
 
     Lo mismo con las categorías, que no admiten marca: la que sale de la
     descripción no se aplica si el documento no la sostiene y el hermano sí
@@ -415,20 +416,6 @@ def _marcar_heredadas(entradas: list[dict]) -> None:
 def _heredadas(entrada: dict) -> dict[tuple[str, int], str]:
     """(tipo, número) → rótulo del documento hermano que sí la modifica."""
     return {(h["tipo"], h["numero"]): h["por"] for h in entrada.get("_heredadas") or []}
-
-
-def _render_normas_afectadas(entrada: dict) -> str:
-    """La celda «Norma(s) afectada(s)», con las heredadas marcadas al final."""
-    partes = [html.escape(n) for n in _normas_afectadas(entrada)]
-    for (tipo, numero), por in _heredadas(entrada).items():
-        titulo = (f"El mismo acuerdo del Consejo aprobó {por}, y es ese documento "
-                  f"el que la modifica. La descripción del listado es la del "
-                  f"acuerdo y se la atribuye a los dos.")
-        partes.append(
-            f'<span class="norma-acuerdo" title="{html.escape(titulo)}">'
-            f'{html.escape(store.etiqueta_norma(tipo, numero))} · según el acuerdo</span>'
-        )
-    return ", ".join(partes)
 
 
 def _render_relaciones_listado(entrada: dict) -> str:
@@ -1605,6 +1592,7 @@ def _render_ag_ultimo(entradas: list[dict], hoy: datetime) -> str:
     e = max(entradas, key=lambda x: (x.get("fecha") or "", x.get("clave") or ""))
     clave = e.get("clave", "")
     url = e.get("url_documento") or ""
+    normas = _normas_afectadas(e)
 
     # El "hace N días" se calcula sobre la fecha guardada, que puede ser el
     # placeholder YYYY-01-01 (ver el modo de falla 1 en CLAUDE.md). No se
@@ -1625,7 +1613,8 @@ def _render_ag_ultimo(entradas: list[dict], hoy: datetime) -> str:
     meta = "".join(
         f'<div class="ag-ult-dato"><span>{k}</span><b>{v}</b></div>'
         for k, v in (
-            ("Norma(s) afectada(s)", _render_normas_afectadas(e) or "—"),
+            ("Norma(s) afectada(s)", ", ".join(html.escape(n) for n in normas)
+             if normas else "—"),
             ("Vigencia", html.escape(_vigencia_fmt(e.get("vigencia")))),
         )
     )
@@ -2168,7 +2157,7 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
 
     badges = "".join(_tipo_tag(t) for t in tipos)
     normas = _normas_afectadas(e)
-    normas_html = _render_normas_afectadas(e) or "—"
+    normas_html = ", ".join(html.escape(n) for n in normas) or "—"
     link = (
         f'<a href="{html.escape(url)}" target="_blank" rel="noopener">PDF ↗</a>'
         if url else "—"
@@ -3688,10 +3677,6 @@ _TEMPLATE = """<!DOCTYPE html>
     .chip-modificar { background: var(--cmf-info-bg);    color: var(--cmf-navy); }
     .chip-eliminar  { background: var(--cmf-danger-bg);  color: var(--ink-on-danger-bg); }
     .chip-solo-listado { box-shadow: inset 0 0 0 1px currentColor; }
-    /* Norma que la descripción compartida le atribuye y es del documento
-       hermano: se ve, pero sin el peso de una afectada. */
-    .norma-acuerdo { color: var(--text-muted); font-weight: var(--fw-regular);
-                     border-bottom: 1px dotted currentColor; cursor: help; }
     .d-rel { margin: var(--space-2) 0 var(--space-1); }
     .d-rel-rotulo { font-size: var(--fs-xs); font-weight: var(--fw-semibold);
                     color: var(--text-muted); }
