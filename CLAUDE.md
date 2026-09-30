@@ -389,6 +389,12 @@ No lo es: es un corte por época. Ver la sección propia más abajo.
   texto que la fecha que vas a capturar es la de entrada en vigor y no una del
   ciclo de reporte.
 
+  Si el cierre no da una fecha sino que rige de inmediato («Los ajustes
+  señalados tendrán aplicación inmediata», oficio circular 1425/2026), lo
+  recoge `_CLAUSULA_INMEDIATA`, con las mismas restricciones: verbo en futuro,
+  fuera de citas y sólo a falta de sección. Antes de él, ese oficio caía a
+  revisión manual. Medido el 30-09-2026 sobre 99 PDF: cambia sólo ese.
+
   **El presente ("entra en vigor") está deliberadamente fuera de ese patrón, y no
   es un olvido.** Se probó y se midió: recuperaba 1 cláusula legítima y creaba 2
   falsas, porque un documento que *cita* la sección Vigencia de otra norma la

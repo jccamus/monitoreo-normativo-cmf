@@ -351,6 +351,34 @@ _CLAUSULA_APLICACION = re.compile(
     re.IGNORECASE,
 )
 
+# La misma cláusula de cierre, cuando lo que declara no es una fecha sino que
+# rige de inmediato. El oficio circular 1425/2026 termina «Los ajustes señalados
+# tendrán aplicación inmediata.», sin sección de vigencia, y como
+# `_CLAUSULA_APLICACION` sólo busca fechas quedaba en "no especificado" y caía a
+# revisión manual con una candidata engañosa (el 1 de abril de 2026, que es una
+# condición sobre los datos reportados, no su vigencia).
+#
+# Mismas restricciones que su vecina, por las mismas razones: **verbo en
+# futuro** —un documento que cita la vigencia de otro la transcribe en presente,
+# y «rige a contar de esta fecha» es justo la frase que se cita—, en la misma
+# frase que la inmediatez, fuera de un texto citado con sujeto autorreferente
+# (`_clausula_aplicacion`), y sólo a falta de sección. No se usa `_INMEDIATA`
+# entera: «a contar de la fecha» suelto calza con «a contar de la fecha de envío»
+# en el cuerpo de cualquier oficio.
+_CLAUSULA_INMEDIATA = re.compile(
+    r"(?:" + "|".join(_frase_flex(f) for f in (
+        "tendrán aplicación inmediata",
+        "tendrá aplicación inmediata",
+        "serán de aplicación inmediata",
+        "será de aplicación inmediata",
+        "tendrán vigencia inmediata",
+        "tendrá vigencia inmediata",
+    )) + r"|regir[áa]n?\s+(?:a\s+contar|a\s+partir)\s+de\s+(?:esta|la\s+presente)\s+fecha"
+    r"|(?:se\s+aplicar[áa]n?|entrar[áa]n?\s+en\s+(?:vigencia|vigor))\s+(?:a\s+contar|a\s+partir)"
+    r"\s+de\s+(?:esta|la\s+presente)\s+fecha)",
+    re.IGNORECASE,
+)
+
 # Una norma que fija la vigencia de otra: la NCG 564/2026 no tiene contenido
 # propio más allá de reemplazar la sección Vigencia de la NCG 550. La fecha que
 # importa —cuándo empieza a regir la 550— vive dentro de ese texto citado, no en
@@ -591,8 +619,11 @@ _AUTORREFERENCIA = re.compile(
 )
 
 
-def _clausula_aplicacion(text: str) -> re.Match | None:
+def _clausula_aplicacion(text: str, patron: re.Pattern = _CLAUSULA_APLICACION) -> re.Match | None:
     """La primera cláusula de aplicación que hable de la vigencia *propia*.
+
+    `patron` es `_CLAUSULA_APLICACION` (una fecha) o `_CLAUSULA_INMEDIATA`
+    (rige de inmediato): el filtro de citas vale igual para las dos.
 
     Descarta las que están dentro de una cita **y** tienen sujeto
     autorreferente, que es la combinación en que la fecha pertenece a otra
@@ -624,7 +655,7 @@ def _clausula_aplicacion(text: str) -> re.Match | None:
     # 8 cláusulas de 7 documentos y la vigencia no cambia en ninguno (6 tienen
     # sección de vigencia, así que la cláusula no se consulta; en la circular
     # 2317/2022 los dos caminos llegan a la misma fecha).
-    for m in _CLAUSULA_APLICACION.finditer(text):
+    for m in patron.finditer(text):
         if not _dentro_de_cita(text, m.start()):
             return m
         # Ventana hacia atrás acotada a la oración: un "la presente norma" de
@@ -976,6 +1007,10 @@ def _parse_text(text: str, url: str) -> dict[str, Any]:
                     "precision": precision,
                     "fuente": "clausula_aplicacion",
                 }
+        # La fecha va primero: si el cierre declara las dos cosas, la fecha es
+        # más precisa. Ver `_CLAUSULA_INMEDIATA`.
+        elif _clausula_aplicacion(text, _CLAUSULA_INMEDIATA):
+            result["vigencia"] = {"inicio": "inmediata", "fuente": "clausula_aplicacion"}
 
     # ── Archivos afectados ──────────────────────────────────────────────────
     # Después de la vigencia, no antes: cada archivo se fecha con la viñeta que

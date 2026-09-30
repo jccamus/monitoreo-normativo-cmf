@@ -19,15 +19,8 @@
       "parsed": true,
       "modifica": [],
       "vigencia": {
-        "inicio": "no especificado",
-        "fuente": "ninguna",
-        "candidatas": [
-          {
-            "fecha": "2026-04-01",
-            "precision": "dia",
-            "contexto": "…caso de que la obligación reportada haya sido otorgada con fecha anterior al 1 de abril de 2026, este campo debe…"
-          }
-        ]
+        "inicio": "inmediata",
+        "fuente": "clausula_aplicacion"
       },
       "ran_referencias": [],
       "msi_referencias": [
@@ -42,42 +35,42 @@
         {
           "accion": "modificar",
           "nombre": "RDC01",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC10",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC12",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC30",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC40",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC20",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC11",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         },
         {
           "accion": "modificar",
           "nombre": "RDC02",
-          "vigencia": "no especificado"
+          "vigencia": "inmediata"
         }
       ],
       "tema": "Introduce ajustes técnicos a las instrucciones generales y archivos normativos del MSI REDEC que se indican",
