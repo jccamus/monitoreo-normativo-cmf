@@ -54,11 +54,20 @@ DAILY_DIR = Path(__file__).parent.parent / "data" / "daily"
 
 
 def _es_placeholder(entrada: dict) -> bool:
-    """La fecha es el placeholder YYYY-01-01 derivado del nombre del PDF.
+    """La fecha no salió del PDF: es la del listado o el placeholder YYYY-01-01.
 
-    Un 1 de enero real es indistinguible de un placeholder, pero la CMF no
-    sesiona ese día, así que en la práctica no hay falsos positivos.
+    Desde el 30-09-2026 una entrada sin fecha legible en el PDF toma la de la
+    columna «Fecha» del listado (`fecha_fuente: "listado"`), que ya no tiene
+    aspecto de placeholder. Siguen siendo candidatas: la del PDF es la que
+    manda, y un arreglo del parser tiene que poder alcanzarlas.
+
+    Sin `fecha_fuente` la entrada es anterior a eso, y vale la regla vieja: un
+    1 de enero real es indistinguible de un placeholder, pero la CMF no sesiona
+    ese día, así que en la práctica no hay falsos positivos.
     """
+    fuente = entrada.get("fecha_fuente")
+    if fuente:
+        return fuente != "pdf"
     return (entrada.get("fecha") or "").endswith("-01-01")
 
 
@@ -158,6 +167,8 @@ def reparsear(
                 # se arrastran las guardadas. Ver `scraper/relaciones.py`.
                 if "relaciones_cmf" in entrada:
                     raw["relaciones_cmf"] = entrada["relaciones_cmf"]
+                if entrada.get("fecha_listado"):
+                    raw["fecha_listado"] = entrada["fecha_listado"]
                 nueva = ensamblar_entrada(raw, parsed)
             except Exception:
                 fallidas += 1

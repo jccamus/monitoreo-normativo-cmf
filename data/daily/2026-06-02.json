@@ -52,7 +52,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-06-01",
+      "fecha_fuente": "pdf"
     }
   ]
 }

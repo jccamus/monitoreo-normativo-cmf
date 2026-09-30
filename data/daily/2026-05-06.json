@@ -56,7 +56,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-06-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0481",
@@ -109,7 +111,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-07-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0466",
@@ -175,7 +179,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-03-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0465",
@@ -221,7 +227,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-02-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0464",
@@ -273,7 +281,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-01-31",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0463",
@@ -328,7 +338,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-01-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0458",
@@ -387,7 +399,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-07-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0455",
@@ -460,7 +474,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-06-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0453",
@@ -514,7 +530,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-04-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0452",
@@ -597,7 +615,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_345_2013.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2021-02-22",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0444",
@@ -643,7 +663,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-06-19",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0443",
@@ -698,7 +720,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-06-15",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0442",
@@ -762,7 +786,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-06-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0441",
@@ -812,7 +838,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-05-13",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0440",
@@ -879,7 +907,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-05-13",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0437",
@@ -929,11 +959,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-04-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2018_0427",
-      "fecha": "2018-01-01",
+      "fecha": "2018-09-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -971,7 +1003,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-09-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2026_0564",
@@ -1024,7 +1058,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-04-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_0563",
@@ -1077,7 +1113,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-04-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_0562",
@@ -1179,7 +1217,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_632_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2026-04-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_2370",
@@ -1273,7 +1313,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-04-10",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_0561",
@@ -1360,7 +1402,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-04-10",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0553",
@@ -1438,7 +1482,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-11-10",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0550",
@@ -1490,7 +1536,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-10-24",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0549",
@@ -1544,7 +1592,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-10-24",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0548",
@@ -1592,7 +1642,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-09-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0545",
@@ -1644,7 +1696,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-08-19",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0542",
@@ -1702,7 +1756,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-07-29",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0531",
@@ -1754,7 +1810,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-01-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0525",
@@ -1809,7 +1867,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-12-03",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0524",
@@ -1889,7 +1949,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-12-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2360",
@@ -1943,7 +2005,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-11-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0520",
@@ -2015,7 +2079,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-11-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0513",
@@ -2129,7 +2195,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_819_1988.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-06-10",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0511",
@@ -2197,7 +2265,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-05-24",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0510",
@@ -2273,7 +2343,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1939_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-05-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0508",
@@ -2322,7 +2394,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-05-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0506",
@@ -2381,7 +2455,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-02-16",
+      "fecha_fuente": "pdf"
     }
   ]
 }

@@ -33,11 +33,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-12-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2001_0142",
-      "fecha": "2001-01-01",
+      "fecha": "2001-01-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -59,11 +61,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-01-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_1459",
-      "fecha": "1999-01-01",
+      "fecha": "1999-12-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -90,11 +94,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_918_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1999-12-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1995_1194",
-      "fecha": "1995-01-01",
+      "fecha": "1995-01-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -135,11 +141,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_799_1988.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1995-01-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1993_1122",
-      "fecha": "1993-01-01",
+      "fecha": "1993-05-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -158,7 +166,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1993-05-24",
+      "fecha_fuente": "listado"
     }
   ]
 }

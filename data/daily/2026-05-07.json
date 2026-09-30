@@ -31,7 +31,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-02-27",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_2369",
@@ -100,7 +102,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-02-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_0559",
@@ -142,7 +146,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-02-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_2368",
@@ -171,7 +177,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-01-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_1403",
@@ -226,11 +234,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-01-22",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_1402",
-      "fecha": "2026-01-01",
+      "fecha": "2026-01-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -249,7 +259,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-01-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2025_0557",
@@ -318,7 +330,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-12-10",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0556",
@@ -366,7 +380,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-12-10",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_1394",
@@ -410,7 +426,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-11-24",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0554",
@@ -477,7 +495,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-11-21",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0551",
@@ -519,7 +539,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-11-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_1387",
@@ -605,7 +627,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-10-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_1381",
@@ -655,7 +679,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-08-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0547",
@@ -715,7 +741,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-08-22",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0546",
@@ -760,11 +788,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-08-22",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0544",
-      "fecha": "2025-01-01",
+      "fecha": "2025-08-07",
       "resolucion": null,
       "sesion": null,
       "ncg": 538,
@@ -805,11 +835,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-08-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2025_1377",
-      "fecha": "2025-01-01",
+      "fecha": "2025-07-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -843,7 +875,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-07-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2025_1376",
@@ -896,7 +930,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-07-29",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_2366",
@@ -951,7 +987,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-07-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_1375",
@@ -1019,7 +1057,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-07-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_2365",
@@ -1063,7 +1103,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-07-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_2364",
@@ -1101,7 +1143,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-06-26",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_1368",
@@ -1139,7 +1183,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-05-14",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_2363",
@@ -1170,7 +1216,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-05-07",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0534",
@@ -1221,7 +1269,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-03-31",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_2362",
@@ -1282,7 +1332,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-03-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0533",
@@ -1316,7 +1368,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-03-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0532",
@@ -1480,7 +1534,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1693_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2025-02-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2025_0530",
@@ -1538,7 +1594,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2025-01-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0528",
@@ -1598,7 +1656,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_2054_2011.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-12-27",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0527",
@@ -1661,7 +1721,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-12-23",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0526",
@@ -1721,7 +1783,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_157_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-12-23",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_1351",
@@ -1770,7 +1834,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-12-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0523",
@@ -1803,7 +1869,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-11-29",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0522",
@@ -1832,7 +1900,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-11-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0521",
@@ -1884,7 +1954,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-11-18",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0519",
@@ -2000,7 +2072,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-10-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2359",
@@ -2061,7 +2135,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-10-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2358",
@@ -2118,7 +2194,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-10-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_1341",
@@ -2186,7 +2264,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-10-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_1336",
@@ -2226,7 +2306,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-09-04",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2357",
@@ -2288,7 +2370,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-08-27",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2356",
@@ -2361,7 +2445,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-08-26",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0517",
@@ -2415,7 +2501,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-08-26",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2354",
@@ -2479,7 +2567,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-07-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2353",
@@ -2538,7 +2628,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-07-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0516",
@@ -2594,7 +2686,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1737_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-07-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_1332",
@@ -2666,7 +2760,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-07-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0514",
@@ -2709,7 +2805,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-07-03",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2352",
@@ -2763,7 +2861,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-06-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2348",
@@ -2798,7 +2898,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-05-15",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0509",
@@ -2827,7 +2929,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-05-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0507",
@@ -2877,7 +2981,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1869_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-05-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2347",
@@ -2963,7 +3069,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-04-24",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2346",
@@ -2995,7 +3103,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-03-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2345",
@@ -3038,7 +3148,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-02-26",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0505",
@@ -3111,7 +3223,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1246_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-02-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2344",
@@ -3143,7 +3257,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-02-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_2343",
@@ -3196,7 +3312,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-02-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0504",
@@ -3225,7 +3343,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-01-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0503",
@@ -3275,7 +3395,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_412_2016.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-01-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0502",
@@ -3351,7 +3473,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_493_2023.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2024-01-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2024_0501",
@@ -3385,11 +3509,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2024-01-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2001_0141",
-      "fecha": null,
+      "fecha": "2001-01-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -3419,7 +3545,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-01-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2023_0500",
@@ -3460,7 +3588,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-12-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_0499",
@@ -3509,7 +3639,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1720_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2023-12-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_2340",
@@ -3552,7 +3684,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-11-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_0498",
@@ -3599,7 +3733,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-10-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_2336",
@@ -3654,7 +3790,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-06-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_2335",
@@ -3701,7 +3839,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-06-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_2333",
@@ -3762,11 +3902,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-05-13",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2023_2332",
-      "fecha": "2023-01-01",
+      "fecha": "2023-03-01",
       "resolucion": null,
       "sesion": null,
       "ncg": 495,
@@ -3804,7 +3946,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-03-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2023_0496",
@@ -3860,7 +4004,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2023-03-01",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2329",
@@ -3893,7 +4039,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-12-19",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2327",
@@ -3922,7 +4070,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-11-21",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0489",
@@ -3962,7 +4112,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-11-21",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2326",
@@ -4011,7 +4163,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-11-18",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2325",
@@ -4040,7 +4194,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-11-09",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2324",
@@ -4079,7 +4235,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-11-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2322",
@@ -4119,7 +4277,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-10-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0487",
@@ -4159,7 +4319,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-10-03",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2321",
@@ -4188,7 +4350,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-09-23",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0486",
@@ -4335,7 +4499,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-08-31",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0485",
@@ -4368,7 +4534,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-08-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2318",
@@ -4416,7 +4584,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-08-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0484",
@@ -4480,7 +4650,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-08-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0483",
@@ -4534,7 +4706,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-08-04",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2317",
@@ -4587,7 +4761,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-07-29",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0480",
@@ -4660,7 +4836,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1429_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2022-07-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2316",
@@ -4700,7 +4878,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-07-18",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2314",
@@ -4772,7 +4952,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-06-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0479",
@@ -4820,7 +5002,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-06-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0478",
@@ -4868,7 +5052,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-05-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0477",
@@ -4922,7 +5108,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_2102_2013.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2022-05-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0472",
@@ -4962,7 +5150,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-04-13",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0471",
@@ -5035,7 +5225,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_49_1994.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2022-04-13",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0470",
@@ -5086,7 +5278,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_342_2012.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2022-04-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_0469",
@@ -5140,7 +5334,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_330_2012.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2022-04-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2311",
@@ -5171,7 +5367,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-04-04",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2309",
@@ -5221,7 +5419,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-03-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2308",
@@ -5279,7 +5479,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-03-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2306",
@@ -5335,7 +5537,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-02-17",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2305",
@@ -5366,7 +5570,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-02-16",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2022_2304",
@@ -5398,7 +5604,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2022-01-31",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2302",
@@ -5435,7 +5643,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-12-23",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0462",
@@ -5481,7 +5691,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-12-01",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2300",
@@ -5538,7 +5750,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-11-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0461",
@@ -5626,7 +5840,9 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_385_2015.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2021-11-12",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2299",
@@ -5674,7 +5890,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-11-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2298",
@@ -5726,7 +5944,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-11-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2297",
@@ -5773,7 +5993,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-11-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2296",
@@ -5804,7 +6026,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-11-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2295",
@@ -5850,7 +6074,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-10-07",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2292",
@@ -5904,7 +6130,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-08-19",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0457",
@@ -5978,7 +6206,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-07-19",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2291",
@@ -6050,7 +6280,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-07-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0456",
@@ -6083,7 +6315,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-07-05",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2290",
@@ -6129,7 +6363,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-05-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_2287",
@@ -6181,7 +6417,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-03-01",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2021_0451",
@@ -6214,7 +6452,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2021-01-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0450",
@@ -6268,7 +6508,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1530_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2020-11-17",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2276",
@@ -6299,7 +6541,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-11-02",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2271",
@@ -6366,7 +6610,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1679_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2020-09-21",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0449",
@@ -6435,7 +6681,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-09-14",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0448",
@@ -6504,7 +6752,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-09-14",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2270",
@@ -6535,7 +6785,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-09-11",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0447",
@@ -6584,7 +6836,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-09-03",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2267",
@@ -6628,7 +6882,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-08-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0446",
@@ -6686,7 +6942,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-08-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0445",
@@ -6746,7 +7004,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-08-28",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2259",
@@ -6800,7 +7060,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1829_2007.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2020-06-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2255",
@@ -6854,7 +7116,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-05-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2254",
@@ -6915,7 +7179,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-05-08",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0439",
@@ -6979,7 +7245,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-05-07",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0438",
@@ -7012,7 +7280,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-04-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2251",
@@ -7064,7 +7334,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-04-24",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2250",
@@ -7093,7 +7365,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-04-20",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2248",
@@ -7124,7 +7398,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-03-30",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_2247",
@@ -7155,7 +7431,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-03-25",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0435",
@@ -7207,11 +7485,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-03-18",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2020_0434",
-      "fecha": "2020-01-01",
+      "fecha": "2020-02-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7230,11 +7510,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2020-02-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_2243",
-      "fecha": "2019-01-01",
+      "fecha": "2019-12-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7253,11 +7535,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-12-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_2242",
-      "fecha": "2019-01-01",
+      "fecha": "2019-12-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7295,11 +7579,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-12-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_0433",
-      "fecha": "2019-01-01",
+      "fecha": "2019-10-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7347,11 +7633,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-10-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_0432",
-      "fecha": "2019-01-01",
+      "fecha": "2019-03-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7370,11 +7658,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-03-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_0431",
-      "fecha": "2019-01-01",
+      "fecha": "2019-02-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7422,11 +7712,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-02-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_2240",
-      "fecha": "2019-01-01",
+      "fecha": "2019-01-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7464,11 +7756,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-01-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_0430",
-      "fecha": "2019-01-01",
+      "fecha": "2019-01-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7495,11 +7789,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-01-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2019_0428",
-      "fecha": "2019-01-01",
+      "fecha": "2019-01-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7547,11 +7843,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2019-01-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_2239",
-      "fecha": "2018-01-01",
+      "fecha": "2018-11-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7589,11 +7887,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-11-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_2238",
-      "fecha": "2018-01-01",
+      "fecha": "2018-09-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7631,11 +7931,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-09-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_0426",
-      "fecha": "2018-01-01",
+      "fecha": "2018-09-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7654,11 +7956,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-09-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_2237",
-      "fecha": "2018-01-01",
+      "fecha": "2018-09-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7677,11 +7981,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-09-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_0425",
-      "fecha": "2018-01-01",
+      "fecha": "2018-06-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7719,11 +8025,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-06-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_1040",
-      "fecha": "2018-01-01",
+      "fecha": "2018-04-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7742,7 +8050,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-04-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2018_2236",
@@ -7768,11 +8078,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-03-06",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2018_2234",
-      "fecha": "2018-01-01",
+      "fecha": "2018-01-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7820,11 +8132,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2018-01-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2017_2232",
-      "fecha": "2017-01-01",
+      "fecha": "2017-12-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7869,11 +8183,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2017-12-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2017_2226",
-      "fecha": "2017-01-01",
+      "fecha": "2017-07-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7911,11 +8227,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2017-07-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2017_0982",
-      "fecha": "2017-01-01",
+      "fecha": "2017-03-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7934,11 +8252,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2017-03-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2017_2219",
-      "fecha": "2017-01-01",
+      "fecha": "2017-01-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -7976,11 +8296,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2017-01-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2017_0414",
-      "fecha": "2017-01-01",
+      "fecha": "2017-01-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8028,11 +8350,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2017-01-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2217",
-      "fecha": "2016-01-01",
+      "fecha": "2016-12-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8088,11 +8412,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_508_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2016-12-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2216",
-      "fecha": "2016-01-01",
+      "fecha": "2016-12-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8130,11 +8456,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-12-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_0413",
-      "fecha": "2016-01-01",
+      "fecha": "2016-12-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8161,11 +8489,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-12-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2213",
-      "fecha": "2016-01-01",
+      "fecha": "2016-10-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8199,11 +8529,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-10-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2208",
-      "fecha": "2016-01-01",
+      "fecha": "2016-09-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8241,11 +8573,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-09-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_0406",
-      "fecha": "2016-01-01",
+      "fecha": "2016-03-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8293,11 +8627,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-03-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_0405",
-      "fecha": "2016-01-01",
+      "fecha": "2016-03-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8345,11 +8681,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-03-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2197",
-      "fecha": "2016-01-01",
+      "fecha": "2016-01-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8368,11 +8706,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-01-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_0404",
-      "fecha": "2016-01-01",
+      "fecha": "2016-01-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8410,11 +8750,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-01-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2196",
-      "fecha": "2016-01-01",
+      "fecha": "2016-01-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8469,11 +8811,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-01-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_2195",
-      "fecha": "2016-01-01",
+      "fecha": "2016-01-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8521,11 +8865,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-01-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2016_0916",
-      "fecha": "2016-01-01",
+      "fecha": "2016-01-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8563,11 +8909,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2016-01-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_2185",
-      "fecha": "2015-01-01",
+      "fecha": "2015-09-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8605,11 +8953,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2015-09-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_2184",
-      "fecha": "2015-01-01",
+      "fecha": "2015-09-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8647,11 +8997,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2015-09-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0391",
-      "fecha": "2015-01-01",
+      "fecha": "2015-09-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8689,11 +9041,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2015-09-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_2183",
-      "fecha": "2015-01-01",
+      "fecha": "2015-08-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8731,11 +9085,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2015-08-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0390",
-      "fecha": "2015-01-01",
+      "fecha": "2015-08-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8773,11 +9129,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_312_2011.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2015-08-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_2180",
-      "fecha": "2015-01-01",
+      "fecha": "2015-06-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8796,11 +9154,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2015-06-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0385",
-      "fecha": "2015-01-01",
+      "fecha": "2015-06-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8838,11 +9198,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_341_2012.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2015-06-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0383",
-      "fecha": "2015-01-01",
+      "fecha": "2015-03-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8894,11 +9256,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1897_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2015-03-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0868",
-      "fecha": "2015-01-01",
+      "fecha": "2015-01-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8936,11 +9300,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_774_2013.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2015-01-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0377",
-      "fecha": "2015-01-01",
+      "fecha": "2015-01-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -8967,11 +9333,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_163_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2015-01-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_2171",
-      "fecha": "2015-01-01",
+      "fecha": "2015-01-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9009,11 +9377,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1898_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2015-01-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2015_0373",
-      "fecha": "2015-01-01",
+      "fecha": "2015-01-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9051,11 +9421,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2015-01-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2164",
-      "fecha": "2014-01-01",
+      "fecha": "2014-12-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9082,11 +9454,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-12-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2163",
-      "fecha": "2014-01-01",
+      "fecha": "2014-11-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9113,11 +9487,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-11-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_0370",
-      "fecha": "2014-01-01",
+      "fecha": "2014-11-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9152,11 +9528,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_2023_2011.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-11-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2161",
-      "fecha": "2014-01-01",
+      "fecha": "2014-10-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9204,11 +9582,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-10-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_0368",
-      "fecha": "2014-01-01",
+      "fecha": "2014-09-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9260,11 +9640,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_2029_2011.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-09-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_0366",
-      "fecha": "2014-01-01",
+      "fecha": "2014-07-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9298,11 +9680,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_240_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-07-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_0364",
-      "fecha": "2014-01-01",
+      "fecha": "2014-05-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9394,11 +9778,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1954_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-05-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2149",
-      "fecha": "2014-01-01",
+      "fecha": "2014-04-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9436,11 +9822,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-04-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2148",
-      "fecha": "2014-01-01",
+      "fecha": "2014-04-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9478,11 +9866,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1587_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-04-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_0826",
-      "fecha": "2014-01-01",
+      "fecha": "2014-02-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9501,11 +9891,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-02-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2143",
-      "fecha": "2014-01-01",
+      "fecha": "2014-01-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9532,11 +9924,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1621_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-01-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2138",
-      "fecha": "2014-01-01",
+      "fecha": "2014-01-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9574,11 +9968,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-01-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_2137",
-      "fecha": "2014-01-01",
+      "fecha": "2014-01-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9605,11 +10001,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1602_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2014-01-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2014_0359",
-      "fecha": "2014-01-01",
+      "fecha": "2014-01-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9657,11 +10055,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2014-01-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2133",
-      "fecha": "2013-01-01",
+      "fecha": "2013-12-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9680,11 +10080,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-12-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2131",
-      "fecha": "2013-01-01",
+      "fecha": "2013-11-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9729,11 +10131,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1487_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2013-11-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2130",
-      "fecha": "2013-01-01",
+      "fecha": "2013-11-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9771,11 +10175,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-11-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2126",
-      "fecha": "2013-01-01",
+      "fecha": "2013-11-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9813,11 +10219,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-11-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_0354",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9875,11 +10283,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-10-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2124",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9927,11 +10337,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-10-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2123",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -9986,11 +10398,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1457_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2013-10-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2122",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10028,11 +10442,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-10-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_0352",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10111,11 +10527,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_241_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2013-10-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2121",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10134,11 +10552,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-10-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2120",
-      "fecha": "2013-01-01",
+      "fecha": "2013-10-16",
       "resolucion": null,
       "sesion": null,
       "ncg": 314,
@@ -10160,11 +10580,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-10-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_0351",
-      "fecha": "2013-01-01",
+      "fecha": "2013-09-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10202,11 +10624,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-09-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2118",
-      "fecha": "2013-01-01",
+      "fecha": "2013-09-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10233,11 +10657,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-09-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2115",
-      "fecha": "2013-01-01",
+      "fecha": "2013-07-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10256,11 +10682,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-07-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2114",
-      "fecha": "2013-01-01",
+      "fecha": "2013-07-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10315,11 +10743,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1762_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2013-07-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_0349",
-      "fecha": "2013-01-01",
+      "fecha": "2013-07-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10357,11 +10787,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_124_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2013-07-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2106",
-      "fecha": "2013-01-01",
+      "fecha": "2013-05-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10399,11 +10831,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1116_1993.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2013-05-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_0788",
-      "fecha": "2013-01-01",
+      "fecha": "2013-04-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10422,11 +10856,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-04-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2099",
-      "fecha": "2013-01-01",
+      "fecha": "2013-03-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10464,11 +10900,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-03-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_0779",
-      "fecha": "2013-01-01",
+      "fecha": "2013-02-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10487,11 +10925,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-02-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2013_2095",
-      "fecha": "2013-01-01",
+      "fecha": "2013-02-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10510,11 +10950,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2013-02-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0341",
-      "fecha": "2012-01-01",
+      "fecha": "2012-11-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10533,11 +10975,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-11-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2090",
-      "fecha": "2012-01-01",
+      "fecha": "2012-10-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10575,11 +11019,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-10-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0339",
-      "fecha": "2012-01-01",
+      "fecha": "2012-09-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10637,11 +11083,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-09-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2087",
-      "fecha": "2012-01-01",
+      "fecha": "2012-09-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10679,11 +11127,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1844_2007.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-09-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2085",
-      "fecha": "2012-01-01",
+      "fecha": "2012-09-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10721,11 +11171,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_851_1989.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-09-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2080",
-      "fecha": "2012-01-01",
+      "fecha": "2012-07-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10780,11 +11232,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-07-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2076",
-      "fecha": "2012-01-01",
+      "fecha": "2012-06-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10839,11 +11293,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-06-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2075",
-      "fecha": "2012-01-01",
+      "fecha": "2012-06-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10891,11 +11347,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-06-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2073",
-      "fecha": "2012-01-01",
+      "fecha": "2012-06-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -10950,11 +11408,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-06-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2072",
-      "fecha": "2012-01-01",
+      "fecha": "2012-05-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11002,11 +11462,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-05-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0335",
-      "fecha": "2012-01-01",
+      "fecha": "2012-05-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11115,11 +11577,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofo_14757_2010.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-05-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2067",
-      "fecha": "2012-01-01",
+      "fecha": "2012-03-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11157,11 +11621,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1799_2006.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-03-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0332",
-      "fecha": "2012-01-01",
+      "fecha": "2012-03-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11234,11 +11700,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_573_1985.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-03-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0721",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11257,11 +11725,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-02-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2064",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11299,11 +11769,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1127_1993.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-02-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2063",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11376,11 +11848,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1647_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-02-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0720",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11418,11 +11892,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-02-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_2057",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11460,11 +11936,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_673_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2012-02-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0714",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11483,11 +11961,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-02-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0713",
-      "fecha": "2012-01-01",
+      "fecha": "2012-02-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11506,11 +11986,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-02-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2012_0708",
-      "fecha": "2012-01-01",
+      "fecha": "2012-01-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11529,11 +12011,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2012-01-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2054",
-      "fecha": "2011-01-01",
+      "fecha": "2011-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11552,11 +12036,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0325",
-      "fecha": "2011-01-01",
+      "fecha": "2011-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11594,11 +12080,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_130_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2053",
-      "fecha": "2011-01-01",
+      "fecha": "2011-12-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11636,11 +12124,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-12-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2052",
-      "fecha": "2011-01-01",
+      "fecha": "2011-12-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11678,11 +12168,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-12-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2050",
-      "fecha": "2011-01-01",
+      "fecha": "2011-12-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11720,11 +12212,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-12-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0323",
-      "fecha": "2011-01-01",
+      "fecha": "2011-11-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11762,11 +12256,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1570_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-11-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0322",
-      "fecha": "2011-01-01",
+      "fecha": "2011-11-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11785,11 +12281,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-11-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2047",
-      "fecha": "2011-01-01",
+      "fecha": "2011-10-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11827,11 +12325,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1516_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-10-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0692",
-      "fecha": "2011-01-01",
+      "fecha": "2011-09-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11869,11 +12369,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-09-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0318",
-      "fecha": "2011-01-01",
+      "fecha": "2011-09-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11892,11 +12394,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-09-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2038",
-      "fecha": "2011-01-01",
+      "fecha": "2011-08-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -11944,11 +12448,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1818_2006.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-08-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0316",
-      "fecha": "2011-01-01",
+      "fecha": "2011-08-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12027,11 +12533,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1360_1998.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-08-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0314",
-      "fecha": "2011-01-01",
+      "fecha": "2011-07-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12069,11 +12577,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_117_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-07-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2033",
-      "fecha": "2011-01-01",
+      "fecha": "2011-06-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12121,11 +12631,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-06-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0311",
-      "fecha": "2011-01-01",
+      "fecha": "2011-06-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12191,11 +12703,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1626_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-06-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2032",
-      "fecha": "2011-01-01",
+      "fecha": "2011-06-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12233,11 +12747,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1740_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-06-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2025",
-      "fecha": "2011-01-01",
+      "fecha": "2011-05-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12256,11 +12772,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-05-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2023",
-      "fecha": "2011-01-01",
+      "fecha": "2011-05-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12279,11 +12797,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-05-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0308",
-      "fecha": "2011-01-01",
+      "fecha": "2011-05-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12370,11 +12890,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1406_1998.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-05-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2022",
-      "fecha": "2011-01-01",
+      "fecha": "2011-05-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12480,11 +13002,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1122_1993.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-05-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0306",
-      "fecha": "2011-01-01",
+      "fecha": "2011-04-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12702,11 +13226,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1510_1979.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-04-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0304",
-      "fecha": "2011-01-01",
+      "fecha": "2011-03-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12751,11 +13277,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_250_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-03-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0303",
-      "fecha": "2011-01-01",
+      "fecha": "2011-02-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12793,11 +13321,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_214_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-02-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0661",
-      "fecha": "2011-01-01",
+      "fecha": "2011-02-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12855,11 +13385,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_570_2010.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2011-02-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2007",
-      "fecha": "2011-01-01",
+      "fecha": "2011-02-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12897,11 +13429,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-02-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_0660",
-      "fecha": "2011-01-01",
+      "fecha": "2011-02-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12920,11 +13454,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-02-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2011_2005",
-      "fecha": "2011-01-01",
+      "fecha": "2011-02-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12951,11 +13487,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2011-02-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_2000",
-      "fecha": "2010-01-01",
+      "fecha": "2010-12-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -12974,11 +13512,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-12-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1999",
-      "fecha": "2010-01-01",
+      "fecha": "2010-12-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13016,11 +13556,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_923_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-12-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1998",
-      "fecha": "2010-01-01",
+      "fecha": "2010-12-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13058,11 +13600,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1756_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-12-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0301",
-      "fecha": "2010-01-01",
+      "fecha": "2010-12-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13081,11 +13625,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-12-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1995",
-      "fecha": "2010-01-01",
+      "fecha": "2010-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13123,11 +13669,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1795_2006.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0652",
-      "fecha": "2010-01-01",
+      "fecha": "2010-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13146,11 +13694,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1992",
-      "fecha": "2010-01-01",
+      "fecha": "2010-11-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13188,11 +13738,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_579_1985.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-11-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1986",
-      "fecha": "2010-01-01",
+      "fecha": "2010-09-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13211,11 +13763,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-09-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0628",
-      "fecha": "2010-01-01",
+      "fecha": "2010-08-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13234,11 +13788,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-08-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0622",
-      "fecha": "2010-01-01",
+      "fecha": "2010-07-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13257,11 +13813,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-07-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1979",
-      "fecha": "2010-01-01",
+      "fecha": "2010-06-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13309,11 +13867,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-06-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0605",
-      "fecha": "2010-01-01",
+      "fecha": "2010-05-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13332,11 +13892,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-05-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0602",
-      "fecha": "2010-01-01",
+      "fecha": "2010-05-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13374,11 +13936,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-05-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0286",
-      "fecha": "2010-01-01",
+      "fecha": "2010-04-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13416,11 +13980,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_190_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-04-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0591",
-      "fecha": "2010-01-01",
+      "fecha": "2010-03-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13439,11 +14005,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-03-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0571",
-      "fecha": "2010-01-01",
+      "fecha": "2010-02-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13470,11 +14038,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-02-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0570",
-      "fecha": "2010-01-01",
+      "fecha": "2010-02-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13493,11 +14063,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-02-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1970",
-      "fecha": "2010-01-01",
+      "fecha": "2010-02-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13535,11 +14107,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1907_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-02-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_0282",
-      "fecha": "2010-01-01",
+      "fecha": "2010-02-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13577,11 +14151,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2010-02-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1968",
-      "fecha": "2010-01-01",
+      "fecha": "2010-02-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13637,11 +14213,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_599_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-02-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2010_1959",
-      "fecha": "2010-01-01",
+      "fecha": "2010-01-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13679,11 +14257,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1685_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2010-01-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1957",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13721,11 +14301,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-12-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0270",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13763,11 +14345,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_211_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-12-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0269",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13822,11 +14406,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_585_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-12-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1956",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13864,11 +14450,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1526_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-12-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0267",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13887,11 +14475,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-12-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0560",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13910,11 +14500,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-12-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1954",
-      "fecha": "2009-01-01",
+      "fecha": "2009-12-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -13962,11 +14554,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1936_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-12-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0264",
-      "fecha": "2009-01-01",
+      "fecha": "2009-11-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14022,11 +14616,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_502_2009.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-11-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1951",
-      "fecha": "2009-01-01",
+      "fecha": "2009-10-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14081,11 +14677,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1883_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-10-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0550",
-      "fecha": "2009-01-01",
+      "fecha": "2009-10-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14104,11 +14702,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-10-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1949",
-      "fecha": "2009-01-01",
+      "fecha": "2009-10-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14146,11 +14746,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1235_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-10-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0546",
-      "fecha": "2009-01-01",
+      "fecha": "2009-10-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14169,11 +14771,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-10-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1947",
-      "fecha": "2009-01-01",
+      "fecha": "2009-10-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14211,11 +14815,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_935_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-10-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1945",
-      "fecha": "2009-01-01",
+      "fecha": "2009-09-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14234,11 +14840,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-09-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1944",
-      "fecha": "2009-01-01",
+      "fecha": "2009-09-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14286,11 +14894,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-09-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0530",
-      "fecha": "2009-01-01",
+      "fecha": "2009-08-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14328,11 +14938,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-08-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1931",
-      "fecha": "2009-01-01",
+      "fecha": "2009-07-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14351,11 +14963,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-07-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1928",
-      "fecha": "2009-01-01",
+      "fecha": "2009-06-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14403,11 +15017,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1882_2008.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-06-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0251",
-      "fecha": "2009-01-01",
+      "fecha": "2009-06-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14426,11 +15042,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-06-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1924",
-      "fecha": "2009-01-01",
+      "fecha": "2009-04-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14449,11 +15067,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-04-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1922",
-      "fecha": "2009-01-01",
+      "fecha": "2009-04-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14501,11 +15121,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-04-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1921",
-      "fecha": "2009-01-01",
+      "fecha": "2009-03-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14573,11 +15195,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1607_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-03-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0245",
-      "fecha": "2009-01-01",
+      "fecha": "2009-03-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14625,11 +15249,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-03-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1919",
-      "fecha": "2009-01-01",
+      "fecha": "2009-03-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14667,11 +15293,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-03-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0508",
-      "fecha": "2009-01-01",
+      "fecha": "2009-03-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14690,11 +15318,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-03-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_1917",
-      "fecha": "2009-01-01",
+      "fecha": "2009-02-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14732,11 +15362,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-02-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0502",
-      "fecha": "2009-01-01",
+      "fecha": "2009-02-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14755,11 +15387,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-02-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0501",
-      "fecha": "2009-01-01",
+      "fecha": "2009-02-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14778,11 +15412,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-02-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0243",
-      "fecha": "2009-01-01",
+      "fecha": "2009-02-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14830,11 +15466,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_967_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-02-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0241",
-      "fecha": "2009-01-01",
+      "fecha": "2009-01-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14893,11 +15531,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_92_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-01-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0240",
-      "fecha": "2009-01-01",
+      "fecha": "2009-01-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14956,11 +15596,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_89_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2009-01-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0498",
-      "fecha": "2009-01-01",
+      "fecha": "2009-01-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -14979,11 +15621,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-01-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2009_0235",
-      "fecha": "2009-01-01",
+      "fecha": "2009-01-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15002,11 +15646,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2009-01-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1907",
-      "fecha": "2008-01-01",
+      "fecha": "2008-12-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15054,11 +15700,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1769_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-12-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0493",
-      "fecha": "2008-01-01",
+      "fecha": "2008-12-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15077,11 +15725,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-12-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0491",
-      "fecha": "2008-01-01",
+      "fecha": "2008-12-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15100,11 +15750,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-12-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1905",
-      "fecha": "2008-01-01",
+      "fecha": "2008-12-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15123,11 +15775,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-12-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0234",
-      "fecha": "2008-01-01",
+      "fecha": "2008-11-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15167,11 +15821,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-11-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0233",
-      "fecha": "2008-01-01",
+      "fecha": "2008-11-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15219,11 +15875,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_180_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-11-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1901",
-      "fecha": "2008-01-01",
+      "fecha": "2008-10-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15242,11 +15900,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-10-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0232",
-      "fecha": "2008-01-01",
+      "fecha": "2008-10-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15284,11 +15944,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-10-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0475",
-      "fecha": "2008-01-01",
+      "fecha": "2008-10-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15307,11 +15969,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-10-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0230",
-      "fecha": "2008-01-01",
+      "fecha": "2008-10-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15359,11 +16023,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-10-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1898",
-      "fecha": "2008-01-01",
+      "fecha": "2008-10-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15422,11 +16088,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1589_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-10-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0229",
-      "fecha": "2008-01-01",
+      "fecha": "2008-09-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15474,11 +16142,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-09-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1896",
-      "fecha": "2008-01-01",
+      "fecha": "2008-09-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15516,11 +16186,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1671_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-09-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1893",
-      "fecha": "2008-01-01",
+      "fecha": "2008-09-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15547,11 +16219,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1691_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-09-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0468",
-      "fecha": "2008-01-01",
+      "fecha": "2008-08-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15589,11 +16263,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-08-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0221",
-      "fecha": "2008-01-01",
+      "fecha": "2008-08-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15612,11 +16288,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-08-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0219",
-      "fecha": "2008-01-01",
+      "fecha": "2008-08-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15635,11 +16313,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-08-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0218",
-      "fecha": "2008-01-01",
+      "fecha": "2008-07-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15697,11 +16377,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_162_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-07-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1883",
-      "fecha": "2008-01-01",
+      "fecha": "2008-07-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15739,11 +16421,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1755_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-07-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0216",
-      "fecha": "2008-01-01",
+      "fecha": "2008-06-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15781,11 +16465,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_119_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-06-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1872",
-      "fecha": "2008-01-01",
+      "fecha": "2008-03-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15833,11 +16519,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-03-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0440",
-      "fecha": "2008-01-01",
+      "fecha": "2008-02-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15885,11 +16573,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-02-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1869",
-      "fecha": "2008-01-01",
+      "fecha": "2008-02-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15908,11 +16598,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-02-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_1862",
-      "fecha": "2008-01-01",
+      "fecha": "2008-01-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15950,11 +16642,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_619_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2008-01-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2008_0211",
-      "fecha": "2008-01-01",
+      "fecha": "2008-01-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15973,11 +16667,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2008-01-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_1857",
-      "fecha": "2007-01-01",
+      "fecha": "2007-12-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -15996,11 +16692,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2007-12-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_0209",
-      "fecha": "2007-01-01",
+      "fecha": "2007-12-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16065,11 +16763,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_188_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2007-12-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_0417",
-      "fecha": "2007-01-01",
+      "fecha": "2007-11-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16088,11 +16788,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2007-11-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_0416",
-      "fecha": "2007-01-01",
+      "fecha": "2007-10-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16111,11 +16813,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2007-10-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_1850",
-      "fecha": "2007-01-01",
+      "fecha": "2007-09-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16153,11 +16857,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1548_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2007-09-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_0206",
-      "fecha": "2007-01-01",
+      "fecha": "2007-07-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16195,11 +16901,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_189_2005.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2007-07-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_1835",
-      "fecha": "2007-01-01",
+      "fecha": "2007-04-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16218,11 +16926,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2007-04-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_1829",
-      "fecha": "2007-01-01",
+      "fecha": "2007-01-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16260,11 +16970,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2007-01-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_1828",
-      "fecha": "2007-01-01",
+      "fecha": "2007-01-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16312,11 +17024,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1008_1991.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2007-01-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2007_1826",
-      "fecha": "2007-01-01",
+      "fecha": "2007-01-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16335,11 +17049,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2007-01-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_0204",
-      "fecha": "2006-01-01",
+      "fecha": "2006-12-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16398,11 +17114,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_161_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-12-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1816",
-      "fecha": "2006-01-01",
+      "fecha": "2006-10-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16471,11 +17189,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_5845_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-10-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1815",
-      "fecha": "2006-01-01",
+      "fecha": "2006-10-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16523,11 +17243,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1508_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-10-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1813",
-      "fecha": "2006-01-01",
+      "fecha": "2006-09-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16546,11 +17268,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2006-09-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1809",
-      "fecha": "2006-01-01",
+      "fecha": "2006-08-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16577,11 +17301,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1680_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-08-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_0200",
-      "fecha": "2006-01-01",
+      "fecha": "2006-08-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16636,11 +17362,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_64_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-08-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1806",
-      "fecha": "2006-01-01",
+      "fecha": "2006-06-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16659,11 +17387,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2006-06-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_0348",
-      "fecha": "2006-01-01",
+      "fecha": "2006-06-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16682,11 +17412,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2006-06-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_0197",
-      "fecha": "2006-01-01",
+      "fecha": "2006-05-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16705,11 +17437,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2006-05-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1804",
-      "fecha": "2006-01-01",
+      "fecha": "2006-05-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16747,11 +17481,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1172_1994.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-05-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_1797",
-      "fecha": "2006-01-01",
+      "fecha": "2006-03-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16789,11 +17525,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1347_1997.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2006-03-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2006_0192",
-      "fecha": "2006-01-01",
+      "fecha": "2006-01-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16831,11 +17569,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2006-01-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0324",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16873,11 +17613,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1786",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16915,11 +17657,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1704_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-12-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1785",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16957,11 +17701,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1703_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-12-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1784",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -16988,11 +17734,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1702_2004.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-12-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0190",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17030,11 +17778,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_59_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-12-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1782",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17053,11 +17803,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-12-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0189",
-      "fecha": "2005-01-01",
+      "fecha": "2005-12-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17076,11 +17828,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-12-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0188",
-      "fecha": "2005-01-01",
+      "fecha": "2005-10-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17099,11 +17853,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-10-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0187",
-      "fecha": "2005-01-01",
+      "fecha": "2005-10-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17141,11 +17897,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_109_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-10-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0312",
-      "fecha": "2005-01-01",
+      "fecha": "2005-09-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17183,11 +17941,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-09-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1772",
-      "fecha": "2005-01-01",
+      "fecha": "2005-09-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17243,11 +18003,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1446_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-09-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0186",
-      "fecha": "2005-01-01",
+      "fecha": "2005-09-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17266,11 +18028,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-09-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1770",
-      "fecha": "2005-01-01",
+      "fecha": "2005-08-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17289,11 +18053,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-08-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1769",
-      "fecha": "2005-01-01",
+      "fecha": "2005-08-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17331,11 +18097,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1669_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-08-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1765",
-      "fecha": "2005-01-01",
+      "fecha": "2005-07-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17383,11 +18151,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1173_1994.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-07-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1763",
-      "fecha": "2005-01-01",
+      "fecha": "2005-07-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17406,11 +18176,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-07-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1759",
-      "fecha": "2005-01-01",
+      "fecha": "2005-07-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17429,11 +18201,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-07-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0299",
-      "fecha": "2005-01-01",
+      "fecha": "2005-06-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17471,11 +18245,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-06-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1754",
-      "fecha": "2005-01-01",
+      "fecha": "2005-06-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17513,11 +18289,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1608_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-06-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0182",
-      "fecha": "2005-01-01",
+      "fecha": "2005-06-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17536,11 +18314,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-06-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0181",
-      "fecha": "2005-01-01",
+      "fecha": "2005-06-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17559,11 +18339,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-06-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1751",
-      "fecha": "2005-01-01",
+      "fecha": "2005-06-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17582,11 +18364,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-06-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0285",
-      "fecha": "2005-01-01",
+      "fecha": "2005-03-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17624,11 +18408,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-03-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1741",
-      "fecha": "2005-01-01",
+      "fecha": "2005-01-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17647,11 +18433,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-01-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0275",
-      "fecha": "2005-01-01",
+      "fecha": "2005-01-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17670,11 +18458,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-01-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1740",
-      "fecha": "2005-01-01",
+      "fecha": "2005-01-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17693,11 +18483,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-01-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_1738",
-      "fecha": "2005-01-01",
+      "fecha": "2005-01-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17735,11 +18527,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_782_1988.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2005-01-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2005_0272",
-      "fecha": "2005-01-01",
+      "fecha": "2005-01-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17758,11 +18552,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2005-01-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0269",
-      "fecha": "2004-01-01",
+      "fecha": "2004-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17800,11 +18596,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0262",
-      "fecha": "2004-01-01",
+      "fecha": "2004-11-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17823,11 +18621,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-11-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0257",
-      "fecha": "2004-01-01",
+      "fecha": "2004-10-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17846,11 +18646,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-10-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0254",
-      "fecha": "2004-01-01",
+      "fecha": "2004-10-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17888,11 +18690,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-10-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0239",
-      "fecha": "2004-01-01",
+      "fecha": "2004-07-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17930,11 +18734,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-07-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0164",
-      "fecha": "2004-01-01",
+      "fecha": "2004-06-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -17982,11 +18788,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_102_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2004-06-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0163",
-      "fecha": "2004-01-01",
+      "fecha": "2004-06-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18187,11 +18995,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1502_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2004-06-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_1720",
-      "fecha": "2004-01-01",
+      "fecha": "2004-06-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18210,11 +19020,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-06-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0162",
-      "fecha": "2004-01-01",
+      "fecha": "2004-04-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18233,11 +19045,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-04-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_0227",
-      "fecha": "2004-01-01",
+      "fecha": "2004-03-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18275,11 +19089,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-03-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_1711",
-      "fecha": "2004-01-01",
+      "fecha": "2004-03-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18317,11 +19133,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_331_1983.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2004-03-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_1704",
-      "fecha": "2004-01-01",
+      "fecha": "2004-01-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18340,11 +19158,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-01-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_1703",
-      "fecha": "2004-01-01",
+      "fecha": "2004-01-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18363,11 +19183,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-01-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2004_1702",
-      "fecha": "2004-01-01",
+      "fecha": "2004-01-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18386,11 +19208,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2004-01-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1696",
-      "fecha": "2003-01-01",
+      "fecha": "2003-12-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18428,11 +19252,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1632_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-12-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1694",
-      "fecha": "2003-01-01",
+      "fecha": "2003-12-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18472,11 +19298,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-12-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1693",
-      "fecha": "2003-01-01",
+      "fecha": "2003-12-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18495,11 +19323,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-12-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1692",
-      "fecha": "2003-01-01",
+      "fecha": "2003-12-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18518,11 +19348,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-12-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0213",
-      "fecha": "2003-01-01",
+      "fecha": "2003-12-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18560,11 +19392,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-12-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1691",
-      "fecha": "2003-01-01",
+      "fecha": "2003-12-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18629,11 +19463,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1590_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-12-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1685",
-      "fecha": "2003-01-01",
+      "fecha": "2003-10-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18671,11 +19507,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1658_2003.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-10-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1681",
-      "fecha": "2003-01-01",
+      "fecha": "2003-09-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18694,11 +19532,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-09-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1680",
-      "fecha": "2003-01-01",
+      "fecha": "2003-09-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18725,11 +19565,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1484_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-09-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0197",
-      "fecha": "2003-01-01",
+      "fecha": "2003-09-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18767,11 +19609,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-09-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1679",
-      "fecha": "2003-01-01",
+      "fecha": "2003-09-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18809,11 +19653,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1537_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-09-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1674",
-      "fecha": "2003-01-01",
+      "fecha": "2003-07-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18851,11 +19697,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1451_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-07-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0181",
-      "fecha": "2003-01-01",
+      "fecha": "2003-06-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18893,11 +19741,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-06-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1669",
-      "fecha": "2003-01-01",
+      "fecha": "2003-06-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18935,11 +19785,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1550_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-06-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0169",
-      "fecha": "2003-01-01",
+      "fecha": "2003-04-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18958,11 +19810,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-04-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1658",
-      "fecha": "2003-01-01",
+      "fecha": "2003-03-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -18981,11 +19835,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-03-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0163",
-      "fecha": "2003-01-01",
+      "fecha": "2003-03-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19004,11 +19860,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-03-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0162",
-      "fecha": "2003-01-01",
+      "fecha": "2003-03-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19046,11 +19904,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-03-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0161",
-      "fecha": "2003-01-01",
+      "fecha": "2003-03-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19069,11 +19929,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-03-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0160",
-      "fecha": "2003-01-01",
+      "fecha": "2003-03-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19092,11 +19954,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-03-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_0150",
-      "fecha": "2003-01-01",
+      "fecha": "2003-01-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19115,11 +19979,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2003-01-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1647",
-      "fecha": "2003-01-01",
+      "fecha": "2003-01-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19157,11 +20023,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1334_1997.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-01-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2003_1643",
-      "fecha": "2003-01-01",
+      "fecha": "2003-01-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19217,11 +20085,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1605_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2003-01-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0141",
-      "fecha": "2002-01-01",
+      "fecha": "2002-12-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19259,11 +20129,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-12-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0152",
-      "fecha": "2002-01-01",
+      "fecha": "2002-12-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19318,11 +20190,13 @@
             "url": "https://www.cmfchile.cl/normativa/ncg_151_2002.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-12-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1637",
-      "fecha": "2002-01-01",
+      "fecha": "2002-12-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19360,11 +20234,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-12-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1633",
-      "fecha": "2002-01-01",
+      "fecha": "2002-12-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19420,11 +20296,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1219_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-12-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1632",
-      "fecha": "2002-01-01",
+      "fecha": "2002-11-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19496,11 +20374,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_3407_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-11-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0148",
-      "fecha": "2002-01-01",
+      "fecha": "2002-10-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19519,11 +20399,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-10-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0124",
-      "fecha": "2002-01-01",
+      "fecha": "2002-09-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19561,11 +20443,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-09-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1621",
-      "fecha": "2002-01-01",
+      "fecha": "2002-09-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19603,11 +20487,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_2346_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-09-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0119",
-      "fecha": "2002-01-01",
+      "fecha": "2002-08-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19626,11 +20512,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-08-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0111",
-      "fecha": "2002-01-01",
+      "fecha": "2002-07-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19649,11 +20537,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-07-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1608",
-      "fecha": "2002-01-01",
+      "fecha": "2002-07-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19680,11 +20570,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1307_1996.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-07-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1607",
-      "fecha": "2002-01-01",
+      "fecha": "2002-06-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19711,11 +20603,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1318_1997.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-06-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0144",
-      "fecha": "2002-01-01",
+      "fecha": "2002-06-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19742,11 +20636,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-06-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0107",
-      "fecha": "2002-01-01",
+      "fecha": "2002-06-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19773,11 +20669,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-06-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1605",
-      "fecha": "2002-01-01",
+      "fecha": "2002-06-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19812,11 +20710,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1573_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-06-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1602",
-      "fecha": "2002-01-01",
+      "fecha": "2002-05-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19835,11 +20735,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-05-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0139",
-      "fecha": "2002-01-01",
+      "fecha": "2002-04-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19866,11 +20768,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_756_1987.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-04-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0098",
-      "fecha": "2002-01-01",
+      "fecha": "2002-04-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19897,11 +20801,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-04-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0136",
-      "fecha": "2002-01-01",
+      "fecha": "2002-04-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19935,11 +20841,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1339_1997.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-04-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0135",
-      "fecha": "2002-01-01",
+      "fecha": "2002-04-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19958,11 +20866,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-04-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0092",
-      "fecha": "2002-01-01",
+      "fecha": "2002-03-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -19989,11 +20899,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-03-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0132",
-      "fecha": "2002-01-01",
+      "fecha": "2002-03-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20012,11 +20924,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-03-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1590",
-      "fecha": "2002-01-01",
+      "fecha": "2002-02-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20035,11 +20949,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-02-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1589",
-      "fecha": "2002-01-01",
+      "fecha": "2002-02-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20058,11 +20974,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-02-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1587",
-      "fecha": "2002-01-01",
+      "fecha": "2002-01-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20081,11 +20999,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-01-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_0130",
-      "fecha": "2002-01-01",
+      "fecha": "2002-01-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20104,11 +21024,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2002-01-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1583",
-      "fecha": "2002-01-01",
+      "fecha": "2002-01-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20142,11 +21064,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1281_1996.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-01-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2002_1581",
-      "fecha": "2002-01-01",
+      "fecha": "2002-01-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20180,11 +21104,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_716_1987.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2002-01-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0075",
-      "fecha": "2001-01-01",
+      "fecha": "2001-12-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20211,11 +21137,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-12-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1575",
-      "fecha": "2001-01-01",
+      "fecha": "2001-12-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20242,11 +21170,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-12-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1573",
-      "fecha": "2001-01-01",
+      "fecha": "2001-11-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20281,11 +21211,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1547_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-11-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1570",
-      "fecha": "2001-01-01",
+      "fecha": "2001-11-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20312,11 +21244,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_743_1987.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-11-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0123",
-      "fecha": "2001-01-01",
+      "fecha": "2001-11-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20335,11 +21269,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-11-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1562",
-      "fecha": "2001-01-01",
+      "fecha": "2001-10-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20358,11 +21294,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-10-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0064",
-      "fecha": "2001-01-01",
+      "fecha": "2001-09-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20389,11 +21327,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-09-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1550",
-      "fecha": "2001-01-01",
+      "fecha": "2001-07-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20420,11 +21360,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1532_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-07-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1548",
-      "fecha": "2001-01-01",
+      "fecha": "2001-07-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20451,11 +21393,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1193_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-07-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1547",
-      "fecha": "2001-01-01",
+      "fecha": "2001-06-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20490,11 +21434,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1527_2001.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-06-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0043",
-      "fecha": "2001-01-01",
+      "fecha": "2001-05-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20513,11 +21459,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-05-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0118",
-      "fecha": "2001-01-01",
+      "fecha": "2001-05-15",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20536,11 +21484,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-05-15",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0115",
-      "fecha": "2001-01-01",
+      "fecha": "2001-04-11",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20567,11 +21517,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-04-11",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1537",
-      "fecha": "2001-01-01",
+      "fecha": "2001-03-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20598,11 +21550,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1475_2000.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-03-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1534",
-      "fecha": "2001-01-01",
+      "fecha": "2001-03-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20658,11 +21612,13 @@
             "url": "https://www.cmfchile.cl/normativa/ofc_178_1998.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-03-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1530",
-      "fecha": "2001-01-01",
+      "fecha": "2001-03-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20681,11 +21637,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2001-03-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1520",
-      "fecha": "2001-01-01",
+      "fecha": "2001-01-25",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20733,11 +21691,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_915_1989.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-01-25",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1513",
-      "fecha": "2001-01-01",
+      "fecha": "2001-01-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20772,11 +21732,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1209_1995.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-01-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_0104",
-      "fecha": "2001-01-01",
+      "fecha": "2001-01-05",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20803,11 +21765,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_608_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-01-05",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2001_1512",
-      "fecha": "2001-01-01",
+      "fecha": "2001-01-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20855,11 +21819,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1285_1996.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2001-01-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_0102",
-      "fecha": "2000-01-01",
+      "fecha": "2000-12-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20878,11 +21844,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-12-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1508",
-      "fecha": "2000-01-01",
+      "fecha": "2000-11-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20909,11 +21877,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_963_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2000-11-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_7919",
-      "fecha": "2000-01-01",
+      "fecha": "2000-11-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20932,11 +21902,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-11-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_7197",
-      "fecha": "2000-01-01",
+      "fecha": "2000-11-02",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20955,11 +21927,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-11-02",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1504",
-      "fecha": "2000-01-01",
+      "fecha": "2000-10-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -20986,11 +21960,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1352_1997.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2000-10-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1501",
-      "fecha": "2000-01-01",
+      "fecha": "2000-10-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21059,11 +22035,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_656_1986.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2000-10-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_6589",
-      "fecha": "2000-01-01",
+      "fecha": "2000-10-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21082,11 +22060,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-10-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1494",
-      "fecha": "2000-01-01",
+      "fecha": "2000-08-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21113,11 +22093,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_688_1987.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2000-08-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_4981",
-      "fecha": "2000-01-01",
+      "fecha": "2000-08-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21136,11 +22118,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-08-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_4618",
-      "fecha": "2000-01-01",
+      "fecha": "2000-07-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21159,11 +22143,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-07-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1487",
-      "fecha": "2000-01-01",
+      "fecha": "2000-07-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21182,11 +22168,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-07-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1484",
-      "fecha": "2000-01-01",
+      "fecha": "2000-06-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21205,11 +22193,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-06-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_3636",
-      "fecha": "2000-01-01",
+      "fecha": "2000-06-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21228,11 +22218,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-06-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1478",
-      "fecha": "2000-01-01",
+      "fecha": "2000-04-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21251,11 +22243,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-04-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1474",
-      "fecha": "2000-01-01",
+      "fecha": "2000-03-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21274,11 +22268,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-03-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_1466",
-      "fecha": "2000-01-01",
+      "fecha": "2000-01-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21305,11 +22301,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1450_1999.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2000-01-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "2000_0091",
-      "fecha": "2000-01-01",
+      "fecha": "2000-01-21",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21328,11 +22326,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2000-01-21",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_1457",
-      "fecha": "1999-01-01",
+      "fecha": "1999-11-09",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21366,11 +22366,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_216_1982.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1999-11-09",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_1450",
-      "fecha": "1999-01-01",
+      "fecha": "1999-10-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21397,11 +22399,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1383_1998.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1999-10-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_1439",
-      "fecha": "1999-01-01",
+      "fecha": "1999-06-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21449,11 +22453,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_933_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1999-06-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_0083",
-      "fecha": "1999-01-01",
+      "fecha": "1999-05-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21472,11 +22478,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1999-05-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_2346",
-      "fecha": "1999-01-01",
+      "fecha": "1999-04-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21495,11 +22503,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1999-04-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_1423",
-      "fecha": "1999-01-01",
+      "fecha": "1999-01-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21526,11 +22536,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1999-01-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1999_0066",
-      "fecha": "1999-01-01",
+      "fecha": "1999-01-07",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21549,7 +22561,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1999-01-07",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_4575",
@@ -21575,11 +22589,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-09-01",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "1998_4574",
-      "fecha": "1998-01-01",
+      "fecha": "1998-09-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21598,11 +22614,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-09-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_4573",
-      "fecha": "1998-01-01",
+      "fecha": "1998-09-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21621,11 +22639,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-09-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_4572",
-      "fecha": "1998-01-01",
+      "fecha": "1998-09-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21644,11 +22664,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-09-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_1404",
-      "fecha": "1998-01-01",
+      "fecha": "1998-08-26",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21667,11 +22689,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-08-26",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_1390",
-      "fecha": "1998-01-01",
+      "fecha": "1998-05-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21690,11 +22714,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-05-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_1389",
-      "fecha": "1998-01-01",
+      "fecha": "1998-05-20",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21749,11 +22775,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_786_1988.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1998-05-20",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_1383",
-      "fecha": "1998-01-01",
+      "fecha": "1998-04-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21780,11 +22808,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_986_1991.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1998-04-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_1382",
-      "fecha": "1998-01-01",
+      "fecha": "1998-04-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21803,11 +22833,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1998-04-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1998_1375",
-      "fecha": "1998-01-01",
+      "fecha": "1998-02-12",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21834,11 +22866,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_951_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1998-02-12",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1997_1352",
-      "fecha": "1997-01-01",
+      "fecha": "1997-10-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21865,11 +22899,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1294_1996.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1997-10-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1996_2628",
-      "fecha": "1996-01-01",
+      "fecha": "1996-06-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21888,11 +22924,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1996-06-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1996_1266",
-      "fecha": "1996-01-01",
+      "fecha": "1996-02-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21919,11 +22957,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1146_1994.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1996-02-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1995_1241",
-      "fecha": "1995-01-01",
+      "fecha": "1995-10-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21942,11 +22982,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1995-10-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1995_1222",
-      "fecha": "1995-01-01",
+      "fecha": "1995-05-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21973,11 +23015,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_817_1988.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1995-05-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1995_1221",
-      "fecha": "1995-01-01",
+      "fecha": "1995-05-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -21996,11 +23040,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1995-05-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1995_0839",
-      "fecha": "1995-01-01",
+      "fecha": "1995-03-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22019,11 +23065,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1995-03-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1994_1177",
-      "fecha": "1994-01-01",
+      "fecha": "1994-09-16",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22042,11 +23090,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1994-09-16",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1994_1174",
-      "fecha": "1994-01-01",
+      "fecha": "1994-09-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22065,11 +23115,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1994-09-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1994_1172",
-      "fecha": "1994-01-01",
+      "fecha": "1994-09-08",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22088,11 +23140,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1994-09-08",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1994_1146",
-      "fecha": "1994-01-01",
+      "fecha": "1994-01-17",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22119,11 +23173,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_292_1983.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1994-01-17",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1993_1118",
-      "fecha": "1993-01-01",
+      "fecha": "1993-04-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22150,11 +23206,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1993-04-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1992_0042",
-      "fecha": "1992-01-01",
+      "fecha": "1992-07-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22173,11 +23231,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1992-07-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1992_1068",
-      "fecha": "1992-01-01",
+      "fecha": "1992-04-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22196,11 +23256,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1992-04-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1992_1058",
-      "fecha": "1992-01-01",
+      "fecha": "1992-02-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22227,11 +23289,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1992-02-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1991_1042",
-      "fecha": "1991-01-01",
+      "fecha": "1991-10-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22265,11 +23329,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_905_1989.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1991-10-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1991_1041",
-      "fecha": "1991-01-01",
+      "fecha": "1991-10-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22296,11 +23362,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_873_1989.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1991-10-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1991_1040",
-      "fecha": "1991-01-01",
+      "fecha": "1991-10-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22335,11 +23403,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_976_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1991-10-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1991_0986",
-      "fecha": "1991-01-01",
+      "fecha": "1991-01-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22366,11 +23436,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_956_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1991-01-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1990_0967",
-      "fecha": "1990-01-01",
+      "fecha": "1990-09-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22389,11 +23461,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1990-09-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1990_0956",
-      "fecha": "1990-01-01",
+      "fecha": "1990-07-18",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22420,11 +23494,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_927_1990.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1990-07-18",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1990_0951",
-      "fecha": "1990-01-01",
+      "fecha": "1990-06-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22443,11 +23519,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1990-06-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1990_0918",
-      "fecha": "1990-01-01",
+      "fecha": "1990-01-04",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22488,11 +23566,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_770_1988.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1990-01-04",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1989_0905",
-      "fecha": "1989-01-01",
+      "fecha": "1989-11-27",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22511,11 +23591,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1989-11-27",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1989_0851",
-      "fecha": "1989-01-01",
+      "fecha": "1989-02-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22534,11 +23616,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1989-02-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1989_0845",
-      "fecha": "1989-01-01",
+      "fecha": "1989-01-10",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22557,11 +23641,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1989-01-10",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1988_0819",
-      "fecha": "1988-01-01",
+      "fecha": "1988-08-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22580,11 +23666,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1988-08-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1988_0817",
-      "fecha": "1988-01-01",
+      "fecha": "1988-08-31",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22603,11 +23691,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1988-08-31",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1988_0778",
-      "fecha": "1988-01-01",
+      "fecha": "1988-02-03",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22634,11 +23724,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_528_1985.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1988-02-03",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1987_0727",
-      "fecha": "1987-01-01",
+      "fecha": "1987-08-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22657,11 +23749,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1987-08-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1986_0660",
-      "fecha": "1986-01-01",
+      "fecha": "1986-10-22",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22680,11 +23774,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1986-10-22",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1986_0614",
-      "fecha": "1986-01-01",
+      "fecha": "1986-04-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22703,11 +23799,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1986-04-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1986_0585",
-      "fecha": "1986-01-01",
+      "fecha": "1986-01-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22734,11 +23832,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_240_1982.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1986-01-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1985_0562",
-      "fecha": "1985-01-01",
+      "fecha": "1985-12-06",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22757,11 +23857,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1985-12-06",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1985_0529",
-      "fecha": "1985-01-01",
+      "fecha": "1985-07-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22795,11 +23897,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_228_1982.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1985-07-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1985_0528",
-      "fecha": "1985-01-01",
+      "fecha": "1985-07-19",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22826,11 +23930,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_425_1984.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1985-07-19",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1985_0514",
-      "fecha": "1985-01-01",
+      "fecha": "1985-06-13",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22857,11 +23963,13 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1985-06-13",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1984_0425",
-      "fecha": "1984-01-01",
+      "fecha": "1984-07-24",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22880,11 +23988,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1984-07-24",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1983_0292",
-      "fecha": "1983-01-01",
+      "fecha": "1983-02-01",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22903,11 +24013,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1983-02-01",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1982_0240",
-      "fecha": "1982-01-01",
+      "fecha": "1982-09-30",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22926,11 +24038,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1982-09-30",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1982_0239",
-      "fecha": "1982-01-01",
+      "fecha": "1982-09-29",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -22978,11 +24092,13 @@
             "url": "https://www.cmfchile.cl/normativa/cir_62_1981.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "1982-09-29",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1982_0183",
-      "fecha": "1982-01-01",
+      "fecha": "1982-06-23",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -23001,11 +24117,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1982-06-23",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1981_0109",
-      "fecha": "1981-01-01",
+      "fecha": "1981-12-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -23024,11 +24142,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1981-12-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1981_0101",
-      "fecha": "1981-01-01",
+      "fecha": "1981-11-11",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -23047,11 +24167,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1981-11-11",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1981_0086",
-      "fecha": "1981-01-01",
+      "fecha": "1981-09-28",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -23070,11 +24192,13 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1981-09-28",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1981_0031",
-      "fecha": "1981-01-01",
+      "fecha": "1981-05-14",
       "resolucion": null,
       "sesion": null,
       "ncg": null,
@@ -23093,7 +24217,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1981-05-14",
+      "fecha_fuente": "listado"
     },
     {
       "clave": "1979_3251",
@@ -23119,7 +24245,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "1979-10-16",
+      "fecha_fuente": "pdf"
     }
   ]
 }

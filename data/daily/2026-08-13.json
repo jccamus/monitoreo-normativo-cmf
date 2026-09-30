@@ -36,7 +36,9 @@
       "relaciones_cmf": {
         "modifica_a": [],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-08-11",
+      "fecha_fuente": "pdf"
     }
   ]
 }

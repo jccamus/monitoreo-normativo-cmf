@@ -409,6 +409,7 @@ def _extraer_celda(celdas: list) -> dict | None:
 
         return {
             "fecha": fecha,
+            "fecha_listado": _fecha_de_la_fila(textos, fecha),
             "numero": numero or _extraer_numero_de_texto(texto_fila),
             "descripcion": descripcion,
             "url_documento": link,
@@ -443,6 +444,35 @@ def _fecha_y_numero_desde_url(url: str) -> tuple[str | None, str | None]:
     if m2:
         return f"{m2.group(1)}-01-01", None
     return None, None
+
+
+def _fecha_de_la_fila(textos: list[str], placeholder: str | None) -> str | None:
+    """El día completo de la columna «Fecha», en ISO, como respaldo del PDF.
+
+    `fecha` sigue siendo el placeholder `YYYY-01-01`, porque de ahí sale la
+    clave (`make_key`) y cambiarlo invalidaría el historial. Esto viaja aparte
+    y `store.ensamblar_entrada` lo usa cuando el encabezado del PDF no se deja
+    leer. Medido el 30-09-2026 sobre las 245 entradas con fecha del PDF: la
+    columna coincide en 235, difiere una semana o menos en 7 y más en 3 (de
+    1979, 1998 y 2020). Contra el 1 de enero de las 433 entradas que no tenían
+    otra cosa, es un dato: la actividad reciente deja de amontonarse al
+    comienzo del año.
+
+    Posicional, igual que `_fecha_y_numero_desde_columnas`, y por eso con una
+    guarda: si el año no coincide con el del placeholder —que en la mayoría
+    sale de la URL, otra fuente—, la columna no es la que se cree y no se usa.
+    """
+    if len(textos) < 3:
+        return None
+    m = re.fullmatch(r"(\d{2})/(\d{2})/(\d{4})", textos[2].strip())
+    if not m:
+        return None
+    iso = f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+    if placeholder and placeholder[:4] != iso[:4]:
+        logger.warning("Fecha de la fila %s no calza con el año %s: se descarta",
+                       iso, placeholder[:4])
+        return None
+    return iso
 
 
 def _fecha_y_numero_desde_columnas(textos: list[str]) -> tuple[str | None, str | None]:

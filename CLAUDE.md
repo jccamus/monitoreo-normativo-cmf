@@ -82,7 +82,7 @@ python scraper/reparse.py --recalcular --todas              # sin corte de año:
 python scraper/revisar.py                    # refresca data/revisiones.csv (revisión manual)
 python scraper/revisar.py --estado           # sólo informa, no escribe
 python scraper/relaciones.py --dry-run       # relaciones del listado: qué entradas cambiarían
-python scraper/relaciones.py                 # completa `relaciones_cmf` sin bajar PDF (~1 min)
+python scraper/relaciones.py                 # completa `relaciones_cmf` y `fecha_listado` sin bajar PDF (~1 min)
 ```
 
 Python 3.11 en CI. El código usa sintaxis de tipos `list[dict]` / `str | None`, así que necesita ≥3.10.
@@ -289,30 +289,44 @@ funcionar".
 
 ### 1. La fecha placeholder — el más caro
 
-`fetch` sólo toma el año —del nombre del PDF o, si no está, de la columna
-«Fecha» de la fila— y lo rellena como `YYYY-01-01`. **La fecha real sale del
-encabezado del PDF** (`parser._fecha_encabezado`), y `store.ensamblar_entrada`
-la prefiere.
+`fecha` tiene tres fuentes, y `store.ensamblar_entrada` las prueba en orden y
+deja en **`fecha_fuente`** cuál ganó:
 
-Este párrafo decía que la CMF lista cada norma con su fecha de publicación
-*original*, y que por eso sólo se podía deducir el año. Contrastado el
-16-09-2026, no se sostiene: la columna «Fecha» coincide con la fecha del
-encabezado del PDF en 234 de 244 entradas comparables, y en otras 7 difiere en
-una semana o menos. Usarla como respaldo del día —en vez del placeholder— es
-una decisión pendiente, no un hecho del sistema.
+| `fecha_fuente` | de dónde | cuándo |
+|---|---|---|
+| `pdf` | encabezado o resolución del PDF (`parser._fecha_encabezado`) | siempre que se deje leer |
+| `listado` | columna «Fecha» de la fila (`fetch._fecha_de_la_fila`, guardada en `fecha_listado`) | PDF sin fecha legible |
+| `placeholder` | `YYYY-01-01`, el año de la URL o de la fila | ni PDF ni listado |
 
-Cuando esa extracción falla, la entrada queda fechada el 1 de enero: el cambio
-aparece al comienzo del año en el dashboard y la actividad reciente se vuelve
-invisible. **Se ve exactamente igual que "no hay novedades".** Si alguien reporta
-que el dashboard dejó de actualizarse, descarta esto antes de sospechar del
-scraping.
+La columna del listado entró como respaldo el 30-09-2026. Medido ese día sobre
+las 245 entradas con fecha del PDF: coincide en 235, difiere una semana o menos
+en 7 y más en 3 (de 1979, 1998 y 2020). Las 434 entradas que estaban en el 1 de
+enero —o sin fecha— pasaron a la del listado con `relaciones.py`, sin bajar
+PDF; hoy no queda ninguna en `placeholder`. Este párrafo decía antes que el
+listado traía la fecha de publicación *original*; no era así.
 
-La regla del extractor: ante la duda devuelve `None` y cae al placeholder, que es
-visiblemente sospechoso. Una fecha plausible pero errónea no lo es. El detalle
-del anclaje está en el docstring de `_fecha_encabezado`.
+**`fecha` no es la clave.** El placeholder sigue viajando en el `raw` porque de
+él sale `make_key`, y cambiarlo invalidaría el historial. `fecha_listado` va
+aparte y sólo se acepta si su año coincide con el del placeholder: es posicional,
+y si la CMF reordena la tabla el año lo delata.
 
-Límite conocido: algunos PDF son sólo imagen (`ofc_1402_2026`, `ofc_1377_2025`).
-No hay OCR en el proyecto; esas entradas se quedan con el placeholder.
+El modo de falla sigue existiendo, un escalón más abajo: si falla el PDF **y**
+el listado, la entrada queda fechada el 1 de enero, el cambio aparece al
+comienzo del año y la actividad reciente se vuelve invisible. **Se ve exactamente
+igual que "no hay novedades".** Si alguien reporta que el dashboard dejó de
+actualizarse, descarta esto antes de sospechar del scraping.
+
+La regla del extractor del PDF no cambia: ante la duda devuelve `None` y cae al
+respaldo. Una fecha plausible pero errónea sacada del PDF es peor que el hueco.
+El detalle del anclaje está en el docstring de `_fecha_encabezado`. Y la fecha
+del listado **no sirve de base para calcular vigencias**
+(`_resolver_plazo_relativo`): esa base sale sólo del PDF.
+
+Límite conocido: algunos PDF son sólo imagen (`ofc_1402_2026`, `ofc_1377_2025`)
+y no hay OCR en el proyecto; esas entradas llevan la fecha del listado, con un
+tooltip en la tabla que lo dice. `reparse.py` las sigue tomando como candidatas
+(`_es_placeholder` mira `fecha_fuente`), para que un arreglo del parser las
+alcance.
 
 ### 2. La vigencia inventada
 
@@ -684,7 +698,9 @@ Tres cosas que no se deducen del código:
   borde en el detalle (`_render_relaciones_listado`).
 - **El histórico se completa sin PDF**: `python scraper/relaciones.py` consulta
   el listado una vez y escribe el campo en todo `data/daily/`. Es idempotente;
-  si la CMF corrige una relación, correrlo de nuevo la actualiza.
+  si la CMF corrige una relación, correrlo de nuevo la actualiza. De paso
+  completa `fecha_listado` y, donde no hay fecha del PDF, la usa como `fecha`
+  (ver el modo de falla 1).
 
 Medido al implementarlo (16-09-2026): en 295 de 388 entradas con relaciones el
 listado nombra normas que el PDF no deja ver, y donde las dos fuentes conocen la

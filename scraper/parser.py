@@ -640,11 +640,13 @@ def _resolver_plazo_relativo(texto: str, fecha_base: str | None) -> dict | None:
     Devuelve `None` —y el llamador cae en "ver texto"— cuando el plazo existe
     pero no se puede resolver con honestidad: en días hábiles, o sin fecha base.
 
-    La fecha base tiene que venir del PDF, nunca del listado de la CMF: el
-    listado trae la fecha de publicación *original* de la norma y el pipeline la
-    rellena como placeholder `YYYY-01-01`. Contar un mes desde un placeholder
-    daría una fecha con toda la apariencia de un dato y ningún respaldo, que es
-    exactamente el modo de falla que este proyecto ya conoce.
+    La fecha base tiene que venir del PDF, nunca del listado de la CMF. Desde
+    el 30-09-2026 `entrada["fecha"]` puede ser la columna «Fecha» del listado
+    (`fecha_fuente: "listado"`), que coincide con el PDF en 235 de 245 casos
+    pero no siempre, y cuando falta es el placeholder `YYYY-01-01`. Contar un
+    mes desde cualquiera de las dos daría una fecha calculada con toda la
+    apariencia de un dato declarado y una base que el documento no da. Esta
+    función recibe la fecha que el parser leyó del propio PDF, y así sigue.
     """
     if not texto:
         return None

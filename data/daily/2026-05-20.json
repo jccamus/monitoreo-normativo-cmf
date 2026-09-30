@@ -56,7 +56,9 @@
           }
         ],
         "deroga_a": []
-      }
+      },
+      "fecha_listado": "2026-05-18",
+      "fecha_fuente": "pdf"
     },
     {
       "clave": "2026_0565",
@@ -318,7 +320,9 @@
             "url": "https://www.cmfchile.cl/normativa/cir_1167_1994.pdf"
           }
         ]
-      }
+      },
+      "fecha_listado": "2026-05-18",
+      "fecha_fuente": "pdf"
     }
   ]
 }

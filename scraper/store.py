@@ -199,13 +199,26 @@ def inferir_tipo_acuerdo(descripcion: str) -> str:
 
 def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     """Combina los datos del listado HTML con el parsing del PDF."""
-    # Preferir fecha exacta del PDF sobre el placeholder YYYY-01-01 del URL
+    # La fecha, en orden de preferencia: la del PDF (resolución o encabezado),
+    # la de la columna «Fecha» del listado y, sólo si no hay ninguna, el
+    # placeholder YYYY-01-01. `fecha_fuente` dice cuál ganó, para auditar y
+    # para que `reparse.py` siga reintentando el PDF en las que no son "pdf".
+    # La del listado coincide con la del PDF en 235 de 245 casos (ver
+    # `fetch._fecha_de_la_fila`); el placeholder amontonaba la actividad
+    # reciente al 1 de enero, que es el modo de falla 1 de CLAUDE.md.
     fecha_pdf = (parsed.get("resolucion") or {}).get("fecha") or parsed.get("fecha_documento")
-    fecha = fecha_pdf or raw.get("fecha")
+    fecha_listado = raw.get("fecha_listado")
+    if fecha_pdf:
+        fecha, fecha_fuente = fecha_pdf, "pdf"
+    elif fecha_listado:
+        fecha, fecha_fuente = fecha_listado, "listado"
+    else:
+        fecha, fecha_fuente = raw.get("fecha"), "placeholder"
 
     entrada = {
         "clave": raw.get("_key", ""),
         "fecha": fecha,
+        "fecha_fuente": fecha_fuente,
         # Sólo la resolución que el PDF declara de verdad. Antes, cuando no
         # había ninguna, se rellenaba con el número sacado del nombre del
         # archivo —que es el número del propio documento, no de una
@@ -253,6 +266,11 @@ def ensamblar_entrada(raw: dict, parsed: dict) -> dict:
     # que un ensamblado sin listado —`reparse.py`— no lo borre.
     if "relaciones_cmf" in raw:
         entrada["relaciones_cmf"] = raw["relaciones_cmf"]
+    # La fecha de la fila, con la misma regla: `reparse.py` la arrastra de la
+    # entrada guardada para que un PDF que sigue ilegible no vuelva al
+    # placeholder.
+    if raw.get("fecha_listado"):
+        entrada["fecha_listado"] = raw["fecha_listado"]
 
     _avisar_incoherencias(entrada)
     return entrada

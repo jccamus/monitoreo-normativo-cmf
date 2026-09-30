@@ -1,4 +1,8 @@
-"""Completa `relaciones_cmf` en las entradas ya guardadas, desde el listado de la CMF.
+"""Completa `relaciones_cmf` y la fecha en las entradas ya guardadas, desde el listado de la CMF.
+
+La fecha: guarda `fecha_listado` —la columna «Fecha» de la fila— en todas, y
+en las que no tienen fecha del PDF la usa como `fecha` (`fecha_fuente:
+"listado"`). Ver `fetch._fecha_de_la_fila` y `store.ensamblar_entrada`.
 
 Existe por lo mismo que `reparse.py`: `data/state.json` impide que una
 resolución ya vista se vuelva a procesar, así que un campo nuevo sólo llegaría a
@@ -63,6 +67,24 @@ def _listado(html_local: str | None) -> list[dict]:
     return filas
 
 
+def _completar_fecha(entrada: dict, fecha_listado: str | None) -> None:
+    """La misma preferencia que `store.ensamblar_entrada`, sobre lo guardado.
+
+    Sin `fecha_fuente` la entrada es anterior al respaldo del listado: la fecha
+    es del PDF salvo que sea un 1 de enero (el placeholder) o falte.
+    """
+    if not fecha_listado:
+        return
+    entrada["fecha_listado"] = fecha_listado
+    fuente = entrada.get("fecha_fuente")
+    if fuente is None:
+        fecha = entrada.get("fecha") or ""
+        fuente = "placeholder" if (not fecha or fecha.endswith("-01-01")) else "pdf"
+    if fuente != "pdf":
+        entrada["fecha"], fuente = fecha_listado, "listado"
+    entrada["fecha_fuente"] = fuente
+
+
 def completar(dry_run: bool, html_local: str | None = None) -> None:
     por_url = {_sin_marca_de_tiempo(f["url_documento"]): f for f in _listado(html_local)}
     logger.info("Listado: %d filas", len(por_url))
@@ -85,9 +107,11 @@ def completar(dry_run: bool, html_local: str | None = None) -> None:
                 logger.warning("  %s no está en el listado (%s)",
                                entrada.get("clave"), entrada.get("url_documento"))
                 continue
-            if entrada.get("relaciones_cmf") == fila["relaciones_cmf"]:
-                continue
+            antes = dict(entrada)
             entrada["relaciones_cmf"] = fila["relaciones_cmf"]
+            _completar_fecha(entrada, fila.get("fecha_listado"))
+            if entrada == antes:
+                continue
             cambiadas += 1
             modificado = True
 
@@ -98,7 +122,7 @@ def completar(dry_run: bool, html_local: str | None = None) -> None:
             logger.info("%s reescrito", path.name)
 
     logger.info(
-        "Entradas %d | con relaciones actualizadas %d | no encontradas en el listado %d%s",
+        "Entradas %d | actualizadas (relaciones o fecha) %d | no encontradas en el listado %d%s",
         total, cambiadas, no_encontradas,
         " (dry-run: no se escribio nada)" if dry_run else "",
     )

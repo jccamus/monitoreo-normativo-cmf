@@ -2210,6 +2210,11 @@ def _render_tabla(entradas: list[dict], novedades: list[dict]) -> str:
 
 def _render_fila(e: dict, es_nueva: bool) -> str:
     fecha = e.get("fecha") or (e.get("resolucion") or {}).get("fecha") or "—"
+    # De dónde salió la fecha, cuando no es del PDF: ver `store.ensamblar_entrada`.
+    titulo_fecha = {
+        "listado": ' title="Fecha del listado de la CMF: el PDF no la deja leer"',
+        "placeholder": ' title="Sólo se conoce el año: ni el PDF ni el listado dan el día"',
+    }.get(e.get("fecha_fuente"), "")
     res = e.get("resolucion") or {}
     num_res = res.get("numero") or "—"
     documento = _etiqueta_documento(e)
@@ -2249,7 +2254,7 @@ def _render_fila(e: dict, es_nueva: bool) -> str:
         # Todas las celdas llevan clase, incluidas fecha y tipos, que antes no
         # la necesitaban: en celular la fila se reordena con `grid-area` y una
         # celda sin nombre no se puede colocar.
-        f'<td class="td-fecha">{html.escape(fecha)}</td>'
+        f'<td class="td-fecha"{titulo_fecha}>{html.escape(fecha)}</td>'
         f'<td class="td-doc"><b>{html.escape(documento)}</b></td>'
         f'<td class="td-tipos">{badges}</td>'
         f'<td class="td-normas">{normas_html}</td>'
