@@ -944,7 +944,13 @@ vigencia que ya tenía fecha, ahí sí hace falta `--recalcular`.
 - **`otras_series`**: `[{tipo, numero, serie, accion}]`, con `serie` ya
   rotulada («de Cooperativas») y `accion` en `modifica` / `deroga`; las que
   vienen de `store.CORRECCIONES` llevan además `fuente: "correccion_manual"` y,
-  si corresponde, `nota` («en parte»). Normas que no son de la CMF; nunca van en
+  si corresponde, `alcance` (`total` / `parcial`, para una derogación) y `nota`
+  («en parte»). **`alcance` es el dato; `nota` es texto para personas**: la
+  Malla CMF trata una derogación parcial como modificación —la norma sigue
+  vigente— y no debe deducirlo de un texto libre. Sólo lo llevan las
+  correcciones a mano; lo que el parser lee del PDF no lo trae, y en
+  `modifica[]` no existe: ahí una derogación parcial ya se guarda como
+  modificación (`parser._normas_derogadas`). Normas que no son de la CMF; nunca van en
   `modifica[]`. Ausente = entrada anterior al 30-09-2026 (se reparseó sólo la
   ventana de dos años); el dashboard lo trata como vacío.
 - **`correcciones`**: `[{tipo, numero, motivo}]`, lo que `store.CORRECCIONES`

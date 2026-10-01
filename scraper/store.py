@@ -324,8 +324,15 @@ def completar_documento(entrada: dict) -> None:
 # - `quitar`: (tipo, número, motivo). Sale de `modifica[]` y queda en
 #   `correcciones` con su motivo, que el dashboard muestra y usa para no
 #   volver a deducirla de la descripción.
-# - `series`: (tipo, números, serie, acción, nota). Entra a `otras_series`
-#   con `fuente: "correccion_manual"`.
+# - `series`: (tipo, números, serie, acción, alcance, nota). Entra a
+#   `otras_series` con `fuente: "correccion_manual"`.
+#
+# `alcance` dice si una derogación es `"total"` o `"parcial"`, y es `None`
+# cuando no aplica (una modificación) o no se verificó. Lo pidió la Malla CMF
+# el 01-10-2026: una norma derogada en parte sigue vigente, y deducirlo
+# buscando «en parte» en `nota` —texto libre, para personas— se rompe con la
+# primera redacción distinta («parcialmente», «el numeral 3»). `nota` se queda
+# como el texto que muestra el dashboard; el dato que lee un programa es éste.
 #
 # Verificado en el PDF de cada documento el 30-09-2026.
 CORRECCIONES: dict[str, dict] = {
@@ -338,8 +345,9 @@ CORRECCIONES: dict[str, dict] = {
              "Circular N°108 de la CMF, y la NCG 567 deroga sólo «determinadas disposiciones»."),
         ],
         "series": [
-            ("Circular", [98, 100, 112, 116, 123, 126, 134, 142], "de Cooperativas", "deroga", None),
-            ("Circular", [108], "de Cooperativas", "deroga", "en parte"),
+            ("Circular", [98, 100, 112, 116, 123, 126, 134, 142], "de Cooperativas", "deroga",
+             "total", None),
+            ("Circular", [108], "de Cooperativas", "deroga", "parcial", "en parte"),
         ],
     },
     "2025_0534": {
@@ -348,7 +356,7 @@ CORRECCIONES: dict[str, dict] = {
              "ex-SBIF), no la Circular N°12 de la CMF."),
         ],
         "series": [
-            ("Circular", [12], "de Auditores Externos", "modifica", None),
+            ("Circular", [12], "de Auditores Externos", "modifica", None, None),
         ],
     },
 }
@@ -380,8 +388,9 @@ def aplicar_correcciones(entrada: dict, verificar: bool = False) -> None:
                                for (t, n), motivo in quitar.items()]
     manuales = [
         {"tipo": t, "numero": n, "serie": serie, "accion": accion,
+         **({"alcance": alcance} if alcance else {}),
          **({"nota": nota} if nota else {}), "fuente": "correccion_manual"}
-        for t, numeros, serie, accion, nota in c.get("series", []) for n in numeros
+        for t, numeros, serie, accion, alcance, nota in c.get("series", []) for n in numeros
     ]
     claves = {(x["tipo"], x["numero"], x["serie"]) for x in manuales}
     entrada["otras_series"] = [

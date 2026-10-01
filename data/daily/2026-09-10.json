@@ -1146,6 +1146,7 @@
           "numero": 98,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1153,6 +1154,7 @@
           "numero": 100,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1160,6 +1162,7 @@
           "numero": 112,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1167,6 +1170,7 @@
           "numero": 116,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1174,6 +1178,7 @@
           "numero": 123,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1181,6 +1186,7 @@
           "numero": 126,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1188,6 +1194,7 @@
           "numero": 134,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1195,6 +1202,7 @@
           "numero": 142,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "total",
           "fuente": "correccion_manual"
         },
         {
@@ -1202,6 +1210,7 @@
           "numero": 108,
           "serie": "de Cooperativas",
           "accion": "deroga",
+          "alcance": "parcial",
           "nota": "en parte",
           "fuente": "correccion_manual"
         }
