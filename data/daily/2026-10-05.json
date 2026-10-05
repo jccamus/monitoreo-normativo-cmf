@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-05",
+  "generated_at": "2026-10-05T19:28:38.052594+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0577",
+      "fecha": "2026-10-05",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 515,
+        "fecha": "2026-09-24"
+      },
+      "ncg": 323,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 577,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISION PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE LA NORMA DE CARÁCTER GENERAL QUE IMPARTE INSTRUCCIONES SOBRE REASEGURO DE RENTAS VITALICIAS DEL D.L. N°3.500, DE 1980, CON ENTIDADES REASEGURADORAS EXTRANJERAS, Y AUTORIZA ADMINISTRACIÓN DE FONDOS A NOMBRE DEL REASEGURADOR.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_577_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2027-07-01",
+        "precision": "dia",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "IMPARTE INSTRUCCIONES SOBRE REASEGURO DE RENTAS VITALICIAS DEL D.L N°3.500, DE 1980, CON ENTIDADES REASEGURADORAS EXTRANJERAS, Y AUTORIZA ADMINISTRACIÓN DE FONDOS A NOMBRE DEL REASEGURADOR",
+      "resumen_acciones": [],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-10-05"
+    },
+    {
+      "clave": "2026_1426",
+      "fecha": "2026-10-05",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "Oficio Circular",
+        "numero": 1426,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "INTRODUCE AJUSTES AL PORTAL DE DESARROLLADORES DEL SISTEMA DE FINANZAS ABIERTAS",
+      "url_documento": "https://www.cmfchile.cl/normativa/ofc_1426_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "clausula_aplicacion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [
+        "Incorpórase una nueva sección al Portal de Desarrolladores, denominada “Guías de pruebas Sandbox para el período previo a la entrada en vigencia”. Las referidas guías son de…"
+      ],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-10-05"
+    }
+  ]
+}
