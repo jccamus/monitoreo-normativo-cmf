@@ -3244,12 +3244,19 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-estado.es-sinvigencia { background: var(--surface-sunken); color: var(--text-faint); }
 
     /* Cifras */
-    .ag-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Flex y no grid: son cinco celdas, y con `auto-fit` la última fila quedaba
+       a medio llenar en cuanto no cabían las cinco —una sola celda en celular,
+       con dos columnas— y por el hueco se veía el fondo gris que dibuja las
+       líneas divisorias, como una celda que no cargó. Con `flex: 1 1` las de
+       la última fila se estiran hasta ocupar el ancho, cualquiera sea el
+       número de columnas. */
+    .ag-stats { display: flex; flex-wrap: wrap;
                 gap: 1px; background: var(--border-subtle);
                 border: var(--border-w) solid var(--border-subtle);
                 border-radius: var(--radius-md); overflow: hidden;
                 margin-bottom: var(--space-5); }
-    .ag-stat { background: var(--surface-card); padding: var(--space-3) var(--space-4); }
+    .ag-stat { flex: 1 1 150px; min-width: 0;
+               background: var(--surface-card); padding: var(--space-3) var(--space-4); }
     .ag-stat b { display: block; font-size: var(--fs-h2); font-weight: var(--fw-regular);
                  color: var(--text-strong); line-height: var(--lh-tight); }
     /* Una celda con ayuda tiene que verse como que la tiene: este total y el
