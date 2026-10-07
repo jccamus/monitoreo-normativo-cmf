@@ -1690,11 +1690,19 @@ def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
     """El punto ciego del eje temporal, declarado en vez de omitido."""
     total = len(sin_fecha)
     if not total:
+        # Estado vacío con forma propia, no el panel de alerta sin contenido.
+        # El panel se estira a la altura de sus vecinos, así que con una sola
+        # línea chica arriba quedaba un recuadro con borde de alerta y casi
+        # todo en blanco: se leía como un panel que no cargó, cuando lo que
+        # dice es una buena noticia. Va sin el color de alerta, con el mensaje
+        # al centro y en el verde que ya usa «Revisión manual» vacío.
         return (
-            '<section class="ag-panel es-alerta"><h3>Obligaciones sin fecha</h3>'
-            f'<p class="ag-sub">Todo lo publicado en los últimos {ANIOS_PENDIENTES} '
-            'años que genera trabajo tiene una fecha asociada. Nada queda fuera '
-            'del calendario.</p></section>'
+            '<section class="ag-panel es-sin-pendientes"><h3>Obligaciones sin fecha</h3>'
+            '<div class="ag-sinpend"><b class="ag-num">0</b>'
+            '<p class="ag-sinpend-titulo">No hay obligaciones sin fecha</p>'
+            f'<p class="ag-sinpend-nota">Todo lo publicado en los últimos '
+            f'{ANIOS_PENDIENTES} años que genera trabajo tiene una fecha asociada: '
+            'nada queda fuera del calendario.</p></div></section>'
         )
     por_archivo = sum(1 for s in sin_fecha if s["_motivo"] == "archivo")
     relativas = total - por_archivo
@@ -3328,6 +3336,18 @@ _TEMPLATE = """<!DOCTYPE html>
     .ag-panel.es-alerta { border-color: var(--cmf-warning);
                           background: linear-gradient(180deg, var(--cmf-warning-bg) 0 60px,
                                                        var(--surface-card) 60px); }
+    /* El mismo panel cuando no hay nada pendiente: ver `_render_ag_panel_sinfecha`. */
+    .ag-panel.es-sin-pendientes { display: flex; flex-direction: column;
+                                  border-color: var(--cmf-success); }
+    .ag-sinpend { flex: 1; display: flex; flex-direction: column; align-items: center;
+                justify-content: center; text-align: center; gap: var(--space-2);
+                padding: var(--space-5) var(--space-3); }
+    .ag-sinpend b { font-size: var(--fs-h1); line-height: 1; color: var(--cmf-success);
+                  font-weight: var(--fw-regular); }
+    .ag-sinpend-titulo { margin: 0; font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+                       color: var(--text-strong); }
+    .ag-sinpend-nota { margin: 0; max-width: 34ch; font-size: var(--fs-xs);
+                     color: var(--text-muted); line-height: var(--lh-normal); }
     .ag-sf-total { display: flex; align-items: baseline; gap: var(--space-2);
                    margin-bottom: var(--space-4); }
     .ag-sf-total b { font-size: var(--fs-h1); line-height: 1;
