@@ -922,7 +922,50 @@ def _hitos_lejanos(
     )
 
 
-def _sin_fecha_agenda(entradas: list[dict]) -> list[dict]:
+# Cuántos años hacia atrás cuenta un documento sin fecha como pendiente. La
+# herramienta mira el último año y lo que viene: una vigencia sin resolver de
+# una norma de 2020 no es trabajo de nadie hoy, y avisarla en la portada es
+# ruido que tapa lo que sí hay que mirar.
+ANIOS_PENDIENTES = 2
+
+
+def _motivo_pendiente(e: dict, hoy: datetime) -> str | None:
+    """Por qué este documento sigue pendiente de fecha, o None si no lo está.
+
+    **Es la única definición de «pendiente»**, y la usan los tres lugares que
+    antes tenían cada uno la suya: la celda «obligaciones sin fecha» de la
+    portada (`_sin_fecha_agenda`), el tab «Revisión manual» y `revisar.py`.
+    Hasta el 07-10-2026 la portada contaba los documentos en "ver texto" de
+    cualquier época y el tab y la planilla sólo los que tocan un archivo del
+    MSI: la portada decía 2 —las NCG 436 y 444 de 2020—, el tab decía que no
+    había nada, y la planilla, que es donde el propio panel mandaba a
+    resolverlas, nunca les dio una fila. El contador no podía bajar.
+
+    Dos motivos, los dos acotados a `ANIOS_PENDIENTES`:
+
+    - `archivo`: modifica un archivo del MSI y no se sabe desde cuándo
+      (`_requiere_revision`).
+    - `relativo`: la sección de vigencia existe pero quedó en "ver texto".
+
+    Una entrada ya anotada (`_revision`) no está pendiente por ningún motivo.
+    Sin fecha de documento no se puede saber si es vieja, así que cuenta.
+    """
+    fecha = _parse_iso(e.get("fecha"))
+    if fecha is not None:
+        try:
+            corte = hoy.replace(year=hoy.year - ANIOS_PENDIENTES)
+        except ValueError:          # 29 de febrero
+            corte = hoy.replace(year=hoy.year - ANIOS_PENDIENTES, day=28)
+        if fecha < corte:
+            return None
+    if _requiere_revision(e):
+        return "archivo"
+    if not e.get("_revision") and (e.get("vigencia") or {}).get("inicio") == "ver texto":
+        return "relativo"
+    return None
+
+
+def _sin_fecha_agenda(entradas: list[dict], hoy: datetime) -> list[dict]:
     """Obligaciones que el calendario no puede mostrar porque no tienen cuándo.
 
     Es el punto ciego de una vista con eje temporal, y por eso se declara en
@@ -934,13 +977,11 @@ def _sin_fecha_agenda(entradas: list[dict]) -> list[dict]:
     """
     salida = []
     for e in entradas:
-        vig = e.get("vigencia") or {}
-        por_archivo = _requiere_revision(e)
-        relativo = vig.get("inicio") == "ver texto"
-        if not (por_archivo or relativo):
+        motivo = _motivo_pendiente(e, hoy)
+        if motivo is None:
             continue
         item = dict(e)
-        item["_motivo"] = "archivo" if por_archivo else "relativo"
+        item["_motivo"] = motivo
         salida.append(item)
     salida.sort(key=lambda e: e.get("fecha") or "", reverse=True)
     return salida
@@ -1111,7 +1152,7 @@ def generar_html() -> None:
         "%d más allá de %d meses, %d sin fecha)",
         OUTPUT, len(entradas), en_ventana,
         sum(1 for m in calendario if m["items"]), len(calendario),
-        len(_hitos_lejanos(hitos, hoy)), MESES_AGENDA, len(_sin_fecha_agenda(entradas)),
+        len(_hitos_lejanos(hitos, hoy)), MESES_AGENDA, len(_sin_fecha_agenda(entradas, hoy)),
     )
 
 
@@ -1173,8 +1214,8 @@ def _render(
         entradas, hoy, _indice_busqueda(entradas, hoy), ultima_consulta
     )
     relevantes_html = _render_cambios_relevantes(grupos_cuerpo, hoy)
-    revision_html = _render_revision_manual(entradas)
-    n_revision = sum(1 for e in entradas if _requiere_revision(e))
+    revision_html = _render_revision_manual(entradas, hoy)
+    n_revision = sum(1 for e in entradas if _motivo_pendiente(e, hoy))
     # Un solo conteo alimenta las píldoras del Resumen y los botones de filtro,
     # para que no puedan decir cosas distintas.
     counts = _stats(entradas)
@@ -1268,20 +1309,23 @@ def _render_candidatas(e: dict) -> str:
     )
 
 
-def _render_revision_manual(entradas: list[dict]) -> str:
+def _render_revision_manual(entradas: list[dict], hoy: datetime) -> str:
     """Panel del tab 'Revisión manual'.
 
     A diferencia de los otros tabs, éste rinde algo aunque esté vacío: que no
-    haya pendientes es información —significa que todo cambio de archivo tiene
-    fecha— y un panel en blanco se lee como si algo hubiera fallado.
+    haya pendientes es información —significa que todo documento reciente
+    tiene fecha— y un panel en blanco se lee como si algo hubiera fallado.
+
+    Lista lo mismo que cuenta la portada en «obligaciones sin fecha»: los dos
+    salen de `_motivo_pendiente`, a propósito.
     """
-    pendientes = [e for e in entradas if _requiere_revision(e)]
+    pendientes = [e for e in entradas if _motivo_pendiente(e, hoy)]
     if not pendientes:
         return (
             '<section id="revision-manual" class="rv-vacio">'
             '<h2>Revisión manual</h2>'
-            '<p class="rv-nota">Ningún cambio de archivo normativo quedó sin fecha '
-            'de vigencia. No hay nada que revisar a mano.</p>'
+            f'<p class="rv-nota">Ningún documento de los últimos {ANIOS_PENDIENTES} '
+            'años quedó sin fecha de vigencia. No hay nada que revisar a mano.</p>'
             + _render_revisados(entradas) + '</section>'
         )
     pendientes.sort(key=lambda e: e.get("fecha") or "", reverse=True)
@@ -1311,11 +1355,12 @@ def _render_revision_manual(entradas: list[dict]) -> str:
     )
     return (
         f'<section id="revision-manual">'
-        f'<header><h2>Cambios de archivo sin fecha de vigencia</h2>'
+        f'<header><h2>Documentos sin fecha de vigencia</h2>'
         f'<span class="rv-count">{len(pendientes)}</span></header>'
-        f'<p class="rv-nota">Estos documentos modifican archivos normativos del MSI '
-        f'—lo que genera una obligación de reporte— pero no declaran desde cuándo '
-        f'rige el cambio en una forma que se pueda extraer del PDF. '
+        f'<p class="rv-nota">Publicados en los últimos {ANIOS_PENDIENTES} años. '
+        f'Modifican archivos normativos del MSI —lo que genera una obligación de '
+        f'reporte— o declaran su vigencia de una forma que no se pudo resolver, y '
+        f'en ninguno se sabe desde cuándo rige el cambio. '
         f'En {con_pistas} de ellos se listan las fechas que aparecen en el cuerpo '
         f'del documento como pista; cuál de ellas rige es una decisión que hay que '
         f'tomar leyendo el PDF.</p>'
@@ -1448,7 +1493,7 @@ def _render_agenda(
     hitos = _hitos_agenda(entradas, hoy)
     calendario = _calendario_agenda(hitos, hoy)
     lejanos = _hitos_lejanos(hitos, hoy)
-    sin_fecha = _sin_fecha_agenda(entradas)
+    sin_fecha = _sin_fecha_agenda(entradas, hoy)
     en_ventana = [h for m in calendario for h in m["items"]]
 
     por_cuerpo = Counter(
@@ -1526,11 +1571,12 @@ def _render_ag_stats(
     por_archivo = sum(1 for e in sin_fecha if e.get("_motivo") == "archivo")
     otras = len(sin_fecha) - por_archivo
     ayuda_sf = (
-        f"{por_archivo} {'modifica' if por_archivo == 1 else 'modifican'} un archivo "
-        f"del MSI y {'está' if por_archivo == 1 else 'están'} en el tab "
-        f"«Revisión manual»; {otras} {'no tiene' if otras == 1 else 'no tienen'} "
-        f"fecha legible por otra razón"
-    ) if otras else "Todas modifican un archivo del MSI: están en el tab «Revisión manual»"
+        f"Documentos de los últimos {ANIOS_PENDIENTES} años sin fecha de vigencia. "
+        f"Son los mismos del tab «Revisión manual»: {por_archivo} "
+        f"{'modifica' if por_archivo == 1 else 'modifican'} un archivo del MSI y "
+        f"{otras} {'declara' if otras == 1 else 'declaran'} la vigencia de una forma "
+        f"que no se pudo resolver"
+    )
 
     celdas = [
         (str(len(en_ventana)), "hitos de vigencia en la ventana", True, ""),
@@ -1646,8 +1692,9 @@ def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
     if not total:
         return (
             '<section class="ag-panel es-alerta"><h3>Obligaciones sin fecha</h3>'
-            '<p class="ag-sub">Todo lo que genera trabajo tiene una fecha asociada. '
-            'Nada queda fuera del calendario.</p></section>'
+            f'<p class="ag-sub">Todo lo publicado en los últimos {ANIOS_PENDIENTES} '
+            'años que genera trabajo tiene una fecha asociada. Nada queda fuera '
+            'del calendario.</p></section>'
         )
     por_archivo = sum(1 for s in sin_fecha if s["_motivo"] == "archivo")
     relativas = total - por_archivo
@@ -1659,12 +1706,10 @@ def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
         f'style="width:{n / total * 100:.1f}%"></div></div></div>'
         for nombre, n, cls, ayuda in (
             ("Modifican un archivo del MSI", por_archivo, "",
-             "Generan obligación de reporte y no se pudo determinar desde cuándo. "
-             "Son los que aparecen en el tab «Revisión manual»"),
+             "Generan obligación de reporte y no se pudo determinar desde cuándo"),
             ("Sin fecha legible", relativas, " es-alt",
-             "El documento no declara cuándo rige, o lo declara de una forma que "
-             "no se puede resolver. No tocan archivos del MSI, así que no están "
-             "en «Revisión manual»"),
+             "El documento declara cuándo rige de una forma que no se puede "
+             "resolver. No tocan archivos del MSI"),
         )
     )
     lista = "".join(
@@ -1676,14 +1721,15 @@ def _render_ag_panel_sinfecha(sin_fecha: list[dict]) -> str:
     )
     return (
         f'<section class="ag-panel es-alerta"><h3>Obligaciones sin fecha</h3>'
-        f'<p class="ag-sub">Generan trabajo pero no tienen cuándo, así que '
-        f'<b>no aparecen en el calendario</b>. Es el punto ciego de esta vista.</p>'
+        f'<p class="ag-sub">Publicados en los últimos {ANIOS_PENDIENTES} años, '
+        f'generan trabajo pero no tienen cuándo, así que <b>no aparecen en el '
+        f'calendario</b>. Son los mismos del tab «Revisión manual».</p>'
         f'<div class="ag-sf-total"><b class="ag-num">{total}</b>'
         f'<span>documentos fuera del calendario</span></div>{filas}'
         f'<p class="ag-sf-pie">En su mayoría no es deuda de regex: la fecha viene '
         f'entrelazada con el ciclo de reporte («al cierre de agosto y, por lo tanto, '
         f'enviarse en septiembre»), y cuál de las dos rige es un juicio. Se resuelven anotando '
-        f'en <code>revisiones.csv</code>.</p>'
+        f'en <code>revisiones.csv</code>; el procedimiento está en «Revisión manual».</p>'
         f'<details class="ag-datos"><summary>Ver las más recientes</summary>'
         f'<div class="ag-sf-lista">{lista}</div></details></section>'
     )

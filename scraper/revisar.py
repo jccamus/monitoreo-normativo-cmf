@@ -39,7 +39,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-from dashboard import _etiqueta_documento, _requiere_revision
+from datetime import datetime
+
+from dashboard import _etiqueta_documento, _motivo_pendiente
 from revisiones import COLUMNAS, COLUMNAS_ENTRADA, CSV_PATH, _leer_filas
 
 logging.basicConfig(
@@ -132,7 +134,10 @@ def refrescar(path: Path, solo_estado: bool) -> None:
         sys.exit(1)
 
     por_clave = {e.get("clave"): e for e in entradas if e.get("clave")}
-    pendientes = [e for e in entradas if _requiere_revision(e)]
+    # La misma definición que el dashboard, con el mismo corte de años: lo que
+    # la portada cuenta como pendiente es exactamente lo que tiene fila acá.
+    hoy = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    pendientes = [e for e in entradas if _motivo_pendiente(e, hoy)]
 
     previas: dict[str, dict] = {}
     if path.exists():

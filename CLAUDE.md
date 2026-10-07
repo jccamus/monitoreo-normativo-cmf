@@ -226,7 +226,7 @@ lo vuelvas a crear.
      mes, y **`_sin_fecha_agenda`: las obligaciones que el eje no puede
      mostrar** porque no tienen cuándo — cambios de archivo del MSI sin fecha,
      y lo que queda en `"ver texto"` después de que el parser intenta calcular
-     los plazos relativos. Se declaran en vez de omitirse: un calendario que
+     los plazos relativos, siempre que el documento sea de los últimos dos años. Se declaran en vez de omitirse: un calendario que
      las esconde miente por omisión.
 
      Las fechas que el parser **calculó** desde un plazo declarado sí entran al
@@ -246,9 +246,11 @@ lo vuelvas a crear.
      relación con el archivo consultado» sería falso para casi todo.
    - **Cambios relevantes** — `_agrupar_por_cuerpo`, recortado a los últimos
      5 años. La columna «Norma» sale de `_etiqueta_documento`.
-   - **Revisión manual** — cambios de archivo sin fecha de vigencia. Es el único
-     tab que rinde contenido aunque esté vacío: que no haya pendientes es
-     información, y un panel en blanco se lee como si algo hubiera fallado.
+   - **Revisión manual** — documentos de los últimos dos años sin fecha de
+     vigencia; los mismos que la portada cuenta como «obligaciones sin fecha»
+     (`_motivo_pendiente`). Es el único tab que rinde contenido aunque esté
+     vacío: que no haya pendientes es información, y un panel en blanco se lee
+     como si algo hubiera fallado.
    - **Listado completo** — stats, filtros, búsqueda, tabla con detalle
      expandible y línea de tiempo por NCG (`_agrupar_por_norma`, mínimo
      `_TIMELINE_MIN_EVENTOS` eventos, ordenada por cantidad de eventos).
@@ -507,15 +509,28 @@ dashboard rinde la sección "Cambios de archivo sin fecha de vigencia"
 genera una obligación de reporte— pero de los que no se pudo determinar desde
 cuándo rige.
 
-**Ojo con los dos contadores: no cuentan lo mismo, y se leen como si sí.** El tab
-«Revisión manual» muestra `_requiere_revision` (sólo los que tocan un archivo del
-MSI: la cola de trabajo). La celda «obligaciones sin fecha» de la Agenda muestra
-`_sin_fecha_agenda`, que es ese conjunto **más** todo lo que el eje temporal no
-puede ubicar por cualquier otra razón. El primero es un subconjunto del segundo,
-así que verlos con números distintos es correcto y aun así parece una
-contradicción — por eso la celda lleva el desglose en su tooltip y la fila del
-panel nombra el tab. Si agregas un motivo nuevo a `_sin_fecha_agenda`, actualiza
-ese rótulo o vuelves a abrir la misma confusión.
+**Hay una sola definición de «pendiente», `dashboard._motivo_pendiente`, y la
+usan los tres lugares que la muestran**: la celda «obligaciones sin fecha» de la
+Agenda (`_sin_fecha_agenda`), el tab «Revisión manual» y `revisar.py`. Un
+documento está pendiente si es de los últimos `ANIOS_PENDIENTES` (2) años, no
+está anotado, y además modifica un archivo del MSI sin fecha (`archivo`) o su
+sección de vigencia quedó en `"ver texto"` (`relativo`).
+
+Hasta el 07-10-2026 eran tres definiciones. El tab y la planilla contaban sólo
+`_requiere_revision` —los que tocan un archivo del MSI— y la portada sumaba
+además los `"ver texto"` de cualquier época. Era un subconjunto documentado, con
+el desglose en un tooltip, y aun así se leyó como lo que parecía: la portada
+decía 2, el tab decía que no había nada, y la conclusión fue que el contador se
+había quedado pegado. Peor que la confusión: esos 2 —las NCG 436 y 444 de 2020—
+no tenían fila en `revisiones.csv`, que es donde el propio panel mandaba a
+resolverlos, así que **el número no podía bajar**. Explicar una diferencia en un
+tooltip no la arregla; si agregas un motivo, agrégalo a `_motivo_pendiente` y
+aparece solo en los tres lugares.
+
+El corte de años va por la fecha del documento. Una vigencia sin resolver de
+una norma de 2020 no es trabajo de nadie hoy, y en la portada tapa lo que sí
+hay que mirar. Lo anotado antes del corte sigue aplicado: el corte decide qué
+está *pendiente*, no qué anotaciones valen.
 
 Esa lista es **en su mayoría** juicio y no deuda técnica: los casos que quedan
 expresan la fecha entrelazada con el ciclo de reporte —"deberá aplicarse respecto
