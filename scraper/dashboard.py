@@ -1584,7 +1584,8 @@ def _render_ag_stats(
          "meses con actividad", False, ""),
         (str(len(lejanos)), f"más allá de {MESES_AGENDA} meses", False, ""),
         (str(len(sin_fecha)), "obligaciones sin fecha", False, ayuda_sf),
-        (f'{html.escape(gen_fecha)} <span class="ag-de">{html.escape(gen_hora)}</span>',
+        (f'<span class="ag-fecha">{html.escape(gen_fecha)}</span> '
+         f'<span class="ag-de">{html.escape(gen_hora)}</span>',
          "última actualización", False, ""),
     ]
     return '<div class="ag-stats">' + "".join(
@@ -3255,8 +3256,17 @@ _TEMPLATE = """<!DOCTYPE html>
                 border: var(--border-w) solid var(--border-subtle);
                 border-radius: var(--radius-md); overflow: hidden;
                 margin-bottom: var(--space-5); }
-    .ag-stat { flex: 1 1 150px; min-width: 0;
+    .ag-stat { flex: 1 1 150px;
                background: var(--surface-card); padding: var(--space-3) var(--space-4); }
+    /* La fecha no se parte: «2026-10-» / «06» en dos líneas se lee como dos
+       datos. Y la celda no lleva `min-width: 0` a propósito: así su ancho
+       mínimo es el de la fecha entera, y cuando no cabe se ensancha a costa de
+       las vecinas —o baja de fila— en vez de desbordar. */
+    /* Con `.ag-stat` delante para ganarle a `.ag-stat span`, que es el estilo
+       del rótulo chico: sin anular esas cuatro propiedades la fecha quedaba
+       en letra de rótulo, gris y en su propia línea. */
+    .ag-stat .ag-fecha { white-space: nowrap; display: inline; font-size: inherit;
+                         color: inherit; margin-top: 0; }
     .ag-stat b { display: block; font-size: var(--fs-h2); font-weight: var(--fw-regular);
                  color: var(--text-strong); line-height: var(--lh-tight); }
     /* Una celda con ayuda tiene que verse como que la tiene: este total y el
