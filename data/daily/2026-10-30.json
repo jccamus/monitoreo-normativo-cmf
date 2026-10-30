@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-30",
+  "generated_at": "2026-10-30T16:53:59.189279+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0578",
+      "fecha": "2026-10-29",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 511,
+        "fecha": "2026-08-27"
+      },
+      "ncg": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 578,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE HABILITA CONSULTA MASIVA SOBRE DEFUNCIÓN DE TITULARES.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_578_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "2027-02-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "HABILITA CONSULTA MASIVA SOBRE DEFUNCIONES DE TITULARES",
+      "resumen_acciones": [],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-10-29"
+    }
+  ]
+}
