@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-04",
+  "generated_at": "2026-11-04T18:20:59.935588+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0579",
+      "fecha": "2026-11-03",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": null,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 579,
+        "anio": 2026,
+        "fuente": "url"
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA LA EMISIÓN DE NORMA DE CARÁCTER GENERAL QUE MODIFICA LA CIRCULAR N° 1 DE EMPRESAS OPERADORAS DE TARJETAS DE PAGO PARA IMPARTIR INSTRUCCIONES SOBRE EL PLAZO DE INSCRIPCIÓN EN EL REGISTRO DE OPERADORES DE TARJETAS DE PAGO",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_579_2026.pdf",
+      "parsed": false,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "",
+      "resumen_acciones": [],
+      "otras_series": [
+        {
+          "tipo": "Circular",
+          "numero": 1,
+          "serie": "de Empresas Operadoras de Tarjetas de Pago",
+          "accion": "modifica"
+        }
+      ],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-11-03"
+    }
+  ]
+}
