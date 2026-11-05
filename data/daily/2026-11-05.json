@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-05",
+  "generated_at": "2026-11-05T18:24:17.252967+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0580",
+      "fecha": "2026-11-04",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 520,
+        "fecha": "2026-10-29"
+      },
+      "ncg": 571,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 580,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°571 CON EL OBJETO DE IMPARTIR INSTRUCCIONES RELATIVAS AL ENVÍO DE INFORMACIÓN DE VOLUMEN DE NEGOCIOS Y NÚMERO DE CLIENTES PARA LOS INTERMEDIARIOS DE VALORES Y CORREDORES DE BOLSA DE PRODUCTOS.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_580_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°571",
+          "numero_norma": 571,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Elimínese",
+            "Agrégase"
+          ],
+          "vigencia": {
+            "inicio": "ver texto"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "2027-01-01",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA LA NORMA DE CARÁCTER GENERAL N°571 DE 2026 QUE ESTABLECE EL COMPENDIO NORMATIVO DE BOLSAS E INTERMEDIARIOS",
+      "resumen_acciones": [],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 571,
+            "anio": 2026,
+            "fecha": "2026-07-27",
+            "url": "https://www.cmfchile.cl/normativa/ncg_571_2026.pdf"
+          }
+        ],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-11-04"
+    }
+  ]
+}
