@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-16",
+  "generated_at": "2026-11-16T20:45:26.398039+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0581",
+      "fecha": "2026-11-16",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 519,
+        "fecha": "2026-10-22"
+      },
+      "ncg": 426,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 581,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°426 DE 2018 QUE DETERMINA LAS INFRACCIONES DE MENOR ENTIDAD QUE SERÁN SOMETIDAS AL PROCEDIMIENTO SIMPLIFICADO ESTABLECIDO EN EL PÁRRAFO 3 DEL TÍTULO IV DEL D.L. N°3.538.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_581_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°426",
+          "numero_norma": 426,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°426 DE 2018",
+      "resumen_acciones": [],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 426,
+            "anio": 2018,
+            "fecha": "2018-09-10",
+            "url": "https://www.cmfchile.cl/normativa/ncg_426_2018.pdf"
+          }
+        ],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-11-16"
+    }
+  ]
+}
