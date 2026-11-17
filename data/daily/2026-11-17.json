@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-17",
+  "generated_at": "2026-11-17T19:29:58.140704+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0582",
+      "fecha": "2026-11-17",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": null,
+      "ncg": 532,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 582,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Modificación NCG",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMATIVA QUE MODIFICA LA NORMA DE CARÁCTER GENERAL N°532 SOBRE EL ENVÍO DE INFORMACIÓN CONTINUA PARA LA FISCALIZACIÓN DE LOS FONDOS Y SUS ADMINISTRADORAS REGULADAS POR LA LEY N°20.712",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_582_2026.pdf",
+      "parsed": true,
+      "modifica": [
+        {
+          "norma": "NCG N°532",
+          "numero_norma": 532,
+          "tipo_norma": "NCG",
+          "seccion_romana": "I",
+          "acciones": [
+            "Modifíquese",
+            "Reemplácese"
+          ],
+          "vigencia": {
+            "inicio": "inmediata"
+          }
+        }
+      ],
+      "vigencia": {
+        "inicio": "inmediata",
+        "fuente": "seccion"
+      },
+      "ran_referencias": [],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "MODIFICA NORMA DE CARÁCTER GENERAL N°532 de 2025",
+      "resumen_acciones": [
+        "Reemplácese en la sección V. Derogación la expresión “6 meses” por “11 meses”",
+        "Reemplácese en el segundo párrafo de la sección VI. Vigencia las expresiones “seis meses” y “6 meses”, ambas por “11 meses”",
+        "Reemplácese en el segundo párrafo de la sección VI. Vigencia la frase “hasta el 30 de noviembre del año 2026” por “hasta el 30 de abril del año 2027”"
+      ],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [
+          {
+            "tipo": "NCG",
+            "numero": 532,
+            "anio": 2025,
+            "fecha": "2025-02-28",
+            "url": "https://www.cmfchile.cl/normativa/ncg_532_2025.pdf"
+          }
+        ],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-11-17"
+    }
+  ]
+}
