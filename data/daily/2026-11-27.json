@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-27",
+  "generated_at": "2026-11-27T19:45:14.912456+00:00",
+  "new_entries": [
+    {
+      "clave": "2026_0583",
+      "fecha": "2026-11-27",
+      "fecha_fuente": "pdf",
+      "resolucion": null,
+      "sesion": {
+        "tipo": "Ordinaria",
+        "numero": 524,
+        "fecha": "2026-11-26"
+      },
+      "ncg": 583,
+      "documento": {
+        "tipo": "NCG",
+        "numero": 583,
+        "fuente": "pdf",
+        "anio": 2026
+      },
+      "tipo_acuerdo": "Otro",
+      "descripcion_cmf": "EJECUTA ACUERDO DEL CONSEJO DE LA COMISIÓN PARA EL MERCADO FINANCIERO QUE APRUEBA NORMA DE CARÁCTER GENERAL QUE AJUSTA LAS DISPOSICIONES TRANSITORIAS DEL CAPÍTULO 8-41 DE LA RAN, Y EXCLUYE DICHA MODIFICACIÓN DEL TRÁMITE DE CONSULTA PÚBLICA POR INNECESARIO.",
+      "url_documento": "https://www.cmfchile.cl/normativa/ncg_583_2026.pdf",
+      "parsed": true,
+      "modifica": [],
+      "vigencia": {
+        "inicio": "no especificado",
+        "fuente": "ninguna"
+      },
+      "ran_referencias": [
+        "8-41"
+      ],
+      "msi_referencias": [],
+      "archivos_afectados": [],
+      "tema": "Introduce modificaciones al Capítulo 8-41 de la Recopilación Actualizada de Normas para Bancos, postergando calendario de implementación de la fórmula de pago mínimo como se indica",
+      "resumen_acciones": [
+        "Modifíquese el numeral 7 del Capítulo 8-41 de la Recopilación Actualizada de Normas para Bancos en los siguientes términos: a) Elimínese la expresión “cada 6 meses” de la oración…"
+      ],
+      "otras_series": [],
+      "relaciones_cmf": {
+        "modifica_a": [],
+        "deroga_a": []
+      },
+      "fecha_listado": "2026-11-27"
+    }
+  ]
+}
